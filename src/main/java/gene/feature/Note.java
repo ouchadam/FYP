@@ -24,7 +24,8 @@ public class Note implements Feature {
         return value;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return String.valueOf(value);
     }
 }

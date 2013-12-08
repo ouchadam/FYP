@@ -1,9 +1,9 @@
 package algorithm;
 
+import java.util.List;
+
 import gene.Feature;
 import gene.Gene;
-
-import java.util.List;
 
 public class Member {
 
@@ -25,11 +25,8 @@ public class Member {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Member member = (Member) o;
-
         if (genes != null ? !genes.equals(member.genes) : member.genes != null) return false;
-
         return true;
     }
 
@@ -38,7 +35,8 @@ public class Member {
         return genes != null ? genes.hashCode() : 0;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         StringBuilder genesString = new StringBuilder();
         for (Gene<Feature> gene : genes) {
             genesString.append(gene.toString());
