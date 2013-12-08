@@ -2,13 +2,20 @@ package algorithm.crossover;
 
 import algorithm.Member;
 
-import java.util.Random;
-
 class RandomParentSelector {
 
+    private final RandomTrueFalseGenerator trueFalseGenerator;
+
+    public RandomParentSelector() {
+        this(new RandomTrueFalseGenerator());
+    }
+
+    RandomParentSelector(RandomTrueFalseGenerator trueFalseGenerator) {
+        this.trueFalseGenerator = trueFalseGenerator;
+    }
+
     public Member getParent(Member parentX, Member parentY) {
-        int randomNumber = new Random().nextInt(100);
-        return randomNumber > 50 ? parentY : parentX;
+        return trueFalseGenerator.get() ? parentY : parentX;
     }
 
 }
