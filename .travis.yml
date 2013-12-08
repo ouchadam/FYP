@@ -2,7 +2,7 @@ language: java
 jdk: oraclejdk7
 
 script:
-    -gradle test
+    - gradle test
 
 after_success:
     - gradle cobertura
