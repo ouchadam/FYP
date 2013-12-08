@@ -1,13 +1,13 @@
-package algorithm;
+package algorithm.crossover;
 
+import algorithm.Member;
 import gene.Feature;
 import gene.Gene;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-class UniformCrossover implements MemberBreeder.Crossover {
+class UniformCrossover implements Crossover {
 
     private final RandomParentSelector randomParentSelector;
 

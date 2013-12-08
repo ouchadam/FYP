@@ -1,4 +1,6 @@
-package algorithm;
+package algorithm.crossover;
+
+import algorithm.Member;
 
 import java.util.Random;
 

@@ -1,9 +1,12 @@
-package algorithm;
+package algorithm.crossover;
 
+import algorithm.Member;
+import algorithm.crossover.Crossover;
 import gene.Feature;
 import gene.Gene;
 import gene.Mutator;
 import gene.feature.Note;
+import helper.MemberHelper;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -51,7 +54,6 @@ public class UniformCrossoverShould extends TestWithMocks {
      */
 
     @Mock RandomParentSelector randomParentSelector;
-    @Mock Mutator mutator;
 
     UniformCrossover uniformCrossover;
 
@@ -63,72 +65,61 @@ public class UniformCrossoverShould extends TestWithMocks {
     protected void before() {
         randomCounter = 0;
         uniformCrossover = new UniformCrossover(randomParentSelector);
-        parentX = createMember(1, 2);
-        parentY = createMember(3, 4);
+        parentX = MemberHelper.createMember(1, 2);
+        parentY = MemberHelper.createMember(3, 4);
     }
 
     @Test
     public void merge_members_via_uniform_crossover_combination_0() {
-        MemberBreeder.Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
         fixRandomOrder(parentY, parentY);
 
         Member offspring = uniformCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(createMember(3, 4));
+        assertThat(offspring).isEqualTo(MemberHelper.createMember(3, 4));
     }
 
     @Test
     public void merge_members_via_uniform_crossover_combination_1() {
-        MemberBreeder.Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
         fixRandomOrder(parentX, parentY);
 
         Member offspring = uniformCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(createMember(1, 4));
+        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 4));
     }
-
 
     @Test
     public void merge_members_via_uniform_crossover_combination_2() {
-        MemberBreeder.Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
         fixRandomOrder(parentX, parentX);
 
         Member offspring = uniformCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(createMember(1, 2));
+        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 2));
     }
-
 
     @Test
     public void merge_members_via_uniform_crossover_combination_3() {
-        MemberBreeder.Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
         fixRandomOrder(parentY, parentX);
 
         Member offspring = uniformCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(createMember(3, 2));
+        assertThat(offspring).isEqualTo(MemberHelper.createMember(3, 2));
     }
-
 
     private void fixRandomOrder(final Member... members) {
         when(randomParentSelector.getParent(any(Member.class), any(Member.class))).thenAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 try {
-                return members[randomCounter];
+                    return members[randomCounter];
                 } finally {
-                    randomCounter ++;
+                    randomCounter++;
                 }
             }
         });
-    }
-
-    private Member createMember(int... notes) {
-        List<Gene<Feature>> genes = new ArrayList<Gene<Feature>>(notes.length);
-        for (int note : notes) {
-            genes.add(new Gene<Feature>(new Note(note), mutator));
-        }
-        return new Member(genes);
     }
 
 }

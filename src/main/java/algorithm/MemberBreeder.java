@@ -1,5 +1,7 @@
 package algorithm;
 
+import algorithm.crossover.Crossover;
+
 public class MemberBreeder {
 
     private final Crossover crossover;
@@ -10,10 +12,6 @@ public class MemberBreeder {
 
     public Member createOffspring(Member parentX, Member parentY) {
         return crossover.crossover(parentX, parentY);
-    }
-
-    interface Crossover {
-        Member crossover(Member parentX, Member parentY);
     }
 
 }

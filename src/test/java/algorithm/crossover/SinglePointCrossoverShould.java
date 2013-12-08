@@ -1,9 +1,11 @@
-package algorithm;
+package algorithm.crossover;
 
+import algorithm.Member;
 import gene.Feature;
 import gene.Gene;
 import gene.Mutator;
 import gene.feature.Note;
+import helper.MemberHelper;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -46,59 +48,49 @@ public class SinglePointCrossoverShould extends TestWithMocks {
 
      */
 
-    @Mock Mutator mutator;
-
     private Member parentY;
     private Member parentX;
 
     @Override
     protected void before() {
-        parentX = createMember(1, 2 , 3);
-        parentY = createMember(4, 5 , 6);
+        parentX = MemberHelper.createMember(1, 2, 3);
+        parentY = MemberHelper.createMember(4, 5 , 6);
     }
 
     @Test
     public void merge_members_via_single_point_position_0() {
-        SinglePointCrossover singlePointCrossover = new SinglePointCrossover(0);
+        Crossover singlePointCrossover = new SinglePointCrossover(0);
 
         Member offspring = singlePointCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(createMember(4, 5, 6));
+        assertThat(offspring).isEqualTo(MemberHelper.createMember(4, 5, 6));
     }
 
     @Test
     public void merge_members_via_single_point_position_1() {
-        SinglePointCrossover singlePointCrossover = new SinglePointCrossover(1);
+        Crossover singlePointCrossover = new SinglePointCrossover(1);
 
         Member offspring = singlePointCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(createMember(1, 5, 6));
+        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 5, 6));
     }
 
     @Test
     public void merge_members_via_single_point_position_2() {
-        SinglePointCrossover singlePointCrossover = new SinglePointCrossover(2);
+        Crossover singlePointCrossover = new SinglePointCrossover(2);
 
         Member offspring = singlePointCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(createMember(1, 2, 6));
+        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 2, 6));
     }
 
     @Test
     public void merge_members_via_single_point_position_3() {
-        SinglePointCrossover singlePointCrossover = new SinglePointCrossover(3);
+        Crossover singlePointCrossover = new SinglePointCrossover(3);
 
         Member offspring = singlePointCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(createMember(1, 2, 3));
-    }
-
-    private Member createMember(int... notes) {
-        List<Gene<Feature>> genes = new ArrayList<Gene<Feature>>(notes.length);
-        for (int note : notes) {
-            genes.add(new Gene<Feature>(new Note(note), mutator));
-        }
-        return new Member(genes);
+        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 2, 3));
     }
 
 }

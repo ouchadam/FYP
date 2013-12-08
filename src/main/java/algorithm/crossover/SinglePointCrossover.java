@@ -1,12 +1,13 @@
-package algorithm;
+package algorithm.crossover;
 
+import algorithm.Member;
 import gene.Feature;
 import gene.Gene;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class SinglePointCrossover implements MemberBreeder.Crossover {
+class SinglePointCrossover implements Crossover {
 
     private final int position;
 
