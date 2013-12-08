@@ -2,7 +2,7 @@ package algorithm;
 
 class PopulationEvolver {
 
-    public Population evolve(Population initialPopulation) {
+    public Population evolve(Population population) {
         return null;
     }
 
