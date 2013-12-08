@@ -84,7 +84,6 @@ public class SinglePointCrossoverShould extends TestWithMocks {
         assertThat(offspring).isEqualTo(createMember(1, 2, 6));
     }
 
-
     @Test
     public void merge_members_via_single_point_position_3() {
         SinglePointCrossover singlePointCrossover = new SinglePointCrossover(3);

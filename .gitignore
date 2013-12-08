@@ -9,3 +9,8 @@ IDE
 
 /.idea
 *.iml
+
+Gradle
+
+/.gradle
+/build
