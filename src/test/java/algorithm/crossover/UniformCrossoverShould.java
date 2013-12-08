@@ -1,20 +1,12 @@
 package algorithm.crossover;
 
 import algorithm.Member;
-import algorithm.crossover.Crossover;
-import gene.Feature;
-import gene.Gene;
-import gene.Mutator;
-import gene.feature.Note;
 import helper.MemberHelper;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
