@@ -1,5 +1,6 @@
 package algorithm.crossover;
 
+import algorithm.Chromosome;
 import algorithm.Member;
 import gene.Feature;
 import gene.Gene;
@@ -7,7 +8,7 @@ import gene.Gene;
 import java.util.ArrayList;
 import java.util.List;
 
-class SinglePointCrossover implements Crossover {
+class SinglePointCrossover implements Crossover<Chromosome> {
 
     private final int position;
 
@@ -16,14 +17,14 @@ class SinglePointCrossover implements Crossover {
     }
 
     @Override
-    public Member crossover(Member parentX, Member parentY) {
+    public Chromosome crossover(Chromosome parentX, Chromosome parentY) {
         List<Gene<Feature>> parentXGenes = getGenesFromParent(parentX, 0, position);
         List<Gene<Feature>> parentYGenes = getGenesFromParent(parentY, position, parentY.count());
 
-        return new Member(mergeGenes(parentXGenes, parentYGenes));
+        return new Chromosome(mergeGenes(parentXGenes, parentYGenes));
     }
 
-    private List<Gene<Feature>> getGenesFromParent(Member parent, int from, int to) {
+    private List<Gene<Feature>> getGenesFromParent(Chromosome parent, int from, int to) {
         List<Gene<Feature>> genes = new ArrayList<Gene<Feature>>();
         for (int index = from; index < to; index ++) {
             Gene<Feature> gene = parent.getGene(index);

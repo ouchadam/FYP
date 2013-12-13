@@ -1,17 +1,9 @@
 package algorithm.crossover;
 
-import algorithm.Member;
-import gene.Feature;
-import gene.Gene;
-import gene.Mutator;
-import gene.feature.Note;
+import algorithm.Chromosome;
 import helper.MemberHelper;
 import helper.TestWithMocks;
 import org.junit.Test;
-import org.mockito.Mock;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -48,49 +40,49 @@ public class SinglePointCrossoverShould extends TestWithMocks {
 
      */
 
-    private Member parentY;
-    private Member parentX;
+    private Chromosome parentY;
+    private Chromosome parentX;
 
     @Override
     protected void before() {
-        parentX = MemberHelper.createMember(1, 2, 3);
-        parentY = MemberHelper.createMember(4, 5 , 6);
+        parentX = MemberHelper.createChromosome(1, 2, 3);
+        parentY = MemberHelper.createChromosome(4, 5, 6);
     }
 
     @Test
     public void merge_members_via_single_point_position_0() {
-        Crossover singlePointCrossover = new SinglePointCrossover(0);
+        Crossover<Chromosome> singlePointCrossover = new SinglePointCrossover(0);
 
-        Member offspring = singlePointCrossover.crossover(parentX, parentY);
+        Chromosome offspring = singlePointCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(MemberHelper.createMember(4, 5, 6));
+        assertThat(offspring).isEqualTo(MemberHelper.createChromosome(4, 5, 6));
     }
 
     @Test
     public void merge_members_via_single_point_position_1() {
-        Crossover singlePointCrossover = new SinglePointCrossover(1);
+        Crossover<Chromosome> singlePointCrossover = new SinglePointCrossover(1);
 
-        Member offspring = singlePointCrossover.crossover(parentX, parentY);
+        Chromosome offspring = singlePointCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 5, 6));
+        assertThat(offspring).isEqualTo(MemberHelper.createChromosome(1, 5, 6));
     }
 
     @Test
     public void merge_members_via_single_point_position_2() {
-        Crossover singlePointCrossover = new SinglePointCrossover(2);
+        Crossover<Chromosome> singlePointCrossover = new SinglePointCrossover(2);
 
-        Member offspring = singlePointCrossover.crossover(parentX, parentY);
+        Chromosome offspring = singlePointCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 2, 6));
+        assertThat(offspring).isEqualTo(MemberHelper.createChromosome(1, 2, 6));
     }
 
     @Test
     public void merge_members_via_single_point_position_3() {
-        Crossover singlePointCrossover = new SinglePointCrossover(3);
+        Crossover<Chromosome> singlePointCrossover = new SinglePointCrossover(3);
 
-        Member offspring = singlePointCrossover.crossover(parentX, parentY);
+        Chromosome offspring = singlePointCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 2, 3));
+        assertThat(offspring).isEqualTo(MemberHelper.createChromosome(1, 2, 3));
     }
 
 }

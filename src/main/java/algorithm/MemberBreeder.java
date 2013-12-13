@@ -4,13 +4,13 @@ import algorithm.crossover.Crossover;
 
 public class MemberBreeder {
 
-    private final Crossover crossover;
+    private final Crossover<Chromosome> crossover;
 
     public MemberBreeder(Crossover crossover) {
         this.crossover = crossover;
     }
 
-    public Member createOffspring(Member parentX, Member parentY) {
+    public Chromosome createOffspring(Chromosome parentX, Chromosome parentY) {
         return crossover.crossover(parentX, parentY);
     }
 

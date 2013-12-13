@@ -1,6 +1,6 @@
 package algorithm.crossover;
 
-import algorithm.Member;
+import algorithm.Chromosome;
 import helper.MemberHelper;
 import helper.TestWithMocks;
 import org.junit.Test;
@@ -45,68 +45,68 @@ public class UniformCrossoverShould extends TestWithMocks {
 
      */
 
-    @Mock RandomParentSelector randomParentSelector;
+    @Mock RandomParentSelector<Chromosome> randomParentSelector;
 
-    UniformCrossover uniformCrossover;
+    Crossover<Chromosome> uniformCrossover;
 
-    Member parentX;
-    Member parentY;
+    Chromosome parentX;
+    Chromosome parentY;
     int randomCounter;
 
     @Override
     protected void before() {
         randomCounter = 0;
         uniformCrossover = new UniformCrossover(randomParentSelector);
-        parentX = MemberHelper.createMember(1, 2);
-        parentY = MemberHelper.createMember(3, 4);
+        parentX = MemberHelper.createChromosome(1, 2);
+        parentY = MemberHelper.createChromosome(3, 4);
     }
 
     @Test
     public void merge_members_via_uniform_crossover_combination_0() {
-        Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover<Chromosome> uniformCrossover = new UniformCrossover(randomParentSelector);
         fixRandomOrder(parentY, parentY);
 
-        Member offspring = uniformCrossover.crossover(parentX, parentY);
+        Chromosome offspring = uniformCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(MemberHelper.createMember(3, 4));
+        assertThat(offspring).isEqualTo(MemberHelper.createChromosome(3, 4));
     }
 
     @Test
     public void merge_members_via_uniform_crossover_combination_1() {
-        Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover<Chromosome> uniformCrossover = new UniformCrossover(randomParentSelector);
         fixRandomOrder(parentX, parentY);
 
-        Member offspring = uniformCrossover.crossover(parentX, parentY);
+        Chromosome offspring = uniformCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 4));
+        assertThat(offspring).isEqualTo(MemberHelper.createChromosome(1, 4));
     }
 
     @Test
     public void merge_members_via_uniform_crossover_combination_2() {
-        Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover<Chromosome> uniformCrossover = new UniformCrossover(randomParentSelector);
         fixRandomOrder(parentX, parentX);
 
-        Member offspring = uniformCrossover.crossover(parentX, parentY);
+        Chromosome offspring = uniformCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(MemberHelper.createMember(1, 2));
+        assertThat(offspring).isEqualTo(MemberHelper.createChromosome(1, 2));
     }
 
     @Test
     public void merge_members_via_uniform_crossover_combination_3() {
-        Crossover uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover<Chromosome> uniformCrossover = new UniformCrossover(randomParentSelector);
         fixRandomOrder(parentY, parentX);
 
-        Member offspring = uniformCrossover.crossover(parentX, parentY);
+        Chromosome offspring = uniformCrossover.crossover(parentX, parentY);
 
-        assertThat(offspring).isEqualTo(MemberHelper.createMember(3, 2));
+        assertThat(offspring).isEqualTo(MemberHelper.createChromosome(3, 2));
     }
 
-    private void fixRandomOrder(final Member... members) {
-        when(randomParentSelector.getParent(any(Member.class), any(Member.class))).thenAnswer(new Answer<Object>() {
+    private void fixRandomOrder(final Chromosome... chromosomes) {
+        when(randomParentSelector.getParent(any(Chromosome.class), any(Chromosome.class))).thenAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 try {
-                    return members[randomCounter];
+                    return chromosomes[randomCounter];
                 } finally {
                     randomCounter++;
                 }

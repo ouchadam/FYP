@@ -2,7 +2,7 @@ package algorithm.crossover;
 
 import algorithm.Member;
 
-class RandomParentSelector {
+class RandomParentSelector<T> {
 
     private final RandomTrueFalseGenerator trueFalseGenerator;
 
@@ -14,7 +14,7 @@ class RandomParentSelector {
         this.trueFalseGenerator = trueFalseGenerator;
     }
 
-    public Member getParent(Member parentX, Member parentY) {
+    public T getParent(T parentX, T parentY) {
         return trueFalseGenerator.get() ? parentY : parentX;
     }
 

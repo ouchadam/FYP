@@ -1,5 +1,6 @@
 package algorithm.crossover;
 
+import algorithm.Chromosome;
 import algorithm.Member;
 import helper.MemberHelper;
 import helper.TestWithMocks;
@@ -13,22 +14,22 @@ public class RandomParentSelectorShould extends TestWithMocks {
 
     @Mock RandomTrueFalseGenerator trueFalseGenerator;
 
-    Member parentX;
-    Member parentY;
-    private RandomParentSelector randomParentSelector;
+    Chromosome parentX;
+    Chromosome parentY;
+    private RandomParentSelector<Chromosome> randomParentSelector;
 
     @Override
     protected void before() {
-        parentX = MemberHelper.createMember(1);
-        parentY = MemberHelper.createMember(2);
-        randomParentSelector = new RandomParentSelector(trueFalseGenerator);
+        parentX = MemberHelper.createChromosome(1);
+        parentY = MemberHelper.createChromosome(2);
+        randomParentSelector = new RandomParentSelector<Chromosome>(trueFalseGenerator);
     }
 
     @Test
     public void select_parentx_when_random_selection_is_false() {
         when(trueFalseGenerator.get()).thenReturn(false);
 
-        Member parent = randomParentSelector.getParent(parentX, parentY);
+        Chromosome parent = randomParentSelector.getParent(parentX, parentY);
 
         assertThat(parent).isEqualTo(parentX);
     }
@@ -37,7 +38,7 @@ public class RandomParentSelectorShould extends TestWithMocks {
     public void select_parenty_when_random_selection_is_true() {
         when(trueFalseGenerator.get()).thenReturn(true);
 
-        Member parent = randomParentSelector.getParent(parentX, parentY);
+        Chromosome parent = randomParentSelector.getParent(parentX, parentY);
 
         assertThat(parent).isEqualTo(parentY);
     }
