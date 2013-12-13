@@ -8,9 +8,11 @@ import gene.Mutator;
 import gene.feature.Note;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 
 public class MemberHelper {
 
@@ -20,6 +22,10 @@ public class MemberHelper {
             genes.add(new Gene<Feature>(new Note(note), mock(Mutator.class)));
         }
         return new Chromosome(genes);
+    }
+
+    public static Member createMember(Chromosome... chromosomes) {
+        return new Member(Arrays.asList(chromosomes));
     }
 
 }

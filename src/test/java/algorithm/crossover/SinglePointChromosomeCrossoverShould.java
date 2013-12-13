@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class SinglePointCrossoverShould extends TestWithMocks {
+public class SinglePointChromosomeCrossoverShould extends TestWithMocks {
 
     /*
 
