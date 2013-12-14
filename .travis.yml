@@ -5,8 +5,8 @@ before_install:
  - chmod +x gradlew
 
 script:
-    - gradlew test
+    - ./gradlew test
 
 after_success:
-    - gradlew cobertura
-    - gradlew coveralls
+    - ./gradlew cobertura
+    - ./gradlew coveralls
