@@ -28,3 +28,7 @@ dependencies {
     testCompile 'org.mockito:mockito-all:1.9.5'
     testCompile 'org.easytesting:fest-assert-core:2.0M10'
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.9'
+}
