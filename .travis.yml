@@ -1,6 +1,17 @@
 language: java
 jdk: oraclejdk7
 
+env:
+  global:
+    - "ARTIFACTS_AWS_REGION=ireland"
+    - "ARTIFACTS_S3_BUCKET=ouchadam-fyp"
+    - secure: "pEWaxqp2awdeFXRrTKtnPC5AFhmnv4C6Rl3fRWD6J2TUWlhgtFq8nxeAmshm4WgYgdKIAD5lM4Tg4Sdj6fmtrHawDx2ntO0GXvg3jbreNDnO73m3aPdUvJ1iz5+hRAJjBcZRIqbj1AHCD0P8Hx8FxCcdNM90L2A03/FtmPfdhrA="
+    - secure: "Si2SQpp5XqyL6cOVbOqXF+VcSA7VDrSD5QW8IkrTcYyAD4wTiB3wHTFXM/BjUUTF5OM9VM2nFcunmZtU9bNx6bHW8qpH1w1csVbPmKvv7qudkq16unhcQARmADSkuW72CTjflhncMa6wVm8ZbCnps6V8Y/jDQNHOD/sOz9jOIy8="
+
+
+before_script:
+   - "gem install travis-artifacts"
+
 before_install:
  - chmod +x gradlew
 
@@ -8,5 +19,6 @@ script:
     - ./gradlew test
 
 after_success:
+    - "travis-artifacts upload --path build/libs"
     - ./gradlew cobertura
     - ./gradlew coveralls
