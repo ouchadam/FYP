@@ -1,6 +1,6 @@
 package algorithm.population;
 
-import gene.Chromosome;
+import algorithm.gene.Chromosome;
 import algorithm.crossover.Crossover;
 
 public class MemberBreeder {

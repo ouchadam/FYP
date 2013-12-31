@@ -1,14 +1,14 @@
 package helper;
 
-import gene.Chromosome;
+import algorithm.gene.Chromosome;
+import algorithm.population.Chromosomes;
 import algorithm.population.Member;
-import gene.Feature;
-import gene.Gene;
-import gene.Mutator;
-import gene.feature.Note;
+import algorithm.gene.Feature;
+import algorithm.gene.Gene;
+import algorithm.gene.Mutator;
+import algorithm.gene.feature.Note;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
@@ -23,8 +23,20 @@ public class MemberHelper {
         return new Chromosome(genes);
     }
 
-    public static Member createMember(Chromosome... chromosomes) {
-        return new Member(Arrays.asList(chromosomes));
+    public static Member createMember(Chromosome... chromosomeArray) {
+        return new Member(createChromosomes(chromosomeArray));
+    }
+
+    public static Chromosomes createChromosomes(Chromosome... chromosomeArray) {
+        return new Chromosomes(getItemOrNull(chromosomeArray, 0), getItemOrNull(chromosomeArray, 1), getItemOrNull(chromosomeArray, 2), getItemOrNull(chromosomeArray, 3));
+    }
+
+    private static <T> T getItemOrNull(T[] array, int index) {
+        if (array.length <= index) {
+            return null;
+        } else {
+            return array[index];
+        }
     }
 
 }

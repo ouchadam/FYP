@@ -1,4 +1,4 @@
-package gene;
+package algorithm.gene;
 
 public class Gene<T extends Feature> implements Mutatable<T> {
 

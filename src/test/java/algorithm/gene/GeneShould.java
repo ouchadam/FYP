@@ -1,4 +1,4 @@
-package gene;
+package algorithm.gene;
 
 import helper.TestWithMocks;
 import org.junit.Test;

@@ -1,6 +1,6 @@
-package gene.feature;
+package algorithm.gene.feature;
 
-import gene.Feature;
+import algorithm.gene.Feature;
 
 public class Note implements Feature {
 

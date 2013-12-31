@@ -1,8 +1,8 @@
 package algorithm.crossover;
 
-import gene.Chromosome;
-import gene.Feature;
-import gene.Gene;
+import algorithm.gene.Chromosome;
+import algorithm.gene.Feature;
+import algorithm.gene.Gene;
 
 import java.util.ArrayList;
 import java.util.List;

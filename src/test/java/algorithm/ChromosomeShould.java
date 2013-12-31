@@ -1,6 +1,6 @@
 package algorithm;
 
-import gene.Chromosome;
+import algorithm.gene.Chromosome;
 import org.junit.Test;
 
 import helper.MemberHelper;
