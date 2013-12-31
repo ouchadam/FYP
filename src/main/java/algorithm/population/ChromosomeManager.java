@@ -6,21 +6,29 @@ import java.util.*;
 
 public class ChromosomeManager {
 
-    private static final int CHROMOSONE_COUNT = 4;
+    private static final int DEFAULT_CHROMOSONE_COUNT = 4;
     private final List<Chromosome> chromosomeList;
 
+    public static ChromosomeManager from(List<Chromosome> chromosomeList) {
+        return new ChromosomeManager(chromosomeList.size(), chromosomeList);
+    }
+
     public static ChromosomeManager newInstance(Chromosome a, Chromosome b, Chromosome c, Chromosome d) {
-        return new ChromosomeManager(a, b, c ,d);
+        return new ChromosomeManager(DEFAULT_CHROMOSONE_COUNT, a, b, c ,d);
     }
 
-    ChromosomeManager(Chromosome... chromosome) {
-        validate(chromosome);
-        this.chromosomeList = Arrays.asList(chromosome);
+    ChromosomeManager(int count, Chromosome... chromosome) {
+        this(count, Arrays.asList(chromosome));
     }
 
-    private void validate(Chromosome[] chromosome) {
-        if (chromosome.length != CHROMOSONE_COUNT) {
-            throw new IllegalArgumentException("Chromosome lengths are not matched, expected : " + CHROMOSONE_COUNT + " but got " + chromosome.length);
+    private ChromosomeManager(int count, List<Chromosome> chromosomeList) {
+        validate(count, chromosomeList);
+        this.chromosomeList = chromosomeList;
+    }
+
+    private void validate(int count, List<Chromosome> chromosome) {
+        if (chromosome.size() != count) {
+            throw new IllegalArgumentException("Chromosome lengths are not matched, expected : " + count + " but got " + chromosome.size());
         }
     }
 
@@ -68,5 +76,13 @@ public class ChromosomeManager {
     @Override
     public int hashCode() {
         return chromosomeList != null ? chromosomeList.hashCode() : 0;
+    }
+
+    public int size() {
+        return chromosomeList.size();
+    }
+
+    public Chromosome get(int index) {
+        return chromosomeList.get(index);
     }
 }

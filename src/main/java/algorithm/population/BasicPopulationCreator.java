@@ -1,48 +1,42 @@
 package algorithm.population;
 
-import algorithm.gene.*;
-import algorithm.gene.feature.Length;
-import algorithm.gene.feature.Note;
-import algorithm.gene.feature.Octave;
-import algorithm.gene.feature.Rest;
+import algorithm.crossover.Crossover;
+import algorithm.crossover.SinglePointChromosomeCrossover;
+import algorithm.crossover.SinglePointMemberCrossover;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BasicPopulationCreator implements PopulationCreator {
 
-    private static final int POPULATION_SIZE = 200;
+    public static final int POPULATION_SIZE = 10;
+
+    private final MemberFactory memberFactory;
+
+    public BasicPopulationCreator(MemberFactory memberFactory) {
+        this.memberFactory = memberFactory;
+    }
 
     @Override
     public Population create() {
-
         Member parentX = createParentMember();
         Member parentY = createParentMember();
 
-        // TODO create 198 members from these parents via single point crossover
+        Crossover<Member> crossover = new SinglePointMemberCrossover(new SinglePointChromosomeCrossover(2));
+        List<Member> newPopulation = new ArrayList<Member>(POPULATION_SIZE);
+        newPopulation.add(parentX);
+        newPopulation.add(parentY);
 
-        return null;
+        do {
+            newPopulation.add(crossover.crossover(parentX, parentY));
+        } while (newPopulation.size() < POPULATION_SIZE);
+
+        return new Population(newPopulation);
     }
 
     private Member createParentMember() {
-        return new Member(ChromosomeManager.newInstance(createRandom(), createRandom(), createRandom(), createRandom()));
+        return memberFactory.createRandomParentMember();
     }
 
-    private Chromosome createRandom() {
-        return new Chromosome(GeneManager.newInstance(createRandomNoteGene(), createRandomOctaveGene(), createRandomLengthGene(), createRandomRestGene()));
-    }
-
-    private Gene<Note> createRandomNoteGene() {
-        return new Gene<Note>(new Note(10), new BasicMutator<Note>());
-    }
-
-    private Gene<Octave> createRandomOctaveGene() {
-        return new Gene<Octave>(new Octave(10), new BasicMutator<Octave>());
-    }
-
-    private Gene<Rest> createRandomRestGene() {
-        return new Gene<Rest>(new Rest(true), new BasicMutator<Rest>());
-    }
-
-    private Gene<Length> createRandomLengthGene() {
-        return new Gene<Length>(new Length(10), new BasicMutator<Length>());
-    }
 
 }

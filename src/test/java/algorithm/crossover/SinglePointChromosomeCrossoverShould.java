@@ -51,7 +51,7 @@ public class SinglePointChromosomeCrossoverShould extends TestWithMocks {
 
     @Test
     public void merge_members_via_single_point_position_0() {
-        Crossover<Chromosome> singlePointCrossover = new SinglePointCrossover(0);
+        Crossover<Chromosome> singlePointCrossover = new SinglePointChromosomeCrossover(0);
 
         Chromosome offspring = singlePointCrossover.crossover(parentX, parentY);
 
@@ -60,7 +60,7 @@ public class SinglePointChromosomeCrossoverShould extends TestWithMocks {
 
     @Test
     public void merge_members_via_single_point_position_1() {
-        Crossover<Chromosome> singlePointCrossover = new SinglePointCrossover(1);
+        Crossover<Chromosome> singlePointCrossover = new SinglePointChromosomeCrossover(1);
 
         Chromosome offspring = singlePointCrossover.crossover(parentX, parentY);
 
@@ -69,7 +69,7 @@ public class SinglePointChromosomeCrossoverShould extends TestWithMocks {
 
     @Test
     public void merge_members_via_single_point_position_2() {
-        Crossover<Chromosome> singlePointCrossover = new SinglePointCrossover(2);
+        Crossover<Chromosome> singlePointCrossover = new SinglePointChromosomeCrossover(2);
 
         Chromosome offspring = singlePointCrossover.crossover(parentX, parentY);
 
@@ -78,7 +78,7 @@ public class SinglePointChromosomeCrossoverShould extends TestWithMocks {
 
     @Test
     public void merge_members_via_single_point_position_3() {
-        Crossover<Chromosome> singlePointCrossover = new SinglePointCrossover(3);
+        Crossover<Chromosome> singlePointCrossover = new SinglePointChromosomeCrossover(3);
 
         Chromosome offspring = singlePointCrossover.crossover(parentX, parentY);
 

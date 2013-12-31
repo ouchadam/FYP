@@ -8,11 +8,11 @@ import algorithm.gene.GeneManager;
 import java.util.ArrayList;
 import java.util.List;
 
-class SinglePointCrossover implements Crossover<Chromosome> {
+public class SinglePointChromosomeCrossover implements Crossover<Chromosome> {
 
     private final int position;
 
-    SinglePointCrossover(int position) {
+    public SinglePointChromosomeCrossover(int position) {
         this.position = position;
     }
 

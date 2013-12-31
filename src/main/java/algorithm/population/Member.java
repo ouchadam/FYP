@@ -1,5 +1,7 @@
 package algorithm.population;
 
+import algorithm.gene.Chromosome;
+
 public class Member {
 
     private final ChromosomeManager chromosomeManager;
@@ -27,4 +29,11 @@ public class Member {
         return chromosomeManager.asString();
     }
 
+    public int count() {
+        return chromosomeManager.size();
+    }
+
+    public Chromosome get(int index) {
+        return chromosomeManager.get(index);
+    }
 }
