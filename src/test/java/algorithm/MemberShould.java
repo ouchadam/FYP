@@ -1,6 +1,6 @@
 package algorithm;
 
-import algorithm.population.Chromosomes;
+import algorithm.population.ChromosomeManager;
 import algorithm.population.Member;
 import helper.MemberHelper;
 import helper.TestWithMocks;
@@ -12,15 +12,15 @@ import static org.mockito.Mockito.verify;
 
 public class MemberShould extends TestWithMocks {
 
-    @Mock Chromosomes chromosomes;
+    @Mock ChromosomeManager chromosomeManager;
 
     @Test
     public void use_chromosomes_to_generate_toString() {
-        Member member = new Member(chromosomes);
+        Member member = new Member(chromosomeManager);
 
         member.toString();
 
-        verify(chromosomes).asString();
+        verify(chromosomeManager).asString();
     }
 
     @Test

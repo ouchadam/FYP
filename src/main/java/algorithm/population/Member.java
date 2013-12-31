@@ -2,10 +2,10 @@ package algorithm.population;
 
 public class Member {
 
-    private final Chromosomes chromosomes;
+    private final ChromosomeManager chromosomeManager;
 
-    public Member(Chromosomes chromosomes) {
-        this.chromosomes = chromosomes;
+    public Member(ChromosomeManager chromosomeManager) {
+        this.chromosomeManager = chromosomeManager;
     }
 
     @Override
@@ -13,18 +13,18 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        if (chromosomes != null ? !chromosomes.equals(member.chromosomes) : member.chromosomes != null) return false;
+        if (chromosomeManager != null ? !chromosomeManager.equals(member.chromosomeManager) : member.chromosomeManager != null) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
-        return chromosomes != null ? chromosomes.hashCode() : 0;
+        return chromosomeManager != null ? chromosomeManager.hashCode() : 0;
     }
 
     @Override
     public String toString() {
-        return chromosomes.asString();
+        return chromosomeManager.asString();
     }
 
 }
