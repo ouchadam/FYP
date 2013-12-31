@@ -28,7 +28,7 @@ public class MemberFactory {
     }
 
     private Gene<Rest> createRandomRestGene() {
-        return new Gene<Rest>(new Rest(false), new BasicMutator<Rest>());
+        return new Gene<Rest>(new Rest(Rest.Value.HOLD), new BasicMutator<Rest>());
     }
 
     private Gene<Length> createRandomLengthGene() {

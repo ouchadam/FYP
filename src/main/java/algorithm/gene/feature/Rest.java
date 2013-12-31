@@ -4,9 +4,26 @@ import algorithm.gene.Feature;
 
 public class Rest implements Feature {
 
-    private final boolean value;
+    private final Value value;
 
-    public Rest(boolean value) {
+    public enum Value {
+        REST {
+            @Override
+            String asValue() {
+                return "1";
+            }
+        },
+        HOLD {
+            @Override
+            String asValue() {
+                return "0";
+            }
+        };
+
+        abstract String asValue();
+    }
+
+    public Rest(Value value) {
         this.value = value;
     }
 
@@ -21,11 +38,12 @@ public class Rest implements Feature {
 
     @Override
     public int hashCode() {
-        return (value ? 1 : 0);
+        return value != null ? value.hashCode() : 0;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return value.asValue();
     }
+
 }
