@@ -1,5 +1,7 @@
 package algorithm;
 
+import algorithm.population.*;
+
 public class GeneticAlgorithm {
 
     private final PopulationCreator populationCreator;

@@ -1,5 +1,6 @@
 package algorithm;
 
+import algorithm.population.Member;
 import marshall.Marshaller;
 import marshall.MemberToMelodyMarshaller;
 

@@ -1,9 +1,8 @@
-package algorithm;
+package algorithm.population;
 
 import java.util.List;
 
-import gene.Feature;
-import gene.Gene;
+import gene.Chromosome;
 
 public class Member {
 

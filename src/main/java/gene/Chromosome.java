@@ -1,7 +1,4 @@
-package algorithm;
-
-import gene.Feature;
-import gene.Gene;
+package gene;
 
 import java.util.List;
 

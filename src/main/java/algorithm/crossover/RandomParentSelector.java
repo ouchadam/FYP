@@ -1,7 +1,5 @@
 package algorithm.crossover;
 
-import algorithm.Member;
-
 class RandomParentSelector<T> {
 
     private final RandomTrueFalseGenerator trueFalseGenerator;

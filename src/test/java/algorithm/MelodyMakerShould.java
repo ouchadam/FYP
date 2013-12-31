@@ -1,5 +1,6 @@
 package algorithm;
 
+import algorithm.population.Member;
 import helper.TestWithMocks;
 import marshall.Marshaller;
 import org.junit.Test;

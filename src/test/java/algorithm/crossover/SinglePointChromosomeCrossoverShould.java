@@ -1,6 +1,6 @@
 package algorithm.crossover;
 
-import algorithm.Chromosome;
+import gene.Chromosome;
 import helper.MemberHelper;
 import helper.TestWithMocks;
 import org.junit.Test;

@@ -1,10 +1,10 @@
 package algorithm;
 
+import algorithm.population.Member;
+import gene.Chromosome;
 import helper.MemberHelper;
 import helper.TestWithMocks;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 

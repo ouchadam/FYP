@@ -1,6 +1,6 @@
-package algorithm;
+package algorithm.population;
 
-class PopulationCreator {
+public class PopulationCreator {
 
     public Population create() {
         return null;

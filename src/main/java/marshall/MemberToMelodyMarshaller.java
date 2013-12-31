@@ -1,11 +1,7 @@
 package marshall;
 
 import algorithm.Melody;
-import algorithm.Member;
-import gene.Feature;
-import gene.Gene;
-
-import java.util.List;
+import algorithm.population.Member;
 
 public class MemberToMelodyMarshaller implements Marshaller<Member, Melody> {
 

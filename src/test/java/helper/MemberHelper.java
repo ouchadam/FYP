@@ -1,7 +1,7 @@
 package helper;
 
-import algorithm.Chromosome;
-import algorithm.Member;
+import gene.Chromosome;
+import algorithm.population.Member;
 import gene.Feature;
 import gene.Gene;
 import gene.Mutator;
@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
 
 public class MemberHelper {
 

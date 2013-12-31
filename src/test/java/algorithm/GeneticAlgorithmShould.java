@@ -1,5 +1,9 @@
 package algorithm;
 
+import algorithm.population.FittestMemberFinder;
+import algorithm.population.Population;
+import algorithm.population.PopulationCreator;
+import algorithm.population.PopulationEvolver;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -12,9 +16,12 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
     private GeneticAlgorithm geneticAlgorithm;
 
-    @Mock PopulationCreator populationCreator;
-    @Mock PopulationEvolver populationEvolver;
-    @Mock FittestMemberFinder fittestMemberFinder;
+    @Mock
+    PopulationCreator populationCreator;
+    @Mock
+    PopulationEvolver populationEvolver;
+    @Mock
+    FittestMemberFinder fittestMemberFinder;
 
     @Override
     protected void before() {
