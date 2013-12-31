@@ -6,6 +6,7 @@ import algorithm.gene.feature.Octave;
 import algorithm.gene.feature.Rest;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class GeneManager {
@@ -29,7 +30,7 @@ public class GeneManager {
 
     GeneManager(int geneCount, List<Gene<? extends Feature>> genes) {
         validate(geneCount, genes);
-        this.geneList = genes;
+        this.geneList = Collections.unmodifiableList(genes);
     }
 
     private void validate(int geneCount, List<Gene<? extends Feature>> genes) {

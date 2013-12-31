@@ -23,7 +23,7 @@ public class ChromosomeManager {
 
     private ChromosomeManager(int count, List<Chromosome> chromosomeList) {
         validate(count, chromosomeList);
-        this.chromosomeList = chromosomeList;
+        this.chromosomeList = Collections.unmodifiableList(chromosomeList);
     }
 
     private void validate(int count, List<Chromosome> chromosome) {
