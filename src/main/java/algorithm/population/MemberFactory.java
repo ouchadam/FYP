@@ -1,6 +1,5 @@
 package algorithm.population;
 
-import algorithm.gene.BasicMutator;
 import algorithm.gene.Chromosome;
 import algorithm.gene.Gene;
 import algorithm.gene.GeneManager;
@@ -8,6 +7,10 @@ import algorithm.gene.feature.Length;
 import algorithm.gene.feature.Note;
 import algorithm.gene.feature.Octave;
 import algorithm.gene.feature.Rest;
+import algorithm.gene.mutator.LengthMutator;
+import algorithm.gene.mutator.NoteMutator;
+import algorithm.gene.mutator.OctaveMutator;
+import algorithm.gene.mutator.RestMutator;
 
 public class MemberFactory {
 
@@ -20,19 +23,19 @@ public class MemberFactory {
     }
 
     private Gene<Note> createRandomNoteGene() {
-        return new Gene<Note>(new Note(10), new BasicMutator<Note>());
+        return new Gene<Note>(new Note(10), new NoteMutator());
     }
 
     private Gene<Octave> createRandomOctaveGene() {
-        return new Gene<Octave>(new Octave(10), new BasicMutator<Octave>());
+        return new Gene<Octave>(new Octave(10), new OctaveMutator());
     }
 
     private Gene<Rest> createRandomRestGene() {
-        return new Gene<Rest>(new Rest(Rest.Value.HOLD), new BasicMutator<Rest>());
+        return new Gene<Rest>(new Rest(Rest.Value.HOLD), new RestMutator());
     }
 
     private Gene<Length> createRandomLengthGene() {
-        return new Gene<Length>(new Length(10), new BasicMutator<Length>());
+        return new Gene<Length>(new Length(10), new LengthMutator());
     }
 
 }
