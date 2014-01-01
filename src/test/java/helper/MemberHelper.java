@@ -25,11 +25,19 @@ public class MemberHelper {
     }
 
     public static Member createMember() {
-        return new Member(createChromosomes(createChromosome(1,2,3,4), createChromosome(1,2,3,4), createChromosome(1,2,3,4), createChromosome(1,2,3,4)));
+        return new Member(createChromosomes(createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4)));
     }
 
     public static ChromosomeManager createChromosomes(Chromosome... chromosomeArray) {
         return ChromosomeManager.newInstance(getItemOrNull(chromosomeArray, 0), getItemOrNull(chromosomeArray, 1), getItemOrNull(chromosomeArray, 2), getItemOrNull(chromosomeArray, 3));
+    }
+
+    public static List<Member> createMockMembers(int memberCount) {
+        List<Member> members = new ArrayList<Member>();
+        for (int index = 0; index < memberCount; index++) {
+            members.add(mock(Member.class));
+        }
+        return members;
     }
 
     private static <T> T getItemOrNull(T[] array, int index) {

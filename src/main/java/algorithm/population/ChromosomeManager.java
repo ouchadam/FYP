@@ -26,7 +26,7 @@ public class ChromosomeManager {
         this(count, Arrays.asList(chromosome), chromosomePicker);
     }
 
-    private ChromosomeManager(int count, List<Chromosome> chromosomeList, RandomListPicker<Chromosome> chromosomePicker) {
+    ChromosomeManager(int count, List<Chromosome> chromosomeList, RandomListPicker<Chromosome> chromosomePicker) {
         validate(count, chromosomeList);
         this.chromosomeList = Collections.unmodifiableList(chromosomeList);
         this.chromosomePicker = chromosomePicker;
