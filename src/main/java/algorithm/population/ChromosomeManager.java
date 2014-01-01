@@ -1,6 +1,7 @@
 package algorithm.population;
 
 import algorithm.gene.Chromosome;
+import algorithm.gene.RandomListPicker;
 
 import java.util.*;
 
@@ -8,22 +9,27 @@ public class ChromosomeManager {
 
     private static final int DEFAULT_CHROMOSONE_COUNT = 4;
     private final List<Chromosome> chromosomeList;
+    private final RandomListPicker<Chromosome> chromosomePicker;
 
     public static ChromosomeManager from(List<Chromosome> chromosomeList) {
-        return new ChromosomeManager(chromosomeList.size(), chromosomeList);
+        RandomListPicker<Chromosome> chromosomePicker = new RandomListPicker<Chromosome>();
+        return new ChromosomeManager(chromosomeList.size(), chromosomeList, chromosomePicker);
     }
 
     public static ChromosomeManager newInstance(Chromosome a, Chromosome b, Chromosome c, Chromosome d) {
-        return new ChromosomeManager(DEFAULT_CHROMOSONE_COUNT, a, b, c ,d);
+        RandomListPicker<Chromosome> chromosomePicker = new RandomListPicker<Chromosome>();
+
+        return new ChromosomeManager(DEFAULT_CHROMOSONE_COUNT, chromosomePicker, a, b, c ,d);
     }
 
-    ChromosomeManager(int count, Chromosome... chromosome) {
-        this(count, Arrays.asList(chromosome));
+    ChromosomeManager(int count, RandomListPicker<Chromosome> chromosomePicker, Chromosome... chromosome) {
+        this(count, Arrays.asList(chromosome), chromosomePicker);
     }
 
-    private ChromosomeManager(int count, List<Chromosome> chromosomeList) {
+    private ChromosomeManager(int count, List<Chromosome> chromosomeList, RandomListPicker<Chromosome> chromosomePicker) {
         validate(count, chromosomeList);
         this.chromosomeList = Collections.unmodifiableList(chromosomeList);
+        this.chromosomePicker = chromosomePicker;
     }
 
     private void validate(int count, List<Chromosome> chromosome) {
@@ -84,5 +90,9 @@ public class ChromosomeManager {
 
     public Chromosome get(int index) {
         return chromosomeList.get(index);
+    }
+
+    public void mutate() {
+        chromosomePicker.get(chromosomeList).mutate();
     }
 }

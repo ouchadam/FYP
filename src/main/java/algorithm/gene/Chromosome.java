@@ -35,4 +35,7 @@ public class Chromosome {
         return genes.toString();
     }
 
+    public void mutate() {
+        genes.mutate();
+    }
 }

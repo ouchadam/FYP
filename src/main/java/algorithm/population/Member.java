@@ -36,4 +36,8 @@ public class Member {
     public Chromosome get(int index) {
         return chromosomeManager.get(index);
     }
+
+    public void mutate() {
+        chromosomeManager.mutate();
+    }
 }

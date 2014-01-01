@@ -13,24 +13,28 @@ public class GeneManager {
 
     private static final int DEFAULT_GENE_COUNT = 4;
     private final List<Gene<? extends Feature>> geneList;
+    private RandomListPicker<Gene<? extends Feature>> genePicker;
 
     public static GeneManager from(List<Gene<? extends Feature>> genes) {
-        return new GeneManager(genes.size(), genes);
+        RandomListPicker<Gene<? extends Feature>> genePicker = new RandomListPicker<Gene<? extends Feature>>();
+        return new GeneManager(genes.size(), genes, genePicker);
     }
 
     @SuppressWarnings({"unchecked", "varargs"})
     public static GeneManager newInstance(Gene<Note> a, Gene<Octave> b, Gene<Length> c, Gene<Rest> d) {
-        return new GeneManager(DEFAULT_GENE_COUNT, a, b, c, d);
+        RandomListPicker<Gene<? extends Feature>> genePicker = new RandomListPicker<Gene<? extends Feature>>();
+        return new GeneManager(genePicker, DEFAULT_GENE_COUNT, a, b, c, d);
     }
 
     @SafeVarargs
-    GeneManager(int geneCount, Gene<? extends Feature>... genes) {
-        this(geneCount, Arrays.asList(genes));
+    GeneManager(RandomListPicker<Gene<? extends Feature>> genePicker, int geneCount, Gene<? extends Feature>... genes) {
+        this(geneCount, Arrays.asList(genes), genePicker);
     }
 
-    GeneManager(int geneCount, List<Gene<? extends Feature>> genes) {
+    GeneManager(int geneCount, List<Gene<? extends Feature>> genes, RandomListPicker<Gene<? extends Feature>> genePicker) {
         validate(geneCount, genes);
         this.geneList = Collections.unmodifiableList(genes);
+        this.genePicker = genePicker;
     }
 
     private void validate(int geneCount, List<Gene<? extends Feature>> genes) {
@@ -68,6 +72,10 @@ public class GeneManager {
     @Override
     public int hashCode() {
         return geneList != null ? geneList.hashCode() : 0;
+    }
+
+    public void mutate() {
+        genePicker.get(geneList).mutate();
     }
 
 }

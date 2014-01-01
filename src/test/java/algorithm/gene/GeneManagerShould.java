@@ -13,6 +13,6 @@ public class GeneManagerShould extends TestWithMocks {
         Gene gene_1 = mock(Gene.class);
         Gene gene_2 = mock(Gene.class);
 
-        new GeneManager(geneCount, gene_1, gene_2);
+        new GeneManager(null, geneCount, gene_1, gene_2);
     }
 }

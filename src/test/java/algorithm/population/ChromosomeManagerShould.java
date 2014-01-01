@@ -14,7 +14,7 @@ public class ChromosomeManagerShould extends TestWithMocks {
         Chromosome chromosome_1 = mock(Chromosome.class);
         Chromosome chromosome_2 = mock(Chromosome.class);
 
-        new ChromosomeManager(chromosomeCount, chromosome_1, chromosome_2);
+        new ChromosomeManager(chromosomeCount, null, chromosome_1, chromosome_2);
     }
 
 }

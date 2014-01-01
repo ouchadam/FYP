@@ -24,8 +24,7 @@ public class BasicPopulationCreator implements PopulationCreator {
 
         Crossover<Member> crossover = new SinglePointMemberCrossover(new SinglePointChromosomeCrossover(2));
         List<Member> newPopulation = new ArrayList<Member>(POPULATION_SIZE);
-        newPopulation.add(parentX);
-        newPopulation.add(parentY);
+        addParentsToThePopulation(parentX, parentY, newPopulation);
 
         do {
             newPopulation.add(crossover.crossover(parentX, parentY));
@@ -34,9 +33,13 @@ public class BasicPopulationCreator implements PopulationCreator {
         return new Population(newPopulation);
     }
 
+    private void addParentsToThePopulation(Member parentX, Member parentY, List<Member> newPopulation) {
+        newPopulation.add(parentX);
+        newPopulation.add(parentY);
+    }
+
     private Member createParentMember() {
         return memberFactory.createRandomParentMember();
     }
-
 
 }

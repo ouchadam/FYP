@@ -20,14 +20,14 @@ public class BasicPopulationCreatorShould extends TestWithMocks {
     }
 
     @Test
-    public void create_two_random_parents() throws Exception {
+    public void create_two_random_parents() {
         basicPopulationCreator.create();
 
         verify(memberFactory, times(2)).createRandomParentMember();
     }
 
     @Test
-    public void create_a_population_with_a_size_of_10() throws Exception {
+    public void create_a_population_with_a_size_of_10() {
         Population population = basicPopulationCreator.create();
 
         assertThat(population.size()).isEqualTo(BasicPopulationCreator.POPULATION_SIZE);

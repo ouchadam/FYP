@@ -1,16 +1,21 @@
 package algorithm.population;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Population {
 
-    private List<Member> offspring;
+    private List<Member> members;
 
-    public Population(List<Member> offspring) {
-        this.offspring = offspring;
+    public Population(List<Member> members) {
+        this.members = Collections.unmodifiableList(members);
+    }
+
+    public List<Member> getMembers() {
+        return members;
     }
 
     public int size() {
-        return offspring.size();
+        return members.size();
     }
 }

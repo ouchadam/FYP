@@ -5,16 +5,16 @@ import algorithm.population.*;
 public class GeneticAlgorithm {
 
     private final PopulationCreator populationCreator;
-    private final PopulationEvolver populationEvolver;
+    private final PopulationMutator populationMutator;
     private final FittestMemberFinder fittestFinder;
 
     public static GeneticAlgorithm newInstance() {
-        return new GeneticAlgorithm(new BasicPopulationCreator(new MemberFactory()), new PopulationEvolver(), new FittestMemberFinder());
+        return new GeneticAlgorithm(new BasicPopulationCreator(new MemberFactory()), new PopulationMutator(), new FittestMemberFinder());
     }
 
-    public GeneticAlgorithm(PopulationCreator populationCreator, PopulationEvolver populationEvolver, FittestMemberFinder fittestFinder) {
+    public GeneticAlgorithm(PopulationCreator populationCreator, PopulationMutator populationMutator, FittestMemberFinder fittestFinder) {
         this.populationCreator = populationCreator;
-        this.populationEvolver = populationEvolver;
+        this.populationMutator = populationMutator;
         this.fittestFinder = fittestFinder;
     }
 
@@ -29,7 +29,7 @@ public class GeneticAlgorithm {
     }
 
     private Population evolvePopulation(Population initialPopulation) {
-        return populationEvolver.evolve(initialPopulation);
+        return populationMutator.evolve(initialPopulation);
     }
 
     private Member extractFittestMemberFrom(Population population) {

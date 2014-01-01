@@ -3,7 +3,7 @@ package algorithm;
 import algorithm.population.FittestMemberFinder;
 import algorithm.population.Population;
 import algorithm.population.PopulationCreator;
-import algorithm.population.PopulationEvolver;
+import algorithm.population.PopulationMutator;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -19,13 +19,13 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     @Mock
     PopulationCreator populationCreator;
     @Mock
-    PopulationEvolver populationEvolver;
+    PopulationMutator populationMutator;
     @Mock
     FittestMemberFinder fittestMemberFinder;
 
     @Override
     protected void before() {
-        geneticAlgorithm = new GeneticAlgorithm(populationCreator, populationEvolver, fittestMemberFinder);
+        geneticAlgorithm = new GeneticAlgorithm(populationCreator, populationMutator, fittestMemberFinder);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     public void evolve_the_population() throws Exception {
         geneticAlgorithm.generate();
 
-        verify(populationEvolver).evolve(any(Population.class));
+        verify(populationMutator).evolve(any(Population.class));
     }
 
     @Test
