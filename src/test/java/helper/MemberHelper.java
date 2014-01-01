@@ -24,6 +24,10 @@ public class MemberHelper {
         return new Member(createChromosomes(chromosomeArray));
     }
 
+    public static Member createMember() {
+        return new Member(createChromosomes(createChromosome(1,2,3,4), createChromosome(1,2,3,4), createChromosome(1,2,3,4), createChromosome(1,2,3,4)));
+    }
+
     public static ChromosomeManager createChromosomes(Chromosome... chromosomeArray) {
         return ChromosomeManager.newInstance(getItemOrNull(chromosomeArray, 0), getItemOrNull(chromosomeArray, 1), getItemOrNull(chromosomeArray, 2), getItemOrNull(chromosomeArray, 3));
     }
