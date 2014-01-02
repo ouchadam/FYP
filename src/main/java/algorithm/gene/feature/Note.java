@@ -2,7 +2,7 @@ package algorithm.gene.feature;
 
 import algorithm.gene.Feature;
 
-public class Note implements Feature {
+public class Note implements Feature<Integer> {
 
     private final int value;
 
@@ -27,5 +27,10 @@ public class Note implements Feature {
     @Override
     public String toString() {
         return String.valueOf(value);
+    }
+
+    @Override
+    public Integer getValue() {
+        return value;
     }
 }

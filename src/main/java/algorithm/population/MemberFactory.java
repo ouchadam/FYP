@@ -7,10 +7,9 @@ import algorithm.gene.feature.Length;
 import algorithm.gene.feature.Note;
 import algorithm.gene.feature.Octave;
 import algorithm.gene.feature.Rest;
-import algorithm.gene.mutator.LengthMutator;
-import algorithm.gene.mutator.NoteMutator;
-import algorithm.gene.mutator.OctaveMutator;
-import algorithm.gene.mutator.RestMutator;
+import algorithm.gene.mutator.*;
+
+import java.util.Random;
 
 public class MemberFactory {
 
@@ -23,7 +22,7 @@ public class MemberFactory {
     }
 
     private Gene<Note> createRandomNoteGene() {
-        return new Gene<Note>(new Note(10), new NoteMutator());
+        return new Gene<Note>(new Note(10), new NoteMutator(new RandomNumberPicker(new Random())));
     }
 
     private Gene<Octave> createRandomOctaveGene() {

@@ -2,7 +2,7 @@ package algorithm.gene.feature;
 
 import algorithm.gene.Feature;
 
-public class Rest implements Feature {
+public class Rest implements Feature<Rest.Value> {
 
     private final Value value;
 
@@ -21,8 +21,8 @@ public class Rest implements Feature {
         };
 
         abstract String asValue();
-    }
 
+    }
     public Rest(Value value) {
         this.value = value;
     }
@@ -44,6 +44,11 @@ public class Rest implements Feature {
     @Override
     public String toString() {
         return value.asValue();
+    }
+
+    @Override
+    public Value getValue() {
+        return value;
     }
 
 }

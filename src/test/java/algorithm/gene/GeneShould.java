@@ -20,7 +20,11 @@ public class GeneShould extends TestWithMocks {
         verify(stubMutator).mutate(stubFeature);
     }
 
-    private static class StubFeature implements Feature {
+    private static class StubFeature implements Feature<Void> {
+        @Override
+        public Void getValue() {
+            return null;
+        }
     }
 
 }
