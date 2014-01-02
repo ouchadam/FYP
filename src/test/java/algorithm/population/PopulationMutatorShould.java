@@ -24,7 +24,7 @@ public class PopulationMutatorShould extends TestWithMocks {
         int populationSize = 10;
         when(population.getMembers()).thenReturn(MemberHelper.createMockMembers(populationSize));
 
-        Population mutatedPopulation = populationMutator.evolve(population);
+        Population mutatedPopulation = populationMutator.mutate(population);
 
         assertThat(mutatedPopulation.size()).isEqualTo(populationSize);
     }
