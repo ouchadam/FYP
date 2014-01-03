@@ -13,8 +13,4 @@ public class Note extends FitnessFeature<Integer> {
         return String.valueOf(getValue());
     }
 
-    public Note from(Note note, int value) {
-        return new Note(value, note.getEvaluator());
-    }
-
 }
