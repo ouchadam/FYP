@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 public class FitnessFeatureShould extends TestWithMocks {
 
@@ -27,6 +28,16 @@ public class FitnessFeatureShould extends TestWithMocks {
         StubFitnessFeature feature = new StubFitnessFeature(value, evaluator);
 
         assertThat(value).isEqualTo(feature.getValue());
+    }
+
+    @Test
+    public void use_the_evaluator_to_get_the_fitness_value() throws Exception {
+        int value = 1;
+        StubFitnessFeature feature = new StubFitnessFeature(value, evaluator);
+
+        feature.getFitness();
+
+        verify(evaluator).evaluate(value);
     }
 
     private static class StubFitnessFeature extends FitnessFeature<Integer> {

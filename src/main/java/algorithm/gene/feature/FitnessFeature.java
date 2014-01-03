@@ -23,11 +23,8 @@ abstract class FitnessFeature<V> implements Feature<V> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         FitnessFeature that = (FitnessFeature) o;
-
         if (value != null ? !value.equals(that.value) : that.value != null) return false;
-
         return true;
     }
 
