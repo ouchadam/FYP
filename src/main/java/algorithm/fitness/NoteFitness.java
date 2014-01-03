@@ -1,17 +1,13 @@
 package algorithm.fitness;
 
-import algorithm.gene.feature.Note;
-
 public class NoteFitness implements FitnessEvaluator<Integer> {
 
     @Override
     public FitnessValue evaluate(Integer what) {
-
-        if (what == 50) {
-
+        if (what == 10) {
+            return FitnessValue.max();
         }
-
-        return null;
+        return FitnessValue.min();
     }
 
 }
