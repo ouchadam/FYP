@@ -1,9 +1,5 @@
 package algorithm.population;
 
-public class PopulationCrosser {
-
-    public Population crossover(Population population) {
-        return population;
-    }
-
+public interface PopulationCrosser {
+    Population crossover(Population population);
 }

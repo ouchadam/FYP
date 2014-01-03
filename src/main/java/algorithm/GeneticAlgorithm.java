@@ -9,7 +9,7 @@ public class GeneticAlgorithm {
     private final FittestMemberFinder fittestFinder;
 
     public static GeneticAlgorithm newInstance() {
-        return new GeneticAlgorithm(new BasicPopulationCreator(new MemberFactory()), new PopulationEvolver(new PopulationMutator(), new PopulationCrosser()), new FittestMemberFinder());
+        return new GeneticAlgorithm(BasicPopulationCreator.newInstance(), new PopulationEvolver(new PopulationMutator(), EntirePopulationCrosser.newInstance()), new FittestMemberFinder());
     }
 
     public GeneticAlgorithm(PopulationCreator populationCreator, PopulationEvolver populationEvolver, FittestMemberFinder fittestFinder) {

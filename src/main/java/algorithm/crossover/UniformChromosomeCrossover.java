@@ -8,11 +8,11 @@ import algorithm.gene.GeneManager;
 import java.util.ArrayList;
 import java.util.List;
 
-class UniformCrossover implements Crossover<Chromosome> {
+public class UniformChromosomeCrossover implements Crossover<Chromosome> {
 
     private final RandomParentSelector<Chromosome> randomParentSelector;
 
-    UniformCrossover(RandomParentSelector<Chromosome> randomParentSelector) {
+    public UniformChromosomeCrossover(RandomParentSelector<Chromosome> randomParentSelector) {
         this.randomParentSelector = randomParentSelector;
     }
 

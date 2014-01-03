@@ -1,8 +1,8 @@
 package algorithm.population;
 
 import algorithm.crossover.Crossover;
+import algorithm.crossover.MemberCrossover;
 import algorithm.crossover.SinglePointChromosomeCrossover;
-import algorithm.crossover.SinglePointMemberCrossover;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,15 @@ public class BasicPopulationCreator implements PopulationCreator {
     public static final int POPULATION_SIZE = 10;
 
     private final MemberFactory memberFactory;
+    private final Crossover<Member> memberCrossover;
 
-    public BasicPopulationCreator(MemberFactory memberFactory) {
+    public static BasicPopulationCreator newInstance() {
+        return new BasicPopulationCreator(new MemberFactory(), new MemberCrossover(new SinglePointChromosomeCrossover(2)));
+    }
+
+    BasicPopulationCreator(MemberFactory memberFactory, Crossover<Member> memberCrossover) {
         this.memberFactory = memberFactory;
+        this.memberCrossover = memberCrossover;
     }
 
     @Override
@@ -22,12 +28,11 @@ public class BasicPopulationCreator implements PopulationCreator {
         Member parentX = createParentMember();
         Member parentY = createParentMember();
 
-        Crossover<Member> crossover = new SinglePointMemberCrossover(new SinglePointChromosomeCrossover(2));
         List<Member> newPopulation = new ArrayList<Member>(POPULATION_SIZE);
         addParentsToThePopulation(parentX, parentY, newPopulation);
 
         do {
-            newPopulation.add(crossover.crossover(parentX, parentY));
+            newPopulation.add(memberCrossover.crossover(parentX, parentY));
         } while (newPopulation.size() < POPULATION_SIZE);
 
         return new Population(newPopulation);

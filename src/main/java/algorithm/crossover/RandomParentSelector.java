@@ -1,6 +1,6 @@
 package algorithm.crossover;
 
-class RandomParentSelector<T> {
+public class RandomParentSelector<T> {
 
     private final RandomTrueFalseGenerator trueFalseGenerator;
 

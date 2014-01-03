@@ -56,14 +56,14 @@ public class UniformChromosomeCrossoverShould extends TestWithMocks {
     @Override
     protected void before() {
         randomCounter = 0;
-        uniformCrossover = new UniformCrossover(randomParentSelector);
+        uniformCrossover = new UniformChromosomeCrossover(randomParentSelector);
         parentX = MemberHelper.createChromosome(1, 2);
         parentY = MemberHelper.createChromosome(3, 4);
     }
 
     @Test
     public void merge_members_via_uniform_crossover_combination_0() {
-        Crossover<Chromosome> uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover<Chromosome> uniformCrossover = new UniformChromosomeCrossover(randomParentSelector);
         fixRandomOrder(parentY, parentY);
 
         Chromosome offspring = uniformCrossover.crossover(parentX, parentY);
@@ -73,7 +73,7 @@ public class UniformChromosomeCrossoverShould extends TestWithMocks {
 
     @Test
     public void merge_members_via_uniform_crossover_combination_1() {
-        Crossover<Chromosome> uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover<Chromosome> uniformCrossover = new UniformChromosomeCrossover(randomParentSelector);
         fixRandomOrder(parentX, parentY);
 
         Chromosome offspring = uniformCrossover.crossover(parentX, parentY);
@@ -83,7 +83,7 @@ public class UniformChromosomeCrossoverShould extends TestWithMocks {
 
     @Test
     public void merge_members_via_uniform_crossover_combination_2() {
-        Crossover<Chromosome> uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover<Chromosome> uniformCrossover = new UniformChromosomeCrossover(randomParentSelector);
         fixRandomOrder(parentX, parentX);
 
         Chromosome offspring = uniformCrossover.crossover(parentX, parentY);
@@ -93,7 +93,7 @@ public class UniformChromosomeCrossoverShould extends TestWithMocks {
 
     @Test
     public void merge_members_via_uniform_crossover_combination_3() {
-        Crossover<Chromosome> uniformCrossover = new UniformCrossover(randomParentSelector);
+        Crossover<Chromosome> uniformCrossover = new UniformChromosomeCrossover(randomParentSelector);
         fixRandomOrder(parentY, parentX);
 
         Chromosome offspring = uniformCrossover.crossover(parentX, parentY);

@@ -1,20 +1,17 @@
 package algorithm.crossover;
 
 import algorithm.gene.Chromosome;
-import algorithm.gene.Feature;
-import algorithm.gene.Gene;
-import algorithm.gene.GeneManager;
 import algorithm.population.ChromosomeManager;
 import algorithm.population.Member;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SinglePointMemberCrossover implements Crossover<Member> {
+public class UniformMemberCrossover implements Crossover<Member> {
 
-    private final SinglePointChromosomeCrossover singlePointChromosomeCrossover;
+    private final UniformChromosomeCrossover singlePointChromosomeCrossover;
 
-    public SinglePointMemberCrossover(SinglePointChromosomeCrossover singlePointChromosomeCrossover) {
+    public UniformMemberCrossover(UniformChromosomeCrossover singlePointChromosomeCrossover) {
         this.singlePointChromosomeCrossover = singlePointChromosomeCrossover;
     }
 
