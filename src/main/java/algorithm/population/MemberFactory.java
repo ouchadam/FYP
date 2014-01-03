@@ -1,6 +1,7 @@
 package algorithm.population;
 
 
+import algorithm.fitness.ChromosomeFitness;
 import algorithm.gene.Chromosome;
 import algorithm.gene.Gene;
 import algorithm.gene.GeneManager;
@@ -18,7 +19,7 @@ public class MemberFactory {
     }
 
     public Member createRandomParentMember() {
-        return new Member(ChromosomeManager.newInstance(createRandomChromosome(), createRandomChromosome(), createRandomChromosome(), createRandomChromosome()));
+        return new Member(ChromosomeManager.newInstance(createRandomChromosome(), createRandomChromosome(), createRandomChromosome(), createRandomChromosome()), new ChromosomeFitness());
     }
 
     private Chromosome createRandomChromosome() {

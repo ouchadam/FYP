@@ -1,5 +1,7 @@
 package algorithm.population;
 
+import java.util.List;
+
 public class PopulationEvolver {
 
     private final PopulationMutator populationMutator;
@@ -16,7 +18,6 @@ public class PopulationEvolver {
         // TODO this should then seed a new population (possibly add to previous?)  via crossover
         // TODO perform mutation
         // TODO select best individuals are start again  - breeding technique
-
 
         Population population = populationCrosser.crossover(initialPopulation);
         return populationMutator.mutate(population);

@@ -1,5 +1,7 @@
 package algorithm.gene;
 
+import algorithm.fitness.FitnessValue;
+
 public class Gene<T extends Feature> implements Mutatable<T> {
 
     private final T feature;
@@ -32,5 +34,9 @@ public class Gene<T extends Feature> implements Mutatable<T> {
     @Override
     public String toString() {
         return feature.toString();
+    }
+
+    public FitnessValue getFitness() {
+        return feature.getFitness();
     }
 }

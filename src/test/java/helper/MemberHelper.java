@@ -1,5 +1,6 @@
 package helper;
 
+import algorithm.fitness.ChromosomeFitness;
 import algorithm.fitness.NoteFitness;
 import algorithm.gene.*;
 import algorithm.gene.feature.FeatureFactory;
@@ -25,11 +26,11 @@ public class MemberHelper {
     }
 
     public static Member createMember(Chromosome... chromosomeArray) {
-        return new Member(createChromosomes(chromosomeArray));
+        return new Member(createChromosomes(chromosomeArray), new ChromosomeFitness());
     }
 
     public static Member createMember() {
-        return new Member(createChromosomes(createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4)));
+        return new Member(createChromosomes(createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4)), new ChromosomeFitness());
     }
 
     public static ChromosomeManager createChromosomes(Chromosome... chromosomeArray) {

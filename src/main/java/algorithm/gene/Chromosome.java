@@ -1,5 +1,7 @@
 package algorithm.gene;
 
+import algorithm.fitness.FitnessValue;
+
 public class Chromosome {
 
     private final GeneManager genes;
@@ -37,5 +39,9 @@ public class Chromosome {
 
     public void mutate() {
         genes.mutate();
+    }
+
+    public GeneFitnessValue getFitness() {
+        return genes.getFitness();
     }
 }

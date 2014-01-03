@@ -1,10 +1,12 @@
 package algorithm.gene;
 
+import algorithm.fitness.FitnessValue;
 import algorithm.gene.feature.Length;
 import algorithm.gene.feature.Note;
 import algorithm.gene.feature.Octave;
 import algorithm.gene.feature.Rest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -76,6 +78,14 @@ public class GeneManager {
 
     public void mutate() {
         genePicker.get(geneList).mutate();
+    }
+
+    public GeneFitnessValue getFitness() {
+        List<FitnessValue> geneFitnessValues = new ArrayList<FitnessValue>(getSize());
+        for (Gene<? extends Feature> gene : geneList) {
+            geneFitnessValues.add(gene.getFitness());
+        }
+        return new GeneFitnessValue(geneFitnessValues);
     }
 
 }

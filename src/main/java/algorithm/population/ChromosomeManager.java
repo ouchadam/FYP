@@ -1,6 +1,8 @@
 package algorithm.population;
 
+import algorithm.fitness.ChromosomeFitnessValue;
 import algorithm.gene.Chromosome;
+import algorithm.gene.GeneFitnessValue;
 import algorithm.gene.RandomListPicker;
 
 import java.util.*;
@@ -95,4 +97,13 @@ public class ChromosomeManager {
     public void mutate() {
         chromosomePicker.get(chromosomeList).mutate();
     }
+
+    public ChromosomeFitnessValue getFitness() {
+        List<GeneFitnessValue> geneFitnessValues = new ArrayList<GeneFitnessValue>(size());
+        for (Chromosome chromosome : chromosomeList) {
+            geneFitnessValues.add(chromosome.getFitness());
+        }
+        return new ChromosomeFitnessValue(geneFitnessValues);
+    }
+
 }
