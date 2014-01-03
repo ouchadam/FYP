@@ -1,13 +1,17 @@
 package algorithm.gene.feature;
 
+import algorithm.fitness.FitnessEvaluator;
+import algorithm.fitness.FitnessValue;
 import algorithm.gene.Feature;
 
 public class Octave implements Feature<Integer> {
 
     private final int value;
+    private final FitnessEvaluator<Octave> evaluator;
 
-    public Octave(int value) {
+    public Octave(int value, FitnessEvaluator<Octave> evaluator) {
         this.value = value;
+        this.evaluator = evaluator;
     }
 
     @Override
@@ -32,5 +36,10 @@ public class Octave implements Feature<Integer> {
     @Override
     public Integer getValue() {
         return value;
+    }
+
+    @Override
+    public FitnessValue getFitness() {
+        return evaluator.evaluate(this);
     }
 }

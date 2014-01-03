@@ -2,6 +2,7 @@ package algorithm.gene.mutator;
 
 import algorithm.gene.Mutator;
 import algorithm.gene.feature.Note;
+import algorithm.gene.feature.NoteCreator;
 
 public class NoteMutator implements Mutator<Note> {
 
@@ -9,16 +10,18 @@ public class NoteMutator implements Mutator<Note> {
     static final int ZERO_RANGE_OFFSET = 1;
 
     private final RandomNumberPicker random;
+    private NoteCreator noteCreator;
 
-    public NoteMutator(RandomNumberPicker random) {
+    public NoteMutator(RandomNumberPicker random, NoteCreator noteCreator) {
         this.random = random;
+        this.noteCreator = noteCreator;
     }
 
     @Override
     public Note mutate(Note feature) {
         Integer value = feature.getValue();
         int mutatedNoteValue = value + createRandomOffset();
-        return new Note(mutatedNoteValue);
+        return noteCreator.createNote(mutatedNoteValue);
     }
 
     private int createRandomOffset() {

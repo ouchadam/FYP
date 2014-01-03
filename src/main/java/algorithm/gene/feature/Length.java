@@ -1,13 +1,17 @@
 package algorithm.gene.feature;
 
+import algorithm.fitness.FitnessEvaluator;
+import algorithm.fitness.FitnessValue;
 import algorithm.gene.Feature;
 
 public class Length implements Feature<Integer> {
 
     private final int value;
+    private final FitnessEvaluator<Integer> evaluator;
 
-    public Length(int value) {
+    public Length(int value, FitnessEvaluator<Integer> evaluator) {
         this.value = value;
+        this.evaluator = evaluator;
     }
 
     @Override
@@ -32,5 +36,10 @@ public class Length implements Feature<Integer> {
     @Override
     public Integer getValue() {
         return value;
+    }
+
+    @Override
+    public FitnessValue getFitness() {
+        return evaluator.evaluate(getValue());
     }
 }

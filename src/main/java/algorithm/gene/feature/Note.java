@@ -1,36 +1,20 @@
 package algorithm.gene.feature;
 
-import algorithm.gene.Feature;
+import algorithm.fitness.FitnessEvaluator;
 
-public class Note implements Feature<Integer> {
+public class Note extends FitnessFeature<Integer> {
 
-    private final int value;
-
-    public Note(int value) {
-        this.value = value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Note note = (Note) o;
-        if (value != note.value) return false;
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return value;
+    Note(int value, FitnessEvaluator<Integer> evaluator) {
+        super(value, evaluator);
     }
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return String.valueOf(getValue());
     }
 
-    @Override
-    public Integer getValue() {
-        return value;
+    public Note from(Note note, int value) {
+        return new Note(value, note.getEvaluator());
     }
+
 }

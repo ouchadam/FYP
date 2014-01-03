@@ -1,6 +1,7 @@
 package algorithm.population;
 
 import algorithm.crossover.MemberCrossover;
+import algorithm.gene.feature.FeatureFactory;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -8,19 +9,22 @@ import org.mockito.Spy;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class BasicPopulationCreatorShould extends TestWithMocks {
 
     static final int PARENT_OFFSET = 2;
-    @Spy MemberFactory memberFactory;
+
+    MemberFactory memberFactory;
     @Mock MemberCrossover mockCrossover;
 
     BasicPopulationCreator basicPopulationCreator;
 
     @Override
     protected void before() {
+        memberFactory = spy(new MemberFactory(FeatureFactory.newInstance()));
         basicPopulationCreator = new BasicPopulationCreator(memberFactory, mockCrossover);
     }
 

@@ -1,6 +1,8 @@
 package helper;
 
+import algorithm.fitness.NoteFitness;
 import algorithm.gene.*;
+import algorithm.gene.feature.FeatureFactory;
 import algorithm.population.ChromosomeManager;
 import algorithm.population.Member;
 import algorithm.gene.feature.Note;
@@ -13,9 +15,11 @@ import static org.mockito.Mockito.mock;
 public class MemberHelper {
 
     public static Chromosome createChromosome(int... notes) {
+        FeatureFactory featureFactory = FeatureFactory.newInstance();
+
         List<Gene<? extends Feature>> genes = new ArrayList<Gene<? extends Feature>>(notes.length);
         for (int note : notes) {
-            genes.add(new Gene<Feature>(new Note(note), mock(Mutator.class)));
+            genes.add(new Gene<Feature>(featureFactory.createNote(note), mock(Mutator.class)));
         }
         return new Chromosome(GeneManager.from(genes));
     }

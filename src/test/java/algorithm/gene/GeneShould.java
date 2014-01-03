@@ -1,5 +1,6 @@
 package algorithm.gene;
 
+import algorithm.fitness.FitnessValue;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -23,6 +24,11 @@ public class GeneShould extends TestWithMocks {
     private static class StubFeature implements Feature<Void> {
         @Override
         public Void getValue() {
+            return null;
+        }
+
+        @Override
+        public FitnessValue getFitness() {
             return null;
         }
     }

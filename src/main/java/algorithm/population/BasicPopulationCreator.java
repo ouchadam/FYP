@@ -3,6 +3,8 @@ package algorithm.population;
 import algorithm.crossover.Crossover;
 import algorithm.crossover.MemberCrossover;
 import algorithm.crossover.SinglePointChromosomeCrossover;
+import algorithm.gene.feature.FeatureFactory;
+import com.sun.media.sound.FFT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ public class BasicPopulationCreator implements PopulationCreator {
     private final Crossover<Member> memberCrossover;
 
     public static BasicPopulationCreator newInstance() {
-        return new BasicPopulationCreator(new MemberFactory(), new MemberCrossover(new SinglePointChromosomeCrossover(2)));
+        return new BasicPopulationCreator(new MemberFactory(FeatureFactory.newInstance()), new MemberCrossover(new SinglePointChromosomeCrossover(2)));
     }
 
     BasicPopulationCreator(MemberFactory memberFactory, Crossover<Member> memberCrossover) {

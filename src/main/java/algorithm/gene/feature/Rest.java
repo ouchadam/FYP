@@ -1,10 +1,13 @@
 package algorithm.gene.feature;
 
+import algorithm.fitness.FitnessEvaluator;
+import algorithm.fitness.FitnessValue;
 import algorithm.gene.Feature;
 
 public class Rest implements Feature<Rest.Value> {
 
     private final Value value;
+    private final FitnessEvaluator<Value> evaluator;
 
     public enum Value {
         REST {
@@ -23,8 +26,9 @@ public class Rest implements Feature<Rest.Value> {
         abstract String asValue();
 
     }
-    public Rest(Value value) {
+    public Rest(Value value, FitnessEvaluator<Value> evaluator) {
         this.value = value;
+        this.evaluator = evaluator;
     }
 
     @Override
@@ -49,6 +53,11 @@ public class Rest implements Feature<Rest.Value> {
     @Override
     public Value getValue() {
         return value;
+    }
+
+    @Override
+    public FitnessValue getFitness() {
+        return evaluator.evaluate(getValue());
     }
 
 }
