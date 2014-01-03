@@ -12,16 +12,6 @@ public class RestShould extends TestWithMocks {
     @Mock FitnessEvaluator<Rest.Value> evaluator;
 
     @Test
-    public void equal_when_values_are_the_same() {
-        Rest rest_1 = new Rest(Rest.Value.REST, evaluator);
-        Rest rest_2 = new Rest(Rest.Value.REST, evaluator);
-
-        assertThat(rest_1).isEqualTo(rest_2);
-        assertThat(rest_1.hashCode()).isEqualTo(rest_2.hashCode());
-    }
-
-
-    @Test
     public void represent_its_value_as_a_1_when_REST() {
         Rest rest = new Rest(Rest.Value.REST, evaluator);
 
@@ -29,7 +19,6 @@ public class RestShould extends TestWithMocks {
 
         assertThat(value).isEqualTo(1);
     }
-
 
     @Test
     public void represent_its_value_as_a_0_when_HOLD() {
@@ -39,4 +28,5 @@ public class RestShould extends TestWithMocks {
 
         assertThat(value).isEqualTo(0);
     }
+
 }

@@ -1,11 +1,8 @@
 package algorithm.fitness;
 
-import algorithm.gene.feature.Note;
-import algorithm.gene.feature.Octave;
-
-public class OctaveFitness implements FitnessEvaluator<Octave> {
+public class OctaveFitness implements FitnessEvaluator<Integer> {
     @Override
-    public FitnessValue evaluate(Octave what) {
+    public FitnessValue evaluate(Integer what) {
         return null;
     }
 }

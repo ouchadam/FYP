@@ -1,5 +1,6 @@
 package algorithm.population;
 
+
 import algorithm.gene.Chromosome;
 import algorithm.gene.Gene;
 import algorithm.gene.GeneManager;

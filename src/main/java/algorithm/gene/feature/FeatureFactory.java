@@ -5,7 +5,7 @@ import algorithm.fitness.*;
 public class FeatureFactory implements NoteCreator {
 
     private final FitnessEvaluator<Integer> lengthEvaluator;
-    private final FitnessEvaluator<Octave> octaveEvaluator;
+    private final FitnessEvaluator<Integer> octaveEvaluator;
     private final FitnessEvaluator<Integer> noteEvaluator;
     private final FitnessEvaluator<Rest.Value> restEvaluator;
 

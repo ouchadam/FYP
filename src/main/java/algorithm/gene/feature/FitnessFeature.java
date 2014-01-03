@@ -7,8 +7,8 @@ import algorithm.gene.Feature;
 abstract class FitnessFeature<V> implements Feature<V> {
 
     private final FitnessEvaluator<V> evaluator;
-
     private final V value;
+
     protected FitnessFeature(V value, FitnessEvaluator<V> evaluator) {
         this.value = value;
         this.evaluator = evaluator;
@@ -41,7 +41,4 @@ abstract class FitnessFeature<V> implements Feature<V> {
         return value;
     }
 
-    FitnessEvaluator<V> getEvaluator() {
-        return evaluator;
-    }
 }
