@@ -1,6 +1,6 @@
 package algorithm;
 
-import algorithm.fitness.ChromosomeFitness;
+import algorithm.fitness.MemberFitness;
 import algorithm.population.ChromosomeManager;
 import algorithm.population.Member;
 import helper.MemberHelper;
@@ -14,11 +14,10 @@ import static org.mockito.Mockito.verify;
 public class MemberShould extends TestWithMocks {
 
     @Mock ChromosomeManager chromosomeManager;
-    @Mock ChromosomeFitness chromosomeFitness;
 
     @Test
     public void use_chromosomes_to_generate_toString() {
-        Member member = new Member(chromosomeManager, chromosomeFitness);
+        Member member = new Member(chromosomeManager);
 
         member.toString();
 

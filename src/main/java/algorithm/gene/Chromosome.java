@@ -10,7 +10,7 @@ public class Chromosome {
         this.genes = geneManager;
     }
 
-    public Gene<? extends Feature> getGene(int position) {
+    public Gene<? extends Feature<?>, ?> getGene(int position) {
         return genes.getGene(position);
     }
 

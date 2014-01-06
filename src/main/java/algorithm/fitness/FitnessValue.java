@@ -2,13 +2,13 @@ package algorithm.fitness;
 
 public class FitnessValue {
 
-    private static final int MAX = 100;
+    public static final int MAX_VALUE = 100;
     private static final int MIN = 0;
 
     private final int value;
 
     public static FitnessValue max() {
-        return new FitnessValue(MAX);
+        return new FitnessValue(MAX_VALUE);
     }
 
     public static FitnessValue min() {
@@ -20,11 +20,15 @@ public class FitnessValue {
     }
 
     public boolean isMax() {
-        return value == MAX;
+        return value == MAX_VALUE;
     }
 
 
     public boolean isMin() {
         return value == MIN;
+    }
+
+    public int value() {
+        return value;
     }
 }

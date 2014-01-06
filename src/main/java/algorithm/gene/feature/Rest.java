@@ -1,8 +1,8 @@
 package algorithm.gene.feature;
 
-import algorithm.fitness.FitnessEvaluator;
+import algorithm.fitness.EvaluatorType;
 
-public class Rest extends FitnessFeature<Rest.Value> {
+public class Rest extends BaseFeature<Rest.Value> {
 
     public enum Value {
         REST {
@@ -22,8 +22,8 @@ public class Rest extends FitnessFeature<Rest.Value> {
 
     }
 
-    public Rest(Value value, FitnessEvaluator<Value> evaluator) {
-        super(value, evaluator);
+    public Rest(Value value) {
+        super(value, EvaluatorType.REST);
     }
 
     @Override

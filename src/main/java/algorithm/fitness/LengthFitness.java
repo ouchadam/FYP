@@ -1,11 +1,16 @@
 package algorithm.fitness;
 
-import algorithm.gene.feature.Length;
+public class LengthFitness extends FitnessWrapper<Integer> {
 
-
-public class LengthFitness implements FitnessEvaluator<Integer> {
     @Override
-    public FitnessValue evaluate(Integer what) {
-        return FitnessValue.min();
+    protected FitnessEvaluator<Integer> getEvaluator() {
+        return fitnessEvaluator;
     }
+
+    private final FitnessEvaluator<Integer> fitnessEvaluator = new FitnessEvaluator<Integer>() {
+        @Override
+        public FitnessValue evaluate(Integer what) {
+            return FitnessValue.min();
+        }
+    };
 }

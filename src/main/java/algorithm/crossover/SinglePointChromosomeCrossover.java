@@ -18,23 +18,23 @@ public class SinglePointChromosomeCrossover implements Crossover<Chromosome> {
 
     @Override
     public Chromosome crossover(Chromosome parentX, Chromosome parentY) {
-        List<Gene<? extends Feature>> parentXGenes = getGenesFromParent(parentX, 0, position);
-        List<Gene<? extends Feature>> parentYGenes = getGenesFromParent(parentY, position, parentY.count());
+        List<Gene<? extends Feature<?>, ?>> parentXGenes = getGenesFromParent(parentX, 0, position);
+        List<Gene<? extends Feature<?>, ?>> parentYGenes = getGenesFromParent(parentY, position, parentY.count());
 
         return new Chromosome(GeneManager.from(mergeGenes(parentXGenes, parentYGenes)));
     }
 
-    private List<Gene<? extends Feature>> getGenesFromParent(Chromosome parent, int from, int to) {
-        List<Gene<? extends Feature>> genes = new ArrayList<Gene<? extends Feature>>();
+    private List<Gene<? extends Feature<?>, ?>> getGenesFromParent(Chromosome parent, int from, int to) {
+        List<Gene<? extends Feature<?>, ?>> genes = new ArrayList<Gene<? extends Feature<?>, ?>>();
         for (int index = from; index < to; index ++) {
-            Gene<? extends Feature> gene = parent.getGene(index);
+            Gene<? extends Feature<?>, ?> gene = parent.getGene(index);
             genes.add(gene);
         }
         return genes;
     }
 
-    private List<Gene<? extends Feature>> mergeGenes(List<Gene<? extends Feature>> parentXGenes, List<Gene<? extends Feature>> parentYGenes) {
-        List<Gene<? extends Feature>> genes = new ArrayList<Gene<? extends Feature>>();
+    private List<Gene<? extends Feature<?>, ?>> mergeGenes(List<Gene<? extends Feature<?>, ?>> parentXGenes, List<Gene<? extends Feature<?>, ?>> parentYGenes) {
+        List<Gene<? extends Feature<?>, ?>> genes = new ArrayList<Gene<? extends Feature<?>, ?>>();
         genes.addAll(parentXGenes);
         genes.addAll(parentYGenes);
         return genes;

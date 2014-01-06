@@ -1,29 +1,23 @@
 package algorithm.gene.feature;
 
-import algorithm.fitness.FitnessEvaluator;
-import algorithm.fitness.FitnessValue;
+import algorithm.fitness.EvaluatorType;
 import algorithm.gene.Feature;
 
-abstract class FitnessFeature<V> implements Feature<V> {
+abstract class BaseFeature<V> implements Feature<V> {
 
-    private final FitnessEvaluator<V> evaluator;
     private final V value;
+    private final EvaluatorType evaluator;
 
-    protected FitnessFeature(V value, FitnessEvaluator<V> evaluator) {
+    protected BaseFeature(V value, EvaluatorType evaluator) {
         this.value = value;
         this.evaluator = evaluator;
-    }
-
-    @Override
-    public FitnessValue getFitness() {
-        return evaluator.evaluate(getValue());
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FitnessFeature that = (FitnessFeature) o;
+        BaseFeature that = (BaseFeature) o;
         if (value != null ? !value.equals(that.value) : that.value != null) return false;
         return true;
     }
@@ -38,4 +32,8 @@ abstract class FitnessFeature<V> implements Feature<V> {
         return value;
     }
 
+    @Override
+    public EvaluatorType getEvaluatorType() {
+        return evaluator;
+    }
 }

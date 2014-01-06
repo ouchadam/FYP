@@ -1,8 +1,17 @@
 package algorithm.fitness;
 
-public class OctaveFitness implements FitnessEvaluator<Integer> {
+public class OctaveFitness extends FitnessWrapper<Integer> {
+
     @Override
-    public FitnessValue evaluate(Integer what) {
-        return FitnessValue.min();
+    protected FitnessEvaluator<Integer> getEvaluator() {
+        return fitnessEvaluator;
     }
+
+    private final FitnessEvaluator<Integer> fitnessEvaluator = new FitnessEvaluator<Integer>() {
+        @Override
+        public FitnessValue evaluate(Integer what) {
+            return FitnessValue.min();
+        }
+    };
+
 }

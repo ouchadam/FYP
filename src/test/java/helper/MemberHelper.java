@@ -1,12 +1,10 @@
 package helper;
 
-import algorithm.fitness.ChromosomeFitness;
-import algorithm.fitness.NoteFitness;
+import algorithm.fitness.MemberFitness;
 import algorithm.gene.*;
 import algorithm.gene.feature.FeatureFactory;
 import algorithm.population.ChromosomeManager;
 import algorithm.population.Member;
-import algorithm.gene.feature.Note;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,19 +16,24 @@ public class MemberHelper {
     public static Chromosome createChromosome(int... notes) {
         FeatureFactory featureFactory = FeatureFactory.newInstance();
 
-        List<Gene<? extends Feature>> genes = new ArrayList<Gene<? extends Feature>>(notes.length);
+        List<Gene<? extends Feature<?>, ?>> genes = new ArrayList<Gene<? extends Feature<?>, ?>>(notes.length);
         for (int note : notes) {
-            genes.add(new Gene<Feature>(featureFactory.createNote(note), mock(Mutator.class)));
+            genes.add(new Gene<Feature<Integer>, Integer>(featureFactory.createNote(note), mock(Mutator.class)));
         }
         return new Chromosome(GeneManager.from(genes));
     }
 
     public static Member createMember(Chromosome... chromosomeArray) {
-        return new Member(createChromosomes(chromosomeArray), new ChromosomeFitness());
+        return new Member(createChromosomes(chromosomeArray));
     }
 
-    public static Member createMember() {
-        return new Member(createChromosomes(createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4)), new ChromosomeFitness());
+    public static Member createUnfitMember() {
+        return new Member(createChromosomes(createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4), createChromosome(1, 2, 3, 4)));
+    }
+
+
+    public static Member createFitMember() {
+        return new Member(createChromosomes(createChromosome(10, 10, 10, 10), createChromosome(10, 10, 10, 10), createChromosome(10, 10, 10, 10), createChromosome(10, 10, 10, 10)));
     }
 
     public static ChromosomeManager createChromosomes(Chromosome... chromosomeArray) {

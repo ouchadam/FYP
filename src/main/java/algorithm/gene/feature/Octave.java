@@ -1,11 +1,11 @@
 package algorithm.gene.feature;
 
-import algorithm.fitness.FitnessEvaluator;
+import algorithm.fitness.EvaluatorType;
 
-public class Octave extends FitnessFeature<Integer> {
+public class Octave extends BaseFeature<Integer> {
 
-    public Octave(int value, FitnessEvaluator<Integer> evaluator) {
-        super(value, evaluator);
+    public Octave(int value) {
+        super(value, EvaluatorType.OCTAVE);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package algorithm.gene;
 
-import algorithm.fitness.FitnessValue;
+import algorithm.fitness.EvaluatorType;
 
 public interface Feature<V> {
     V getValue();
-    FitnessValue getFitness();
+    EvaluatorType getEvaluatorType();
 }

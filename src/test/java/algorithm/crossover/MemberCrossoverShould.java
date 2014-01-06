@@ -23,8 +23,8 @@ public class MemberCrossoverShould extends TestWithMocks {
 
     @Test
     public void crossover_all_child_chromosome() throws Exception {
-        Member member_1 = MemberHelper.createMember();
-        Member member_2 = MemberHelper.createMember();
+        Member member_1 = MemberHelper.createUnfitMember();
+        Member member_2 = MemberHelper.createUnfitMember();
         int crossoverCount = member_1.count();
 
         memberCrossover.crossover(member_1, member_2);

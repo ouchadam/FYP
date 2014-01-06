@@ -1,17 +1,13 @@
 package algorithm.population;
 
-import algorithm.fitness.ChromosomeFitness;
-import algorithm.fitness.FitnessValue;
 import algorithm.gene.Chromosome;
 
 public class Member {
 
     private final ChromosomeManager chromosomeManager;
-    private final ChromosomeFitness chromosomeFitness;
 
-    public Member(ChromosomeManager chromosomeManager, ChromosomeFitness chromosomeFitness) {
+    public Member(ChromosomeManager chromosomeManager) {
         this.chromosomeManager = chromosomeManager;
-        this.chromosomeFitness = chromosomeFitness;
     }
 
     @Override
@@ -43,10 +39,6 @@ public class Member {
 
     public void mutate() {
         chromosomeManager.mutate();
-    }
-
-    public FitnessValue getFitness() {
-        return chromosomeFitness.evaluate(chromosomeManager);
     }
 
 }

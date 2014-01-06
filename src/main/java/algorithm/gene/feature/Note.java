@@ -1,11 +1,11 @@
 package algorithm.gene.feature;
 
-import algorithm.fitness.FitnessEvaluator;
+import algorithm.fitness.EvaluatorType;
 
-public class Note extends FitnessFeature<Integer> {
+public class Note extends BaseFeature<Integer> {
 
-    Note(int value, FitnessEvaluator<Integer> evaluator) {
-        super(value, evaluator);
+    Note(int value) {
+        super(value, EvaluatorType.NOTE);
     }
 
     @Override

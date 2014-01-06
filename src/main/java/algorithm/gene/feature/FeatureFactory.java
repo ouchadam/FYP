@@ -1,39 +1,25 @@
 package algorithm.gene.feature;
 
-import algorithm.fitness.*;
-
 public class FeatureFactory implements NoteCreator {
 
-    private final FitnessEvaluator<Integer> lengthEvaluator;
-    private final FitnessEvaluator<Integer> octaveEvaluator;
-    private final FitnessEvaluator<Integer> noteEvaluator;
-    private final FitnessEvaluator<Rest.Value> restEvaluator;
-
     public static FeatureFactory newInstance() {
-        return new FeatureFactory(new LengthFitness(), new OctaveFitness(), new NoteFitness(), new RestFitness());
-    }
-
-    FeatureFactory(LengthFitness lengthEvaluator, OctaveFitness octaveEvaluator, NoteFitness noteEvaluator, RestFitness restEvaluator) {
-        this.lengthEvaluator = lengthEvaluator;
-        this.octaveEvaluator = octaveEvaluator;
-        this.noteEvaluator = noteEvaluator;
-        this.restEvaluator = restEvaluator;
+        return new FeatureFactory();
     }
 
     public Length createLength(int value) {
-        return new Length(value, lengthEvaluator);
+        return new Length(value);
     }
 
     @Override
     public Note createNote(int value) {
-        return new Note(value, noteEvaluator);
+        return new Note(value);
     }
 
     public Rest createRest(Rest.Value value) {
-        return new Rest(value, restEvaluator);
+        return new Rest(value);
     }
 
     public Octave createOctave(int value) {
-        return new Octave(value, octaveEvaluator);
+        return new Octave(value);
     }
 }

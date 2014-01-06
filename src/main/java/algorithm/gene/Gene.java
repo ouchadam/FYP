@@ -1,8 +1,8 @@
 package algorithm.gene;
 
-import algorithm.fitness.FitnessValue;
+import algorithm.fitness.EvaluatorType;
 
-public class Gene<T extends Feature> implements Mutatable<T> {
+public class Gene<T extends Feature<V>, V> implements Mutatable<T> {
 
     private final T feature;
     private final Mutator<T> mutator;
@@ -36,7 +36,12 @@ public class Gene<T extends Feature> implements Mutatable<T> {
         return feature.toString();
     }
 
-    public FitnessValue getFitness() {
-        return feature.getFitness();
+    public EvaluatorType getEvaluatorType() {
+        return feature.getEvaluatorType();
     }
+
+    public V getValue() {
+        return feature.getValue();
+    }
+
 }

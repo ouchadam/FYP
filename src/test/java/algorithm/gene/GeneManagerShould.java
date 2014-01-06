@@ -22,7 +22,7 @@ public class GeneManagerShould extends TestWithMocks {
     public void mutate_a_child_gene() throws Exception {
         Gene gene = mock(Gene.class);
         int geneCount = 1;
-        RandomListPicker<Gene<? extends Feature>> genePicker = new RandomListPicker<Gene<? extends Feature>>();
+        RandomListPicker<Gene<? extends Feature<?>, ?>> genePicker = new RandomListPicker<Gene<? extends Feature<?>, ?>>();
         GeneManager geneManager = new GeneManager(genePicker, geneCount, gene);
 
         geneManager.mutate();
@@ -32,7 +32,7 @@ public class GeneManagerShould extends TestWithMocks {
 
     @Test
     public void choose_a_random_gene_via_the_random_list_picker_when_mutating() {
-        RandomListPicker<Gene<? extends Feature>> genePicker = spy(new RandomListPicker<Gene<? extends Feature>>());
+        RandomListPicker<Gene<? extends Feature<?>, ?>> genePicker = spy(new RandomListPicker<Gene<? extends Feature<?>, ?>>());
         GeneManager geneManager = new GeneManager(genePicker, 2, mock(Gene.class), mock(Gene.class));
 
         geneManager.mutate();

@@ -29,10 +29,10 @@ public class UniformChromosomeCrossover implements Crossover<Chromosome> {
     }
 
     private GeneManager mergeRandomParentGenes(Chromosome parentX, Chromosome parentY) {
-        List<Gene<? extends Feature>> genes = new ArrayList<Gene<? extends Feature>>(parentX.count());
+        List<Gene<? extends Feature<?>, ?>> genes = new ArrayList<Gene<? extends Feature<?>, ?>>(parentX.count());
         for (int index = 0; index < parentX.count(); index ++) {
             Chromosome randomParent = randomParentSelector.getParent(parentX, parentY);
-            Gene<? extends Feature> gene = randomParent.getGene(index);
+            Gene<? extends Feature<?>, ?> gene = randomParent.getGene(index);
             genes.add(gene);
         }
         return GeneManager.from(genes);

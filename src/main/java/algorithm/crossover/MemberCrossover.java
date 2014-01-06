@@ -1,6 +1,6 @@
 package algorithm.crossover;
 
-import algorithm.fitness.ChromosomeFitness;
+import algorithm.fitness.MemberFitness;
 import algorithm.gene.Chromosome;
 import algorithm.population.ChromosomeManager;
 import algorithm.population.Member;
@@ -22,7 +22,7 @@ public class MemberCrossover implements Crossover<Member> {
         for (int index = 0; index < parentX.count(); index++) {
             chromosomeList.add(chromosomeCrossover.crossover(parentX.get(index), parentY.get(index)));
         }
-        return new Member(ChromosomeManager.from(chromosomeList), new ChromosomeFitness());
+        return new Member(ChromosomeManager.from(chromosomeList));
     }
 
 }

@@ -9,12 +9,10 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public class NoteShould extends TestWithMocks {
 
-    @Mock FitnessEvaluator<Integer> evaluator;
-
     @Test
     public void provide_the_value_in_toString() throws Exception {
         int value = 10;
-        Note note_1 = new Note(value, evaluator);
+        Note note_1 = new Note(value);
 
         assertThat(note_1.toString()).isEqualTo(String.valueOf(value));
     }
