@@ -17,6 +17,7 @@ public class PopulationEvolverShould extends TestWithMocks {
 
     @Mock PopulationMutator populationMutator;
     @Mock PopulationCrosser populationCrosser;
+    @Mock FittestMemberFinder fittestMemberFinder;
     @Mock Population mockPopulation;
     PopulationEvolver populationEvolver;
 
@@ -32,7 +33,7 @@ public class PopulationEvolverShould extends TestWithMocks {
         when(mockPopulation.size()).thenReturn(members.size());
         when(populationMutator.mutate(any(Population.class))).thenReturn(mockPopulation);
 
-        populationEvolver = new PopulationEvolver(populationMutator, populationCrosser);
+        populationEvolver = new PopulationEvolver(populationMutator, populationCrosser, fittestMemberFinder);
     }
 
     @Test

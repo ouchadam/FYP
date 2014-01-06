@@ -34,7 +34,6 @@ public class MemberFitnessShould extends TestWithMocks {
         assertThat(fitnessValue.isMin()).isTrue();
     }
 
-
     @Test
     public void give_fit_members_a_maximum_fitness() {
         Member fitMember = MemberHelper.createFitMember();

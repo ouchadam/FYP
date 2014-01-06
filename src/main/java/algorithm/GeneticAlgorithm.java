@@ -11,7 +11,8 @@ public class GeneticAlgorithm {
     private final FittestMemberFinder fittestFinder;
 
     public static GeneticAlgorithm newInstance() {
-        return new GeneticAlgorithm(BasicPopulationCreator.newInstance(), new PopulationEvolver(new PopulationMutator(), EntirePopulationCrosser.newInstance()), new FittestMemberFinder(new MemberFitness(new EvaluatorFactory())));
+        FittestMemberFinder fittestFinder = new FittestMemberFinder(new MemberFitness(new EvaluatorFactory()));
+        return new GeneticAlgorithm(BasicPopulationCreator.newInstance(), new PopulationEvolver(new PopulationMutator(), EntirePopulationCrosser.newInstance(), fittestFinder), fittestFinder);
     }
 
     public GeneticAlgorithm(PopulationCreator populationCreator, PopulationEvolver populationEvolver, FittestMemberFinder fittestFinder) {
