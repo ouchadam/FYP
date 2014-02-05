@@ -4,11 +4,19 @@ import algorithm.crossover.population.evaluate.fitness.FitnessValue;
 
 public class Evaluation {
 
+    private final FitnessValue fitnessValue;
+    private final Population population;
+
+    public Evaluation(FitnessValue fitnessValue, Population population) {
+        this.fitnessValue = fitnessValue;
+        this.population = population;
+    }
+
     public FitnessValue fitnessValue() {
-        return null;
+        return fitnessValue;
     }
 
     public Population population() {
-        return null;
+        return population;
     }
 }

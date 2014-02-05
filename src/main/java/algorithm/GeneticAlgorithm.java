@@ -2,6 +2,7 @@ package algorithm;
 
 import algorithm.crossover.population.*;
 import algorithm.crossover.population.evaluate.Evaluator;
+import algorithm.crossover.population.evaluate.FitnessFactory;
 import algorithm.crossover.population.evaluate.PopulationEvaluator;
 
 public class GeneticAlgorithm {
@@ -21,7 +22,7 @@ public class GeneticAlgorithm {
         return new GeneticAlgorithm(new PopulationCreator(new PopulationCreator.MemberCreator()),
                 new PopulationMutator(),
                 new PopulationCrossover(),
-                new PopulationEvaluator(),
+                new PopulationEvaluator(new FitnessFactory()),
                 new PopulationPruner(MAX_POPULATION_SIZE));
     }
 
@@ -36,7 +37,7 @@ public class GeneticAlgorithm {
     public Population work() {
         // TODO create initial population
         // TODO loop mutation > select best > crossover
-        return recur(createInitalPopulation());
+        return generation(createInitalPopulation());
     }
 
     private Population createInitalPopulation() {
@@ -44,10 +45,10 @@ public class GeneticAlgorithm {
     }
 
 
-    private Population recur(Population population) {
+    private Population generation(Population population) {
         // TODO create new population generation via breeding
         Evaluation evaluation = evaluator.evaluate(mutator.mutate(crossover.crossover(pruner.prune(population))));
-        return evaluation.fitnessValue().get() >= ACCEPTABLE_FITNESS_VALUE ? evaluation.population() : recur(evaluation.population());
+        return evaluation.fitnessValue().get() >= ACCEPTABLE_FITNESS_VALUE ? evaluation.population() : generation(evaluation.population());
     }
 
 }

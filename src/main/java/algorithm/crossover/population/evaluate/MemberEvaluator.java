@@ -3,13 +3,15 @@ package algorithm.crossover.population.evaluate;
 import algorithm.ForEach;
 import algorithm.Member;
 import algorithm.crossover.binary.Binary;
+import algorithm.crossover.population.Evaluation;
+import algorithm.crossover.population.evaluate.fitness.FitnessEvaluator;
 import algorithm.crossover.population.evaluate.fitness.FitnessRule;
 import algorithm.crossover.population.evaluate.fitness.FitnessValue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class MemberEvaluator {
+class MemberEvaluator implements FitnessEvaluator {
 
     private final FitnessRule<Binary> fixedNoteRule;
     private final Member member;
@@ -22,6 +24,7 @@ class MemberEvaluator {
         this.valueList = new ArrayList<FitnessValue>(member.size());
     }
 
+    @Override
     public FitnessValue evaluate() {
         member.forEachNote(evaluate);
         return average(valueList);

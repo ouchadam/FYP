@@ -36,7 +36,6 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         Evaluation evaluation = mock(Evaluation.class);
         when(evaluation.fitnessValue()).thenReturn(FitnessValue.max());
         return evaluation;
-
     }
 
 }
