@@ -23,10 +23,13 @@ public class Member {
         return notes;
     }
 
-    public void forEach(ForEach<Binary> forEach) {
+    public void forEachNote(ForEach<Binary> forEach) {
         for (Binary note : notes) {
             forEach.on(note);
         }
     }
 
+    public int size() {
+        return notes.size();
+    }
 }

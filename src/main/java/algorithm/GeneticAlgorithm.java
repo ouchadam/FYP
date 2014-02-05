@@ -1,6 +1,8 @@
 package algorithm;
 
 import algorithm.crossover.population.*;
+import algorithm.crossover.population.evaluate.Evaluator;
+import algorithm.crossover.population.evaluate.PopulationEvaluator;
 
 public class GeneticAlgorithm {
 
@@ -9,51 +11,43 @@ public class GeneticAlgorithm {
 
     private final static int ACCEPTABLE_FITNESS_VALUE = 10;
 
-    private PopulationMutator mutator;
-    private PopulationCrossover crossover;
-    private PopulationEvaluator evaluator;
-    private PopulationPruner pruner;
+    private final PopulationMutator mutator;
+    private final PopulationCrossover crossover;
+    private final Evaluator<Population> evaluator;
+    private final PopulationPruner pruner;
+    private final PopulationCreator populationCreator;
 
-    public void entry() {
+    public static GeneticAlgorithm newInstance() {
+        return new GeneticAlgorithm(new PopulationCreator(new PopulationCreator.MemberCreator()),
+                new PopulationMutator(),
+                new PopulationCrossover(),
+                new PopulationEvaluator(),
+                new PopulationPruner(MAX_POPULATION_SIZE));
+    }
+
+    GeneticAlgorithm(PopulationCreator creator, PopulationMutator mutator, PopulationCrossover crossover, Evaluator<Population> evaluator, PopulationPruner pruner) {
+        populationCreator = creator;
+        this.mutator = mutator;
+        this.crossover = crossover;
+        this.evaluator = evaluator;
+        this.pruner = pruner;
+    }
+
+    public Population work() {
         // TODO create initial population
-        PopulationCreator populationCreator = new PopulationCreator(new PopulationCreator.MemberCreator());
-        Population population = populationCreator.createPopulation(INITIAL_POPULATION_SIZE);
-
-        mutator = new PopulationMutator();
-        crossover = new PopulationCrossover();
-        evaluator = new PopulationEvaluator();
-        pruner = new PopulationPruner(MAX_POPULATION_SIZE);
-
-
-        Population finalPopulation = recur(population);
-
         // TODO loop mutation > select best > crossover
+        return recur(createInitalPopulation());
+    }
 
+    private Population createInitalPopulation() {
+        return populationCreator.createPopulation(INITIAL_POPULATION_SIZE);
     }
 
 
     private Population recur(Population population) {
         // TODO create new population generation via breeding
         Evaluation evaluation = evaluator.evaluate(mutator.mutate(crossover.crossover(pruner.prune(population))));
-        return evaluation.fitnessValue() >= ACCEPTABLE_FITNESS_VALUE ? evaluation.population() : recur(evaluation.population());
-
-    }
-
-    private static class PopulationPruner {
-
-        private final int maxPopulationSize;
-
-        private PopulationPruner(int maxPopulationSize) {
-            this.maxPopulationSize = maxPopulationSize;
-        }
-
-        public Population prune(Population population) {
-            if (population.size() > maxPopulationSize) {
-                // TODO remove worst - should be the last positions as the evaluation process should reorder the members
-                return population.prune(population);
-            }
-            return population;
-        }
+        return evaluation.fitnessValue().get() >= ACCEPTABLE_FITNESS_VALUE ? evaluation.population() : recur(evaluation.population());
     }
 
 }

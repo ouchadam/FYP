@@ -22,13 +22,13 @@ public class Population {
         return members.get(index);
     }
 
-    public void forEach(ForEach<Member> forEach) {
+    public void forEachMember(ForEach<Member> forEach) {
         for (Member member : members) {
             forEach.on(member);
         }
     }
 
-    public Population prune(int from, int to) {
-        return new Population(members.subList(from, to));
+    public Population prune(int amount) {
+        return new Population(members.subList(0, amount));
     }
 }

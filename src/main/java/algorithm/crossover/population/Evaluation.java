@@ -1,8 +1,11 @@
 package algorithm.crossover.population;
 
+import algorithm.crossover.population.evaluate.fitness.FitnessValue;
+
 public class Evaluation {
-    public int fitnessValue() {
-        return 0;
+
+    public FitnessValue fitnessValue() {
+        return null;
     }
 
     public Population population() {

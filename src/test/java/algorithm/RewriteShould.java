@@ -14,13 +14,13 @@ public class RewriteShould extends TestWithMocks {
         Population population = new PopulationCreator(new PopulationCreator.MemberCreator()).createPopulation(2);
         Population crossOverPopulation = new PopulationCrossover().crossover(population);
         System.out.println("");
-        crossOverPopulation.forEach(printMember);
+        crossOverPopulation.forEachMember(printMember);
     }
 
     private final ForEach<Member> printMember = new ForEach<Member>() {
         @Override
         public void on(Member what) {
-            what.forEach(printNote);
+            what.forEachNote(printNote);
         }
     };
 
