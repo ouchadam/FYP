@@ -1,20 +1,24 @@
 package algorithm.crossover.population;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import algorithm.Member;
 import algorithm.crossover.Crossover;
 import algorithm.crossover.binary.Binary;
 import algorithm.crossover.binary.BinaryPadder;
 import algorithm.crossover.binary.BinarySinglePointCrossover;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PopulationCrossover {
 
     public Population crossover(Population population) {
         List<Member> newPopulation = new ArrayList<Member>(population.size() / 2);
         for (int index = 0; index < population.size(); index += 2) {
-            newPopulation.add(crossover(population.get(index), population.get(index + 1)));
+            if (population.size() > index + 1) {
+                newPopulation.add(crossover(population.get(index), population.get(index + 1)));
+            } else {
+                newPopulation.add(crossover(population.get(index), population.get(0)));
+            }
         }
         return new Population(newPopulation);
     }

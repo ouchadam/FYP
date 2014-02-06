@@ -1,15 +1,16 @@
 package algorithm.crossover.population.evaluate;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import algorithm.ForEach;
 import algorithm.Member;
 import algorithm.crossover.population.Evaluation;
 import algorithm.crossover.population.Population;
-import algorithm.crossover.population.evaluate.fitness.FitnessEvaluator;
+import algorithm.crossover.population.evaluate.fitness.FitnessRule;
 import algorithm.crossover.population.evaluate.fitness.FitnessValue;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import algorithm.crossover.population.evaluate.fitness.FixedNoteRule;
 
 public class PopulationEvaluator implements Evaluator<Population> {
 
@@ -45,13 +46,13 @@ public class PopulationEvaluator implements Evaluator<Population> {
     private final ForEach<Member> member = new ForEach<Member>() {
         @Override
         public void on(Member member) {
-            FitnessValue value = evaluate(fitnessFactory.member(member));
+            FitnessValue value = evaluate(member, FixedNoteRule.newInstance(60));
             valueList.add(new OrderedMember(value, member));
         }
     };
 
-    private FitnessValue evaluate(FitnessEvaluator evaluator) {
-        return evaluator.evaluate();
+    private FitnessValue evaluate(Member member, FitnessRule<Member>... rules) {
+        return fitnessFactory.member().evaluate(member, rules);
     }
 
     private static class OrderedMember implements Comparable<OrderedMember> {
@@ -66,7 +67,7 @@ public class PopulationEvaluator implements Evaluator<Population> {
 
         @Override
         public int compareTo(OrderedMember o) {
-            return this.value.get() < o.value.get() ? -1 : 1;
+            return this.value.get() < o.value.get() ? 1 : -1;
         }
     }
 

@@ -23,4 +23,18 @@ public class Binary {
     public int toDecimal() {
         return Integer.parseInt(value, 2);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Binary binary = (Binary) o;
+        if (value != null ? !value.equals(binary.value) : binary.value != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return value != null ? value.hashCode() : 0;
+    }
 }

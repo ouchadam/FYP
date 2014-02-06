@@ -1,15 +1,16 @@
 package algorithm.crossover.population.evaluate;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+import org.mockito.Mock;
+
 import algorithm.Member;
 import algorithm.crossover.binary.Binary;
 import algorithm.crossover.population.evaluate.fitness.FitnessRule;
 import algorithm.crossover.population.evaluate.fitness.FitnessValue;
 import helper.TestWithMocks;
-import org.junit.Test;
-import org.mockito.Mock;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -17,20 +18,20 @@ import static org.mockito.Mockito.when;
 
 public class MemberEvaluatorTest extends TestWithMocks {
 
-    @Mock FitnessRule<Binary> fitnessRule;
+    @Mock FitnessRule<Member> fitnessRule;
 
     @Override
     protected void before() {
-        when(fitnessRule.apply(any(Binary.class))).thenReturn(FitnessValue.max());
+        when(fitnessRule.apply(any(Member.class))).thenReturn(FitnessValue.max());
     }
 
     @Test
     public void make_use_of_the_supplied_rules() {
-        MemberEvaluator memberEvaluator = new MemberEvaluator(fitnessRule, createMember());
+        MemberEvaluator memberEvaluator = new MemberEvaluator();
 
-        memberEvaluator.evaluate();
+        memberEvaluator.evaluate(createMember(), fitnessRule);
 
-        verify(fitnessRule).apply(any(Binary.class));
+        verify(fitnessRule).apply(any(Member.class));
     }
 
     private Member createMember() {

@@ -9,6 +9,7 @@ import algorithm.crossover.population.PopulationCreator;
 import algorithm.crossover.population.PopulationCrossover;
 import algorithm.crossover.population.evaluate.Evaluator;
 import algorithm.crossover.population.evaluate.fitness.FitnessValue;
+import helper.Printer;
 import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -34,6 +35,16 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         Population population = geneticAlgorithm.work();
 
         assertThat(population).isNotNull();
+    }
+
+    @Test
+    public void testName() {
+
+        GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance();
+
+        Population output = geneticAlgorithm.work();
+
+        Printer.print(output);
     }
 
     private Evaluation createPassedEvaluation() {

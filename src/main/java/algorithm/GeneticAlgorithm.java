@@ -44,7 +44,7 @@ public class GeneticAlgorithm {
     }
 
     private Population generation(Population population) {
-        // TODO create new population generation via breeding
+        // TODO prunes population overflow (worst members) > breeds > mutates
         Evaluation evaluation = evaluator.evaluate(mutator.mutate(crossover.crossover(pruner.prune(population))));
         return evaluation.fitnessValue().get() >= ACCEPTABLE_FITNESS_VALUE ? evaluation.population() : generation(evaluation.population());
     }
