@@ -9,7 +9,6 @@ public class GeneticAlgorithm {
 
     private final static int INITIAL_POPULATION_SIZE = 2;
     private final static int MAX_POPULATION_SIZE = 10;
-
     private final static int ACCEPTABLE_FITNESS_VALUE = 10;
 
     private final PopulationMutator mutator;
@@ -43,7 +42,6 @@ public class GeneticAlgorithm {
     private Population createInitalPopulation() {
         return populationCreator.createPopulation(INITIAL_POPULATION_SIZE);
     }
-
 
     private Population generation(Population population) {
         // TODO create new population generation via breeding
