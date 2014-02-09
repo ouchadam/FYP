@@ -2,7 +2,7 @@ package algorithm.crossover.population.evaluate.fitness;
 
 import algorithm.ForEach;
 import algorithm.Member;
-import algorithm.crossover.binary.Binary;
+import algorithm.Note;
 import algorithm.crossover.population.evaluate.FitnessAccumulator;
 
 public class FixedNoteRule implements FitnessRule<Member> {
@@ -25,14 +25,14 @@ public class FixedNoteRule implements FitnessRule<Member> {
         return fitnessAccumulator.average();
     }
 
-    private final ForEach<Binary> evaluate = new ForEach<Binary>() {
+    private final ForEach<Note> evaluate = new ForEach<Note>() {
         @Override
-        public void on(Binary what) {
+        public void on(Note what) {
             fitnessAccumulator.add(fixedNote.apply(what));
         }
     };
 
-    private static class FixedNote implements FitnessRule<Binary> {
+    private static class FixedNote implements FitnessRule<Note> {
 
         private final static int NOTE_MAX = 127;
         private final static int NOTE_MIN = 0;
@@ -44,10 +44,10 @@ public class FixedNoteRule implements FitnessRule<Member> {
         }
 
         @Override
-        public FitnessValue apply(Binary what) {
+        public FitnessValue apply(Note what) {
             // TODO normalise max and min to 0 - 100
             // TODO use delta to find / adjust the fitness value
-            int delta = Math.abs(what.toDecimal() - fixedValue);
+            int delta = Math.abs(what.decimal() - fixedValue);
             return new FitnessValue(100 - delta);
 
 //            if (what.toDecimal() == fixedValue) {

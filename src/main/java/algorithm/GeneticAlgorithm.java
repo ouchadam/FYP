@@ -26,9 +26,9 @@ public class GeneticAlgorithm {
     public static GeneticAlgorithm newInstance() {
         CrossoverFactory crossoverFactory = CrossoverFactory.newInstance();
         return new GeneticAlgorithm(
-                new PopulationCreator(new PopulationCreator.MemberCreator(), crossoverFactory.singlePoint()),
+                new PopulationCreator(new PopulationCreator.MemberCreator(), new PopulationCrossover(crossoverFactory.singlePoint().note())),
                 new PopulationMutator(),
-                crossoverFactory.uniform(),
+                new PopulationCrossover(crossoverFactory.uniform().note()),
                 new PopulationEvaluator(new FitnessFactory()),
                 new PopulationPruner(MAX_POPULATION_SIZE));
     }
@@ -82,10 +82,10 @@ public class GeneticAlgorithm {
         }
     };
 
-    private final ForEach<Binary> printNote = new ForEach<Binary>() {
+    private final ForEach<Note> printNote = new ForEach<Note>() {
         @Override
-        public void on(Binary what) {
-            System.out.println(what.toDecimal());
+        public void on(Note what) {
+            System.out.println(what.decimal());
         }
     };
 

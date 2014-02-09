@@ -9,22 +9,22 @@ public class Member {
 
     public static final int CHILD_COUNT = 4;
 
-    private final List<Binary> notes;
+    private final List<Note> notes;
 
-    public Member(List<Binary> notes) {
+    public Member(List<Note> notes) {
         this.notes = Collections.unmodifiableList(notes);
     }
 
-    public Binary get(int index) {
+    public Note note(int index) {
         return notes.get(index);
     }
 
-    List<Binary> getNotes() {
+    List<Note> getNotes() {
         return notes;
     }
 
-    public void forEachNote(ForEach<Binary> forEach) {
-        for (Binary note : notes) {
+    public void forEachNote(ForEach<Note> forEach) {
+        for (Note note : notes) {
             forEach.on(note);
         }
     }

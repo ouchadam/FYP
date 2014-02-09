@@ -3,6 +3,7 @@ package algorithm.crossover.population.evaluate;
 import java.util.ArrayList;
 import java.util.List;
 
+import algorithm.Note;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -35,8 +36,8 @@ public class MemberEvaluatorTest extends TestWithMocks {
     }
 
     private Member createMember() {
-        List<Binary> arrayList = new ArrayList<Binary>();
-        arrayList.add(new Binary("01"));
+        List<Note> arrayList = new ArrayList<Note>();
+        arrayList.add(new Note(new Binary("01")));
         return new Member(arrayList);
     }
 }

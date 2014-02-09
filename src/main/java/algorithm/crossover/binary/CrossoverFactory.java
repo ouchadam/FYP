@@ -1,6 +1,9 @@
 package algorithm.crossover.binary;
 
+import algorithm.Note;
+import algorithm.crossover.Crossover;
 import algorithm.crossover.population.BinaryCrossover;
+import algorithm.crossover.population.NoteCrossover;
 import algorithm.crossover.population.PopulationCrossover;
 
 public class CrossoverFactory {
@@ -15,13 +18,28 @@ public class CrossoverFactory {
         this.binaryPadder = binaryPadder;
     }
 
-    public PopulationCrossover uniform() {
-        return new PopulationCrossover(new BinaryCrossover(BinaryUniformCrossover.newInstance(), binaryPadder));
+    public Uniform uniform() {
+        return new Uniform();
     }
 
-    public PopulationCrossover singlePoint() {
-        BinarySinglePointCrossover crosser = new BinarySinglePointCrossover(CrossoverPosition.from(CrossoverPosition.Position.MID));
-        return new PopulationCrossover(new BinaryCrossover(crosser, new BinaryPadder()));
+    public SinglePoint singlePoint() {
+        return new SinglePoint();
+    }
+
+    public static class Uniform {
+        private Uniform() {}
+
+        public Crossover<Note> note() {
+            return new NoteCrossover(BinaryUniformCrossover.newInstance());
+        }
+    }
+
+    public static class SinglePoint {
+        private SinglePoint() {}
+
+        public Crossover<Note> note() {
+            return new NoteCrossover(new BinarySinglePointCrossover(CrossoverPosition.from(CrossoverPosition.Position.MID)));
+        }
     }
 
 }

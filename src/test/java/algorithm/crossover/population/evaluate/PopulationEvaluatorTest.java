@@ -3,6 +3,7 @@ package algorithm.crossover.population.evaluate;
 import java.util.ArrayList;
 import java.util.List;
 
+import algorithm.Note;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -79,8 +80,8 @@ public class PopulationEvaluatorTest extends TestWithMocks {
     }
 
     private Member createMember(int noteValue) {
-        List<Binary> notes = new ArrayList<Binary>(2);
-        notes.add(new Binary(Integer.toBinaryString(noteValue)));
+        List<Note> notes = new ArrayList<Note>(2);
+        notes.add(new Note(new Binary(Integer.toBinaryString(noteValue))));
         return new Member(notes);
     }
 

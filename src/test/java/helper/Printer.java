@@ -2,6 +2,7 @@ package helper;
 
 import algorithm.ForEach;
 import algorithm.Member;
+import algorithm.Note;
 import algorithm.crossover.binary.Binary;
 import algorithm.crossover.population.Population;
 
@@ -18,10 +19,10 @@ public class Printer {
         }
     };
 
-    private final static ForEach<Binary> printNote = new ForEach<Binary>() {
+    private final static ForEach<Note> printNote = new ForEach<Note>() {
         @Override
-        public void on(Binary what) {
-            System.out.println(what.toDecimal());
+        public void on(Note what) {
+            System.out.println(what.decimal());
         }
     };
 

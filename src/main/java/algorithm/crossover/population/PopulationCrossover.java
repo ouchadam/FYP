@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import algorithm.Member;
+import algorithm.Note;
 import algorithm.crossover.Crossover;
 import algorithm.crossover.binary.Binary;
 
 public class PopulationCrossover {
 
-    private final BinaryCrossover binaryCrossover;
+    private final Crossover<Note> noteCrossover;
 
-    public PopulationCrossover(BinaryCrossover binaryCrossover) {
-        this.binaryCrossover = binaryCrossover;
+    public PopulationCrossover(Crossover<Note> noteCrossover) {
+        this.noteCrossover = noteCrossover;
     }
 
     public Population crossover(Population population) {
@@ -29,15 +30,17 @@ public class PopulationCrossover {
     }
 
     private Member crossover(Member memberX, Member memberY) {
-        List<Binary> notes = new ArrayList<Binary>(Member.CHILD_COUNT);
+        // TODO velocity etc...
+        List<Note> notes = new ArrayList<Note>(Member.CHILD_COUNT);
+
         for (int index = 0; index < Member.CHILD_COUNT; index++) {
-            notes.add(crossoverNote(binaryCrossover, memberX.get(index), memberY.get(index)));
+            notes.add(crossoverNote(noteCrossover, memberX.note(index), memberY.note(index)));
         }
         return new Member(notes);
     }
 
-    private Binary crossoverNote(Crossover<Binary> binaryCrossover, Binary binaryX, Binary binaryY) {
-        return binaryCrossover.crossover(binaryX, binaryY);
+    private Note crossoverNote(Crossover<Note> crossover, Note noteX, Note noteY) {
+        return crossover.crossover(noteX, noteY);
     }
 
 }

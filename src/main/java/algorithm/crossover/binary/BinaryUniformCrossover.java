@@ -3,21 +3,23 @@ package algorithm.crossover.binary;
 import java.util.Random;
 
 import algorithm.crossover.Crossover;
+import algorithm.crossover.population.BinaryCrossover;
 
-public class BinaryUniformCrossover implements Crossover<Binary> {
+public class BinaryUniformCrossover extends BinaryCrossover implements Crossover<Binary> {
 
     private final Random random;
 
     public static BinaryUniformCrossover newInstance() {
-        return new BinaryUniformCrossover(new Random());
+        return new BinaryUniformCrossover(new BinaryPadder(), new Random());
     }
 
-    BinaryUniformCrossover(Random random) {
+    BinaryUniformCrossover(BinaryPadder binaryPadder, Random random) {
+        super(binaryPadder);
         this.random = random;
     }
 
     @Override
-    public Binary crossover(Binary parentX, Binary parentY) {
+    protected Binary matchedBinaryCrossover(Binary parentX, Binary parentY) {
         int length = parentX.wordLength();
         int[] crossovers = createCrossovers(length);
         String y = parentY.getValue();
