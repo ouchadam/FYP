@@ -67,7 +67,9 @@ public class PopulationEvaluator implements Evaluator<Population> {
 
         @Override
         public int compareTo(OrderedMember o) {
-            return this.value.get() < o.value.get() ? 1 : -1;
+            int value1 = value.get();
+            int value2 = o.value.get();
+            return value1 == value2 ? 0 : value1 < value2 ? 1 : -1;
         }
     }
 

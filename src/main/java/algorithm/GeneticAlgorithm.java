@@ -1,6 +1,11 @@
 package algorithm;
 
-import algorithm.crossover.population.*;
+import algorithm.crossover.binary.Binary;
+import algorithm.crossover.binary.CrossoverFactory;
+import algorithm.crossover.population.Evaluation;
+import algorithm.crossover.population.Population;
+import algorithm.crossover.population.PopulationCreator;
+import algorithm.crossover.population.PopulationCrossover;
 import algorithm.crossover.population.evaluate.Evaluator;
 import algorithm.crossover.population.evaluate.FitnessFactory;
 import algorithm.crossover.population.evaluate.PopulationEvaluator;
@@ -9,7 +14,8 @@ public class GeneticAlgorithm {
 
     private final static int INITIAL_POPULATION_SIZE = 2;
     private final static int MAX_POPULATION_SIZE = 10;
-    private final static int ACCEPTABLE_FITNESS_VALUE = 10;
+    private final static int GENERATION_LIMIT = 1000;
+    final static int ACCEPTABLE_FITNESS_VALUE = 80;
 
     private final PopulationMutator mutator;
     private final PopulationCrossover crossover;
@@ -18,9 +24,11 @@ public class GeneticAlgorithm {
     private final PopulationCreator populationCreator;
 
     public static GeneticAlgorithm newInstance() {
-        return new GeneticAlgorithm(new PopulationCreator(new PopulationCreator.MemberCreator()),
+        CrossoverFactory crossoverFactory = CrossoverFactory.newInstance();
+        return new GeneticAlgorithm(
+                new PopulationCreator(new PopulationCreator.MemberCreator(), crossoverFactory.singlePoint()),
                 new PopulationMutator(),
-                new PopulationCrossover(),
+                crossoverFactory.uniform(),
                 new PopulationEvaluator(new FitnessFactory()),
                 new PopulationPruner(MAX_POPULATION_SIZE));
     }
@@ -33,20 +41,52 @@ public class GeneticAlgorithm {
         this.pruner = pruner;
     }
 
-    public Population work() {
+    public Evaluation work() {
         // TODO create initial population
         // TODO loop mutation > select best > crossover
-        return generation(createInitalPopulation());
+        return loop(createInitialPopulation());
     }
 
-    private Population createInitalPopulation() {
+    private Population createInitialPopulation() {
         return populationCreator.createPopulation(INITIAL_POPULATION_SIZE);
     }
 
-    private Population generation(Population population) {
-        // TODO prunes population overflow (worst members) > breeds > mutates
-        Evaluation evaluation = evaluator.evaluate(mutator.mutate(crossover.crossover(pruner.prune(population))));
-        return evaluation.fitnessValue().get() >= ACCEPTABLE_FITNESS_VALUE ? evaluation.population() : generation(evaluation.population());
+    private Evaluation loop(Population population) {
+        Evaluation evaluation = null;
+        Population result = population;
+        int index = 0;
+        do {
+            evaluation = evaluator.evaluate(mutator.mutate(crossover.crossover(pruner.prune(result))));
+            result = evaluation.population();
+            System.out.println("fitness value : " + evaluation.fitnessValue().get());
+            if (index >= GENERATION_LIMIT) {
+                System.out.println("Limit reached, breaking out");
+                break;
+            }
+            index ++;
+        } while (evaluation.fitnessValue().get() < ACCEPTABLE_FITNESS_VALUE);
+        return evaluation;
     }
+
+    private void printNotes(String stage, Population population) {
+        System.out.println("--------------------------------");
+        population.forEachMember(printMember);
+        System.out.println("--------------------------------");
+    }
+
+    private final ForEach<Member> printMember = new ForEach<Member>() {
+        @Override
+        public void on(Member what) {
+            what.forEachNote(printNote);
+            System.out.println("");
+        }
+    };
+
+    private final ForEach<Binary> printNote = new ForEach<Binary>() {
+        @Override
+        public void on(Binary what) {
+            System.out.println(what.toDecimal());
+        }
+    };
 
 }

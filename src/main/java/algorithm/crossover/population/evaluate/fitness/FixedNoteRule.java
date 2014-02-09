@@ -46,11 +46,14 @@ public class FixedNoteRule implements FitnessRule<Member> {
         @Override
         public FitnessValue apply(Binary what) {
             // TODO normalise max and min to 0 - 100
-            // TODO use delta to find adjust the fitness value
-            if (what.toDecimal() == fixedValue) {
-                return FitnessValue.max();
-            }
-            return FitnessValue.min();
+            // TODO use delta to find / adjust the fitness value
+            int delta = Math.abs(what.toDecimal() - fixedValue);
+            return new FitnessValue(100 - delta);
+
+//            if (what.toDecimal() == fixedValue) {
+//                return FitnessValue.max();
+//            }
+//            return FitnessValue.min();
         }
     }
 

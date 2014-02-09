@@ -4,16 +4,18 @@ import algorithm.crossover.Crossover;
 
 public class BinarySinglePointCrossover implements Crossover<Binary> {
 
-    private final int position;
+    private final CrossoverPosition position;
 
-    public BinarySinglePointCrossover(int position) {
+    public BinarySinglePointCrossover(CrossoverPosition position) {
         this.position = position;
     }
 
     @Override
     public Binary crossover(Binary parentX, Binary parentY) {
-        String xSplit = parentX.getValue().substring(0, position);
-        String ySplit = parentY.getValue().substring(position, parentY.getValue().length());
+        int crossoverPosition = position.get(parentY.wordLength());
+        String xSplit = parentX.getValue().substring(0, crossoverPosition);
+        String ySplit = parentY.getValue().substring(crossoverPosition, parentY.getValue().length());
         return new Binary(xSplit + ySplit);
     }
+
 }

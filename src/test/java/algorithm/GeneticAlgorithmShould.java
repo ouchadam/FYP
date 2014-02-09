@@ -9,7 +9,6 @@ import algorithm.crossover.population.PopulationCreator;
 import algorithm.crossover.population.PopulationCrossover;
 import algorithm.crossover.population.evaluate.Evaluator;
 import algorithm.crossover.population.evaluate.fitness.FitnessValue;
-import helper.Printer;
 import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -29,22 +28,20 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     public void return_when_the_evaulation_output_is_passed() {
         Evaluation passedEvaluation = createPassedEvaluation();
         when(evaluator.evaluate(any(Population.class))).thenReturn(passedEvaluation);
-
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner);
 
-        Population population = geneticAlgorithm.work();
-
-        assertThat(population).isNotNull();
+        Evaluation evaluation = geneticAlgorithm.work();
+        assertThat(evaluation).isNotNull();
     }
 
     @Test
     public void testName() {
-
         GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance();
 
-        Population output = geneticAlgorithm.work();
+        Evaluation output = geneticAlgorithm.work();
+        int fitnessValue = output.fitnessValue().get();
 
-        Printer.print(output);
+        assertThat(fitnessValue).isGreaterThanOrEqualTo(GeneticAlgorithm.ACCEPTABLE_FITNESS_VALUE);
     }
 
     private Evaluation createPassedEvaluation() {

@@ -1,10 +1,10 @@
 package algorithm.crossover.population;
 
-import algorithm.ForEach;
-import algorithm.Member;
-
 import java.util.Collections;
 import java.util.List;
+
+import algorithm.ForEach;
+import algorithm.Member;
 
 public class Population {
 
@@ -30,5 +30,9 @@ public class Population {
 
     public Population prune(int amount) {
         return new Population(members.subList(0, amount));
+    }
+
+    public void addToCollection(List<Member> newPopulation) {
+        newPopulation.addAll(members);
     }
 }

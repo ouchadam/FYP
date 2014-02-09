@@ -1,7 +1,5 @@
 package algorithm.crossover.binary;
 
-import sun.plugin.dom.exception.BrowserNotSupportedException;
-
 public class BinaryPadder {
 
     private static final int NO_PADDING_NEDDED = 0;

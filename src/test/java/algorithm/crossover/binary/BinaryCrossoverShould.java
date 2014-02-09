@@ -1,7 +1,8 @@
 package algorithm.crossover.binary;
 
-import helper.TestWithMocks;
 import org.junit.Test;
+
+import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -50,7 +51,7 @@ public class BinaryCrossoverShould extends TestWithMocks {
     @Test
     public void prove_combination_zero() {
         int position = 0;
-        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(position);
+        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(CrossoverPosition.from(position));
 
         Binary crossoverResult = crossover.crossover(BINARY_1, BINARY_10);
 
@@ -61,7 +62,7 @@ public class BinaryCrossoverShould extends TestWithMocks {
     @Test
     public void prove_combination_one() {
         int position = 1;
-        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(position);
+        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(CrossoverPosition.from(position));
 
         Binary crossoverResult = crossover.crossover(BINARY_1, BINARY_10);
 
@@ -71,7 +72,7 @@ public class BinaryCrossoverShould extends TestWithMocks {
     @Test
     public void prove_combination_two() {
         int position = 2;
-        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(position);
+        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(CrossoverPosition.from(position));
 
         Binary crossoverResult = crossover.crossover(BINARY_1, BINARY_10);
 
@@ -82,7 +83,7 @@ public class BinaryCrossoverShould extends TestWithMocks {
     @Test
     public void prove_combination_three() {
         int position = 3;
-        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(position);
+        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(CrossoverPosition.from(position));
 
         Binary crossoverResult = crossover.crossover(BINARY_1, BINARY_10);
 
@@ -92,7 +93,7 @@ public class BinaryCrossoverShould extends TestWithMocks {
     @Test
     public void prove_combination_four() {
         int position = 4;
-        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(position);
+        BinarySinglePointCrossover crossover = new BinarySinglePointCrossover(CrossoverPosition.from(position));
 
         Binary crossoverResult = crossover.crossover(BINARY_1, BINARY_10);
 

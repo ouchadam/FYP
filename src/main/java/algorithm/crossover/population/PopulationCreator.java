@@ -10,9 +10,11 @@ import algorithm.crossover.binary.Binary;
 public class PopulationCreator {
 
     private final MemberCreator memberCreator;
+    private final PopulationCrossover crossover;
 
-    public PopulationCreator(MemberCreator memberCreator) {
+    public PopulationCreator(MemberCreator memberCreator, PopulationCrossover crossover) {
         this.memberCreator = memberCreator;
+        this.crossover = crossover;
     }
 
     public Population createPopulation(int size) {
@@ -20,9 +22,8 @@ public class PopulationCreator {
         for (int index = 0; index < size; index++) {
             members.add(memberCreator.createRandomMember());
         }
-        return new Population(members);
+        return crossover.crossover(new Population(members));
     }
-
 
     public static class MemberCreator {
 
