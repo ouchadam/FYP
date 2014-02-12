@@ -1,8 +1,8 @@
 package helper;
 
-import algorithm.Member;
-import algorithm.Note;
-import algorithm.crossover.binary.Binary;
+import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 
 import java.util.ArrayList;
 import java.util.List;

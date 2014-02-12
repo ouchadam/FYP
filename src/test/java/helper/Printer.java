@@ -1,10 +1,9 @@
 package helper;
 
-import algorithm.ForEach;
-import algorithm.Member;
-import algorithm.Note;
-import algorithm.crossover.binary.Binary;
-import algorithm.crossover.population.Population;
+import com.ouchadam.fyp.algorithm.ForEach;
+import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.crossover.population.Population;
 
 public class Printer {
 
