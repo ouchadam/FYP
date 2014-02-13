@@ -1,34 +1,35 @@
 package com.ouchadam.fyp.analysis;
 
-import helper.MidiHelper;
-import helper.TestWithMocks;
+import java.util.List;
+
 import org.junit.Test;
 
-import java.util.List;
+import helper.MidiHelper;
+import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class NoteProcessorTest extends TestWithMocks {
+public class ContainedNoteCreatorTest extends TestWithMocks {
 
     private MidiTrack midiTrack;
-    private NoteProcessor noteProcessor;
+    private ContainedNoteCreator containedNoteCreator;
 
     @Override
     protected void before() {
         midiTrack = MidiHelper.readPokerFace();
-        noteProcessor = new NoteProcessor();
+        containedNoteCreator = new ContainedNoteCreator();
     }
 
     @Test
     public void should_not_be_the_same_size_as_the_original_list_containing_note_off() throws Exception {
-        List<ContainedMidiNote> midiNotes = noteProcessor.process(midiTrack.getNotes());
+        List<ContainedMidiNote> midiNotes = containedNoteCreator.process(midiTrack.getNotes());
 
         assertThat(midiNotes.size()).isNotEqualTo(midiTrack.getNotes().size());
     }
 
     @Test
     public void should_not_contain_any_note_off_messages() throws Exception {
-        List<ContainedMidiNote> midiNotes = noteProcessor.process(midiTrack.getNotes());
+        List<ContainedMidiNote> midiNotes = containedNoteCreator.process(midiTrack.getNotes());
         for (ContainedMidiNote midiNote : midiNotes) {
             assertThat(midiNote.getType()).isNotEqualTo(MidiNote.Type.OFF);
         }

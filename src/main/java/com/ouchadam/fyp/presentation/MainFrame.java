@@ -2,7 +2,8 @@ package com.ouchadam.fyp.presentation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 class MainFrame implements ButtonController, TextController {
 
@@ -11,14 +12,11 @@ class MainFrame implements ButtonController, TextController {
     private static final String FRAME_TITLE = "My frame";
     private final JFrame frame;
 
-    private OnClickListener onOpen;
-    private OnClickListener onAnalise;
-    private JButton openButton;
-    private JButton analiseButton;
-    private JLabel selectedMidi;
+    private AnaliseTabManager analiseTabManager;
+    private AlgorithmTabManager algorithmTabManager;
 
     public static MainFrame newInstance() {
-        MainFrame mainFrame = new MainFrame(new JFrame(BorderLayout.CENTER));
+        MainFrame mainFrame = new MainFrame(new JFrame());
         mainFrame.initFrame();
         return mainFrame;
     }
@@ -34,65 +32,17 @@ class MainFrame implements ButtonController, TextController {
         frame.addWindowListener(closeWindow);
         initSubPanes();
         frame.setVisible(true);
+        frame.setResizable(false);
     }
 
     private void initSubPanes() {
         JPanel panel = new JPanel(new GridLayout(1, 1));
         JTabbedPane tabbedPane = new JTabbedPane();
-        panel.add(createAnaliseTab(tabbedPane));
-        panel.add(createAlgorithmTab(tabbedPane));
+        analiseTabManager = new AnaliseTabManager(tabbedPane);
+        algorithmTabManager = new AlgorithmTabManager(tabbedPane);
+        panel.add(analiseTabManager.create());
+        panel.add(algorithmTabManager.create());
         frame.add(panel);
-    }
-
-    private JTabbedPane createAnaliseTab(JTabbedPane tabbedPane) {
-        openButton = createButton("Choose a MIDI file", internalOnOpen);
-        analiseButton = createButton("Analise", internalOnAnalise);
-        analiseButton.setEnabled(false);
-        selectedMidi = new JLabel();
-        return createTabbedPane("Analise", tabbedPane, selectedMidi, openButton, analiseButton);
-    }
-
-    private JTabbedPane createAlgorithmTab(JTabbedPane tabbedPane) {
-        JButton fooButton = new JButton();
-        return createTabbedPane("Algorithm", tabbedPane, fooButton);
-    }
-
-    private JButton createButton(String title, ActionListener internalListener) {
-        JButton button = new JButton(title);
-        button.addActionListener(internalListener);
-        return button;
-    }
-
-    private JTabbedPane createTabbedPane(String tile, JTabbedPane pane, Component... components) {
-        pane.add(tile, addToPanel(new JPanel(), components));
-        return pane;
-    }
-
-    private JPanel addToPanel(JPanel panel, Component... components) {
-        for (Component component : components) {
-            panel.add(component);
-        }
-        return panel;
-    }
-
-    private final ActionListener internalOnOpen = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            onClick(onOpen, openButton);
-        }
-    };
-
-    private final ActionListener internalOnAnalise = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            onClick(onAnalise, analiseButton);
-        }
-    };
-
-    private void onClick(OnClickListener listener, JButton button) {
-        if (listener != null) {
-            listener.onClick(button);
-        }
     }
 
     private final WindowAdapter closeWindow = new WindowAdapter() {
@@ -104,28 +54,28 @@ class MainFrame implements ButtonController, TextController {
     };
 
     public void setOpenMidiListener(OnClickListener listener) {
-        this.onOpen = listener;
+        analiseTabManager.setOpenMidiListener(listener);
     }
 
     public void setAnaliseListener(OnClickListener listener) {
-        this.onAnalise = listener;
+        analiseTabManager.setAnaliseListener(listener);
     }
 
     @Override
     public void enableAnalise(boolean enabled) {
-        this.analiseButton.setEnabled(enabled);
+        analiseTabManager.setAnaliseEnabled(enabled);
     }
 
     JButton getOpenMidiButton() {
-        return openButton;
+        return analiseTabManager.getOpenMidiButton();
     }
 
     JButton getAnaliseButton() {
-        return analiseButton;
+        return analiseTabManager.getAnaliseButton();
     }
 
     @Override
     public void setMidiSelection(String text) {
-        selectedMidi.setText(text);
+        analiseTabManager.setAnaliseText("Analise : " + text);
     }
 }

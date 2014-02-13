@@ -63,8 +63,8 @@ class InteractionManager {
     };
 
     private int getMaxInterval(File midiFile) {
-        MidiTrack midiTrack = readMidi(midiFile, new MidiReader(new MidiMessageMarshaller()));
-        List<ContainedMidiNote> process = new NoteProcessor().process(midiTrack.getNotes());
+        MidiTrack midiTrack = readMidi(midiFile);
+        List<ContainedMidiNote> process = new ContainedNoteCreator().process(midiTrack.getNotes());
         return new IntervalCounter().max(process);
     }
 
@@ -72,9 +72,9 @@ class InteractionManager {
         JOptionPane.showMessageDialog(component.getParent(), message);
     }
 
-    private MidiTrack readMidi(File midiFile, MidiReader midiReader) {
+    private MidiTrack readMidi(File midiFile) {
         try {
-            return midiReader.read(midiFile);
+            return new MidiReader(new MidiMessageMarshaller()).read(midiFile);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Couldn't handle file");

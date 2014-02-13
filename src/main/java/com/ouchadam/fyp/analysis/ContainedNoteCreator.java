@@ -3,7 +3,7 @@ package com.ouchadam.fyp.analysis;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteProcessor implements Processor<List<ContainedMidiNote>, List<MidiNote>> {
+public class ContainedNoteCreator implements Processor<List<ContainedMidiNote>, List<MidiNote>> {
 
     @Override
     public List<ContainedMidiNote> process(List<MidiNote> notes) {
