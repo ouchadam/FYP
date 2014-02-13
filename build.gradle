@@ -17,7 +17,7 @@ cobertura.coverageFormats = ['html', 'xml']
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = "com.ouchadam.fyp.presentation.Entry"
+mainClassName = "com.ouchadam.fyp.presentation.Main"
 
 sourceCompatibility = 1.6
 version = '1.0'

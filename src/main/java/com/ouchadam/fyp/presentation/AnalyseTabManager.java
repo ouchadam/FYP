@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class AnaliseTabManager {
+class AnalyseTabManager {
 
     private final JTabbedPane tabbedPane;
     private OnClickListener onOpen;
@@ -14,18 +14,18 @@ class AnaliseTabManager {
     private JButton openButton;
     private JButton analiseButton;
 
-    public AnaliseTabManager(JTabbedPane tabbedPane) {
+    public AnalyseTabManager(JTabbedPane tabbedPane) {
         this.tabbedPane = tabbedPane;
     }
 
     JTabbedPane create() {
         JPanel panel = new JPanel(new GridLayout(2, 1));
         panel.add(openButton = createButton("Choose a MIDI file", internalOnOpen));
-        panel.add(analiseButton = createButton("Analise...", internalOnAnalise));
+        panel.add(analiseButton = createButton("Analyse...", internalOnAnalise));
         setAnaliseEnabled(false);
         panel.setPreferredSize(new Dimension(300, 210));
         panel.setBorder(new EmptyBorder(25, 20, 0, 20));
-        return createTabbedPane("Analise", tabbedPane, panel);
+        return createTabbedPane("Analyse", tabbedPane, panel);
     }
 
     private JButton createButton(String title, ActionListener internalListener) {

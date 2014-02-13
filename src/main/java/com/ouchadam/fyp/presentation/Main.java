@@ -1,10 +1,10 @@
 package com.ouchadam.fyp.presentation;
 
-public class Entry {
+public class Main {
 
     public static void main(String... args) {
-        Entry entry = new Entry();
-        entry.start();
+        Main main = new Main();
+        main.start();
     }
 
     private void start() {

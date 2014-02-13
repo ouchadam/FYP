@@ -12,7 +12,7 @@ class MainFrame implements ButtonController, TextController {
     private static final String FRAME_TITLE = "My frame";
     private final JFrame frame;
 
-    private AnaliseTabManager analiseTabManager;
+    private AnalyseTabManager analyseTabManager;
     private AlgorithmTabManager algorithmTabManager;
 
     public static MainFrame newInstance() {
@@ -38,9 +38,9 @@ class MainFrame implements ButtonController, TextController {
     private void initSubPanes() {
         JPanel panel = new JPanel(new GridLayout(1, 1));
         JTabbedPane tabbedPane = new JTabbedPane();
-        analiseTabManager = new AnaliseTabManager(tabbedPane);
+        analyseTabManager = new AnalyseTabManager(tabbedPane);
+        panel.add(analyseTabManager.create());
         algorithmTabManager = new AlgorithmTabManager(tabbedPane);
-        panel.add(analiseTabManager.create());
         panel.add(algorithmTabManager.create());
         frame.add(panel);
     }
@@ -54,28 +54,28 @@ class MainFrame implements ButtonController, TextController {
     };
 
     public void setOpenMidiListener(OnClickListener listener) {
-        analiseTabManager.setOpenMidiListener(listener);
+        analyseTabManager.setOpenMidiListener(listener);
     }
 
     public void setAnaliseListener(OnClickListener listener) {
-        analiseTabManager.setAnaliseListener(listener);
+        analyseTabManager.setAnaliseListener(listener);
     }
 
     @Override
     public void enableAnalise(boolean enabled) {
-        analiseTabManager.setAnaliseEnabled(enabled);
+        analyseTabManager.setAnaliseEnabled(enabled);
     }
 
     JButton getOpenMidiButton() {
-        return analiseTabManager.getOpenMidiButton();
+        return analyseTabManager.getOpenMidiButton();
     }
 
     JButton getAnaliseButton() {
-        return analiseTabManager.getAnaliseButton();
+        return analyseTabManager.getAnaliseButton();
     }
 
     @Override
     public void setMidiSelection(String text) {
-        analiseTabManager.setAnaliseText("Analise : " + text);
+        analyseTabManager.setAnaliseText("Analise : " + text);
     }
 }
