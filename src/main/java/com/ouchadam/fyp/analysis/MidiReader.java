@@ -1,8 +1,7 @@
 package com.ouchadam.fyp.analysis;
 
 import javax.sound.midi.*;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +14,16 @@ public class MidiReader {
         this.midiMessageMarshaller = midiMessageMarshaller;
     }
 
+    public MidiTrack read(File file) throws IOException, InvalidMidiDataException {
+        return read(new FileInputStream(file));
+    }
+
     public MidiTrack read(InputStream input) throws InvalidMidiDataException, IOException {
         Sequence sequence = MidiSystem.getSequence(input);
+        return read(sequence);
+    }
+
+    private MidiTrack read(Sequence sequence) {
         Track firstTrack = getFirstTrack(sequence);
         MidiMeta meta = createMeta(sequence, firstTrack);
         List<MidiNote> notes = processSequence(firstTrack);
