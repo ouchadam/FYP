@@ -2,22 +2,23 @@ package com.ouchadam.fyp.presentation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
-class MainFrame implements ButtonController {
+class MainFrame implements ButtonController, TextController {
 
+    private static final int FRAME_WIDTH = 300;
+    private static final int FRAME_HEIGHT = 300;
+    private static final String FRAME_TITLE = "My frame";
     private final JFrame frame;
 
     private OnClickListener onOpen;
     private OnClickListener onAnalise;
     private JButton openButton;
     private JButton analiseButton;
+    private JLabel selectedMidi;
 
     public static MainFrame newInstance() {
-        MainFrame mainFrame = new MainFrame(new JFrame());
+        MainFrame mainFrame = new MainFrame(new JFrame(BorderLayout.CENTER));
         mainFrame.initFrame();
         return mainFrame;
     }
@@ -27,8 +28,8 @@ class MainFrame implements ButtonController {
     }
 
     void initFrame() {
-        frame.setTitle("My frame");
-        frame.setSize(300, 300);
+        frame.setTitle(FRAME_TITLE);
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setLocation(10, 200);
         frame.addWindowListener(closeWindow);
         initSubPanes();
@@ -36,16 +37,35 @@ class MainFrame implements ButtonController {
     }
 
     private void initSubPanes() {
+        JPanel panel = new JPanel(new GridLayout(1, 1));
+        JTabbedPane tabbedPane = new JTabbedPane();
+        panel.add(createAnaliseTab(tabbedPane));
+        panel.add(createAlgorithmTab(tabbedPane));
+        frame.add(panel);
+    }
+
+    private JTabbedPane createAnaliseTab(JTabbedPane tabbedPane) {
         openButton = createButton("Choose a MIDI file", internalOnOpen);
         analiseButton = createButton("Analise", internalOnAnalise);
         analiseButton.setEnabled(false);
-        frame.add(addToPanel(new JPanel(), openButton, analiseButton));
+        selectedMidi = new JLabel();
+        return createTabbedPane("Analise", tabbedPane, selectedMidi, openButton, analiseButton);
+    }
+
+    private JTabbedPane createAlgorithmTab(JTabbedPane tabbedPane) {
+        JButton fooButton = new JButton();
+        return createTabbedPane("Algorithm", tabbedPane, fooButton);
     }
 
     private JButton createButton(String title, ActionListener internalListener) {
         JButton button = new JButton(title);
         button.addActionListener(internalListener);
         return button;
+    }
+
+    private JTabbedPane createTabbedPane(String tile, JTabbedPane pane, Component... components) {
+        pane.add(tile, addToPanel(new JPanel(), components));
+        return pane;
     }
 
     private JPanel addToPanel(JPanel panel, Component... components) {
@@ -58,7 +78,6 @@ class MainFrame implements ButtonController {
     private final ActionListener internalOnOpen = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Internal on open");
             onClick(onOpen, openButton);
         }
     };
@@ -103,5 +122,10 @@ class MainFrame implements ButtonController {
 
     JButton getAnaliseButton() {
         return analiseButton;
+    }
+
+    @Override
+    public void setMidiSelection(String text) {
+        selectedMidi.setText(text);
     }
 }

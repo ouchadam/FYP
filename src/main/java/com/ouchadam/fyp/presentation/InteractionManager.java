@@ -11,10 +11,12 @@ class InteractionManager {
 
     private final MidiSelection midiSelection;
     private final ButtonController buttonController;
+    private final TextController textController;
 
-    InteractionManager(MidiSelection midiSelection, ButtonController buttonController) {
+    InteractionManager(MidiSelection midiSelection, ButtonController buttonController, TextController textController) {
         this.midiSelection = midiSelection;
         this.buttonController = buttonController;
+        this.textController = textController;
     }
 
     public OnClickListener openMidiListener() {
@@ -34,6 +36,7 @@ class InteractionManager {
         public void onSelection(File file) {
             midiSelection.setMidiFile(file);
             buttonController.enableAnalise(true);
+            textController.setMidiSelection(file.getName());
         }
 
         @Override

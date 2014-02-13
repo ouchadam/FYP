@@ -9,7 +9,7 @@ public class Entry {
 
     private void start() {
         MainFrame mainFrame = MainFrame.newInstance();
-        InteractionManager interactionManager = new InteractionManager(new MidiSelection(), mainFrame);
+        InteractionManager interactionManager = new InteractionManager(new MidiSelection(), mainFrame, mainFrame);
         mainFrame.setOpenMidiListener(interactionManager.openMidiListener());
         mainFrame.setAnaliseListener(interactionManager.analiseMidiListener());
     }
