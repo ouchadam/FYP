@@ -16,17 +16,17 @@ class MainFrame implements ButtonController {
     private JButton openButton;
     private JButton analiseButton;
 
-    MainFrame(JFrame frame) {
-        this.frame = frame;
-    }
-
     public static MainFrame newInstance() {
         MainFrame mainFrame = new MainFrame(new JFrame());
         mainFrame.initFrame();
         return mainFrame;
     }
 
-    private void initFrame() {
+    MainFrame(JFrame frame) {
+        this.frame = frame;
+    }
+
+    void initFrame() {
         frame.setTitle("My frame");
         frame.setSize(300, 300);
         frame.setLocation(10, 200);
@@ -58,6 +58,7 @@ class MainFrame implements ButtonController {
     private final ActionListener internalOnOpen = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("Internal on open");
             onClick(onOpen, openButton);
         }
     };
@@ -94,5 +95,13 @@ class MainFrame implements ButtonController {
     @Override
     public void enableAnalise(boolean enabled) {
         this.analiseButton.setEnabled(enabled);
+    }
+
+    JButton getOpenMidiButton() {
+        return openButton;
+    }
+
+    JButton getAnaliseButton() {
+        return analiseButton;
     }
 }
