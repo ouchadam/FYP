@@ -74,7 +74,7 @@ public class PopulationEvaluatorTest extends TestWithMocks {
 
         Evaluation evaluation = populationEvaluator.evaluate(population);
 
-        Printer.print(evaluation.population());
+//        Printer.print(evaluation.population());
 
         assertThat(evaluation.population().get(0)).isEqualTo(perfectMember);
     }

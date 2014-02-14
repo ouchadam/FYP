@@ -4,6 +4,9 @@ import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 
 public class Note {
 
+    private final static int NOTE_MAX = 127;
+    private final static int NOTE_MIN = 0;
+
     private final Binary value;
 
     public Note(Binary value) {

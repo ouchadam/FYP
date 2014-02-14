@@ -6,6 +6,7 @@ import com.ouchadam.fyp.algorithm.crossover.population.PopulationCreator;
 import com.ouchadam.fyp.algorithm.crossover.population.PopulationCrossover;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.Evaluator;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FitnessValue;
+import helper.Printer;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -27,7 +28,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     public void return_when_the_evaulation_output_is_passed() {
         Evaluation passedEvaluation = createPassedEvaluation();
         when(evaluator.evaluate(any(Population.class))).thenReturn(passedEvaluation);
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null);
 
         Evaluation evaluation = geneticAlgorithm.work();
         assertThat(evaluation).isNotNull();
@@ -35,13 +36,23 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
     @Test
     public void testName() {
-        GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance();
+        GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback);
 
         Evaluation output = geneticAlgorithm.work();
         int fitnessValue = output.fitnessValue().get();
 
+        Member member = output.population().get(0);
+        Printer.print(member);
+
         assertThat(fitnessValue).isGreaterThanOrEqualTo(GeneticAlgorithm.ACCEPTABLE_FITNESS_VALUE);
     }
+
+    private final GenerationCallback generationCallback = new GenerationCallback() {
+        @Override
+        public void onGeneration(Evaluation evaluation) {
+            System.out.println("fitness value : " + evaluation.fitnessValue().get());
+        }
+    };
 
     private Evaluation createPassedEvaluation() {
         Evaluation evaluation = mock(Evaluation.class);

@@ -11,6 +11,10 @@ public class Printer {
         population.forEachMember(printMember);
     }
 
+    public static void print(Member member) {
+        member.forEachNote(printNote);
+    }
+
     private final static ForEach<Member> printMember = new ForEach<Member>() {
         @Override
         public void on(Member what) {

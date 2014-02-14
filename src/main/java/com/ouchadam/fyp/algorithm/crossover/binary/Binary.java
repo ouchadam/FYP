@@ -24,6 +24,10 @@ public class Binary {
         return Integer.parseInt(value, 2);
     }
 
+    public Bit bitAt(int index) {
+        return new Bit(value.substring(index, index + 1));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,4 +41,5 @@ public class Binary {
     public int hashCode() {
         return value != null ? value.hashCode() : 0;
     }
+
 }

@@ -13,31 +13,34 @@ public class GeneticAlgorithm {
 
     private final static int INITIAL_POPULATION_SIZE = 2;
     private final static int MAX_POPULATION_SIZE = 10;
-    private final static int GENERATION_LIMIT = 1000;
-    final static int ACCEPTABLE_FITNESS_VALUE = 80;
+    private final static int GENERATION_LIMIT = 200000;
+    final static int ACCEPTABLE_FITNESS_VALUE = 100;
 
     private final PopulationMutator mutator;
     private final PopulationCrossover crossover;
     private final Evaluator<Population> evaluator;
     private final PopulationPruner pruner;
+    private final GenerationCallback generationCallback;
     private final PopulationCreator populationCreator;
 
-    public static GeneticAlgorithm newInstance() {
+    public static GeneticAlgorithm newInstance(GenerationCallback generationCallback) {
         CrossoverFactory crossoverFactory = CrossoverFactory.newInstance();
         return new GeneticAlgorithm(
                 new PopulationCreator(new PopulationCreator.MemberCreator(), new PopulationCrossover(crossoverFactory.singlePoint().note())),
-                new PopulationMutator(),
+                new PopulationMutator(new RandomIndexCreator()),
                 new PopulationCrossover(crossoverFactory.uniform().note()),
                 new PopulationEvaluator(new FitnessFactory()),
-                new PopulationPruner(MAX_POPULATION_SIZE));
+                new PopulationPruner(MAX_POPULATION_SIZE),
+                generationCallback);
     }
 
-    GeneticAlgorithm(PopulationCreator creator, PopulationMutator mutator, PopulationCrossover crossover, Evaluator<Population> evaluator, PopulationPruner pruner) {
+    GeneticAlgorithm(PopulationCreator creator, PopulationMutator mutator, PopulationCrossover crossover, Evaluator<Population> evaluator, PopulationPruner pruner, GenerationCallback generationCallback) {
         populationCreator = creator;
         this.mutator = mutator;
         this.crossover = crossover;
         this.evaluator = evaluator;
         this.pruner = pruner;
+        this.generationCallback = generationCallback;
     }
 
     public Evaluation work() {
@@ -52,19 +55,25 @@ public class GeneticAlgorithm {
 
     private Evaluation loop(Population population) {
         Evaluation evaluation = null;
-        Population result = population;
+        Population generation = population;
         int index = 0;
         do {
-            evaluation = evaluator.evaluate(mutator.mutate(crossover.crossover(pruner.prune(result))));
-            result = evaluation.population();
-            System.out.println("fitness value : " + evaluation.fitnessValue().get());
+            evaluation = evaluator.evaluate(mutator.mutate(crossover.crossover(pruner.prune(generation))));
+            callback(evaluation);
+            generation = evaluation.population();
             if (index >= GENERATION_LIMIT) {
                 System.out.println("Limit reached, breaking out");
                 break;
             }
-            index ++;
+            index++;
         } while (evaluation.fitnessValue().get() < ACCEPTABLE_FITNESS_VALUE);
         return evaluation;
+    }
+
+    private void callback(Evaluation evaluation) {
+        if (generationCallback != null) {
+            generationCallback.onGeneration(evaluation);
+        }
     }
 
 }

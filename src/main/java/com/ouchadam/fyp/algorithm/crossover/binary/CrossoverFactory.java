@@ -30,7 +30,7 @@ public class CrossoverFactory {
         private SinglePoint() {}
 
         public Crossover<Note> note() {
-            return new NoteCrossover(new BinarySinglePointCrossover(CrossoverPosition.from(CrossoverPosition.Position.MID)));
+            return new NoteCrossover(BinarySinglePointCrossover.newInstance(CrossoverPosition.Position.MID));
         }
     }
 
