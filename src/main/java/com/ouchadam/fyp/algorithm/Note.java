@@ -4,10 +4,15 @@ import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 
 public class Note {
 
-    private final static int NOTE_MAX = 127;
-    private final static int NOTE_MIN = 0;
+    public final static int NOTE_MAX = 127;
+    public final static int NOTE_MIN = 0;
+    private final static int wordLength = 7;
 
     private final Binary value;
+
+    public static Note newInstance(int value) {
+        return new Note(Binary.newInstance(Integer.toBinaryString(value), wordLength));
+    }
 
     public Note(Binary value) {
         this.value = value;

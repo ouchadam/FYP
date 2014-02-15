@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Member {
 
-    public static final int CHILD_COUNT = 4;
+    public static final int NOTE_CHILD_COUNT = 4;
 
     private final List<Note> notes;
 
@@ -43,6 +43,10 @@ public class Member {
     @Override
     public int hashCode() {
         return notes != null ? notes.hashCode() : 0;
+    }
+
+    public int indexOf(Note what) {
+        return notes.indexOf(what);
     }
 }
 

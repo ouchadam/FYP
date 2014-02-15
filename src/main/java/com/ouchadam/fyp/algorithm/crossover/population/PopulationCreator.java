@@ -28,17 +28,15 @@ public class PopulationCreator {
 
     public static class MemberCreator {
 
-        private static final int NOTE_MAX = 127;
-
         private Member createRandomMember() {
             List<Note> notes = createNotes();
             return new Member(notes);
         }
 
         private List<Note> createNotes() {
-            List<Note> notes = new ArrayList<Note>(Member.CHILD_COUNT);
-            for (int index = 0; index < Member.CHILD_COUNT; index++) {
-                notes.add(new Note(new Binary(Integer.toBinaryString(new Random().nextInt(NOTE_MAX)))));
+            List<Note> notes = new ArrayList<Note>(Member.NOTE_CHILD_COUNT);
+            for (int index = 0; index < Member.NOTE_CHILD_COUNT; index++) {
+                notes.add(Note.newInstance(new Random().nextInt(Note.NOTE_MAX)));
             }
             return notes;
         }

@@ -11,9 +11,9 @@ import com.ouchadam.fyp.algorithm.crossover.population.evaluate.PopulationEvalua
 
 public class GeneticAlgorithm {
 
-    private final static int INITIAL_POPULATION_SIZE = 2;
-    private final static int MAX_POPULATION_SIZE = 10;
-    private final static int GENERATION_LIMIT = 200000;
+    private final static int INITIAL_POPULATION_SIZE = 200;
+    private final static int MAX_POPULATION_SIZE = 2000;
+    private final static int GENERATION_LIMIT = 20000;
     final static int ACCEPTABLE_FITNESS_VALUE = 100;
 
     private final PopulationMutator mutator;
@@ -27,7 +27,7 @@ public class GeneticAlgorithm {
         CrossoverFactory crossoverFactory = CrossoverFactory.newInstance();
         return new GeneticAlgorithm(
                 new PopulationCreator(new PopulationCreator.MemberCreator(), new PopulationCrossover(crossoverFactory.singlePoint().note())),
-                new PopulationMutator(new RandomIndexCreator()),
+                new PopulationMutator(new IndexManager(new RandomIndexCreator())),
                 new PopulationCrossover(crossoverFactory.uniform().note()),
                 new PopulationEvaluator(new FitnessFactory()),
                 new PopulationPruner(MAX_POPULATION_SIZE),
@@ -58,7 +58,7 @@ public class GeneticAlgorithm {
         Population generation = population;
         int index = 0;
         do {
-            evaluation = evaluator.evaluate(mutator.mutate(crossover.crossover(pruner.prune(generation))));
+            evaluation = evaluator.evaluate(Population.fromSubPopulation(generation, mutator.mutate(crossover.crossover(pruner.prune(generation)))));
             callback(evaluation);
             generation = evaluation.population();
             if (index >= GENERATION_LIMIT) {
@@ -66,7 +66,7 @@ public class GeneticAlgorithm {
                 break;
             }
             index++;
-        } while (evaluation.fitnessValue().get() < ACCEPTABLE_FITNESS_VALUE);
+        } while (evaluation.fitnessValue(0).get() < ACCEPTABLE_FITNESS_VALUE);
         return evaluation;
     }
 

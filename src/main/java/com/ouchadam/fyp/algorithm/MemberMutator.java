@@ -5,21 +5,23 @@ import java.util.List;
 
 class MemberMutator {
 
-    private final RandomIndexCreator randomIndexCreator;
+    private final IndexManager indexManager;
 
     private List<Note> notes;
     private BinaryMutator binaryMutator;
-    private int[] notesToMutate;
+    private List<Integer> notesToMutate;
+    private Member member;
 
-    MemberMutator(RandomIndexCreator randomIndexCreator) {
-        this.randomIndexCreator = randomIndexCreator;
+    MemberMutator(IndexManager indexManager) {
+        this.indexManager = indexManager;
     }
 
     Member mutate(Member what) {
-        int mutationProbability = 10; // 25% of note count
+        this.member = what;
+        int mutationProbability = 70;
         int noteCount = what.size();
-        notesToMutate = randomIndexCreator.create(noteCount, noteCount);
-        binaryMutator = new BinaryMutator(0, randomIndexCreator);
+        notesToMutate = indexManager.create(noteCount, noteCount);
+        binaryMutator = new BinaryMutator(mutationProbability, indexManager);
         notes = new ArrayList<Note>(noteCount);
         what.forEachNote(mutateNote);
         return new Member(notes);
@@ -28,22 +30,13 @@ class MemberMutator {
     private final ForEach<Note> mutateNote = new ForEach<Note>() {
         @Override
         public void on(Note what) {
-            if (isMutationIndex(notes, what, notesToMutate)) {
+            int index = member.indexOf(what);
+            if (indexManager.isIndex(index, notesToMutate)) {
                 notes.add(new Note(binaryMutator.mutate(what.binary())));
             } else {
                 notes.add(what);
             }
         }
     };
-
-    private boolean isMutationIndex(List<Note> notes, Note what, int[] mutationIndexes) {
-        int index = notes.indexOf(what);
-        for (int mutationIndex : mutationIndexes) {
-            if (mutationIndex == index) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 }

@@ -8,6 +8,7 @@ import com.ouchadam.fyp.algorithm.crossover.population.evaluate.Evaluator;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FitnessValue;
 import helper.Printer;
 import helper.TestWithMocks;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -24,7 +25,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     @Mock PopulationCrossover crossover;
     @Mock PopulationPruner pruner;
 
-    @Test
+    @Ignore @Test
     public void return_when_the_evaulation_output_is_passed() {
         Evaluation passedEvaluation = createPassedEvaluation();
         when(evaluator.evaluate(any(Population.class))).thenReturn(passedEvaluation);
@@ -34,12 +35,12 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         assertThat(evaluation).isNotNull();
     }
 
-    @Test
-    public void testName() {
+    @Ignore @Test
+    public void full_flow() {
         GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback);
 
         Evaluation output = geneticAlgorithm.work();
-        int fitnessValue = output.fitnessValue().get();
+        int fitnessValue = output.fitnessValue(0).get();
 
         Member member = output.population().get(0);
         Printer.print(member);
@@ -48,15 +49,35 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     }
 
     private final GenerationCallback generationCallback = new GenerationCallback() {
+
+        private int index;
+        private int fixedIndex = 0;
+
         @Override
         public void onGeneration(Evaluation evaluation) {
-            System.out.println("fitness value : " + evaluation.fitnessValue().get());
+            index++;
+            if (fixedIndex <= (index - 100)) {
+                fixedIndex = index;
+                System.out.println("-------------- Generation : " + index + " ------------------------");
+                Member member0 = evaluation.population().get(0);
+                System.out.println("0 :  fitness : " + evaluation.fitnessValue(0).get() + " occurs : " + getFrequency(evaluation, member0));
+                Printer.print(member0);
+                System.out.println("");
+                Member member3 = evaluation.population().get(101);
+                System.out.println("101 :  fitness : " + evaluation.fitnessValue(101).get() + " occurs : " + getFrequency(evaluation, member3));
+                Printer.print(member3);
+                System.out.println("");
+            }
         }
     };
 
+    private int getFrequency(Evaluation evaluation, Member member0) {
+        return evaluation.population().frequency(member0);
+    }
+
     private Evaluation createPassedEvaluation() {
         Evaluation evaluation = mock(Evaluation.class);
-        when(evaluation.fitnessValue()).thenReturn(FitnessValue.max());
+        when(evaluation.fitnessValue(0)).thenReturn(FitnessValue.max());
         when(evaluation.population()).thenReturn(mock(Population.class));
         return evaluation;
     }

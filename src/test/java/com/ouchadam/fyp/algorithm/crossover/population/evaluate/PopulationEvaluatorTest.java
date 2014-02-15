@@ -41,7 +41,7 @@ public class PopulationEvaluatorTest extends TestWithMocks {
 
         Evaluation evaluate = populationEvaluator.evaluate(population);
 
-        assertThat(evaluate.fitnessValue()).isEqualTo(FitnessValue.max());
+        assertThat(evaluate.fitnessValue(0)).isEqualTo(FitnessValue.max());
     }
 
     private void forcePerfectFitness() {
@@ -73,8 +73,6 @@ public class PopulationEvaluatorTest extends TestWithMocks {
         Population population = new Population(members);
 
         Evaluation evaluation = populationEvaluator.evaluate(population);
-
-//        Printer.print(evaluation.population());
 
         assertThat(evaluation.population().get(0)).isEqualTo(perfectMember);
     }

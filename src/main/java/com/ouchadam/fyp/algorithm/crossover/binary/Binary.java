@@ -4,6 +4,10 @@ public class Binary {
 
     private final String value;
 
+    public static Binary newInstance(String value, int wordLength) {
+        return new BinaryPadder().pad(new Binary(value), wordLength);
+    }
+
     public Binary(String value) {
         this.value = value;
     }

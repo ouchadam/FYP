@@ -5,6 +5,12 @@ public class BinaryPadder {
     private static final int NO_PADDING_NEDDED = 0;
     private static final String ZERO_PAD = "0";
 
+    public Binary pad(Binary unpadded, int wordLength) {
+        int currentLength = unpadded.wordLength();
+        int delta = Math.abs(currentLength - wordLength);
+        return padBinary(unpadded, delta);
+    }
+
     public MatchedLengthBinary pad(Binary binaryX, Binary binaryY) {
         int delta = getPaddingDelta(binaryX.getValue(), binaryY.getValue());
         if (delta == NO_PADDING_NEDDED) {

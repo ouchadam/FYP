@@ -3,25 +3,28 @@ package com.ouchadam.fyp.algorithm;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.crossover.binary.Bit;
 
+import java.util.List;
+
 class BinaryMutator {
 
+    private static final int PERCENTAGE_COEFF = 100;
     private final int mutationProbability;
-    private final RandomIndexCreator randomIndexCreator;
+    private final IndexManager indexManager;
 
-    BinaryMutator(int mutationProbability, RandomIndexCreator randomIndexCreator) {
+    BinaryMutator(int mutationProbability, IndexManager indexManager) {
         this.mutationProbability = mutationProbability;
-        this.randomIndexCreator = randomIndexCreator;
+        this.indexManager = indexManager;
     }
 
     public Binary mutate(Binary binary) {
-        int mutations = 2; // TODO work out the amount from the word length and probability
-        int[] randomIndexes = randomIndexCreator.create(mutations, binary.wordLength());
+        int mutations = percentOf(binary.wordLength(), mutationProbability);
+        List<Integer> randomIndexes = indexManager.create(mutations, binary.wordLength());
         BinaryBuilder binaryBuilder = new BinaryBuilder();
         binaryBuilder.start(binary.wordLength());
 
         for (int index = 0; index < binary.wordLength(); index++) {
             Bit bit = binary.bitAt(index);
-            if (isMutationIndex(index, randomIndexes)) {
+            if (indexManager.isIndex(index, randomIndexes)) {
                 bit = bit.invert();
             }
             binaryBuilder.addBit(bit);
@@ -29,14 +32,11 @@ class BinaryMutator {
         return binaryBuilder.build();
     }
 
-    private boolean isMutationIndex(int currentIndex, int[] randomIndexes) {
-        for (int randomIndex : randomIndexes) {
-            if (randomIndex == currentIndex) {
-                return true;
-            }
-        }
-        return false;
+    private int percentOf(int value, int percent) {
+        float normalisedValue = (float) value / PERCENTAGE_COEFF;
+        return Math.round(normalisedValue *(float) percent);
     }
+
 
     private static class BinaryBuilder {
 

@@ -1,14 +1,23 @@
 package com.ouchadam.fyp.algorithm.crossover.population;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import com.ouchadam.fyp.algorithm.ForEach;
 import com.ouchadam.fyp.algorithm.Member;
+import com.sun.org.apache.bcel.internal.generic.POP;
 
 public class Population {
 
     private final List<Member> members;
+
+    public static Population fromSubPopulation(Population... populations) {
+        List<Member> newPopulation = new ArrayList<Member>();
+        for (Population population : populations) {
+            newPopulation.addAll(population.members);
+        }
+        return new Population(newPopulation);
+
+    }
 
     public Population(List<Member> members) {
         this.members = Collections.unmodifiableList(members);
@@ -28,11 +37,27 @@ public class Population {
         }
     }
 
-    public Population prune(int amount) {
-        return new Population(members.subList(0, amount));
+    public Population getSubPopulation(int from, int to) {
+        return new Population(members.subList(from, to));
     }
 
-    public void addToCollection(List<Member> newPopulation) {
-        newPopulation.addAll(members);
+    public int frequency(Member member) {
+        return Collections.frequency(members, member);
+    }
+
+    public int indexOf(Member what) {
+        return members.indexOf(what);
+    }
+
+    public Population removeDuplicates() {
+        Set<Member> set = new HashSet<Member>();
+        set.addAll(members);
+        return new Population(new ArrayList<Member>(set));
+    }
+
+    public Population shuffle() {
+        List<Member> shuffledMembers = new ArrayList<Member>(members);
+        Collections.shuffle(shuffledMembers);
+        return new Population(shuffledMembers);
     }
 }

@@ -1,16 +1,22 @@
 package com.ouchadam.fyp.algorithm;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-class RandomIndexCreator {
+public class RandomIndexCreator {
 
-    public int[] create(int count, int max) {
-        Random random = new Random();
-        int[] noteIndexes = new int[count];
-        for (int index = 0; index < count; index++) {
-            noteIndexes[index] = random.nextInt(max);
+    Random random = new Random();
+
+    public List<Integer> create(int count, int max) {
+        List<Integer> indexes = new ArrayList<Integer>(count);
+        while (indexes.size() < count) {
+            Integer randomIndex = random.nextInt(max);
+            if (!indexes.contains(randomIndex)) {
+                indexes.add(randomIndex);
+            }
         }
-        return noteIndexes;
+        return indexes;
     }
 
 }

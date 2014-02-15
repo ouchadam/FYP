@@ -14,9 +14,8 @@ import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FixedNot
 
 public class PopulationEvaluator implements Evaluator<Population> {
 
-    private static final int FITTEST_INDEX = 0;
     private final FitnessFactory fitnessFactory;
-    private List<OrderedMember> valueList;
+    private List<OrderedPopulation.OrderedMember> valueList;
 
     public PopulationEvaluator(FitnessFactory fitnessFactory) {
         this.fitnessFactory = fitnessFactory;
@@ -24,53 +23,26 @@ public class PopulationEvaluator implements Evaluator<Population> {
 
     @Override
     public Evaluation evaluate(Population population) {
-        this.valueList = new ArrayList<OrderedMember>(population.size());
+        this.valueList = new ArrayList<OrderedPopulation.OrderedMember>(population.size());
         population.forEachMember(member);
-        Population orderedPopulation = createOrderedPopulation();
-        return new Evaluation(getFittest(), orderedPopulation);
+        return new Evaluation(createOrderedPopulation());
     }
 
-    private FitnessValue getFittest() {
-        return valueList.get(FITTEST_INDEX).value;
-    }
-
-    private Population createOrderedPopulation() {
+    private OrderedPopulation createOrderedPopulation() {
         Collections.sort(valueList);
-        List<Member> members = new ArrayList<Member>(valueList.size());
-        for (OrderedMember orderedMember : valueList) {
-            members.add(orderedMember.member);
-        }
-        return new Population(members);
+        return new OrderedPopulation(valueList);
     }
 
     private final ForEach<Member> member = new ForEach<Member>() {
         @Override
         public void on(Member member) {
             FitnessValue value = evaluate(member, FixedNoteRule.newInstance(60));
-            valueList.add(new OrderedMember(value, member));
+            valueList.add(new OrderedPopulation.OrderedMember(value, member));
         }
     };
 
     private FitnessValue evaluate(Member member, FitnessRule<Member>... rules) {
         return fitnessFactory.member().evaluate(member, rules);
-    }
-
-    private static class OrderedMember implements Comparable<OrderedMember> {
-
-        private final FitnessValue value;
-        private final Member member;
-
-        private OrderedMember(FitnessValue value, Member member) {
-            this.value = value;
-            this.member = member;
-        }
-
-        @Override
-        public int compareTo(OrderedMember o) {
-            int value1 = value.get();
-            int value2 = o.value.get();
-            return value1 == value2 ? 0 : value1 < value2 ? 1 : -1;
-        }
     }
 
 

@@ -24,18 +24,20 @@ public class PopulationCrossover {
                 newPopulation.add(crossover(population.get(index), population.get(0)));
             }
         }
-        population.addToCollection(newPopulation);
         return new Population(newPopulation);
     }
 
     private Member crossover(Member memberX, Member memberY) {
-        // TODO velocity etc...
-        List<Note> notes = new ArrayList<Note>(Member.CHILD_COUNT);
+        List<Note> notes = crossoverNotes(memberX, memberY);
+        return new Member(notes);
+    }
 
-        for (int index = 0; index < Member.CHILD_COUNT; index++) {
+    private List<Note> crossoverNotes(Member memberX, Member memberY) {
+        List<Note> notes = new ArrayList<Note>(Member.NOTE_CHILD_COUNT);
+        for (int index = 0; index < Member.NOTE_CHILD_COUNT; index++) {
             notes.add(crossoverNote(noteCrossover, memberX.note(index), memberY.note(index)));
         }
-        return new Member(notes);
+        return notes;
     }
 
     private Note crossoverNote(Crossover<Note> crossover, Note noteX, Note noteY) {

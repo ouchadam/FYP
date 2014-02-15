@@ -34,6 +34,7 @@ public class FixedNoteRule implements FitnessRule<Member> {
 
     private static class FixedNote implements FitnessRule<Note> {
 
+        private static final float RESOLUTION = 0.9f;
         private final int fixedValue;
 
         private FixedNote(int fixedValue) {
@@ -42,20 +43,19 @@ public class FixedNoteRule implements FitnessRule<Member> {
 
         @Override
         public FitnessValue apply(Note what) {
-
-//            int worth = 20; // TODO hitting the fixed value is worth atleast 20 more than any other
             int delta = Math.abs(what.decimal() - fixedValue);
+            int penalty = createRelativePenalty(delta);
+            int value = normalise_0_to_100(100 - (delta + penalty));
+            return new FitnessValue(value);
+        }
 
-            float multiplier = ((float)delta % 5f);
+        private int createRelativePenalty(float delta) {
+            float multiplier = (delta * RESOLUTION);
+            return (int) Math.ceil(multiplier * delta);
+        }
 
-            int penalty = multiplier;
-
-//            int foo = (delta - worth);
-
-
-            // TODO normalise max and min to 0 - 100
-            // TODO use delta to find / adjust the fitness value
-            return new FitnessValue(foo < 0 ? 0 : foo);
+        private int normalise_0_to_100(int value) {
+            return value < 0 ? 0 : value > 100 ? 100 : value;
         }
     }
 
