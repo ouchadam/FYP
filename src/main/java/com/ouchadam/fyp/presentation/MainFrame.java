@@ -71,7 +71,7 @@ class MainFrame implements ButtonController, TextController {
     }
 
     JButton getAnaliseButton() {
-        return analyseTabManager.getAnaliseButton();
+        return analyseTabManager.getAnalyseButton();
     }
 
     @Override

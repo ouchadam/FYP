@@ -4,12 +4,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-class AlgorithmTabManager {
+class AlgorithmTabManager extends TabManager {
 
-    private final JTabbedPane tabbedPane;
+    private static final String TAB_TITLE = "Algorithm";
 
     AlgorithmTabManager(JTabbedPane tabbedPane) {
-        this.tabbedPane = tabbedPane;
+        super(tabbedPane);
     }
 
     JTabbedPane create() {
@@ -18,7 +18,7 @@ class AlgorithmTabManager {
         JSlider barSlider = new JSlider(JSlider.HORIZONTAL);
         JLabel fooLabel = new JLabel("Foo");
         JLabel barLabel = new JLabel("Bar");
-        JButton startButton = new JButton("Start");
+        JButton startButton = createButton("Start");
         panel.add(fooLabel);
         panel.add(fooSlider);
         panel.add(barLabel);
@@ -26,19 +26,7 @@ class AlgorithmTabManager {
         panel.add(startButton);
         panel.setPreferredSize(new Dimension(300, 210));
         panel.setBorder(new EmptyBorder(25, 20, 0, 20));
-        return createTabbedPane("Algorithm", tabbedPane, panel);
-    }
-
-    private JTabbedPane createTabbedPane(String tile, JTabbedPane pane, Component... components) {
-        pane.add(tile, addToPanel(new JPanel(), components));
-        return pane;
-    }
-
-    private JPanel addToPanel(JPanel panel, Component... components) {
-        for (Component component : components) {
-            panel.add(component);
-        }
-        return panel;
+        return createTabbedPane(TAB_TITLE, panel);
     }
 
 }
