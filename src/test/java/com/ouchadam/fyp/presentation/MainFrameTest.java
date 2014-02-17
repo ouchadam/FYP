@@ -18,12 +18,13 @@ import static org.mockito.Mockito.verify;
 public class MainFrameTest extends TestWithMocks {
 
     @Mock JFrame frame;
+    @Mock UiReadyListener uiListener;
     @Mock OnClickListener clickListener;
     private MainFrame mainFrame;
 
     @Override
     protected void before() {
-        mainFrame = new MainFrame(frame);
+        mainFrame = new MainFrame(frame, uiListener);
     }
 
     @Test

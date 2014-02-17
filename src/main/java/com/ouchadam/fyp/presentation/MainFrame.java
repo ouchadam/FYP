@@ -7,23 +7,38 @@ import java.awt.event.WindowEvent;
 
 class MainFrame implements ButtonController, TextController {
 
-    private static final int FRAME_WIDTH = 300;
-    private static final int FRAME_HEIGHT = 300;
+    private static final int FRAME_WIDTH = 600;
+    private static final int FRAME_HEIGHT = 600;
     private static final String FRAME_TITLE = "My frame";
+
     private final JFrame frame;
+    private final UiReadyListener uiListener;
 
     private AnalyseTabManager analyseTabManager;
     private AlgorithmTabManager algorithmTabManager;
 
-    public static MainFrame newInstance() {
-        MainFrame mainFrame = new MainFrame(new JFrame());
-        mainFrame.initFrame();
+    public static MainFrame newInstance(UiReadyListener uiListener) {
+        MainFrame mainFrame = new MainFrame(new JFrame(), uiListener);
+        mainFrame.createAndShowGui();
         return mainFrame;
     }
 
-    MainFrame(JFrame frame) {
+    MainFrame(JFrame frame, UiReadyListener uiListener) {
         this.frame = frame;
+        this.uiListener = uiListener;
     }
+
+    void createAndShowGui() {
+        SwingUtilities.invokeLater(createGui);
+    }
+
+    private final Runnable createGui = new Runnable() {
+        @Override
+        public void run() {
+            initFrame();
+            uiListener.onUiReady();
+        }
+    };
 
     void initFrame() {
         frame.setTitle(FRAME_TITLE);
