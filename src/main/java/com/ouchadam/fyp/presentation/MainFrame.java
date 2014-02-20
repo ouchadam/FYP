@@ -1,11 +1,13 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.analysis.MidiTrack;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-class MainFrame implements ButtonController, TextController {
+class MainFrame implements ButtonController, TextController, SequenceController {
 
     private static final int FRAME_WIDTH = 600;
     private static final int FRAME_HEIGHT = 600;
@@ -15,7 +17,8 @@ class MainFrame implements ButtonController, TextController {
     private final UiReadyListener uiListener;
 
     private AnalyseTabManager analyseTabManager;
-    private AlgorithmTabManager algorithmTabManager;
+    private TabManager algorithmTabManager;
+    private SequenceTabManager sequenceTabManager;
 
     public static MainFrame newInstance(UiReadyListener uiListener) {
         MainFrame mainFrame = new MainFrame(new JFrame(), uiListener);
@@ -54,9 +57,11 @@ class MainFrame implements ButtonController, TextController {
         JPanel panel = new JPanel(new GridLayout(1, 1));
         JTabbedPane tabbedPane = new JTabbedPane();
         analyseTabManager = new AnalyseTabManager(tabbedPane);
-        panel.add(analyseTabManager.create());
         algorithmTabManager = new AlgorithmTabManager(tabbedPane);
+        sequenceTabManager = new SequenceTabManager(tabbedPane);
+        panel.add(analyseTabManager.create());
         panel.add(algorithmTabManager.create());
+        panel.add(sequenceTabManager.create());
         frame.add(panel);
     }
 
@@ -92,5 +97,10 @@ class MainFrame implements ButtonController, TextController {
     @Override
     public void setMidiSelection(String text) {
         analyseTabManager.setAnaliseText("Analise : " + text);
+    }
+
+    @Override
+    public void open(MidiTrack midiTrack) {
+        sequenceTabManager.open(midiTrack);
     }
 }

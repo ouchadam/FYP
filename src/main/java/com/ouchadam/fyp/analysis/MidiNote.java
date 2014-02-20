@@ -2,7 +2,7 @@ package com.ouchadam.fyp.analysis;
 
 import javax.sound.midi.ShortMessage;
 
-class MidiNote {
+public class MidiNote {
 
     private static final int TWELVE_TONE_SCALE = 12;
 

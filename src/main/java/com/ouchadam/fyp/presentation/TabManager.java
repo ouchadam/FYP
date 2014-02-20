@@ -13,6 +13,8 @@ abstract class TabManager {
         this.tabbedPane = tabbedPane;
     }
 
+    public abstract JTabbedPane create();
+
     protected JTabbedPane createTabbedPane(String tabTitle, Component... components) {
         tabbedPane.add(tabTitle, addToPanel(new JPanel(), components));
         return tabbedPane;

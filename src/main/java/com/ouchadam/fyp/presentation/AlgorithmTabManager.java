@@ -12,7 +12,8 @@ class AlgorithmTabManager extends TabManager {
         super(tabbedPane);
     }
 
-    JTabbedPane create() {
+    @Override
+    public JTabbedPane create() {
         JPanel panel = new JPanel(new GridLayout(3, 2));
         JSlider fooSlider = new JSlider(JSlider.HORIZONTAL);
         JSlider barSlider = new JSlider(JSlider.HORIZONTAL);

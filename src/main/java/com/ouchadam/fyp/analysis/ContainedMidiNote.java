@@ -5,7 +5,7 @@ public class ContainedMidiNote extends MidiNote {
     private final long lengthInTicks;
 
     public static ContainedMidiNote from(MidiNote noteOn, MidiNote noteOff) {
-        long lengthInTicks = noteOff.getTick() - noteOff.getTick();
+        long lengthInTicks = noteOff.getTick() - noteOn.getTick();
         return new ContainedMidiNote(noteOn.getKey(), noteOn.getOctave(), noteOn.getNote(), noteOn.getVelocity(), noteOn.getType(), noteOn.getTick(), lengthInTicks);
     }
 
@@ -16,5 +16,11 @@ public class ContainedMidiNote extends MidiNote {
 
     public long getTickLength() {
         return lengthInTicks;
+    }
+
+    public int lengthInSixteenth(int tickPerQuarter) {
+        int barInTicks = tickPerQuarter * 4;
+        int sixteenth = barInTicks / 16;
+        return Math.round(lengthInTicks / sixteenth);
     }
 }

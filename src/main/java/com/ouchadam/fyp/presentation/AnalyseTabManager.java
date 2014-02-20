@@ -14,7 +14,8 @@ class AnalyseTabManager extends TabManager {
         super(tabbedPane);
     }
 
-    JTabbedPane create() {
+    @Override
+    public JTabbedPane create() {
         JPanel panel = new JPanel(new GridLayout(2, 1));
         panel.add(openButton = createButton("Choose a MIDI file"));
         panel.add(analyseButton = createButton("Analyse..."));

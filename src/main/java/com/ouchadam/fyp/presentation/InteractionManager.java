@@ -12,11 +12,13 @@ class InteractionManager {
     private final MidiSelection midiSelection;
     private final ButtonController buttonController;
     private final TextController textController;
+    private final SequenceController sequenceController;
 
-    InteractionManager(MidiSelection midiSelection, ButtonController buttonController, TextController textController) {
+    InteractionManager(MidiSelection midiSelection, ButtonController buttonController, TextController textController, SequenceController sequenceController) {
         this.midiSelection = midiSelection;
         this.buttonController = buttonController;
         this.textController = textController;
+        this.sequenceController = sequenceController;
     }
 
     public OnClickListener openMidiListener() {
@@ -55,6 +57,7 @@ class InteractionManager {
             if (midiSelection.hasMidiFile()) {
                 File midiFile = midiSelection.getMidiFile();
                 int max = getMaxInterval(midiFile);
+                sequenceController.open(readMidi(midiFile));
                 showMessageDialog(component, "Max interval size : " + max);
             } else {
                 showMessageDialog(component, "Choose a .MIDI file first");
