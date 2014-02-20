@@ -21,6 +21,7 @@ public class Main {
             interactionManager = new InteractionManager(new MidiSelection(), mainFrame, mainFrame, mainFrame);
             mainFrame.setOpenMidiListener(interactionManager.openMidiListener());
             mainFrame.setAnaliseListener(interactionManager.analiseMidiListener());
+            mainFrame.setStartListener(interactionManager.onStart());
         }
     };
 

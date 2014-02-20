@@ -4,6 +4,7 @@ import com.ouchadam.fyp.algorithm.crossover.population.Population;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class PopulationMutator {
 
@@ -12,6 +13,8 @@ public class PopulationMutator {
     private List<Integer> membersToMutate;
     private Population population;
 
+    private final Random random = new Random();
+
     public PopulationMutator(IndexManager indexManager) {
         this.indexManager = indexManager;
     }
@@ -19,7 +22,7 @@ public class PopulationMutator {
     public Population mutate(Population population) {
         this.population = population;
         members = new ArrayList<Member>(population.size());
-        membersToMutate = indexManager.create(population.size(), population.size());
+        membersToMutate = indexManager.create(random.nextInt(population.size() - 1) + 1, population.size());
         population.forEachMember(mutateMember);
         return new Population(members);
     }

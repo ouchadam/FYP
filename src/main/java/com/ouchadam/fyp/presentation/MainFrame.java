@@ -17,7 +17,7 @@ class MainFrame implements ButtonController, TextController, SequenceController 
     private final UiReadyListener uiListener;
 
     private AnalyseTabManager analyseTabManager;
-    private TabManager algorithmTabManager;
+    private AlgorithmTabManager algorithmTabManager;
     private SequenceTabManager sequenceTabManager;
 
     public static MainFrame newInstance(UiReadyListener uiListener) {
@@ -100,7 +100,16 @@ class MainFrame implements ButtonController, TextController, SequenceController 
     }
 
     @Override
+    public void appendGenerationText(String text) {
+        algorithmTabManager.updateText(text);
+    }
+
+    @Override
     public void open(MidiTrack midiTrack) {
         sequenceTabManager.open(midiTrack);
+    }
+
+    public void setStartListener(OnClickListener onClickListener) {
+        algorithmTabManager.setStartListener(onClickListener);
     }
 }

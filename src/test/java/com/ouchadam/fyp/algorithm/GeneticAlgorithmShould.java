@@ -6,11 +6,13 @@ import com.ouchadam.fyp.algorithm.crossover.population.PopulationCreator;
 import com.ouchadam.fyp.algorithm.crossover.population.PopulationCrossover;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.Evaluator;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FitnessValue;
-import helper.Printer;
-import helper.TestWithMocks;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
+
+import helper.Printer;
+import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -29,7 +31,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     public void return_when_the_evaulation_output_is_passed() {
         Evaluation passedEvaluation = createPassedEvaluation();
         when(evaluator.evaluate(any(Population.class))).thenReturn(passedEvaluation);
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null, halter);
 
         Evaluation evaluation = geneticAlgorithm.work();
         assertThat(evaluation).isNotNull();
@@ -37,7 +39,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
     @Ignore @Test
     public void full_flow() {
-        GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback);
+        GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback, halter);
 
         Evaluation output = geneticAlgorithm.work();
         int fitnessValue = output.fitnessValue(0).get();
@@ -47,6 +49,13 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
         assertThat(fitnessValue).isGreaterThanOrEqualTo(GeneticAlgorithm.ACCEPTABLE_FITNESS_VALUE);
     }
+
+    private final GeneticAlgorithm.GenerationHalter halter = new GeneticAlgorithm.GenerationHalter() {
+        @Override
+        public boolean halt(Evaluation evaluation, int index) {
+            return false;
+        }
+    };
 
     private final GenerationCallback generationCallback = new GenerationCallback() {
 
@@ -62,10 +71,6 @@ public class GeneticAlgorithmShould extends TestWithMocks {
                 Member member0 = evaluation.population().get(0);
                 System.out.println("0 :  fitness : " + evaluation.fitnessValue(0).get() + " occurs : " + getFrequency(evaluation, member0));
                 Printer.print(member0);
-                System.out.println("");
-                Member member3 = evaluation.population().get(101);
-                System.out.println("101 :  fitness : " + evaluation.fitnessValue(101).get() + " occurs : " + getFrequency(evaluation, member3));
-                Printer.print(member3);
                 System.out.println("");
             }
         }

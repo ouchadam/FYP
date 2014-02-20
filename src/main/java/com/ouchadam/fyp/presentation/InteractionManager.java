@@ -1,5 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.algorithm.GenerationCallback;
+import com.ouchadam.fyp.algorithm.crossover.population.Evaluation;
 import com.ouchadam.fyp.analysis.*;
 
 import javax.swing.*;
@@ -83,5 +85,25 @@ class InteractionManager {
             throw new RuntimeException("Couldn't handle file");
         }
     }
+
+    public OnClickListener onStart() {
+        return onStart;
+    }
+
+    private final OnClickListener onStart = new OnClickListener() {
+        @Override
+        public void onClick(Component component) {
+            GenerationController generationController = new GenerationController();
+            generationController.setGenerationCallback(onGeneration);
+            generationController.start();
+        }
+    };
+
+    private final GenerationCallback onGeneration = new GenerationCallback() {
+        @Override
+        public void onGeneration(Evaluation evaluation) {
+            textController.appendGenerationText("Fitness : " + evaluation.fitnessValue(0).get());
+        }
+    };
 
 }
