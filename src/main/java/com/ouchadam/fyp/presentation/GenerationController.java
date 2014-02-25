@@ -39,6 +39,7 @@ class GenerationController {
     };
 
     private final GeneticAlgorithm.GenerationHalter internalHalter = new GeneticAlgorithm.GenerationHalter() {
+
         @Override
         public boolean isHalted(Evaluation evaluation, int index) {
             return halter != null ? halter.isHalted(evaluation, index) : false;
@@ -71,6 +72,11 @@ class GenerationController {
         }
     }
 
+    public void reset() {
+        this.worker = null;
+        this.halter.setHalted(false);
+    }
+
     public void setGenerationCallback(GenerationCallback onGeneration) {
         this.onGeneration = onGeneration;
     }
@@ -83,7 +89,7 @@ class GenerationController {
         this.onFinish = onFinish;
     }
 
-    public boolean isRunning() {
-        return worker != null;
+    public AlgorithmController.Status status() {
+        return worker != null ? AlgorithmController.Status.RUNNING : AlgorithmController.Status.IDLE;
     }
 }

@@ -105,7 +105,7 @@ class MainFrame implements ButtonController, TextController, SequenceController 
     }
 
     @Override
-    public void setStartStop(InteractionManager.Foo startStopText) {
+    public void setStartStop(AlgorithmController.Status startStopText) {
         algorithmTabManager.setStartStopText(startStopText);
     }
 

@@ -49,7 +49,6 @@ class AlgorithmTabManager extends TabManager {
     }
 
     void updateText(final String text) {
-        System.out.println(text);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -58,7 +57,7 @@ class AlgorithmTabManager extends TabManager {
         });
     }
 
-    public void setStartStopText(InteractionManager.Foo startStopText) {
+    public void setStartStopText(AlgorithmController.Status startStopText) {
         switch (startStopText) {
             case IDLE:
                 startStopButton.setText("Start");

@@ -8,12 +8,12 @@ import com.ouchadam.fyp.algorithm.crossover.population.PopulationCrossover;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.Evaluator;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.FitnessFactory;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.PopulationEvaluator;
+import com.ouchadam.fyp.presentation.OnFinish;
 
 public class GeneticAlgorithm {
 
     private final static int INITIAL_POPULATION_SIZE = 400;
     private final static int MAX_POPULATION_SIZE = 4000;
-    private final static int GENERATION_LIMIT = 20000;
     final static int ACCEPTABLE_FITNESS_VALUE = 100;
 
     private final PopulationMutator mutator;
@@ -65,12 +65,14 @@ public class GeneticAlgorithm {
             evaluation = evaluator.evaluate(Population.fromSubPopulation(pruner.prune(generation), mutator.mutate(crossover.crossover(pruner.getBest(generation)))));
             callback(evaluation, index);
             generation = evaluation.population();
-            if (index >= GENERATION_LIMIT || halter.isHalted(evaluation, index)) {
+            if (halter.isHalted(evaluation, index)) {
                 System.out.println("Limit reached or halted, breaking out");
-                break;
+                evaluation.setFail();
+                return evaluation;
             }
             index++;
         } while (evaluation.fitnessValue(0).get() < ACCEPTABLE_FITNESS_VALUE);
+        evaluation.setPass();
         return evaluation;
     }
 
