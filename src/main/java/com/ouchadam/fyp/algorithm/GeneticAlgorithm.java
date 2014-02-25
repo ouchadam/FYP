@@ -11,8 +11,8 @@ import com.ouchadam.fyp.algorithm.crossover.population.evaluate.PopulationEvalua
 
 public class GeneticAlgorithm {
 
-    private final static int INITIAL_POPULATION_SIZE = 200;
-    private final static int MAX_POPULATION_SIZE = 2000;
+    private final static int INITIAL_POPULATION_SIZE = 400;
+    private final static int MAX_POPULATION_SIZE = 4000;
     private final static int GENERATION_LIMIT = 20000;
     final static int ACCEPTABLE_FITNESS_VALUE = 100;
 
@@ -49,6 +49,7 @@ public class GeneticAlgorithm {
     public Evaluation work() {
         // TODO create initial population
         // TODO loop mutation > select best > crossover
+        halter.setHalted(false);
         return loop(createInitialPopulation(), halter);
     }
 
@@ -62,10 +63,10 @@ public class GeneticAlgorithm {
         int index = 0;
         do {
             evaluation = evaluator.evaluate(Population.fromSubPopulation(pruner.prune(generation), mutator.mutate(crossover.crossover(pruner.getBest(generation)))));
-            callback(evaluation);
+            callback(evaluation, index);
             generation = evaluation.population();
-            if (index >= GENERATION_LIMIT || halter.halt(evaluation, index)) {
-                System.out.println("Limit reached, breaking out");
+            if (index >= GENERATION_LIMIT || halter.isHalted(evaluation, index)) {
+                System.out.println("Limit reached or halted, breaking out");
                 break;
             }
             index++;
@@ -73,14 +74,15 @@ public class GeneticAlgorithm {
         return evaluation;
     }
 
-    private void callback(Evaluation evaluation) {
+    private void callback(Evaluation evaluation, int generationIndex) {
         if (generationCallback != null) {
-            generationCallback.onGeneration(evaluation);
+            generationCallback.onGeneration(evaluation, generationIndex);
         }
     }
 
     public interface GenerationHalter {
-        boolean halt(Evaluation evaluation, int index);
+        boolean isHalted(Evaluation evaluation, int index);
+        void setHalted(boolean halted);
     }
 
 }

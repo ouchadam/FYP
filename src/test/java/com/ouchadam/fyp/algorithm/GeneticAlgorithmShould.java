@@ -52,19 +52,20 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
     private final GeneticAlgorithm.GenerationHalter halter = new GeneticAlgorithm.GenerationHalter() {
         @Override
-        public boolean halt(Evaluation evaluation, int index) {
+        public boolean isHalted(Evaluation evaluation, int index) {
             return false;
         }
+
+        @Override
+        public void setHalted(boolean halted) {}
     };
 
     private final GenerationCallback generationCallback = new GenerationCallback() {
 
-        private int index;
         private int fixedIndex = 0;
 
         @Override
-        public void onGeneration(Evaluation evaluation) {
-            index++;
+        public void onGeneration(Evaluation evaluation, int index) {
             if (fixedIndex <= (index - 100)) {
                 fixedIndex = index;
                 System.out.println("-------------- Generation : " + index + " ------------------------");

@@ -9,8 +9,8 @@ import java.awt.event.WindowEvent;
 
 class MainFrame implements ButtonController, TextController, SequenceController {
 
-    private static final int FRAME_WIDTH = 600;
-    private static final int FRAME_HEIGHT = 600;
+    private static final int FRAME_WIDTH = 550;
+    private static final int FRAME_HEIGHT = 400;
     private static final String FRAME_TITLE = "My frame";
 
     private final JFrame frame;
@@ -96,7 +96,7 @@ class MainFrame implements ButtonController, TextController, SequenceController 
 
     @Override
     public void setMidiSelection(String text) {
-        analyseTabManager.setAnaliseText("Analise : " + text);
+        analyseTabManager.setAnaliseText("Analyse : " + text);
     }
 
     @Override
@@ -105,11 +105,22 @@ class MainFrame implements ButtonController, TextController, SequenceController 
     }
 
     @Override
+    public void setStartStop(InteractionManager.Foo startStopText) {
+        algorithmTabManager.setStartStopText(startStopText);
+    }
+
+    @Override
+    public void setResultColour(Color colour) {
+        algorithmTabManager.setResultColour(colour);
+    }
+
+    @Override
     public void open(MidiTrack midiTrack) {
         sequenceTabManager.open(midiTrack);
     }
 
-    public void setStartListener(OnClickListener onClickListener) {
-        algorithmTabManager.setStartListener(onClickListener);
+    public void setStartStopListener(OnClickListener onClickListener) {
+        algorithmTabManager.setStartStopListener(onClickListener);
     }
+
 }
