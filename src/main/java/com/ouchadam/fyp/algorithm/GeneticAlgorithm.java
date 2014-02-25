@@ -37,7 +37,7 @@ public class GeneticAlgorithm {
     }
 
     GeneticAlgorithm(PopulationCreator creator, PopulationMutator mutator, PopulationCrossover crossover, Evaluator<Population> evaluator, PopulationPruner pruner, GenerationCallback generationCallback, GenerationHalter halter) {
-        populationCreator = creator;
+        this.populationCreator = creator;
         this.mutator = mutator;
         this.crossover = crossover;
         this.evaluator = evaluator;

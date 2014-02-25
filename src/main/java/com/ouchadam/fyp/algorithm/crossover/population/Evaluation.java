@@ -8,11 +8,11 @@ public class Evaluation {
 
     public enum ResultType {
         PASS, FAIL;
-
     }
-    private OrderedPopulation orderedPopulation;
 
+    private OrderedPopulation orderedPopulation;
     private ResultType resultType;
+
     public Evaluation(OrderedPopulation orderedPopulation) {
         this.orderedPopulation = orderedPopulation;
     }
