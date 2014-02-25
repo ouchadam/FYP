@@ -3,7 +3,7 @@ package com.ouchadam.fyp.analysis;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
-class MidiMeta {
+public class MidiMeta {
 
     private final Division division;
     private final int resolution;

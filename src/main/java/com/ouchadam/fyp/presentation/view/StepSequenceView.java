@@ -1,13 +1,12 @@
 package com.ouchadam.fyp.presentation.view;
 
-import com.ouchadam.fyp.analysis.ContainedMidiNote;
-import com.ouchadam.fyp.analysis.ContainedNoteCreator;
-import com.ouchadam.fyp.analysis.MidiTrack;
+import com.ouchadam.fyp.analysis.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StepSequenceView extends JPanel {
@@ -37,18 +36,28 @@ public class StepSequenceView extends JPanel {
     }
 
     public void open(MidiTrack midiTrack) {
-        int index = 0;
-        List<ContainedMidiNote> midiNotes = new ContainedNoteCreator().process(midiTrack.getNotes());
-        for (ContainedMidiNote note : midiNotes) {
-            gridMembers[note.getNote()][index].setSelected(true);
-            int length = note.lengthInSixteenth(960);
-            System.out.println("Note is : " + note.getNote() + " length tick is : " + note.getTickLength() + " 16 length is : " + length);
-            index += length + 1;
-            if (index >= COLUMNS) {
+        List<Sequenced16thMidiNote> notes = toSequencedNote(midiTrack);
+        for (Sequenced16thMidiNote note : notes) {
+            if (note.position() >= COLUMNS) {
                 break;
+            } else {
+                addToGrid(note);
             }
         }
     }
+
+    private List<Sequenced16thMidiNote> toSequencedNote(MidiTrack midiTrack) {
+        List<ContainedMidiNote> containedMidiNotes = new ContainedNoteCreator().process(midiTrack.getNotes());
+        return new SequencedNoteCreator(midiTrack.getMeta().getResolution()).process(containedMidiNotes);
+    }
+
+    private void addToGrid(Sequenced16thMidiNote midiNote) {
+        System.out.println("Note is : " + midiNote.getNote() + " position in 16ths : " + midiNote.position() + " length is 16ths: " + midiNote.length());
+        for (int index = 0; index < midiNote.length(); index++) {
+            gridMembers[midiNote.getNote()][midiNote.position() + index].setSelected(true);
+        }
+    }
+
 
     private static class Step extends JPanel implements MouseListener {
 
