@@ -3,6 +3,8 @@ package com.ouchadam.fyp.presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class AlgorithmTabManager extends TabManager {
 
@@ -16,32 +18,36 @@ class AlgorithmTabManager extends TabManager {
 
     @Override
     public JTabbedPane create() {
-        JPanel panel = new JPanel(new GridLayout(3, 1));
+        JPanel panel = new JPanel(new GridLayout(7, 1));
         textArea = new JLabel("Dummy text");
         startStopButton = createButton("Start");
         panel.add(createSliders());
         panel.add(startStopButton);
         panel.add(textArea);
-        panel.setPreferredSize(new Dimension(300, 210));
+        panel.setPreferredSize(new Dimension(400, 600));
         panel.setBorder(new EmptyBorder(25, 20, 0, 20));
         return createTabbedPane(TAB_TITLE, panel);
     }
 
     private Component createSliders() {
-        JPanel slidersContainer = new JPanel(new GridLayout(3, 2));
-        initSliders(slidersContainer);
-        return slidersContainer;
-    }
+        int sliderCount = 4;
+        JPanel slidersContainer = new JPanel(new GridBagLayout());
+        slidersContainer.setPreferredSize(new Dimension(400, 400));
 
-    private void initSliders(JPanel panel) {
-        JSlider fooSlider = new JSlider(JSlider.HORIZONTAL);
-        JSlider barSlider = new JSlider(JSlider.HORIZONTAL);
-        JLabel fooLabel = new JLabel("Foo");
-        JLabel barLabel = new JLabel("Bar");
-        panel.add(fooLabel);
-        panel.add(fooSlider);
-        panel.add(barLabel);
-        panel.add(barSlider);
+        List<Slider> sliders = new ArrayList<Slider>(sliderCount);
+
+        sliders.add(Slider.newInstance("Max Population Size", 100, 10000));
+        sliders.add(Slider.newInstance("Initial Population Size", 100, 10000));
+        sliders.add(Slider.newInstance("Foo", 0 , 100));
+        sliders.add(Slider.newInstance("Bar", 0 , 100));
+
+        int row = 0;
+        for (Slider slider : sliders) {
+            slider.attachTo(slidersContainer, row);
+            row ++;
+        }
+
+        return slidersContainer;
     }
 
     void setStartStopListener(OnClickListener listener) {

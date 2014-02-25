@@ -1,12 +1,12 @@
 package com.ouchadam.fyp.algorithm;
 
-import com.ouchadam.fyp.algorithm.crossover.population.Evaluation;
-import com.ouchadam.fyp.algorithm.crossover.population.Population;
-import com.ouchadam.fyp.algorithm.crossover.population.PopulationCreator;
-import com.ouchadam.fyp.algorithm.crossover.population.PopulationCrossover;
+import com.ouchadam.fyp.algorithm.crossover.Crossover;
+import com.ouchadam.fyp.algorithm.crossover.population.*;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.Evaluator;
+import com.ouchadam.fyp.algorithm.crossover.population.evaluate.OrderedPopulation;
 import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FitnessValue;
 
+import helper.PopulationHelper;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -16,24 +16,33 @@ import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class GeneticAlgorithmShould extends TestWithMocks {
 
     @Mock Evaluator<Population> evaluator;
-    @Mock PopulationCreator creator;
-    @Mock PopulationMutator mutator;
+    @Mock Creator<Population> creator;
+    @Mock Mutator<Population> mutator;
     @Mock PopulationCrossover crossover;
     @Mock PopulationPruner pruner;
 
-    @Ignore @Test
+    @Test
     public void return_when_the_evaulation_output_is_passed() {
+        Population pop = PopulationHelper.create();
+
         Evaluation passedEvaluation = createPassedEvaluation();
+
         when(evaluator.evaluate(any(Population.class))).thenReturn(passedEvaluation);
+        when(creator.create(anyInt())).thenReturn(pop);
+        when(mutator.mutate(any(Population.class))).thenReturn(pop);
+        when(pruner.prune(any(Population.class))).thenReturn(pop);
+
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null, halter);
 
         Evaluation evaluation = geneticAlgorithm.work();
+
         assertThat(evaluation).isNotNull();
     }
 

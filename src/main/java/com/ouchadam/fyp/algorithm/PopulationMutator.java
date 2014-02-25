@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PopulationMutator {
+public class PopulationMutator implements Mutator<Population> {
 
     private final IndexManager indexManager;
     private List<Member> members;
@@ -19,6 +19,7 @@ public class PopulationMutator {
         this.indexManager = indexManager;
     }
 
+    @Override
     public Population mutate(Population population) {
         this.population = population;
         members = new ArrayList<Member>(population.size());

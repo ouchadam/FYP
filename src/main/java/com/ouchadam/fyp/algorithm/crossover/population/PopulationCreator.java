@@ -8,7 +8,7 @@ import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 
-public class PopulationCreator {
+public class PopulationCreator implements Creator<Population> {
 
     private final MemberCreator memberCreator;
     private final PopulationCrossover crossover;
@@ -18,7 +18,8 @@ public class PopulationCreator {
         this.crossover = crossover;
     }
 
-    public Population createPopulation(int size) {
+    @Override
+    public Population create(int size) {
         List<Member> members = new ArrayList<Member>(size);
         for (int index = 0; index < size; index++) {
             members.add(memberCreator.createRandomMember());
