@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StepSequenceView extends JPanel {
@@ -14,11 +13,10 @@ public class StepSequenceView extends JPanel {
     private static final int ROWS = 12;
     private static final int COLUMNS = 16 * 2;
 
-    private GridLayout gridLayout;
     private Step[][] gridMembers;
 
     public void init() {
-        gridLayout = new GridLayout(ROWS, COLUMNS, 2, 2);
+        GridLayout gridLayout = new GridLayout(ROWS, COLUMNS, 2, 2);
         gridMembers = new Step[ROWS][COLUMNS];
         setLayout(gridLayout);
 
@@ -36,12 +34,21 @@ public class StepSequenceView extends JPanel {
     }
 
     public void open(MidiTrack midiTrack) {
+        clearGrid();
         List<Sequenced16thMidiNote> notes = toSequencedNote(midiTrack);
         for (Sequenced16thMidiNote note : notes) {
             if (note.position() >= COLUMNS) {
                 break;
             } else {
                 addToGrid(note);
+            }
+        }
+    }
+
+    private void clearGrid() {
+        for (int row = 0; row < ROWS; row++) {
+            for (int column = 0; column < COLUMNS; column++) {
+                gridMembers[row][column].setSelected(false);
             }
         }
     }
@@ -57,7 +64,6 @@ public class StepSequenceView extends JPanel {
             gridMembers[midiNote.getNote()][midiNote.position() + index].setSelected(true);
         }
     }
-
 
     private static class Step extends JPanel implements MouseListener {
 
@@ -76,19 +82,23 @@ public class StepSequenceView extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            setSelected(!selected);
+//            setSelected(!selected);
         }
 
-        @Override public void mousePressed(MouseEvent e) {
+        @Override
+        public void mousePressed(MouseEvent e) {
         }
 
-        @Override public void mouseReleased(MouseEvent e) {
+        @Override
+        public void mouseReleased(MouseEvent e) {
         }
 
-        @Override public void mouseEntered(MouseEvent e) {
+        @Override
+        public void mouseEntered(MouseEvent e) {
         }
 
-        @Override public void mouseExited(MouseEvent e) {
+        @Override
+        public void mouseExited(MouseEvent e) {
         }
     }
 

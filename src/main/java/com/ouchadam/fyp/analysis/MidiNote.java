@@ -6,8 +6,21 @@ public class MidiNote {
 
     private static final int TWELVE_TONE_SCALE = 12;
 
-    enum Type {
-        ON, OFF;
+    public enum Type {
+        ON {
+            @Override
+            public int asStatus() {
+                return ShortMessage.NOTE_ON;
+            }
+        },
+        OFF {
+            @Override
+            public int asStatus() {
+                return ShortMessage.NOTE_OFF;
+            }
+        };
+
+        public abstract int asStatus();
 
         static Type from(ShortMessage message) {
             switch (message.getCommand()) {
