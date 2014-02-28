@@ -14,6 +14,7 @@ public class StepSequenceView extends JPanel {
     private static final int COLUMNS = 16 * 2;
 
     private Step[][] gridMembers;
+    private List<Sequenced16thMidiNote> notes;
 
     public void init() {
         GridLayout gridLayout = new GridLayout(ROWS, COLUMNS, 2, 2);
@@ -35,7 +36,7 @@ public class StepSequenceView extends JPanel {
 
     public void open(MidiTrack midiTrack) {
         clearGrid();
-        List<Sequenced16thMidiNote> notes = toSequencedNote(midiTrack);
+        notes = toSequencedNote(midiTrack);
         for (Sequenced16thMidiNote note : notes) {
             if (note.position() >= COLUMNS) {
                 break;
@@ -65,13 +66,20 @@ public class StepSequenceView extends JPanel {
         }
     }
 
+    public List<Sequenced16thMidiNote> getNotes() {
+        return notes;
+    }
+
     private static class Step extends JPanel implements MouseListener {
+
+        private static final int WIDTH = 12;
+        private static final int HEIGHT = 12;
 
         private boolean selected = false;
 
         private Step() {
             setBackground(Color.DARK_GRAY);
-            setPreferredSize(new Dimension(12, 12));
+            setPreferredSize(new Dimension(WIDTH, HEIGHT));
             addMouseListener(this);
         }
 

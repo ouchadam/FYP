@@ -1,7 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.analysis.MidiNote;
 import com.ouchadam.fyp.analysis.MidiTrack;
+import com.ouchadam.fyp.analysis.Sequenced16thMidiNote;
 import com.ouchadam.fyp.presentation.view.StepSequenceView;
 
 import javax.sound.midi.*;
@@ -13,6 +13,7 @@ public class SequenceTabManager extends TabManager implements SequenceController
     private StepSequenceView stepSequenceView;
     private MidiTrack midiTrack;
     private JButton play;
+    private JButton save;
 
     public SequenceTabManager(JTabbedPane tabbedPane) {
         super(tabbedPane);
@@ -20,15 +21,23 @@ public class SequenceTabManager extends TabManager implements SequenceController
 
     @Override
     public JTabbedPane create() {
-        JPanel panel = new JPanel(new GridLayout(2, 1));
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         stepSequenceView = new StepSequenceView();
         stepSequenceView.init();
         panel.add(stepSequenceView);
-        play = new JButton("Play");
-        play.setEnabled(false);
+        play = createLoadDependantButton("Play");
+        save = createLoadDependantButton("Save");
         panel.add(play);
+        panel.add(save);
         setPlayListener();
         return createTabbedPane("Sequence", panel);
+    }
+
+    private JButton createLoadDependantButton(String title) {
+        JButton button = createButton(title);
+        button.setEnabled(false);
+        return button;
     }
 
     @Override
@@ -36,6 +45,7 @@ public class SequenceTabManager extends TabManager implements SequenceController
         this.midiTrack = midiTrack;
         stepSequenceView.open(midiTrack);
         play.setEnabled(true);
+        save.setEnabled(true);
     }
 
     void setPlayListener() {
@@ -56,12 +66,13 @@ public class SequenceTabManager extends TabManager implements SequenceController
 
     private void playSequence() {
         try {
-            Sequence sequence = new Sequence(Sequence.PPQ, 960, 1);
+            Sequence sequence = new Sequence(midiTrack.getMeta().getDivision().value(), midiTrack.getMeta().getResolution(), 1);
             Track track = sequence.createTrack();
-            for (MidiNote midiNote : midiTrack.getNotes()) {
-                ShortMessage message = new ShortMessage(midiNote.getType().asStatus(), midiNote.getKey(), midiNote.getVelocity());
-                track.add(new MidiEvent(message, midiNote.getTick()));
+            for (Sequenced16thMidiNote midiNote : stepSequenceView.getNotes()) {
+                track.add(midiNote.getNoteOn());
+                track.add(midiNote.getNoteOff());
             }
+
             Sequencer sequencer = MidiSystem.getSequencer();
             sequencer.open();
             sequencer.setSequence(sequence);

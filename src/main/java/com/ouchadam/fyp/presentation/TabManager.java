@@ -27,12 +27,6 @@ abstract class TabManager {
         return panel;
     }
 
-    protected JButton createButton(String title) {
-        JButton button = new JButton();
-        button.setText(title);
-        return button;
-    }
-
     public void setClickListener(JButton button, OnClickListener onClickListener) {
         button.addActionListener(wrapClickListener(button, onClickListener));
     }
@@ -50,6 +44,12 @@ abstract class TabManager {
         if (listener != null) {
             listener.onClick(button);
         }
+    }
+
+    protected JButton createButton(String title) {
+        JButton button = new JButton();
+        button.setText(title);
+        return button;
     }
 
 }

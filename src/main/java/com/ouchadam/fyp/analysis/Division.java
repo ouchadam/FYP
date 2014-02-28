@@ -2,8 +2,39 @@ package com.ouchadam.fyp.analysis;
 
 import javax.sound.midi.Sequence;
 
-enum Division {
-    PPQ, SMPTE_24, SMPTE_25, SMPTE_30, SMPTE_30DROP;
+public enum Division {
+    PPQ {
+        @Override
+        public float value() {
+            return Sequence.PPQ;
+        }
+    },
+    SMPTE_24 {
+        @Override
+        public float value() {
+            return Sequence.SMPTE_24;
+        }
+    },
+    SMPTE_25 {
+        @Override
+        public float value() {
+            return Sequence.SMPTE_25;
+        }
+    },
+    SMPTE_30 {
+        @Override
+        public float value() {
+            return Sequence.SMPTE_30;
+        }
+    },
+    SMPTE_30DROP {
+        @Override
+        public float value() {
+            return Sequence.SMPTE_30DROP;
+        }
+    };
+
+    public abstract float value();
 
     static Division from(Sequence sequence) {
         float divisionType = sequence.getDivisionType();

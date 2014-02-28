@@ -1,5 +1,8 @@
 package com.ouchadam.fyp.analysis;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiEvent;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 
 public class MidiNote {
@@ -89,6 +92,19 @@ public class MidiNote {
 
     public int getVelocity() {
         return velocity;
+    }
+
+    public MidiEvent toMessage() {
+        return createEvent(getType().asStatus(), getKey(), getVelocity(), getTick());
+    }
+
+    protected MidiEvent createEvent(int status, int data1, int data2, long tick) {
+        try {
+            return new MidiEvent(new ShortMessage(status, data1, data2), tick);
+        } catch (InvalidMidiDataException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Invalid midi event");
+        }
     }
 
 }
