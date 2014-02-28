@@ -9,7 +9,7 @@ public class ContainedMidiNote extends MidiNote {
         return new ContainedMidiNote(noteOn.getKey(), noteOn.getOctave(), noteOn.getNote(), noteOn.getVelocity(), noteOn.getType(), noteOn.getTick(), lengthInTicks);
     }
 
-    ContainedMidiNote(int key, int octave, int note, int velocity, Type type, long tick, long lengthInTicks) {
+    ContainedMidiNote(int key, int octave, Key note, int velocity, Type type, long tick, long lengthInTicks) {
         super(key, octave, note, velocity, type, tick);
         this.lengthInTicks = lengthInTicks;
     }

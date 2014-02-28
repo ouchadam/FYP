@@ -62,7 +62,7 @@ public class StepSequenceView extends JPanel {
     private void addToGrid(Sequenced16thMidiNote midiNote) {
         System.out.println("Note is : " + midiNote.getNote() + " position in 16ths : " + midiNote.position() + " length is 16ths: " + midiNote.length());
         for (int index = 0; index < midiNote.length(); index++) {
-            gridMembers[midiNote.getNote()][midiNote.position() + index].setSelected(true);
+            gridMembers[midiNote.getNote().value()][midiNote.position() + index].setSelected(true);
         }
     }
 

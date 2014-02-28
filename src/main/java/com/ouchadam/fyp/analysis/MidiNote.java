@@ -2,7 +2,6 @@ package com.ouchadam.fyp.analysis;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiEvent;
-import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 
 public class MidiNote {
@@ -43,7 +42,7 @@ public class MidiNote {
 
     private final int key;
     private final int octave;
-    private final int note;
+    private final Key note;
     private final int velocity;
     private final Type type;
     private final long tick;
@@ -51,17 +50,17 @@ public class MidiNote {
     public static MidiNote from(ShortMessage message, long tick) {
         Type type = Type.from(message);
         int key = message.getData1();
-        int note = key % TWELVE_TONE_SCALE;
+        int noteValue = key % TWELVE_TONE_SCALE;
         int octave = (key / TWELVE_TONE_SCALE) - 1;
         int velocity = message.getData2();
-        return new MidiNote(key, octave, note, velocity, type, tick);
+        return new MidiNote(key, octave, Key.from(noteValue), velocity, type, tick);
     }
 
     public static MidiNote from(MidiNote midiNote) {
         return new MidiNote(midiNote.key, midiNote.octave, midiNote.note, midiNote.velocity, midiNote.type, midiNote.tick);
     }
 
-    MidiNote(int key, int octave, int note, int velocity, Type type, long tick) {
+    MidiNote(int key, int octave, Key note, int velocity, Type type, long tick) {
         this.key = key;
         this.octave = octave;
         this.note = note;
@@ -86,7 +85,7 @@ public class MidiNote {
         return octave;
     }
 
-    public int getNote() {
+    public Key getNote() {
         return note;
     }
 

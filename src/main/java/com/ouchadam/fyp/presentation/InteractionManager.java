@@ -5,7 +5,6 @@ import com.ouchadam.fyp.analysis.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.util.List;
 
 class InteractionManager {
 
@@ -59,20 +58,17 @@ class InteractionManager {
         public void onClick(Component component) {
             if (midiSelection.hasMidiFile()) {
                 File midiFile = midiSelection.getMidiFile();
-                int max = getMaxInterval(midiFile);
-                sequenceController.open(readMidi(midiFile));
-                showMessageDialog(component, "Max interval size : " + max);
+                MidiTrack midiTrack = readMidi(midiFile);
+                sequenceController.open(midiTrack);
+                MidiAnalysizer midiAnalysizer = new MidiAnalysizer();
+                String result = midiAnalysizer.analyse(midiTrack);
+                showMessageDialog(component, result);
             } else {
                 showMessageDialog(component, "Choose a .MIDI file first");
             }
         }
     };
 
-    private int getMaxInterval(File midiFile) {
-        MidiTrack midiTrack = readMidi(midiFile);
-        List<ContainedMidiNote> process = new ContainedNoteCreator().process(midiTrack.getNotes());
-        return new IntervalCounter().max(process);
-    }
 
     private void showMessageDialog(Component component, String message) {
         JOptionPane.showMessageDialog(component.getParent(), message);

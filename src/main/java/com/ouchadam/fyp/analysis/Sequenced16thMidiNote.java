@@ -21,7 +21,7 @@ public class Sequenced16thMidiNote extends MidiNote {
         return Math.round(ticks / sixteenth);
     }
 
-    Sequenced16thMidiNote(int key, int octave, int note, int velocity, Type type, long tick, int position, int length, long tickLength) {
+    Sequenced16thMidiNote(int key, int octave, Key note, int velocity, Type type, long tick, int position, int length, long tickLength) {
         super(key, octave, note, velocity, type, tick);
         this.position = position;
         this.length = length;
