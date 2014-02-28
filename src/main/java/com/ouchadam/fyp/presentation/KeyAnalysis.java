@@ -47,7 +47,6 @@ class KeyAnalysis {
     private int countScaleMatches(List<? extends MidiNote> notes, int[] intervals) {
         int matched = 0;
         for (int interval : intervals) {
-            System.out.println("Checking for interval : " + interval);
             for (MidiNote note : notes) {
                 if (isPartOfScale(interval, note)) {
                     matched++;
