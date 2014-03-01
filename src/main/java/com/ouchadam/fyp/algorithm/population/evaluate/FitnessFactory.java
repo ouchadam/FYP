@@ -1,7 +1,7 @@
-package com.ouchadam.fyp.algorithm.crossover.population.evaluate;
+package com.ouchadam.fyp.algorithm.population.evaluate;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FitnessEvaluator;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessEvaluator;
 
 public class FitnessFactory {
 

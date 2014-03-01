@@ -1,9 +1,9 @@
-package com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness;
+package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
 
 import com.ouchadam.fyp.algorithm.ForEach;
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
-import com.ouchadam.fyp.algorithm.crossover.population.evaluate.FitnessAccumulator;
+import com.ouchadam.fyp.algorithm.population.evaluate.FitnessAccumulator;
 
 public class FixedNoteRule implements FitnessRule<Member> {
 
@@ -21,7 +21,7 @@ public class FixedNoteRule implements FitnessRule<Member> {
     @Override
     public FitnessValue apply(Member what) {
         fitnessAccumulator = FitnessAccumulator.from(what.size());
-        what.forEachNote(evaluate);
+        what.forEach().note(evaluate);
         return fitnessAccumulator.average();
     }
 

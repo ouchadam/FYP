@@ -2,7 +2,7 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.GenerationCallback;
 import com.ouchadam.fyp.algorithm.GeneticAlgorithm;
-import com.ouchadam.fyp.algorithm.crossover.population.Evaluation;
+import com.ouchadam.fyp.algorithm.population.Evaluation;
 
 import java.awt.*;
 
@@ -43,11 +43,11 @@ class AlgorithmController {
 
     private void start() {
         textController.setResultColour(Color.BLACK);
+        textController.setStartStop(Status.RUNNING);
         generationController.setGenerationCallback(onGeneration);
         generationController.setOnFinish(onFinish);
         generationController.setHalter(halter);
         generationController.start();
-        textController.setStartStop(Status.RUNNING);
     }
 
     private final GenerationCallback onGeneration = new GenerationCallback() {

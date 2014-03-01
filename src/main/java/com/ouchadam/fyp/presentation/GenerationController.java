@@ -2,7 +2,7 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.GenerationCallback;
 import com.ouchadam.fyp.algorithm.GeneticAlgorithm;
-import com.ouchadam.fyp.algorithm.crossover.population.Evaluation;
+import com.ouchadam.fyp.algorithm.population.Evaluation;
 
 class GenerationController {
 
@@ -46,14 +46,19 @@ class GenerationController {
         }
 
         @Override
-        public void setHalted(boolean halted) {}
+        public void setHalted(boolean halted) {
+            if (halter != null) {
+                halter.setHalted(halted);
+            }
+        }
 
     };
 
     private final OnFinish internalOnFinish = new OnFinish() {
         @Override
         public void onFinish(Evaluation evaluation) {
-            halter.setHalted(false);
+            System.out.println("Algorithm Finished");
+            internalHalter.setHalted(false);
             if (onFinish != null) {
                 onFinish.onFinish(evaluation);
             }
@@ -61,7 +66,7 @@ class GenerationController {
     };
 
     public void reset() {
-        halter.setHalted(false);
+        internalHalter.setHalted(false);
         generationThread.reset();
     }
 

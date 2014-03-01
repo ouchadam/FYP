@@ -1,4 +1,4 @@
-package com.ouchadam.fyp.algorithm.crossover.population.evaluate;
+package com.ouchadam.fyp.algorithm.population.evaluate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import org.mockito.Mock;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
-import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FitnessRule;
-import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import helper.TestWithMocks;
 
 import static org.mockito.Matchers.any;

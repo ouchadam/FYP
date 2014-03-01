@@ -24,7 +24,6 @@ class GenerationThread {
     }
 
     public void reset() {
-        stop();
         thread = null;
     }
 

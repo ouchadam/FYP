@@ -1,7 +1,7 @@
 package helper;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.crossover.population.Population;
+import com.ouchadam.fyp.algorithm.population.Population;
 
 import java.util.ArrayList;
 import java.util.List;

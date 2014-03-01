@@ -23,7 +23,7 @@ class MemberMutator {
         notesToMutate = indexManager.create(noteCount, noteCount);
         binaryMutator = new BinaryMutator(mutationProbability, indexManager);
         notes = new ArrayList<Note>(noteCount);
-        what.forEachNote(mutateNote);
+        what.forEach().note(mutateNote);
         return new Member(notes);
     }
 

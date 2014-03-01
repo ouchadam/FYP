@@ -1,8 +1,7 @@
-package com.ouchadam.fyp.algorithm.crossover.population;
+package com.ouchadam.fyp.algorithm.population;
 
-import com.ouchadam.fyp.algorithm.crossover.population.evaluate.OrderedPopulation;
-import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FitnessValue;
-import com.ouchadam.fyp.presentation.OnFinish;
+import com.ouchadam.fyp.algorithm.population.evaluate.OrderedPopulation;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 
 public class Evaluation {
 

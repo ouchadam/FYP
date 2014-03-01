@@ -1,10 +1,8 @@
 package com.ouchadam.fyp.algorithm;
 
-import com.ouchadam.fyp.algorithm.crossover.Crossover;
-import com.ouchadam.fyp.algorithm.crossover.population.*;
-import com.ouchadam.fyp.algorithm.crossover.population.evaluate.Evaluator;
-import com.ouchadam.fyp.algorithm.crossover.population.evaluate.OrderedPopulation;
-import com.ouchadam.fyp.algorithm.crossover.population.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.algorithm.population.*;
+import com.ouchadam.fyp.algorithm.population.evaluate.Evaluator;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 
 import helper.PopulationHelper;
 import org.junit.Ignore;

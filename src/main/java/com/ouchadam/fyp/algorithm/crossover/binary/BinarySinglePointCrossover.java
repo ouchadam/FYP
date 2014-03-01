@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.algorithm.crossover.binary;
 
-import com.ouchadam.fyp.algorithm.crossover.population.BinaryCrossover;
+import com.ouchadam.fyp.algorithm.crossover.BinaryCrossover;
 
 public class BinarySinglePointCrossover extends BinaryCrossover {
 

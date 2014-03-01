@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.algorithm;
 
-import com.ouchadam.fyp.algorithm.crossover.population.Population;
+import com.ouchadam.fyp.algorithm.population.Population;
 
 class PopulationPruner {
 

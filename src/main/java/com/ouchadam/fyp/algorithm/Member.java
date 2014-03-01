@@ -5,26 +5,28 @@ import java.util.List;
 
 public class Member {
 
-    public static final int NOTE_CHILD_COUNT = 4;
+    public static final int NOTE_CHILD_COUNT = 16;
 
     private final List<Note> notes;
+    private final Each forEach;
+    private final All forAll;
 
     public Member(List<Note> notes) {
         this.notes = Collections.unmodifiableList(notes);
+        forEach = new Each();
+        forAll = new All();
     }
 
     public Note note(int index) {
         return notes.get(index);
     }
 
-    List<Note> getNotes() {
-        return notes;
+    public Each forEach() {
+        return forEach;
     }
 
-    public void forEachNote(ForEach<Note> forEach) {
-        for (Note note : notes) {
-            forEach.on(note);
-        }
+    public All getAll() {
+        return forAll;
     }
 
     public int size() {
@@ -48,5 +50,20 @@ public class Member {
     public int indexOf(Note what) {
         return notes.indexOf(what);
     }
+
+    public class Each {
+        public void note(ForEach<Note> forEach) {
+            for (Note note : notes) {
+                forEach.on(note);
+            }
+        }
+    }
+
+    public class All {
+        public List<Note> notes() {
+            return notes;
+        }
+    }
+
 }
 

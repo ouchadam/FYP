@@ -1,4 +1,4 @@
-package com.ouchadam.fyp.algorithm.crossover.population;
+package com.ouchadam.fyp.algorithm.population;
 
 import com.ouchadam.fyp.ForEachPair;
 import com.ouchadam.fyp.algorithm.*;

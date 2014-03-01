@@ -1,4 +1,4 @@
-package com.ouchadam.fyp.algorithm.crossover.population;
+package com.ouchadam.fyp.algorithm.population;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.Random;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
-import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 
 public class PopulationCreator implements Creator<Population> {
 

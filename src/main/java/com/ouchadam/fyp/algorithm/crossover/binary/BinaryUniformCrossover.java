@@ -6,7 +6,7 @@ import java.util.Random;
 import com.ouchadam.fyp.algorithm.IndexManager;
 import com.ouchadam.fyp.algorithm.RandomIndexCreator;
 import com.ouchadam.fyp.algorithm.crossover.Crossover;
-import com.ouchadam.fyp.algorithm.crossover.population.BinaryCrossover;
+import com.ouchadam.fyp.algorithm.crossover.BinaryCrossover;
 
 public class BinaryUniformCrossover extends BinaryCrossover implements Crossover<Binary> {
 

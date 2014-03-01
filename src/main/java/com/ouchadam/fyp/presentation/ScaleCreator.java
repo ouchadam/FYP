@@ -4,7 +4,7 @@ import com.ouchadam.fyp.analysis.Key;
 
 public class ScaleCreator {
 
-    enum Type {
+    public enum Type {
 
         MAJOR(new int[]{0, 2, 4, 5, 7, 9, 11}),
         MINOR_MELODIC(new int[]{0, 2, 3, 5, 7, 9, 11}),
@@ -17,7 +17,7 @@ public class ScaleCreator {
             this.intervals = intervals;
         }
 
-        int size() {
+        public int size() {
             return intervals.length;
         }
     }

@@ -2,7 +2,7 @@ package com.ouchadam.fyp.algorithm.crossover.binary;
 
 import com.ouchadam.fyp.algorithm.Note;
 import com.ouchadam.fyp.algorithm.crossover.Crossover;
-import com.ouchadam.fyp.algorithm.crossover.population.NoteCrossover;
+import com.ouchadam.fyp.algorithm.population.NoteCrossover;
 
 public class CrossoverFactory {
 

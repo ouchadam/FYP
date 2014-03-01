@@ -1,4 +1,4 @@
-package com.ouchadam.fyp.algorithm.crossover.population;
+package com.ouchadam.fyp.algorithm.population;
 
 public interface Creator<T> {
     T create(int size);

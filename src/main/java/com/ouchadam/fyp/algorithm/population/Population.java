@@ -1,10 +1,9 @@
-package com.ouchadam.fyp.algorithm.crossover.population;
+package com.ouchadam.fyp.algorithm.population;
 
 import java.util.*;
 
 import com.ouchadam.fyp.algorithm.ForEach;
 import com.ouchadam.fyp.algorithm.Member;
-import com.sun.org.apache.bcel.internal.generic.POP;
 
 public class Population {
 
