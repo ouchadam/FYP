@@ -6,18 +6,18 @@ import com.ouchadam.fyp.algorithm.crossover.population.Evaluation;
 
 class GenerationController {
 
-    private Thread worker;
+    private final GenerationThread  generationThread;
 
     private GenerationCallback onGeneration;
     private GeneticAlgorithm.GenerationHalter halter;
     private OnFinish onFinish;
 
+    GenerationController(GenerationThread generationThread) {
+        this.generationThread = generationThread;
+    }
+
     public void start() {
-        if (worker != null) {
-            stop();
-        }
-        this.worker = new Thread(algorithmRunner);
-        worker.start();
+        generationThread.start(algorithmRunner);
     }
 
     private final Runnable algorithmRunner = new Runnable() {
@@ -60,21 +60,14 @@ class GenerationController {
         }
     };
 
-    public void stop() {
-        if (worker != null) {
-            try {
-                halter.setHalted(true);
-                this.worker.join();
-                this.worker = null;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    public void reset() {
+        halter.setHalted(false);
+        generationThread.reset();
     }
 
-    public void reset() {
-        this.worker = null;
-        this.halter.setHalted(false);
+    public void stop() {
+        internalHalter.setHalted(true);
+        generationThread.stop();
     }
 
     public void setGenerationCallback(GenerationCallback onGeneration) {
@@ -90,6 +83,6 @@ class GenerationController {
     }
 
     public AlgorithmController.Status status() {
-        return worker != null ? AlgorithmController.Status.RUNNING : AlgorithmController.Status.IDLE;
+        return generationThread.isRunning() ? AlgorithmController.Status.RUNNING : AlgorithmController.Status.IDLE;
     }
 }

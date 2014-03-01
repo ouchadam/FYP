@@ -16,7 +16,8 @@ public class Main {
     private final UiReadyListener onUi = new UiReadyListener() {
         @Override
         public void onUiReady() {
-            InteractionManager interactionManager = new InteractionManager(new MidiSelection(), mainFrame, mainFrame, mainFrame, new AlgorithmController(new GenerationController(), mainFrame));
+            AlgorithmController algorithmController = new AlgorithmController(new GenerationController(new GenerationThread()), mainFrame);
+            InteractionManager interactionManager = new InteractionManager(new MidiSelection(), mainFrame, mainFrame, mainFrame, algorithmController);
             mainFrame.setOpenMidiListener(interactionManager.openMidiListener());
             mainFrame.setAnaliseListener(interactionManager.analiseMidiListener());
             mainFrame.setStartStopListener(interactionManager.onStartStop());
