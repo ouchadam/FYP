@@ -1,5 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.algorithm.AlgorithmParams;
 import com.ouchadam.fyp.algorithm.GenerationCallback;
 import com.ouchadam.fyp.algorithm.GeneticAlgorithm;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
@@ -14,10 +15,12 @@ class AlgorithmController {
 
     private final GenerationController generationController;
     private final TextController textController;
+    private final ParameterController parameterController;
 
-    AlgorithmController(GenerationController generationController, TextController textController) {
+    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController) {
         this.generationController = generationController;
         this.textController = textController;
+        this.parameterController = parameterController;
     }
 
     public OnClickListener listener() {
@@ -47,7 +50,14 @@ class AlgorithmController {
         generationController.setGenerationCallback(onGeneration);
         generationController.setOnFinish(onFinish);
         generationController.setHalter(halter);
-        generationController.start();
+        generationController.start(getParams());
+    }
+
+    private AlgorithmParams getParams() {
+        System.out.println("Initial : " + parameterController.initialPopulation());
+        System.out.println("Max : " + parameterController.maxPopulation());
+        System.out.println("Fitness : " + parameterController.acceptableFitness());
+        return new AlgorithmParams(parameterController.initialPopulation(), parameterController.maxPopulation(), parameterController.acceptableFitness());
     }
 
     private final GenerationCallback onGeneration = new GenerationCallback() {

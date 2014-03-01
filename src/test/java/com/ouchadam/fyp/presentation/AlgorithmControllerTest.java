@@ -1,11 +1,13 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.algorithm.AlgorithmParams;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;
 
 import java.awt.*;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -13,6 +15,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
 
     @Mock GenerationController generationController;
     @Mock TextController textController;
+    @Mock ParameterController parameterController;
 
     @Mock Component not_relevant;
 
@@ -21,7 +24,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
 
     @Override
     protected void before() {
-        algorithmController = new AlgorithmController(generationController, textController);
+        algorithmController = new AlgorithmController(generationController, textController, parameterController);
         algorithmEntry = algorithmController.listener();
 
     }
@@ -42,7 +45,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
 
         algorithmEntry.onClick(not_relevant);
 
-        verify(generationController).start();
+        verify(generationController).start(any(AlgorithmParams.class));
     }
 
 }

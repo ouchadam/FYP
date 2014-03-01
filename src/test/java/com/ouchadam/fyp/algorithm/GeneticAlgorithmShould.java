@@ -37,7 +37,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         when(mutator.mutate(any(Population.class))).thenReturn(pop);
         when(pruner.prune(any(Population.class))).thenReturn(pop);
 
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null, halter);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null, halter, new AlgorithmParams(100,100,100));
 
         Evaluation evaluation = geneticAlgorithm.work();
 
@@ -46,7 +46,8 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
     @Ignore @Test
     public void full_flow() {
-        GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback, halter);
+        AlgorithmParams algorithmParams = new AlgorithmParams(100, 100, 100);
+        GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback, algorithmParams, halter);
 
         Evaluation output = geneticAlgorithm.work();
         int fitnessValue = output.fitnessValue(0).get();
@@ -54,7 +55,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         Member member = output.population().get(0);
         Printer.print(member);
 
-        assertThat(fitnessValue).isGreaterThanOrEqualTo(GeneticAlgorithm.ACCEPTABLE_FITNESS_VALUE);
+        assertThat(fitnessValue).isGreaterThanOrEqualTo(algorithmParams.acceptableFitnessValue);
     }
 
     private final GeneticAlgorithm.GenerationHalter halter = new GeneticAlgorithm.GenerationHalter() {

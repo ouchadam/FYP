@@ -3,17 +3,17 @@ package com.ouchadam.fyp.presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
-class AlgorithmTabManager extends TabManager {
+class AlgorithmTabManager extends TabManager implements ParameterController {
 
     private static final String TAB_TITLE = "Algorithm";
+    private final SliderManager sliderManager;
     private JButton startStopButton;
     private JLabel textArea;
 
-    AlgorithmTabManager(JTabbedPane tabbedPane) {
+    AlgorithmTabManager(JTabbedPane tabbedPane, SliderManager sliderManager) {
         super(tabbedPane);
+        this.sliderManager = sliderManager;
     }
 
     @Override
@@ -30,23 +30,10 @@ class AlgorithmTabManager extends TabManager {
     }
 
     private Component createSliders() {
-        int sliderCount = 4;
         JPanel slidersContainer = new JPanel(new GridBagLayout());
         slidersContainer.setPreferredSize(new Dimension(400, 400));
-
-        List<Slider> sliders = new ArrayList<Slider>(sliderCount);
-
-        sliders.add(Slider.newInstance("Max Population Size", 100, 10000));
-        sliders.add(Slider.newInstance("Initial Population Size", 100, 10000));
-        sliders.add(Slider.newInstance("Foo", 0 , 100));
-        sliders.add(Slider.newInstance("Bar", 0 , 100));
-
-        int row = 0;
-        for (Slider slider : sliders) {
-            slider.attachTo(slidersContainer, row);
-            row ++;
-        }
-
+        sliderManager.create();
+        sliderManager.attachTo(slidersContainer);
         return slidersContainer;
     }
 
@@ -78,5 +65,20 @@ class AlgorithmTabManager extends TabManager {
 
     public void setResultColour(Color colour) {
         textArea.setForeground(colour);
+    }
+
+    @Override
+    public int initialPopulation() {
+        return sliderManager.get(SliderManager.SliderName.INITIAL);
+    }
+
+    @Override
+    public int maxPopulation() {
+        return sliderManager.get(SliderManager.SliderName.MAX);
+    }
+
+    @Override
+    public int acceptableFitness() {
+        return sliderManager.get(SliderManager.SliderName.ACCEPTABLE_FITNESS);
     }
 }

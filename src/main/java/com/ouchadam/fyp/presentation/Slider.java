@@ -10,12 +10,15 @@ class Slider {
     private final JSlider slider;
     private final JLabel labelView;
     private final JLabel value;
+
+    private int sliderValue;
     private GridBagConstraints constraints;
 
-    public static Slider newInstance(String label, int min, int max) {
+    public static Slider newInstance(String label, int min, int max, int defaultValue) {
         JSlider slider = new JSlider(JSlider.HORIZONTAL);
         slider.setMinimum(min);
         slider.setMaximum(max);
+        slider.setValue(defaultValue);
         JLabel labelView = new JLabel(label);
         JLabel value = new JLabel();
         return new Slider(slider, labelView, value);
@@ -29,9 +32,9 @@ class Slider {
     }
 
     private void init() {
+        this.sliderValue = slider.getValue();
         value.setMinimumSize(new Dimension(30, 20));
         value.setHorizontalAlignment(SwingConstants.RIGHT);
-        slider.setValue(slider.getMinimum());
         setValueText(slider.getValue());
         slider.addChangeListener(onSliderChange);
     }
@@ -39,12 +42,17 @@ class Slider {
     private final ChangeListener onSliderChange = new ChangeListener() {
         @Override
         public void stateChanged(ChangeEvent e) {
-            setValueText(slider.getValue());
+            sliderValue = slider.getValue();
+            setValueText(sliderValue);
         }
     };
 
     private void setValueText(int newValue) {
         value.setText(String.valueOf(newValue));
+    }
+
+    public int getValue() {
+        return sliderValue;
     }
 
     public void attachTo(JPanel panel, int row) {

@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-class MainFrame implements ButtonController, TextController, SequenceController {
+class MainFrame implements ButtonController, TextController, SequenceController, ParameterController {
 
     private static final int FRAME_WIDTH = 550;
     private static final int FRAME_HEIGHT = 400;
@@ -57,7 +57,7 @@ class MainFrame implements ButtonController, TextController, SequenceController 
         JPanel panel = new JPanel(new GridLayout(1, 1));
         JTabbedPane tabbedPane = new JTabbedPane();
         analyseTabManager = new AnalyseTabManager(tabbedPane);
-        algorithmTabManager = new AlgorithmTabManager(tabbedPane);
+        algorithmTabManager = new AlgorithmTabManager(tabbedPane, new SliderManager());
         sequenceTabManager = new SequenceTabManager(tabbedPane);
         panel.add(analyseTabManager.create());
         panel.add(algorithmTabManager.create());
@@ -123,4 +123,18 @@ class MainFrame implements ButtonController, TextController, SequenceController 
         algorithmTabManager.setStartStopListener(onClickListener);
     }
 
+    @Override
+    public int initialPopulation() {
+        return algorithmTabManager.initialPopulation();
+    }
+
+    @Override
+    public int maxPopulation() {
+        return algorithmTabManager.maxPopulation();
+    }
+
+    @Override
+    public int acceptableFitness() {
+        return algorithmTabManager.acceptableFitness();
+    }
 }

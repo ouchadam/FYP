@@ -8,31 +8,30 @@ import com.ouchadam.fyp.algorithm.population.evaluate.PopulationEvaluator;
 
 public class GeneticAlgorithm {
 
-    private final static int INITIAL_POPULATION_SIZE = 2500;
-    private final static int MAX_POPULATION_SIZE = 10000;
-    final static int ACCEPTABLE_FITNESS_VALUE = 100;
-
     private final Mutator<Population> mutator;
     private final PopulationCrossover crossover;
     private final Evaluator<Population> evaluator;
     private final PopulationPruner pruner;
     private final GenerationCallback generationCallback;
     private final GenerationHalter halter;
+    private final AlgorithmParams algorithmParams;
     private final Creator<Population> populationCreator;
 
-    public static GeneticAlgorithm newInstance(GenerationCallback generationCallback, GenerationHalter halter) {
+    public static GeneticAlgorithm newInstance(GenerationCallback generationCallback, AlgorithmParams algorithmParams, GenerationHalter halter) {
         CrossoverFactory crossoverFactory = CrossoverFactory.newInstance();
         return new GeneticAlgorithm(
                 new PopulationCreator(new PopulationCreator.MemberCreator(), new PopulationCrossover(new IndexManager(new RandomIndexCreator()), crossoverFactory.singlePoint().note())),
                 new PopulationMutator(new IndexManager(new RandomIndexCreator())),
                 new PopulationCrossover(new IndexManager(new RandomIndexCreator()), crossoverFactory.uniform().note()),
                 new PopulationEvaluator(new FitnessFactory()),
-                new PopulationPruner(MAX_POPULATION_SIZE),
+                new PopulationPruner(algorithmParams.maxPopulationSize),
                 generationCallback,
-                halter);
+                halter,
+                algorithmParams);
     }
 
-    GeneticAlgorithm(Creator<Population> creator, Mutator<Population> mutator, PopulationCrossover crossover, Evaluator<Population> evaluator, PopulationPruner pruner, GenerationCallback generationCallback, GenerationHalter halter) {
+    GeneticAlgorithm(Creator<Population> creator, Mutator<Population> mutator, PopulationCrossover crossover, Evaluator<Population> evaluator,
+                     PopulationPruner pruner, GenerationCallback generationCallback, GenerationHalter halter, AlgorithmParams algorithmParams) {
         this.populationCreator = creator;
         this.mutator = mutator;
         this.crossover = crossover;
@@ -40,6 +39,7 @@ public class GeneticAlgorithm {
         this.pruner = pruner;
         this.generationCallback = generationCallback;
         this.halter = halter;
+        this.algorithmParams = algorithmParams;
     }
 
     public Evaluation work() {
@@ -50,7 +50,7 @@ public class GeneticAlgorithm {
     }
 
     private Population createInitialPopulation() {
-        return populationCreator.create(INITIAL_POPULATION_SIZE);
+        return populationCreator.create(algorithmParams.initalPopulationSize);
     }
 
     private Evaluation loop(Population population, GenerationHalter halter) {
@@ -67,7 +67,7 @@ public class GeneticAlgorithm {
                 return evaluation;
             }
             index++;
-        } while (evaluation.fitnessValue(0).get() < ACCEPTABLE_FITNESS_VALUE);
+        } while (evaluation.fitnessValue(0).get() < algorithmParams.acceptableFitnessValue);
         evaluation.setPass();
         return evaluation;
     }

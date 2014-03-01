@@ -1,5 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.algorithm.AlgorithmParams;
 import com.ouchadam.fyp.algorithm.GenerationCallback;
 import com.ouchadam.fyp.algorithm.GeneticAlgorithm;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
@@ -16,15 +17,15 @@ class GenerationController {
         this.generationThread = generationThread;
     }
 
-    public void start() {
-        generationThread.start(algorithmRunner);
+    public void start(AlgorithmParams params) {
+        generationThread.start(algorithmRunner, params);
     }
 
-    private final Runnable algorithmRunner = new Runnable() {
+    private final GenerationRunnable algorithmRunner = new GenerationRunnable() {
         @Override
-        public void run() {
+        public void run(AlgorithmParams params) {
             halter.setHalted(false);
-            GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(internalCallback, internalHalter);
+            GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(internalCallback, params, internalHalter);
             internalOnFinish.onFinish(geneticAlgorithm.work());
         }
     };
