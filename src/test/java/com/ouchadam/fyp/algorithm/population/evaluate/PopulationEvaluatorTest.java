@@ -58,28 +58,4 @@ public class PopulationEvaluatorTest extends TestWithMocks {
         return new Population(members);
     }
 
-    @Test
-    public void testName() {
-        when(fitnessFactory.member()).thenReturn(new MemberEvaluator());
-
-        List<Member> members = new ArrayList<Member>(4);
-        Member perfectMember = createMember(60);
-        members.add(createMember(50));
-        members.add(createMember(60));
-        members.add(createMember(10));
-        members.add(createMember(2));
-
-        Population population = new Population(members);
-
-        Evaluation evaluation = populationEvaluator.evaluate(population);
-
-        assertThat(evaluation.population().get(0)).isEqualTo(perfectMember);
-    }
-
-    private Member createMember(int noteValue) {
-        List<Note> notes = new ArrayList<Note>(2);
-        notes.add(new Note(new Binary(Integer.toBinaryString(noteValue))));
-        return new Member(notes);
-    }
-
 }

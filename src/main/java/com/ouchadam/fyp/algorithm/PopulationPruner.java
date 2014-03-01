@@ -12,7 +12,7 @@ class PopulationPruner {
 
     public Population prune(Population population) {
         if (population.size() > maxPopulationSize) {
-            Population top10Percent = population.getSubPopulation(0, getTenPercent(population));
+            Population top10Percent = getBest(population);
             Population worstDuplicateFreePopulation = Population.fromSubPopulation(top10Percent, removeDuplicates(population));
 
             if (worstDuplicateFreePopulation.size() > maxPopulationSize) {
@@ -23,16 +23,16 @@ class PopulationPruner {
         return population;
     }
 
-    private int getTenPercent(Population generation) {
+    private int getTopTenPercent(Population generation) {
         return (int) Math.floor((float) generation.size() / 10f);
     }
 
     private Population removeDuplicates(Population population) {
-        Population sub100 = population.getSubPopulation(getTenPercent(population) + 1, population.size());
+        Population sub100 = population.getSubPopulation(getTopTenPercent(population) + 1, population.size());
         return sub100.removeDuplicates();
     }
 
     public Population getBest(Population generation) {
-        return generation.getSubPopulation(0, getTenPercent(generation));
+        return generation.getSubPopulation(0, getTopTenPercent(generation));
     }
 }

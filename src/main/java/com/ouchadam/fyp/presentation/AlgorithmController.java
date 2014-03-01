@@ -73,7 +73,7 @@ class AlgorithmController {
 
     private final GeneticAlgorithm.GenerationHalter halter = new GeneticAlgorithm.GenerationHalter() {
 
-        private final static int GENERATION_LIMIT = 2000;
+        private final static int GENERATION_LIMIT = 20000;
         private boolean isHalted = false;
 
         @Override

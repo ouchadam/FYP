@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Member {
 
-    public static final int NOTE_CHILD_COUNT = 16;
+    public static final int NOTE_CHILD_COUNT = 14;
 
     private final List<Note> notes;
     private final Each forEach;
@@ -30,7 +30,7 @@ public class Member {
     }
 
     public int size() {
-        return notes.size();
+        return NOTE_CHILD_COUNT;
     }
 
     @Override

@@ -37,14 +37,14 @@ public class FixedKeySignatureRule implements FitnessRule<Member> {
             int matched = countScaleMatches(notes, scaleCreator.create(key, type));
             matchResults.add(createPercentageOfMatches(notes.size(), matched));
         }
-        return getBestResult(notes, matchResults);
+        return getBestResult(matchResults);
     }
 
     private int createPercentageOfMatches(int size, float matched) {
         return Math.round((matched / (float) size) * 100);
     }
 
-    private int getBestResult(List<Note> notes, List<Integer> matchResults) {
+    private int getBestResult(List<Integer> matchResults) {
         List<Integer> sortedResults = sortResults(matchResults);
         return sortedResults.get(0);
     }

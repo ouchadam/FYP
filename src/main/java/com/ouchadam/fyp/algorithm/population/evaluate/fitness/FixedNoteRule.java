@@ -32,12 +32,12 @@ public class FixedNoteRule implements FitnessRule<Member> {
         }
     };
 
-    private static class FixedNote implements FitnessRule<Note> {
+    static class FixedNote implements FitnessRule<Note> {
 
         private static final float RESOLUTION = 0.9f;
         private final int fixedValue;
 
-        private FixedNote(int fixedValue) {
+        FixedNote(int fixedValue) {
             this.fixedValue = fixedValue;
         }
 

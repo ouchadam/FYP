@@ -8,8 +8,8 @@ import com.ouchadam.fyp.algorithm.population.evaluate.PopulationEvaluator;
 
 public class GeneticAlgorithm {
 
-    private final static int INITIAL_POPULATION_SIZE = 400;
-    private final static int MAX_POPULATION_SIZE = 4000;
+    private final static int INITIAL_POPULATION_SIZE = 2500;
+    private final static int MAX_POPULATION_SIZE = 10000;
     final static int ACCEPTABLE_FITNESS_VALUE = 100;
 
     private final Mutator<Population> mutator;
