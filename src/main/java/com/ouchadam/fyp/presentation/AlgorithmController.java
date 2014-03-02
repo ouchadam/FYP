@@ -45,6 +45,7 @@ class AlgorithmController {
     };
 
     private void start() {
+        parameterController.disable();
         textController.setResultColour(Color.BLACK);
         textController.setStartStop(Status.RUNNING);
         generationController.setGenerationCallback(onGeneration);
@@ -54,9 +55,6 @@ class AlgorithmController {
     }
 
     private AlgorithmParams getParams() {
-        System.out.println("Initial : " + parameterController.initialPopulation());
-        System.out.println("Max : " + parameterController.maxPopulation());
-        System.out.println("Fitness : " + parameterController.acceptableFitness());
         return new AlgorithmParams(parameterController.initialPopulation(), parameterController.maxPopulation(), parameterController.acceptableFitness());
     }
 
@@ -78,6 +76,7 @@ class AlgorithmController {
             }
             textController.setStartStop(Status.IDLE);
             halter.setHalted(false);
+            parameterController.enable();
         }
     };
 

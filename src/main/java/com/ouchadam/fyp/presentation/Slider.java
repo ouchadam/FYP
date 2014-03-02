@@ -97,4 +97,11 @@ class Slider {
         return constraints;
     }
 
+    public void enable() {
+        slider.setEnabled(true);
+    }
+
+    public void disable() {
+        slider.setEnabled(false);
+    }
 }

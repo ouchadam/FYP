@@ -81,4 +81,14 @@ class AlgorithmTabManager extends TabManager implements ParameterController {
     public int acceptableFitness() {
         return sliderManager.get(SliderManager.SliderName.ACCEPTABLE_FITNESS);
     }
+
+    @Override
+    public void enable() {
+        sliderManager.enable();
+    }
+
+    @Override
+    public void disable() {
+        sliderManager.disable();
+    }
 }

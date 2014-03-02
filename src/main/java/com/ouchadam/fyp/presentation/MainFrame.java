@@ -137,4 +137,14 @@ class MainFrame implements ButtonController, TextController, SequenceController,
     public int acceptableFitness() {
         return algorithmTabManager.acceptableFitness();
     }
+
+    @Override
+    public void enable() {
+        algorithmTabManager.enable();
+    }
+
+    @Override
+    public void disable() {
+        algorithmTabManager.disable();
+    }
 }
