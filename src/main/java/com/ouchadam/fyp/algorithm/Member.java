@@ -54,10 +54,6 @@ public class Member {
         return notes != null ? notes.hashCode() : 0;
     }
 
-    public int indexOf(Note what) {
-        return notes.indexOf(what);
-    }
-
     public class Each {
         public void note(ForEach<Note> forEach) {
             for (Note note : notes) {
