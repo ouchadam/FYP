@@ -57,21 +57,20 @@ class InteractionManager {
         @Override
         public void onClick(Component component) {
             if (midiSelection.hasMidiFile()) {
-                File midiFile = midiSelection.getMidiFile();
-                MidiTrack midiTrack = readMidi(midiFile);
-                sequenceController.open(midiTrack);
-                MidiAnalysizer midiAnalysizer = new MidiAnalysizer();
-                String result = midiAnalysizer.analyse(midiTrack);
-                showMessageDialog(component, result);
+                analyseMidi(component);
             } else {
                 showMessageDialog(component, "Choose a .MIDI file first");
             }
         }
     };
 
-
-    private void showMessageDialog(Component component, String message) {
-        JOptionPane.showMessageDialog(component.getParent(), message);
+    private void analyseMidi(Component component) {
+        File midiFile = midiSelection.getMidiFile();
+        MidiTrack midiTrack = readMidi(midiFile);
+        sequenceController.open(midiTrack);
+        MidiAnalysizer midiAnalysizer = new MidiAnalysizer();
+        String result = midiAnalysizer.analyse(midiTrack);
+        showMessageDialog(component, result);
     }
 
     private MidiTrack readMidi(File midiFile) {
@@ -83,9 +82,16 @@ class InteractionManager {
         }
     }
 
+    private void showMessageDialog(Component component, String message) {
+        JOptionPane.showMessageDialog(component.getParent(), message);
+    }
+
     public OnClickListener onStartStop() {
         return algorithmController.listener();
     }
 
+    public OnClickListener onSave() {
+        return algorithmController.onSave();
+    }
 
 }

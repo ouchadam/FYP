@@ -81,6 +81,10 @@ class MainFrame implements ButtonController, TextController, SequenceController,
         analyseTabManager.setAnaliseListener(listener);
     }
 
+    public void setSaveListener(OnClickListener onClickListener) {
+        algorithmTabManager.setSaveListener(onClickListener);
+    }
+
     @Override
     public void enableAnalise(boolean enabled) {
         analyseTabManager.setAnaliseEnabled(enabled);

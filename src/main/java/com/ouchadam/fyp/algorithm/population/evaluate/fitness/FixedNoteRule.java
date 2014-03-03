@@ -22,7 +22,7 @@ public class FixedNoteRule implements FitnessRule<Member> {
     public FitnessValue apply(Member what) {
         fitnessAccumulator = FitnessAccumulator.from(what.size());
         what.forEach().note(evaluate);
-        return fitnessAccumulator.average();
+        return fitnessAccumulator.bias(3);
     }
 
     private final ForEach<Note> evaluate = new ForEach<Note>() {

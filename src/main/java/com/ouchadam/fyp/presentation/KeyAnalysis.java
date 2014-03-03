@@ -1,10 +1,11 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.analysis.*;
+import com.ouchadam.fyp.analysis.midi.BaseMidiNote;
+import com.ouchadam.fyp.analysis.midi.MidiNote;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 class KeyAnalysis {

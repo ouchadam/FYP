@@ -7,36 +7,21 @@ class MemberMutator {
 
     private final IndexManager indexManager;
 
-    private List<Note> notes;
     private BinaryMutator binaryMutator;
-    private List<Integer> notesToMutate;
-    private Member member;
 
-    MemberMutator(IndexManager indexManager) {
+    MemberMutator(IndexManager indexManager, int mutationProbability) {
         this.indexManager = indexManager;
+        this.binaryMutator = new BinaryMutator(mutationProbability, indexManager);
     }
 
     Member mutate(Member what) {
-        this.member = what;
-        int mutationProbability = 70;
         int noteCount = what.size();
-        notesToMutate = indexManager.create(noteCount, noteCount);
-        binaryMutator = new BinaryMutator(mutationProbability, indexManager);
-        notes = new ArrayList<Note>(noteCount);
-        what.forEach().note(mutateNote);
-        return new Member(notes);
-    }
-
-    private final ForEach<Note> mutateNote = new ForEach<Note>() {
-        @Override
-        public void on(Note what) {
-            int index = member.indexOf(what);
-            if (indexManager.isIndex(index, notesToMutate)) {
-                notes.add(new Note(binaryMutator.mutate(what.binary())));
-            } else {
-                notes.add(what);
-            }
+        List<Integer> notesToMutate = indexManager.create(noteCount, noteCount);
+        List<Note> all = what.all().notes();
+        for (Integer index : notesToMutate) {
+            all.set(index, new Note(binaryMutator.mutate(all.get(index).binary())));
         }
-    };
+        return new Member(all);
+    }
 
 }

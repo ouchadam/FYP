@@ -23,7 +23,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     @Mock Evaluator<Population> evaluator;
     @Mock Creator<Population> creator;
     @Mock Mutator<Population> mutator;
-    @Mock PopulationCrossover crossover;
+    @Mock PopulationCrosser crossover;
     @Mock PopulationPruner pruner;
 
     @Test
@@ -46,7 +46,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
     @Ignore @Test
     public void full_flow() {
-        AlgorithmParams algorithmParams = new AlgorithmParams(100, 100, 100);
+        AlgorithmParams algorithmParams = new AlgorithmParams(200, 10000, 100);
         GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback, algorithmParams, halter);
 
         Evaluation output = geneticAlgorithm.work();
@@ -58,7 +58,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         assertThat(fitnessValue).isGreaterThanOrEqualTo(algorithmParams.acceptableFitnessValue);
     }
 
-    private final GeneticAlgorithm.GenerationHalter halter = new GeneticAlgorithm.GenerationHalter() {
+    private final GenerationHalter halter = new GenerationHalter() {
         @Override
         public boolean isHalted(Evaluation evaluation, int index) {
             return false;
@@ -74,12 +74,16 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
         @Override
         public void onGeneration(Evaluation evaluation, int index) {
-            if (fixedIndex <= (index - 100)) {
+            if (fixedIndex <= (index - 40)) {
                 fixedIndex = index;
                 System.out.println("-------------- Generation : " + index + " ------------------------");
                 Member member0 = evaluation.population().get(0);
-                System.out.println("0 :  fitness : " + evaluation.fitnessValue(0).get() + " occurs : " + getFrequency(evaluation, member0));
+                System.out.println("0 :  fitness total: " + evaluation.fitnessValue(0).get() + " occurs : " + getFrequency(evaluation, member0));
                 Printer.print(member0);
+
+//                System.out.println("Note range rule: " + new NoteRangeRule(12, 60).apply(member0).get());
+//                System.out.println("Key rule: " + new FixedKeySignatureRule(Key.C, new ScaleCreator()).apply(member0).get());
+
                 System.out.println("");
             }
         }

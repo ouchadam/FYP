@@ -2,6 +2,8 @@ package com.ouchadam.fyp.analysis;
 
 import java.util.List;
 
+import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
+import com.ouchadam.fyp.analysis.midi.Type;
 import org.junit.Test;
 
 import helper.MidiHelper;
@@ -31,7 +33,7 @@ public class ContainedNoteCreatorTest extends TestWithMocks {
     public void should_not_contain_any_note_off_messages() throws Exception {
         List<ContainedMidiNote> midiNotes = containedNoteCreator.process(midiTrack.getNotes());
         for (ContainedMidiNote midiNote : midiNotes) {
-            assertThat(midiNote.getType()).isNotEqualTo(MidiNote.Type.OFF);
+            assertThat(midiNote.getType()).isNotEqualTo(Type.OFF);
         }
     }
 

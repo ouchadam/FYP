@@ -10,6 +10,7 @@ class AlgorithmTabManager extends TabManager implements ParameterController {
     private final SliderManager sliderManager;
     private JButton startStopButton;
     private JLabel textArea;
+    private JButton saveButton;
 
     AlgorithmTabManager(JTabbedPane tabbedPane, SliderManager sliderManager) {
         super(tabbedPane);
@@ -21,9 +22,11 @@ class AlgorithmTabManager extends TabManager implements ParameterController {
         JPanel panel = new JPanel(new GridLayout(7, 1));
         textArea = new JLabel("Dummy text");
         startStopButton = createButton("Start");
+        saveButton = createButton("Save");
         panel.add(createSliders());
         panel.add(startStopButton);
         panel.add(textArea);
+        panel.add(saveButton);
         panel.setPreferredSize(new Dimension(400, 600));
         panel.setBorder(new EmptyBorder(25, 20, 0, 20));
         return createTabbedPane(TAB_TITLE, panel);
@@ -90,5 +93,9 @@ class AlgorithmTabManager extends TabManager implements ParameterController {
     @Override
     public void disable() {
         sliderManager.disable();
+    }
+
+    public void setSaveListener(OnClickListener listener) {
+        setClickListener(saveButton, listener);
     }
 }

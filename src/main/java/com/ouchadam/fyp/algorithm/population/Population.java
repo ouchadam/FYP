@@ -30,6 +30,10 @@ public class Population {
         return members.get(index);
     }
 
+    public List<Member> all() {
+        return new ArrayList<Member>(members);
+    }
+
     public void forEachMember(ForEach<Member> forEach) {
         for (Member member : members) {
             forEach.on(member);

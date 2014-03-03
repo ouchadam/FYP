@@ -22,7 +22,7 @@ class SliderManager {
     }
 
     public void create() {
-        add(SliderName.MAX, Slider.newInstance("Max Population Size", 100, 20000, 10000));
+        add(SliderName.MAX, Slider.newInstance("Max Population Size", 100, 20000, 2633));
         add(SliderName.INITIAL, Slider.newInstance("Initial Population Size", 100, 20000, 2500));
         add(SliderName.ACCEPTABLE_FITNESS, Slider.newInstance("Acceptable Fitness", 0, 100, 100));
         add(SliderName.BAR, Slider.newInstance("Bar", 0, 100, 50));

@@ -9,36 +9,31 @@ import java.util.Random;
 public class PopulationMutator implements Mutator<Population> {
 
     private final IndexManager indexManager;
-    private List<Member> members;
-    private List<Integer> membersToMutate;
-    private Population population;
+    private final Random random;
 
-    private final Random random = new Random();
+    MemberMutator memberMutator;
 
-    public PopulationMutator(IndexManager indexManager) {
+    public PopulationMutator(IndexManager indexManager, Random random) {
         this.indexManager = indexManager;
+        this.random = random;
+        this.memberMutator = new MemberMutator(indexManager, 50);
     }
 
     @Override
     public Population mutate(Population population) {
-        this.population = population;
-        members = new ArrayList<Member>(population.size());
-        membersToMutate = indexManager.create(random.nextInt(population.size() - 1) + 1, population.size());
-        population.forEachMember(mutateMember);
-        return new Population(members);
+        if (population.size() > 2) {
+            List<Integer> membersToMutate = indexManager.create(random.nextInt(get50PercentOfPopulationSize(population) + 1), population.size());
+            List<Member> all = population.all();
+            for (Integer index : membersToMutate) {
+                all.set(index, memberMutator.mutate(all.get(index)));
+            }
+            return new Population(all);
+        }
+        return population;
     }
 
-    private final ForEach<Member> mutateMember = new ForEach<Member>() {
-        @Override
-        public void on(Member what) {
-            Member newMember = what;
-            int index = population.indexOf(what);
-            if (indexManager.isIndex(index, membersToMutate)) {
-                MemberMutator memberMutator = new MemberMutator(indexManager);
-                newMember = memberMutator.mutate(what);
-            }
-            members.add(newMember);
-        }
-    };
+    private int get50PercentOfPopulationSize(Population population) {
+        return (int) Math.ceil(population.size() * 0.5f);
+    }
 
 }

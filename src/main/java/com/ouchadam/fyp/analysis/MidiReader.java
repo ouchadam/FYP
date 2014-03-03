@@ -1,5 +1,8 @@
 package com.ouchadam.fyp.analysis;
 
+import com.ouchadam.fyp.analysis.midi.BaseMidiNote;
+import com.ouchadam.fyp.analysis.midi.MidiNote;
+
 import javax.sound.midi.*;
 import java.io.*;
 import java.util.ArrayList;

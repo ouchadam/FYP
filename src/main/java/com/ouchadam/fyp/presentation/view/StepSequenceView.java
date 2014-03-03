@@ -1,6 +1,8 @@
 package com.ouchadam.fyp.presentation.view;
 
 import com.ouchadam.fyp.analysis.*;
+import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
+import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
 import javax.swing.*;
 import java.awt.*;

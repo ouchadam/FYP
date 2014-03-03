@@ -1,5 +1,10 @@
 package com.ouchadam.fyp.analysis;
 
+import com.ouchadam.fyp.analysis.midi.BaseMidiNote;
+import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
+import com.ouchadam.fyp.analysis.midi.MidiNote;
+import com.ouchadam.fyp.analysis.midi.Type;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +14,7 @@ public class ContainedNoteCreator implements Processor<List<ContainedMidiNote>, 
     public List<ContainedMidiNote> process(List<MidiNote> notes) {
         List<ContainedMidiNote> containedMidiNotes = new ArrayList<ContainedMidiNote>();
         for (MidiNote currentNote : notes) {
-            if (currentNote.getType() == MidiNote.Type.ON) {
+            if (currentNote.getType() == Type.ON) {
                 containedMidiNotes.add(handleNote(notes, currentNote));
             }
         }
@@ -41,6 +46,6 @@ public class ContainedNoteCreator implements Processor<List<ContainedMidiNote>, 
     }
 
     private boolean isNoteOff(MidiNote currentNote) {
-        return currentNote.getType() == MidiNote.Type.OFF;
+        return currentNote.getType() == Type.OFF;
     }
 }

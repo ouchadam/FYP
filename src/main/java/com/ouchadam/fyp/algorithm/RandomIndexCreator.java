@@ -6,7 +6,11 @@ import java.util.Random;
 
 public class RandomIndexCreator {
 
-    Random random = new Random();
+    private final Random random;
+
+    public RandomIndexCreator(Random random) {
+        this.random = random;
+    }
 
     public List<Integer> create(int count, int max) {
         List<Integer> indexes = new ArrayList<Integer>(count);

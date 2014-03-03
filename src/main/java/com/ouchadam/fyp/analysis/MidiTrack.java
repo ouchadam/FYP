@@ -1,5 +1,7 @@
 package com.ouchadam.fyp.analysis;
 
+import com.ouchadam.fyp.analysis.midi.MidiNote;
+
 import java.util.List;
 
 public class MidiTrack {

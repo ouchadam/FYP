@@ -1,6 +1,8 @@
-package com.ouchadam.fyp.analysis;
+package com.ouchadam.fyp.analysis.midi;
 
-public class ContainedMidiNote extends MidiNote {
+import com.ouchadam.fyp.analysis.Key;
+
+public class ContainedMidiNote extends BaseMidiNote {
 
     private final long lengthInTicks;
 

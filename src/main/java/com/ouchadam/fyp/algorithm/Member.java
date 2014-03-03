@@ -1,11 +1,12 @@
 package com.ouchadam.fyp.algorithm;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Member {
 
-    public static final int NOTE_CHILD_COUNT = 14;
+    public static final int CHILD_COUNT = 4;
 
     private final List<Note> notes;
     private final Each forEach;
@@ -21,16 +22,22 @@ public class Member {
         return notes.get(index);
     }
 
+    public void forEvery(ForEvery<Integer, Note, Void> forEvery) {
+        for (int index = 0; index < CHILD_COUNT; index++) {
+            forEvery.on(index, note(index), null);
+        }
+    }
+
     public Each forEach() {
         return forEach;
     }
 
-    public All getAll() {
+    public All all() {
         return forAll;
     }
 
     public int size() {
-        return NOTE_CHILD_COUNT;
+        return CHILD_COUNT;
     }
 
     @Override
@@ -61,7 +68,7 @@ public class Member {
 
     public class All {
         public List<Note> notes() {
-            return notes;
+            return new ArrayList<Note>(notes);
         }
     }
 

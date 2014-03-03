@@ -1,5 +1,7 @@
 package com.ouchadam.fyp.analysis;
 
+import com.ouchadam.fyp.analysis.midi.BaseMidiNote;
+import com.ouchadam.fyp.analysis.midi.MidiNote;
 import helper.TestFileOpener;
 import helper.TestWithMocks;
 import org.junit.Test;

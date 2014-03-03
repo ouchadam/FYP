@@ -8,10 +8,7 @@ import com.ouchadam.fyp.algorithm.ForEach;
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 import com.ouchadam.fyp.algorithm.population.Population;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FixedKeySignatureRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FixedNoteRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.*;
 import com.ouchadam.fyp.analysis.Key;
 
 public class PopulationEvaluator implements Evaluator<Population> {
@@ -39,7 +36,9 @@ public class PopulationEvaluator implements Evaluator<Population> {
         @Override
         public void on(Member member) {
 //            FitnessValue value = evaluate(member, FixedNoteRule.newInstance(60));
-            FitnessValue value = evaluate(member, FixedKeySignatureRule.newInstance(Key.Gb));
+//            FitnessValue value = evaluate(member, NoteRangeRule.newInstance(12, Key.C.value() + 60));
+//            FitnessValue value = evaluate(member, FixedKeySignatureRule.newInstance(Key.C));
+            FitnessValue value = evaluate(member, NoteRangeRule.newInstance(12, Key.C.value() + 60), FixedKeySignatureRule.newInstance(Key.C));
             valueList.add(new OrderedPopulation.OrderedMember(value, member));
         }
     };

@@ -18,23 +18,26 @@ class BinaryMutator {
 
     public Binary mutate(Binary binary) {
         int mutations = percentOf(binary.wordLength(), mutationProbability);
-        List<Integer> randomIndexes = indexManager.create(mutations, binary.wordLength());
-        BinaryBuilder binaryBuilder = new BinaryBuilder();
-        binaryBuilder.start(binary.wordLength());
+        if (mutations > 0) {
+            List<Integer> randomIndexes = indexManager.create(mutations, binary.wordLength());
+            BinaryBuilder binaryBuilder = new BinaryBuilder();
+            binaryBuilder.start(binary.wordLength());
 
-        for (int index = 0; index < binary.wordLength(); index++) {
-            Bit bit = binary.bitAt(index);
-            if (indexManager.isIndex(index, randomIndexes)) {
-                bit = bit.invert();
+            for (int index = 0; index < binary.wordLength(); index++) {
+                Bit bit = binary.bitAt(index);
+                if (indexManager.isIndex(index, randomIndexes)) {
+                    bit = bit.invert();
+                }
+                binaryBuilder.addBit(bit);
             }
-            binaryBuilder.addBit(bit);
+            return binaryBuilder.build();
         }
-        return binaryBuilder.build();
+        return binary;
     }
 
     private int percentOf(int value, int percent) {
         float normalisedValue = (float) value / PERCENTAGE_COEFF;
-        return Math.round(normalisedValue *(float) percent);
+        return Math.round(normalisedValue * (float) percent);
     }
 
 

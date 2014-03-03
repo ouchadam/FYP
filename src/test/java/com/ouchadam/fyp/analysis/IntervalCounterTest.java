@@ -2,6 +2,7 @@ package com.ouchadam.fyp.analysis;
 
 import java.util.List;
 
+import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
 import org.junit.Test;
 
 import helper.MidiHelper;

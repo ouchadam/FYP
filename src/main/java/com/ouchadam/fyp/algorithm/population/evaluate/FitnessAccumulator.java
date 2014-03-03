@@ -22,20 +22,19 @@ public class FitnessAccumulator {
     }
 
     public FitnessValue average() {
-        return bias();
-//        int total = 0;
-//        for (FitnessValue fitnessValue : valueList) {
-//            total += fitnessValue.fitnessValue();
-//        }
-//        return new FitnessValue(Math.round(total / valueList.size()));
+        int total = 0;
+        for (FitnessValue fitnessValue : valueList) {
+            total += fitnessValue.get();
+        }
+        return new FitnessValue(Math.round(total / valueList.size()));
     }
 
-    public FitnessValue bias() {
+    public FitnessValue bias(int nonMaxPenalty) {
         int total = 0;
         int penalty = 0;
         for (FitnessValue fitnessValue : valueList) {
             if (!fitnessValue.equals(FitnessValue.max())) {
-                penalty += 3;
+                penalty += nonMaxPenalty;
             }
             total += fitnessValue.get();
         }

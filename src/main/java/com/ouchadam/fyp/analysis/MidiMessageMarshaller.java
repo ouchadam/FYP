@@ -1,5 +1,8 @@
 package com.ouchadam.fyp.analysis;
 
+import com.ouchadam.fyp.analysis.midi.BaseMidiNote;
+import com.ouchadam.fyp.analysis.midi.MidiNote;
+
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 
@@ -11,7 +14,7 @@ public class MidiMessageMarshaller {
     }
 
     public MidiNote toNote(ShortMessage message, long tick) {
-        return MidiNote.from(noteOffMarshaller(message), tick);
+        return BaseMidiNote.from(noteOffMarshaller(message), tick);
     }
 
     private ShortMessage noteOffMarshaller(ShortMessage message) {

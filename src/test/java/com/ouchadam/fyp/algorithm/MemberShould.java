@@ -13,7 +13,7 @@ public class MemberShould {
         List<Note> arrayList = new ArrayList<Note>();
         arrayList.add(new Note(new Binary("01")));
         Member member = new Member(arrayList);
-        List<Note> notes = member.getAll().notes();
+        List<Note> notes = member.all().notes();
 
         notes.add(new Note(new Binary("0")));
     }

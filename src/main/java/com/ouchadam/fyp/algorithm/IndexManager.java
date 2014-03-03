@@ -17,12 +17,7 @@ public class IndexManager {
     }
 
     public boolean isIndex(Integer currentIndex, List<Integer> indexes) {
-        for (Integer index : indexes) {
-            if (index.equals(currentIndex)) {
-                return true;
-            }
-        }
-        return false;
+        return indexes.contains(currentIndex);
     }
 
     public void forEach(List<Integer> indexes, ForEachPair<Integer> forEach) {

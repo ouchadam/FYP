@@ -1,9 +1,10 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.analysis.midi.BaseMidiNote;
 import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.analysis.MidiMeta;
-import com.ouchadam.fyp.analysis.MidiNote;
 import com.ouchadam.fyp.analysis.MidiTrack;
+import com.ouchadam.fyp.analysis.midi.MidiNote;
 import helper.TestWithMocks;
 import org.junit.Test;
 
@@ -79,8 +80,8 @@ public class KeyAnalysisTest extends TestWithMocks {
         return new MidiTrack(mock(MidiMeta.class), notes);
     }
 
-    private MidiNote createMidiNote(Key key) {
-        MidiNote midiNote = mock(MidiNote.class);
+    private BaseMidiNote createMidiNote(Key key) {
+        BaseMidiNote midiNote = mock(BaseMidiNote.class);
         when(midiNote.getNote()).thenReturn(key);
         return midiNote;
     }

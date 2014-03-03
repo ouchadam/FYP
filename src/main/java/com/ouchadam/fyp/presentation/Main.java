@@ -21,6 +21,7 @@ public class Main {
             mainFrame.setOpenMidiListener(interactionManager.openMidiListener());
             mainFrame.setAnaliseListener(interactionManager.analiseMidiListener());
             mainFrame.setStartStopListener(interactionManager.onStartStop());
+            mainFrame.setSaveListener(interactionManager.onSave());
         }
     };
 

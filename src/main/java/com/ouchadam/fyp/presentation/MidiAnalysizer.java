@@ -1,6 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.analysis.*;
+import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
 
 import java.util.List;
 

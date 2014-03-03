@@ -23,16 +23,16 @@ class PopulationPruner {
         return population;
     }
 
-    private int getTopTenPercent(Population generation) {
-        return (int) Math.floor((float) generation.size() / 10f);
+    private int getTop50Percent(Population generation) {
+        return (int) Math.floor((float) generation.size() * 0.25);
     }
 
     private Population removeDuplicates(Population population) {
-        Population sub100 = population.getSubPopulation(getTopTenPercent(population) + 1, population.size());
+        Population sub100 = population.getSubPopulation(getTop50Percent(population) + 1, population.size());
         return sub100.removeDuplicates();
     }
 
     public Population getBest(Population generation) {
-        return generation.getSubPopulation(0, getTopTenPercent(generation));
+        return generation.getSubPopulation(0, getTop50Percent(generation));
     }
 }

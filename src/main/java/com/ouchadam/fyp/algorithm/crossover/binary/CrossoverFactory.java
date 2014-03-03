@@ -1,13 +1,20 @@
 package com.ouchadam.fyp.algorithm.crossover.binary;
 
+import com.ouchadam.fyp.algorithm.IndexManager;
 import com.ouchadam.fyp.algorithm.Note;
 import com.ouchadam.fyp.algorithm.crossover.Crossover;
 import com.ouchadam.fyp.algorithm.population.NoteCrossover;
 
 public class CrossoverFactory {
 
-    public static CrossoverFactory newInstance() {
-        return new CrossoverFactory();
+    private final IndexManager indexManager;
+
+    public static CrossoverFactory newInstance(IndexManager indexManager) {
+        return new CrossoverFactory(indexManager);
+    }
+
+    public CrossoverFactory(IndexManager indexManager) {
+        this.indexManager = indexManager;
     }
 
     public Uniform uniform() {
@@ -18,15 +25,15 @@ public class CrossoverFactory {
         return new SinglePoint();
     }
 
-    public static class Uniform {
+    public class Uniform {
         private Uniform() {}
 
         public Crossover<Note> note() {
-            return new NoteCrossover(BinaryUniformCrossover.newInstance());
+            return new NoteCrossover(BinaryUniformCrossover.newInstance(indexManager));
         }
     }
 
-    public static class SinglePoint {
+    public class SinglePoint {
         private SinglePoint() {}
 
         public Crossover<Note> note() {

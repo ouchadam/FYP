@@ -11,21 +11,21 @@ import com.ouchadam.fyp.algorithm.crossover.BinaryCrossover;
 public class BinaryUniformCrossover extends BinaryCrossover implements Crossover<Binary> {
 
     private final IndexManager randomIndexCreator;
-    private Random random;
+    private final Random random;
 
-    public static BinaryUniformCrossover newInstance() {
-        return new BinaryUniformCrossover(new BinaryPadder(), new IndexManager(new RandomIndexCreator()));
+    public static BinaryUniformCrossover newInstance(IndexManager indexManager) {
+        return new BinaryUniformCrossover(new BinaryPadder(), indexManager);
     }
 
     BinaryUniformCrossover(BinaryPadder binaryPadder, IndexManager randomIndexCreator) {
         super(binaryPadder);
         this.randomIndexCreator = randomIndexCreator;
+        this.random = new Random();
     }
 
     @Override
     protected Binary matchedBinaryCrossover(Binary parentX, Binary parentY) {
         int length = parentX.wordLength();
-        random = new Random();
         List<Integer> crossovers = randomIndexCreator.create(random.nextInt(length), length);
 
         String y = parentY.getValue();

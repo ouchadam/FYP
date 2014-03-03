@@ -1,10 +1,8 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.analysis.MidiTrack;
-import com.ouchadam.fyp.analysis.Sequenced16thMidiNote;
 import com.ouchadam.fyp.presentation.view.StepSequenceView;
 
-import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -58,30 +56,10 @@ public class SequenceTabManager extends TabManager implements SequenceController
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    playSequence();
+                    new MidiPlayer().play(midiTrack.getMeta(), stepSequenceView.getNotes());
                 }
             }).start();
         }
     };
-
-    private void playSequence() {
-        try {
-            Sequence sequence = new Sequence(midiTrack.getMeta().getDivision().value(), midiTrack.getMeta().getResolution(), 1);
-            Track track = sequence.createTrack();
-            for (Sequenced16thMidiNote midiNote : stepSequenceView.getNotes()) {
-                track.add(midiNote.getNoteOn());
-                track.add(midiNote.getNoteOff());
-            }
-
-            Sequencer sequencer = MidiSystem.getSequencer();
-            sequencer.open();
-            sequencer.setSequence(sequence);
-            sequencer.start();
-        } catch (MidiUnavailableException e) {
-            e.printStackTrace();
-        } catch (InvalidMidiDataException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

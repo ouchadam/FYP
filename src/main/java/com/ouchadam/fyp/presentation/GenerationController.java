@@ -2,6 +2,7 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.AlgorithmParams;
 import com.ouchadam.fyp.algorithm.GenerationCallback;
+import com.ouchadam.fyp.algorithm.GenerationHalter;
 import com.ouchadam.fyp.algorithm.GeneticAlgorithm;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 
@@ -10,7 +11,7 @@ class GenerationController {
     private final GenerationThread  generationThread;
 
     private GenerationCallback onGeneration;
-    private GeneticAlgorithm.GenerationHalter halter;
+    private GenerationHalter halter;
     private OnFinish onFinish;
 
     GenerationController(GenerationThread generationThread) {
@@ -39,7 +40,7 @@ class GenerationController {
         }
     };
 
-    private final GeneticAlgorithm.GenerationHalter internalHalter = new GeneticAlgorithm.GenerationHalter() {
+    private final GenerationHalter internalHalter = new GenerationHalter() {
 
         @Override
         public boolean isHalted(Evaluation evaluation, int index) {
@@ -80,7 +81,7 @@ class GenerationController {
         this.onGeneration = onGeneration;
     }
 
-    public void setHalter(GeneticAlgorithm.GenerationHalter halter) {
+    public void setHalter(GenerationHalter halter) {
         this.halter = halter;
     }
 
