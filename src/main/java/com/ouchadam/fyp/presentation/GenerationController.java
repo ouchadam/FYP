@@ -1,10 +1,10 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.algorithm.AlgorithmParams;
-import com.ouchadam.fyp.algorithm.GenerationCallback;
-import com.ouchadam.fyp.algorithm.GenerationHalter;
-import com.ouchadam.fyp.algorithm.GeneticAlgorithm;
+import com.ouchadam.fyp.algorithm.*;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
+import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
+
+import java.util.List;
 
 class GenerationController {
 
@@ -60,10 +60,30 @@ class GenerationController {
         @Override
         public void onFinish(Evaluation evaluation) {
             System.out.println("Algorithm Finished");
+            print(evaluation.population().get(0));
+
+            KeyAnalysis keyAnalysis = new KeyAnalysis(new ScaleCreator());
+            KeyAnalysis.Result keyResult = keyAnalysis.analyse(new AlgorithmController.MemberToMidi().convert(evaluation.population().get(0)));
+
+            StringBuilder builder = new StringBuilder();
+            builder.append("Key Likelyhood : ").append(keyResult.key).append(" ").append(keyResult.type).append(" ").append(keyResult.percent).append("%").append("\n");
+            System.out.println(builder.toString());
+
             internalHalter.setHalted(false);
             if (onFinish != null) {
                 onFinish.onFinish(evaluation);
             }
+        }
+    };
+
+    public static void print(Member member) {
+        member.forEach().note(printNote);
+    }
+
+    private final static ForEach<Note> printNote = new ForEach<Note>() {
+        @Override
+        public void on(Note what) {
+            System.out.println(what.decimal());
         }
     };
 

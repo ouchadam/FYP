@@ -21,6 +21,7 @@ import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyByte;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -38,14 +39,15 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     public void return_when_the_evaulation_output_is_passed() {
         Population pop = PopulationHelper.create();
 
-        Evaluation passedEvaluation = createPassedEvaluation();
+        Evaluation passedEvaluation = createPassedEvaluation(pop);
 
         when(evaluator.evaluate(any(Population.class))).thenReturn(passedEvaluation);
         when(creator.create(anyInt())).thenReturn(pop);
         when(mutator.mutate(any(Population.class))).thenReturn(pop);
         when(pruner.selectSeeds(any(Population.class))).thenReturn(pop);
+        when(pruner.getBest(any(Population.class))).thenReturn(pop);
 
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null, halter, new AlgorithmParams(100,100,100, 5, 0, rules));
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null, halter, new AlgorithmParams(100,100,0, 5, 0, rules));
 
         Evaluation evaluation = geneticAlgorithm.work();
 
@@ -105,10 +107,11 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         return evaluation.population().frequency(member0);
     }
 
-    private Evaluation createPassedEvaluation() {
+    private Evaluation createPassedEvaluation(Population pop) {
         Evaluation evaluation = mock(Evaluation.class);
         when(evaluation.fitnessValue(0)).thenReturn(FitnessValue.max());
-        when(evaluation.population()).thenReturn(mock(Population.class));
+        when(evaluation.population()).thenReturn(pop);
+        when(evaluation.meetsWantedFitness(anyInt())).thenReturn(true);
         return evaluation;
     }
 

@@ -153,7 +153,7 @@ class AlgorithmController {
         }
     };
 
-    private static class MemberToMidi {
+    public static class MemberToMidi {
 
         private List<Sequenced16thMidiNote> sequencedMidiNotes;
 

@@ -15,7 +15,6 @@ public class Population {
             newPopulation.addAll(population.members);
         }
         return new Population(newPopulation);
-
     }
 
     public Population(List<Member> members) {
