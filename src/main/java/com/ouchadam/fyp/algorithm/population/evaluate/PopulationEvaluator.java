@@ -14,7 +14,6 @@ import com.ouchadam.fyp.analysis.Key;
 public class PopulationEvaluator implements Evaluator<Population> {
 
     private final FitnessFactory fitnessFactory;
-    private List<OrderedPopulation.OrderedMember> valueList;
 
     public PopulationEvaluator(FitnessFactory fitnessFactory) {
         this.fitnessFactory = fitnessFactory;
@@ -22,30 +21,21 @@ public class PopulationEvaluator implements Evaluator<Population> {
 
     @Override
     public Evaluation evaluate(Population population) {
-        this.valueList = new ArrayList<OrderedPopulation.OrderedMember>(population.size());
-        population.forEachMember(member);
-        return new Evaluation(createOrderedPopulation());
+        List<OrderedPopulation.OrderedMember> valueList = new ArrayList<OrderedPopulation.OrderedMember>(population.size());
+        for (Member member : population.all()) {
+            FitnessValue value = evaluate(member, NoteRangeRule.newInstance(12, Key.C.value() + 60), FixedKeySignatureRule.newInstance(Key.C));
+            valueList.add(new OrderedPopulation.OrderedMember(value, member));
+        }
+        return new Evaluation(createOrderedPopulation(valueList));
     }
 
-    private OrderedPopulation createOrderedPopulation() {
+    private OrderedPopulation createOrderedPopulation(List<OrderedPopulation.OrderedMember> valueList) {
         Collections.sort(valueList);
         return new OrderedPopulation(valueList);
     }
 
-    private final ForEach<Member> member = new ForEach<Member>() {
-        @Override
-        public void on(Member member) {
-//            FitnessValue value = evaluate(member, FixedNoteRule.newInstance(60));
-//            FitnessValue value = evaluate(member, NoteRangeRule.newInstance(12, Key.C.value() + 60));
-//            FitnessValue value = evaluate(member, FixedKeySignatureRule.newInstance(Key.C));
-            FitnessValue value = evaluate(member, NoteRangeRule.newInstance(12, Key.C.value() + 60), FixedKeySignatureRule.newInstance(Key.C));
-            valueList.add(new OrderedPopulation.OrderedMember(value, member));
-        }
-    };
-
     private FitnessValue evaluate(Member member, FitnessRule<Member>... rules) {
         return fitnessFactory.member().evaluate(member, rules);
     }
-
 
 }

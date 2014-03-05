@@ -5,6 +5,10 @@ import com.ouchadam.fyp.algorithm.population.Evaluation;
 import com.ouchadam.fyp.analysis.Division;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
+import javax.sound.midi.MidiEvent;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Track;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +65,11 @@ class AlgorithmController {
     }
 
     private AlgorithmParams getParams() {
-        return new AlgorithmParams(parameterController.initialPopulation(), parameterController.maxPopulation(), parameterController.acceptableFitness());
+        return new AlgorithmParams(parameterController.initialPopulation(),
+                parameterController.maxPopulation(),
+                parameterController.acceptableFitness(),
+                parameterController.mutationPercent(),
+                parameterController.crossoverPercent());
     }
 
     private final GenerationCallback onGeneration = new GenerationCallback() {
@@ -115,13 +123,26 @@ class AlgorithmController {
 
     private final OnClickListener onSave = new OnClickListener() {
         @Override
-        public void onClick(Component component) {
+        public void onClick(final Component component) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     Member member = evaluation.population().get(0);
                     List<Sequenced16thMidiNote> notes = new MemberToMidi().convert(member);
-                    new MidiPlayer().play(notes, Division.PPQ, 960);
+
+                    try {
+                        Sequence sequence = new Sequence(Division.PPQ.value(), 960, 1);
+                        Track track = sequence.getTracks()[0];
+                        track.add(new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, 20, 0), 0));
+                        for (Sequenced16thMidiNote midiNote : notes) {
+                            System.out.println("Adding : " + midiNote.getNote() + "(" + midiNote.getKey() + ")" + " at " + midiNote.getTick() + " : " + midiNote.getType() + " to : " + midiNote.getNoteOff().getTick());
+                            track.add(midiNote.getNoteOn());
+                            track.add(midiNote.getNoteOff());
+                        }
+                        new MidiPlayer().save(sequence, new MidiFileChooser(component));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }).start();
         }

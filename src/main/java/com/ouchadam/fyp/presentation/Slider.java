@@ -35,20 +35,24 @@ class Slider {
         this.sliderValue = slider.getValue();
         value.setMinimumSize(new Dimension(30, 20));
         value.setHorizontalAlignment(SwingConstants.RIGHT);
-        setValueText(slider.getValue());
+        updateText(sliderValue);
         slider.addChangeListener(onSliderChange);
+    }
+
+    protected void updateText(int value) {
+        setValueText(String.valueOf(value));
     }
 
     private final ChangeListener onSliderChange = new ChangeListener() {
         @Override
         public void stateChanged(ChangeEvent e) {
             sliderValue = slider.getValue();
-            setValueText(sliderValue);
+            updateText(sliderValue);
         }
     };
 
-    private void setValueText(int newValue) {
-        value.setText(String.valueOf(newValue));
+    protected void setValueText(String text) {
+        value.setText(String.valueOf(text));
     }
 
     public int getValue() {

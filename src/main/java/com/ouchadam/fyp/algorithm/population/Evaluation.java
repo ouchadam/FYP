@@ -9,7 +9,7 @@ public class Evaluation {
         PASS, FAIL;
     }
 
-    private OrderedPopulation orderedPopulation;
+    private final OrderedPopulation orderedPopulation;
     private ResultType resultType;
 
     public Evaluation(OrderedPopulation orderedPopulation) {

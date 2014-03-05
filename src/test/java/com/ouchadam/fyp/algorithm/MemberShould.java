@@ -14,7 +14,7 @@ public class MemberShould {
     public void be_unmodifiable() throws Exception {
         List<Note> arrayList = new ArrayList<Note>();
         arrayList.add(new Note(new Binary("01")));
-        Member member = new Member(arrayList);
+        Member member = new Member(arrayList, new Member.Controller());
         List<Note> notes = member.all().notes();
 
         notes.add(new Note(new Binary("0")));

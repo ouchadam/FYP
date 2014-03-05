@@ -5,16 +5,16 @@ import com.ouchadam.fyp.algorithm.Note;
 import com.ouchadam.fyp.algorithm.crossover.Crossover;
 import com.ouchadam.fyp.algorithm.population.NoteCrossover;
 
+import java.util.Random;
+
 public class CrossoverFactory {
 
     private final IndexManager indexManager;
+    private final Random random;
 
-    public static CrossoverFactory newInstance(IndexManager indexManager) {
-        return new CrossoverFactory(indexManager);
-    }
-
-    public CrossoverFactory(IndexManager indexManager) {
+    public CrossoverFactory(IndexManager indexManager, Random random) {
         this.indexManager = indexManager;
+        this.random = random;
     }
 
     public Uniform uniform() {
@@ -28,8 +28,8 @@ public class CrossoverFactory {
     public class Uniform {
         private Uniform() {}
 
-        public Crossover<Note> note() {
-            return new NoteCrossover(BinaryUniformCrossover.newInstance(indexManager));
+        public Crossover<Note> note(int crossoverPercent) {
+            return new NoteCrossover(BinaryUniformCrossover.newInstance(indexManager, crossoverPercent, random));
         }
     }
 

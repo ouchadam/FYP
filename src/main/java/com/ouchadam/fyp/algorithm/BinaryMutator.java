@@ -7,7 +7,6 @@ import java.util.List;
 
 class BinaryMutator {
 
-    private static final int PERCENTAGE_COEFF = 100;
     private final int mutationProbability;
     private final IndexManager indexManager;
 
@@ -17,7 +16,7 @@ class BinaryMutator {
     }
 
     public Binary mutate(Binary binary) {
-        int mutations = percentOf(binary.wordLength(), mutationProbability);
+        int mutations = Percentage.of(binary.wordLength(), mutationProbability);
         if (mutations > 0) {
             List<Integer> randomIndexes = indexManager.create(mutations, binary.wordLength());
             BinaryBuilder binaryBuilder = new BinaryBuilder();
@@ -34,12 +33,6 @@ class BinaryMutator {
         }
         return binary;
     }
-
-    private int percentOf(int value, int percent) {
-        float normalisedValue = (float) value / PERCENTAGE_COEFF;
-        return Math.round(normalisedValue * (float) percent);
-    }
-
 
     private static class BinaryBuilder {
 

@@ -1,6 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ class SliderManager {
     }
 
     enum SliderName {
-        MAX, INITIAL, ACCEPTABLE_FITNESS, BAR;
+        MAX, INITIAL, ACCEPTABLE_FITNESS, MUTATION_PERCENT, CROSSOVER_PERCENT
     }
 
     SliderManager() {
@@ -25,7 +26,8 @@ class SliderManager {
         add(SliderName.MAX, Slider.newInstance("Max Population Size", 100, 20000, 2633));
         add(SliderName.INITIAL, Slider.newInstance("Initial Population Size", 100, 20000, 2500));
         add(SliderName.ACCEPTABLE_FITNESS, Slider.newInstance("Acceptable Fitness", 0, 100, 100));
-        add(SliderName.BAR, Slider.newInstance("Bar", 0, 100, 50));
+        add(SliderName.MUTATION_PERCENT, Slider.newInstance("Mutation %", 0, 100, 5));
+        add(SliderName.CROSSOVER_PERCENT, CustomTextSlider.newInstance("Crossover %", 0, 100, 0));
     }
 
     private void add(SliderName name, Slider slider) {
@@ -36,7 +38,7 @@ class SliderManager {
         int row = 0;
         for (SliderName slider : SliderName.values()) {
             sliders.get(slider).attachTo(panel, row);
-            row ++;
+            row++;
         }
     }
 
@@ -46,10 +48,41 @@ class SliderManager {
         }
     }
 
-
     public void disable() {
         for (SliderName slider : SliderName.values()) {
             sliders.get(slider).disable();
+        }
+    }
+
+    private static class CustomTextSlider extends Slider {
+
+        public static Slider newInstance(String label, int min, int max, int defaultValue) {
+            JSlider slider = new JSlider(JSlider.HORIZONTAL);
+            slider.setMinimum(min);
+            slider.setMaximum(max);
+            slider.setValue(defaultValue);
+            JLabel labelView = new JLabel(label);
+            JLabel value = new JLabel();
+            return new CustomTextSlider(slider, labelView, value);
+        }
+
+        CustomTextSlider(JSlider slider, JLabel labelView, JLabel value) {
+            super(slider, labelView, value);
+        }
+
+        @Override
+        public void attachTo(JPanel panel, int row) {
+            panel.setPreferredSize(new Dimension(panel.getWidth(), 100));
+            super.attachTo(panel, row);
+        }
+
+        @Override
+        protected void updateText(int value) {
+            if (value == 0) {
+                setValueText("Random");
+            } else {
+                super.updateText(value);
+            }
         }
     }
 

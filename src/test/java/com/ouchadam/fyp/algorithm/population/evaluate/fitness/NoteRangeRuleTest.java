@@ -44,6 +44,6 @@ public class NoteRangeRuleTest extends TestWithMocks {
         for (int noteValue : noteValues) {
             notes.add(new Note(new Binary(Integer.toBinaryString(noteValue))));
         }
-        return new Member(notes);
+        return new Member(notes, new Member.Controller());
     }
 }

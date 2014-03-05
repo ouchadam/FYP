@@ -8,6 +8,7 @@ import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyInt;
@@ -26,7 +27,7 @@ public class BinaryUniformCrossoverTest extends TestWithMocks {
     @Override
     protected void before() {
         indexManager = new IndexManager(randomIndexCreator);
-        binaryUniformCrossover = new BinaryUniformCrossover(new BinaryPadder(), indexManager);
+        binaryUniformCrossover = new BinaryUniformCrossover(new BinaryPadder(), indexManager, 0, new Random());
     }
 
     @Test

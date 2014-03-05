@@ -1,6 +1,5 @@
 package com.ouchadam.fyp.algorithm.population;
 
-import com.ouchadam.fyp.ForEachPair;
 import com.ouchadam.fyp.algorithm.IndexManager;
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
@@ -13,25 +12,33 @@ import java.util.Random;
 
 public class RandomPopulationCrossover implements PopulationCrossover {
 
-    private final List<Member> newPopulation;
     private final Crossover<Note> crossover;
     private final IndexManager indexManager;
+    private final Member.Controller memberController;
     private final Random random;
 
-    private Population population;
-
-    public RandomPopulationCrossover(Random random, Crossover<Note> crossover, IndexManager indexManager) {
+    public RandomPopulationCrossover(Random random, Crossover<Note> crossover, IndexManager indexManager, Member.Controller memberController) {
         this.random = random;
         this.crossover = crossover;
         this.indexManager = indexManager;
-        this.newPopulation = new ArrayList<Member>();
+        this.memberController = memberController;
     }
 
     @Override
     public Population crossover(Population population) {
-        this.population = population;
-        indexManager.forEach(createIndexes(this.population.size()), forEachPair);
+        List<Integer> indexes = createIndexes(population.size());
+        List<Member> newPopulation = new ArrayList<Member>(indexes.size());
+
+        for (int index = 0; index < indexes.size(); index++) {
+            int indexPlusOne = getIndexPlusOne(index, population.size());
+            newPopulation.add(crossoverMembers(population.get(index), population.get(indexPlusOne)));
+            newPopulation.add(crossoverMembers(population.get(indexPlusOne), population.get(index)));
+        }
         return new Population(newPopulation);
+    }
+
+    private int getIndexPlusOne(int index, int populationSize) {
+        return index >= populationSize ? random.nextInt(populationSize - 1) + 1 : index + 1;
     }
 
     private List<Integer> createIndexes(int populationSize) {
@@ -39,16 +46,8 @@ public class RandomPopulationCrossover implements PopulationCrossover {
         return indexManager.create(crossoverCount, populationSize);
     }
 
-    private final ForEachPair<Integer> forEachPair = new ForEachPair<Integer>() {
-        @Override
-        public void on(Integer x, Integer y) {
-            newPopulation.add(crossoverMembers(population.get(x), population.get(y)));
-            newPopulation.add(crossoverMembers(population.get(y), population.get(x)));
-        }
-    };
-
     private Member crossoverMembers(Member memberX, Member memberY) {
-        return new Member(crossoverNotes(memberX, memberY));
+        return new Member(crossoverNotes(memberX, memberY), memberController);
     }
 
     private List<Note> crossoverNotes(Member memberX, Member memberY) {

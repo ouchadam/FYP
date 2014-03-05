@@ -38,6 +38,6 @@ public class MemberEvaluatorTest extends TestWithMocks {
     private Member createMember() {
         List<Note> arrayList = new ArrayList<Note>();
         arrayList.add(new Note(new Binary("01")));
-        return new Member(arrayList);
+        return new Member(arrayList, new Member.Controller());
     }
 }

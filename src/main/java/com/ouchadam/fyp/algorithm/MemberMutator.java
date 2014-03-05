@@ -1,16 +1,16 @@
 package com.ouchadam.fyp.algorithm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class MemberMutator {
 
     private final IndexManager indexManager;
+    private final Member.Controller memberController;
+    private final BinaryMutator binaryMutator;
 
-    private BinaryMutator binaryMutator;
-
-    MemberMutator(IndexManager indexManager, int mutationProbability) {
+    MemberMutator(IndexManager indexManager, int mutationProbability, Member.Controller memberController) {
         this.indexManager = indexManager;
+        this.memberController = memberController;
         this.binaryMutator = new BinaryMutator(mutationProbability, indexManager);
     }
 
@@ -21,7 +21,7 @@ class MemberMutator {
         for (Integer index : notesToMutate) {
             all.set(index, new Note(binaryMutator.mutate(all.get(index).binary())));
         }
-        return new Member(all);
+        return new Member(all, memberController);
     }
 
 }

@@ -143,6 +143,16 @@ class MainFrame implements ButtonController, TextController, SequenceController,
     }
 
     @Override
+    public int mutationPercent() {
+        return algorithmTabManager.mutationPercent();
+    }
+
+    @Override
+    public int crossoverPercent() {
+        return algorithmTabManager.crossoverPercent();
+    }
+
+    @Override
     public void enable() {
         algorithmTabManager.enable();
     }

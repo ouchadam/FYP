@@ -20,21 +20,27 @@ class AlgorithmTabManager extends TabManager implements ParameterController {
     @Override
     public JTabbedPane create() {
         JPanel panel = new JPanel(new GridLayout(7, 1));
+        JPanel fooPanel = new JPanel();
         textArea = new JLabel("Dummy text");
         startStopButton = createButton("Start");
         saveButton = createButton("Save");
+        saveButton.setPreferredSize(new Dimension(100, 40));
+        startStopButton.setPreferredSize(new Dimension(100, 40));
+
+        fooPanel.add(startStopButton);
+        fooPanel.add(saveButton);
+
         panel.add(createSliders());
-        panel.add(startStopButton);
         panel.add(textArea);
-        panel.add(saveButton);
-        panel.setPreferredSize(new Dimension(400, 600));
+        panel.add(fooPanel);
+        panel.setPreferredSize(new Dimension(450, 800));
         panel.setBorder(new EmptyBorder(25, 20, 0, 20));
         return createTabbedPane(TAB_TITLE, panel);
     }
 
     private Component createSliders() {
         JPanel slidersContainer = new JPanel(new GridBagLayout());
-        slidersContainer.setPreferredSize(new Dimension(400, 400));
+        slidersContainer.setPreferredSize(new Dimension(450, 700));
         sliderManager.create();
         sliderManager.attachTo(slidersContainer);
         return slidersContainer;
@@ -86,13 +92,25 @@ class AlgorithmTabManager extends TabManager implements ParameterController {
     }
 
     @Override
+    public int mutationPercent() {
+        return sliderManager.get(SliderManager.SliderName.MUTATION_PERCENT);
+    }
+
+    @Override
+    public int crossoverPercent() {
+        return sliderManager.get(SliderManager.SliderName.CROSSOVER_PERCENT);
+    }
+
+    @Override
     public void enable() {
         sliderManager.enable();
+        saveButton.setEnabled(true);
     }
 
     @Override
     public void disable() {
         sliderManager.disable();
+        saveButton.setEnabled(false);
     }
 
     public void setSaveListener(OnClickListener listener) {

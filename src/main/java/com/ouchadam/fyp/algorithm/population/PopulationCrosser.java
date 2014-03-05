@@ -14,7 +14,6 @@ public class PopulationCrosser implements PopulationCrossover {
 
     @Override
     public Population crossover(Population population) {
-//        return crossoverPopulation(population.shuffle());
         Population shuffledPopulation = population.shuffle();
         Population newPopulation = population;
         do {

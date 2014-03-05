@@ -24,7 +24,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     @Mock Creator<Population> creator;
     @Mock Mutator<Population> mutator;
     @Mock PopulationCrosser crossover;
-    @Mock PopulationPruner pruner;
+    @Mock PopulationSelector pruner;
 
     @Test
     public void return_when_the_evaulation_output_is_passed() {
@@ -35,9 +35,9 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         when(evaluator.evaluate(any(Population.class))).thenReturn(passedEvaluation);
         when(creator.create(anyInt())).thenReturn(pop);
         when(mutator.mutate(any(Population.class))).thenReturn(pop);
-        when(pruner.prune(any(Population.class))).thenReturn(pop);
+        when(pruner.selectFrom(any(Population.class))).thenReturn(pop);
 
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null, halter, new AlgorithmParams(100,100,100));
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(creator, mutator, crossover, evaluator, pruner, null, halter, new AlgorithmParams(100,100,100, 5, 0));
 
         Evaluation evaluation = geneticAlgorithm.work();
 
@@ -46,7 +46,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
     @Ignore @Test
     public void full_flow() {
-        AlgorithmParams algorithmParams = new AlgorithmParams(200, 10000, 100);
+        AlgorithmParams algorithmParams = new AlgorithmParams(200, 10000, 100, 5, 0);
         GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback, algorithmParams, halter);
 
         Evaluation output = geneticAlgorithm.work();

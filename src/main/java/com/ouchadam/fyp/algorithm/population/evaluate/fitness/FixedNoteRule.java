@@ -1,6 +1,5 @@
 package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
 
-import com.ouchadam.fyp.algorithm.ForEach;
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
 import com.ouchadam.fyp.algorithm.population.evaluate.FitnessAccumulator;
@@ -8,7 +7,6 @@ import com.ouchadam.fyp.algorithm.population.evaluate.FitnessAccumulator;
 public class FixedNoteRule implements FitnessRule<Member> {
 
     private final FixedNote fixedNote;
-    private FitnessAccumulator fitnessAccumulator;
 
     public static FixedNoteRule newInstance(int fixedValue) {
         return new FixedNoteRule(new FixedNote(fixedValue));
@@ -20,17 +18,12 @@ public class FixedNoteRule implements FitnessRule<Member> {
 
     @Override
     public FitnessValue apply(Member what) {
-        fitnessAccumulator = FitnessAccumulator.from(what.size());
-        what.forEach().note(evaluate);
+        FitnessAccumulator fitnessAccumulator = FitnessAccumulator.from(what.size());
+        for (Note note : what.all().notes()) {
+            fitnessAccumulator.add(fixedNote.apply(note));
+        }
         return fitnessAccumulator.bias(3);
     }
-
-    private final ForEach<Note> evaluate = new ForEach<Note>() {
-        @Override
-        public void on(Note what) {
-            fitnessAccumulator.add(fixedNote.apply(what));
-        }
-    };
 
     static class FixedNote implements FitnessRule<Note> {
 

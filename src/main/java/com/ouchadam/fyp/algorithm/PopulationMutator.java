@@ -10,13 +10,12 @@ public class PopulationMutator implements Mutator<Population> {
 
     private final IndexManager indexManager;
     private final Random random;
+    private final MemberMutator memberMutator;
 
-    MemberMutator memberMutator;
-
-    public PopulationMutator(IndexManager indexManager, Random random) {
+    public PopulationMutator(IndexManager indexManager, Random random, MemberMutator memberMutator) {
         this.indexManager = indexManager;
         this.random = random;
-        this.memberMutator = new MemberMutator(indexManager, 50);
+        this.memberMutator = memberMutator;
     }
 
     @Override

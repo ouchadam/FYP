@@ -6,16 +6,14 @@ import java.util.List;
 
 public class Member {
 
-    public static final int CHILD_COUNT = 4;
+    public static final int CHILD_COUNT = 8;
 
     private final List<Note> notes;
-    private final Each forEach;
-    private final All forAll;
+    private final Controller controller;
 
-    public Member(List<Note> notes) {
+    public Member(List<Note> notes, Controller controller) {
+        this.controller = controller;
         this.notes = Collections.unmodifiableList(notes);
-        forEach = new Each();
-        forAll = new All();
     }
 
     public Note note(int index) {
@@ -26,14 +24,6 @@ public class Member {
         for (int index = 0; index < CHILD_COUNT; index++) {
             forEvery.on(index, note(index), null);
         }
-    }
-
-    public Each forEach() {
-        return forEach;
-    }
-
-    public All all() {
-        return forAll;
     }
 
     public int size() {
@@ -54,18 +44,46 @@ public class Member {
         return notes != null ? notes.hashCode() : 0;
     }
 
-    public class Each {
-        public void note(ForEach<Note> forEach) {
-            for (Note note : notes) {
-                forEach.on(note);
-            }
-        }
+    public Controller.Each forEach() {
+        return controller.forEach(this);
     }
 
-    public class All {
-        public List<Note> notes() {
-            return new ArrayList<Note>(notes);
+    public Controller.All all() {
+        return controller.all(this);
+    }
+
+    public static class Controller {
+
+        public Each forEach(Member member) {
+            return new Each(member);
         }
+
+        public All all(Member member) {
+            return new All(member);
+        }
+
+        public static class Each extends Handler<Member> {
+            private Each(Member member) {
+                super(member);
+            }
+
+            public void note(ForEach<Note> forEach) {
+                for (Note note : get().notes) {
+                    forEach.on(note);
+                }
+            }
+        }
+
+        public static class All extends Handler<Member> {
+            private All(Member what) {
+                super(what);
+            }
+
+            public List<Note> notes() {
+                return new ArrayList<Note>(get().notes);
+            }
+        }
+
     }
 
 }

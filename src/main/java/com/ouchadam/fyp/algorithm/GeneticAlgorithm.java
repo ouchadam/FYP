@@ -13,7 +13,7 @@ public class GeneticAlgorithm {
     private final Mutator<Population> mutator;
     private final PopulationCrosser crossover;
     private final Evaluator<Population> evaluator;
-    private final PopulationPruner pruner;
+    private final PopulationSelector pruner;
     private final GenerationCallback generationCallback;
     private final GenerationHalter halter;
     private final AlgorithmParams algorithmParams;
@@ -22,20 +22,21 @@ public class GeneticAlgorithm {
     public static GeneticAlgorithm newInstance(GenerationCallback generationCallback, AlgorithmParams algorithmParams, GenerationHalter halter) {
         Random random = new Random();
         IndexManager indexManager = new IndexManager(new RandomIndexCreator(random));
-        CrossoverFactory crossoverFactory = CrossoverFactory.newInstance(indexManager);
+        Member.Controller memberController = new Member.Controller();
+        CrossoverFactory crossoverFactory = new CrossoverFactory(indexManager, random);
         return new GeneticAlgorithm(
-                new PopulationCreator(new MemberCreator(), new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.singlePoint().note(), indexManager), algorithmParams.maxPopulationSize)),
-                new PopulationMutator(indexManager, random),
-                new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.uniform().note(), indexManager), algorithmParams.maxPopulationSize),
+                new PopulationCreator(new MemberCreator(memberController, random), new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.singlePoint().note(), indexManager, memberController), algorithmParams.maxPopulationSize)),
+                new PopulationMutator(indexManager, random, new MemberMutator(indexManager, algorithmParams.mutationPercent, memberController)),
+                new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.uniform().note(algorithmParams.crossoverPercent), indexManager, memberController), algorithmParams.maxPopulationSize),
                 new PopulationEvaluator(new FitnessFactory()),
-                new PopulationPruner(algorithmParams.maxPopulationSize),
+                new PopulationSelector(PopulationSelector.Type.ELITISM),
                 generationCallback,
                 halter,
                 algorithmParams);
     }
 
     GeneticAlgorithm(Creator<Population> creator, Mutator<Population> mutator, PopulationCrosser crossover, Evaluator<Population> evaluator,
-                     PopulationPruner pruner, GenerationCallback generationCallback, GenerationHalter halter, AlgorithmParams algorithmParams) {
+                     PopulationSelector pruner, GenerationCallback generationCallback, GenerationHalter halter, AlgorithmParams algorithmParams) {
         this.populationCreator = creator;
         this.mutator = mutator;
         this.crossover = crossover;
@@ -56,13 +57,13 @@ public class GeneticAlgorithm {
     }
 
     private Evaluation loop(Population population, GenerationHalter halter) {
-        Evaluation evaluation = null;
+        Evaluation evaluation;
         Population generation = population;
         int index = 0;
         do {
-            evaluation = evaluate(Population.fromSubPopulation(getBestMember(generation), evolve(generation)));
+            evaluation = work(generation);
             callback(evaluation, index);
-            generation = evaluation.population();
+            generation = pruneToMaxSize(evaluation.population());
             if (halter.isHalted(evaluation, index)) {
                 System.out.println("Limit reached or halted, breaking out");
                 evaluation.setFail();
@@ -72,6 +73,10 @@ public class GeneticAlgorithm {
         } while (evaluation.fitnessValue(0).get() < algorithmParams.acceptableFitnessValue);
         evaluation.setPass();
         return evaluation;
+    }
+
+    private Evaluation work(Population generation) {
+        return evaluate(Population.fromSubPopulation(getBestMember(generation), evolve(pruner.selectFrom(generation))));
     }
 
     private Population evolve(Population generation) {
@@ -92,6 +97,10 @@ public class GeneticAlgorithm {
 
     private Population getBestMember(Population generation) {
         return generation.getSubPopulation(0, 1);
+    }
+
+    private Population pruneToMaxSize(Population population) {
+        return population.size() > algorithmParams.maxPopulationSize ? population.getSubPopulation(0, algorithmParams.maxPopulationSize) : population;
     }
 
     private void callback(Evaluation evaluation, int generationIndex) {

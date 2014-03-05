@@ -24,7 +24,7 @@ public class FixedNoteRuleTest {
     private Member createMember(int noteValue) {
         List<Note> notes = new ArrayList<Note>(2);
         notes.add(new Note(new Binary(Integer.toBinaryString(noteValue))));
-        return new Member(notes);
+        return new Member(notes, new Member.Controller());
     }
 
 }
