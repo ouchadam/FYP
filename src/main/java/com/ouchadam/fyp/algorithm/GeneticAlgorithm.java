@@ -13,7 +13,7 @@ public class GeneticAlgorithm {
     private final Mutator<Population> mutator;
     private final PopulationCrosser crossover;
     private final Evaluator<Population> evaluator;
-    private final PopulationSelector pruner;
+    private final PopulationSelector populationSelector;
     private final GenerationCallback generationCallback;
     private final GenerationHalter halter;
     private final AlgorithmParams algorithmParams;
@@ -28,20 +28,20 @@ public class GeneticAlgorithm {
                 new PopulationCreator(new MemberCreator(memberController, random), new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.singlePoint().note(), indexManager, memberController), algorithmParams.maxPopulationSize)),
                 new PopulationMutator(indexManager, random, new MemberMutator(indexManager, algorithmParams.mutationPercent, memberController)),
                 new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.uniform().note(algorithmParams.crossoverPercent), indexManager, memberController), algorithmParams.maxPopulationSize),
-                new PopulationEvaluator(new FitnessFactory()),
-                new PopulationSelector(PopulationSelector.Type.ELITISM),
+                new PopulationEvaluator(new FitnessFactory(), algorithmParams.rules),
+                new PopulationSelector(PopulationSelector.Type.ELITISM, random),
                 generationCallback,
                 halter,
                 algorithmParams);
     }
 
     GeneticAlgorithm(Creator<Population> creator, Mutator<Population> mutator, PopulationCrosser crossover, Evaluator<Population> evaluator,
-                     PopulationSelector pruner, GenerationCallback generationCallback, GenerationHalter halter, AlgorithmParams algorithmParams) {
+                     PopulationSelector populationSelector, GenerationCallback generationCallback, GenerationHalter halter, AlgorithmParams algorithmParams) {
         this.populationCreator = creator;
         this.mutator = mutator;
         this.crossover = crossover;
         this.evaluator = evaluator;
-        this.pruner = pruner;
+        this.populationSelector = populationSelector;
         this.generationCallback = generationCallback;
         this.halter = halter;
         this.algorithmParams = algorithmParams;
@@ -57,11 +57,14 @@ public class GeneticAlgorithm {
     }
 
     private Evaluation loop(Population population, GenerationHalter halter) {
-        Evaluation evaluation;
-        Population generation = population;
+        Evaluation evaluation = evaluate(population);
+        Population generation = evaluation.population();
         int index = 0;
         do {
-            evaluation = work(generation);
+            Population seeds = populationSelector.selectSeeds(generation);
+            Population guaranteedMembers = populationSelector.getBest(generation);
+            evaluation = work(seeds, generation, guaranteedMembers);
+
             callback(evaluation, index);
             generation = pruneToMaxSize(evaluation.population());
             if (halter.isHalted(evaluation, index)) {
@@ -70,13 +73,13 @@ public class GeneticAlgorithm {
                 return evaluation;
             }
             index++;
-        } while (evaluation.fitnessValue(0).get() < algorithmParams.acceptableFitnessValue);
+        } while (!evaluation.meetsWantedFitness(algorithmParams.acceptableFitnessValue));
         evaluation.setPass();
         return evaluation;
     }
 
-    private Evaluation work(Population generation) {
-        return evaluate(Population.fromSubPopulation(getBestMember(generation), evolve(pruner.selectFrom(generation))));
+    private Evaluation work(Population seeds, Population population, Population guaranteed) {
+        return evaluate(Population.fromSubPopulation(getBestMember(population), guaranteed, evolve(seeds)));
     }
 
     private Population evolve(Population generation) {

@@ -16,6 +16,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
     @Mock GenerationController generationController;
     @Mock TextController textController;
     @Mock ParameterController parameterController;
+    @Mock RuleController ruleController;
 
     @Mock Component not_relevant;
 
@@ -24,7 +25,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
 
     @Override
     protected void before() {
-        algorithmController = new AlgorithmController(generationController, textController, parameterController);
+        algorithmController = new AlgorithmController(generationController, textController, parameterController, ruleController);
         algorithmEntry = algorithmController.listener();
 
     }

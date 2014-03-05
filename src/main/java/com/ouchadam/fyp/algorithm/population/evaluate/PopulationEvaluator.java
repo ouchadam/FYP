@@ -14,16 +14,18 @@ import com.ouchadam.fyp.analysis.Key;
 public class PopulationEvaluator implements Evaluator<Population> {
 
     private final FitnessFactory fitnessFactory;
+    private final List<FitnessRule<Member>> rules;
 
-    public PopulationEvaluator(FitnessFactory fitnessFactory) {
+    public PopulationEvaluator(FitnessFactory fitnessFactory, List<FitnessRule<Member>> rules) {
         this.fitnessFactory = fitnessFactory;
+        this.rules = rules;
     }
 
     @Override
     public Evaluation evaluate(Population population) {
         List<OrderedPopulation.OrderedMember> valueList = new ArrayList<OrderedPopulation.OrderedMember>(population.size());
         for (Member member : population.all()) {
-            FitnessValue value = evaluate(member, NoteRangeRule.newInstance(12, Key.C.value() + 60), FixedKeySignatureRule.newInstance(Key.C));
+            FitnessValue value = evaluate(member, rules);
             valueList.add(new OrderedPopulation.OrderedMember(value, member));
         }
         return new Evaluation(createOrderedPopulation(valueList));
@@ -34,7 +36,7 @@ public class PopulationEvaluator implements Evaluator<Population> {
         return new OrderedPopulation(valueList);
     }
 
-    private FitnessValue evaluate(Member member, FitnessRule<Member>... rules) {
+    private FitnessValue evaluate(Member member, List<FitnessRule<Member>> rules) {
         return fitnessFactory.member().evaluate(member, rules);
     }
 

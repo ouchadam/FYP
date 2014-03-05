@@ -1,13 +1,17 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessRule;
 import com.ouchadam.fyp.analysis.MidiTrack;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.*;
+import java.util.List;
 
-class MainFrame implements ButtonController, TextController, SequenceController, ParameterController {
+class MainFrame implements ButtonController, TextController, SequenceController, ParameterController, RuleController {
 
     private static final int FRAME_WIDTH = 550;
     private static final int FRAME_HEIGHT = 400;
@@ -19,6 +23,7 @@ class MainFrame implements ButtonController, TextController, SequenceController,
     private AnalyseTabManager analyseTabManager;
     private AlgorithmTabManager algorithmTabManager;
     private SequenceTabManager sequenceTabManager;
+    private RuleTabManager ruleTabManager;
 
     public static MainFrame newInstance(UiReadyListener uiListener) {
         MainFrame mainFrame = new MainFrame(new JFrame(), uiListener);
@@ -59,9 +64,11 @@ class MainFrame implements ButtonController, TextController, SequenceController,
         analyseTabManager = new AnalyseTabManager(tabbedPane);
         algorithmTabManager = new AlgorithmTabManager(tabbedPane, new SliderManager());
         sequenceTabManager = new SequenceTabManager(tabbedPane);
+        ruleTabManager = new RuleTabManager(tabbedPane, new RuleManager());
         panel.add(analyseTabManager.create());
         panel.add(algorithmTabManager.create());
         panel.add(sequenceTabManager.create());
+        panel.add(ruleTabManager.create());
         frame.add(panel);
     }
 
@@ -160,5 +167,10 @@ class MainFrame implements ButtonController, TextController, SequenceController,
     @Override
     public void disable() {
         algorithmTabManager.disable();
+    }
+
+    @Override
+    public List<FitnessRule<Member>> get() {
+        return ruleTabManager.get();
     }
 }

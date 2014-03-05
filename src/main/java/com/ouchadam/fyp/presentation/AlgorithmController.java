@@ -2,7 +2,10 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.*;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FixedKeySignatureRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.NoteRangeRule;
 import com.ouchadam.fyp.analysis.Division;
+import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
 import javax.sound.midi.MidiEvent;
@@ -18,19 +21,20 @@ class AlgorithmController {
 
     public enum Status {
         IDLE, RUNNING;
-
     }
 
     private final GenerationController generationController;
     private final TextController textController;
     private final ParameterController parameterController;
+    private final RuleController ruleController;
 
     private Evaluation evaluation;
 
-    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController) {
+    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController, RuleController ruleController) {
         this.generationController = generationController;
         this.textController = textController;
         this.parameterController = parameterController;
+        this.ruleController = ruleController;
     }
 
     public OnClickListener listener() {
@@ -69,7 +73,8 @@ class AlgorithmController {
                 parameterController.maxPopulation(),
                 parameterController.acceptableFitness(),
                 parameterController.mutationPercent(),
-                parameterController.crossoverPercent());
+                parameterController.crossoverPercent(),
+                ruleController.get());
     }
 
     private final GenerationCallback onGeneration = new GenerationCallback() {

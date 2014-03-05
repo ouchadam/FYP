@@ -14,10 +14,9 @@ public class PopulationCrosser implements PopulationCrossover {
 
     @Override
     public Population crossover(Population population) {
-        Population shuffledPopulation = population.shuffle();
         Population newPopulation = population;
         do {
-            newPopulation = Population.fromSubPopulation(newPopulation, crossoverPopulation(shuffledPopulation));
+            newPopulation = Population.fromSubPopulation(newPopulation, crossoverPopulation(population));
         } while (newPopulation.size() < maxPopulationSize);
         return newPopulation.getSubPopulation(0, maxPopulationSize);
     }

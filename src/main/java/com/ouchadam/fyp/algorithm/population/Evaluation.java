@@ -42,4 +42,8 @@ public class Evaluation {
         }
         return resultType;
     }
+
+    public boolean meetsWantedFitness(int fitnessValue) {
+        return fitnessValue(0).get() >= fitnessValue;
+    }
 }

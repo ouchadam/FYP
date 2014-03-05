@@ -48,6 +48,10 @@ public class Population {
         return Collections.frequency(members, member);
     }
 
+    public int indexOf(Member what) {
+        return members.indexOf(what);
+    }
+
     public Population removeDuplicates() {
         Set<Member> set = new HashSet<Member>();
         set.addAll(members);

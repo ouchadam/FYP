@@ -1,5 +1,9 @@
 package com.ouchadam.fyp.algorithm;
 
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessRule;
+
+import java.util.List;
+
 public class AlgorithmParams {
 
     public final int initalPopulationSize;
@@ -7,13 +11,15 @@ public class AlgorithmParams {
     public final int acceptableFitnessValue;
     public final int mutationPercent;
     public final int crossoverPercent;
+    public final List<FitnessRule<Member>> rules;
 
-    public AlgorithmParams(int initalPopulationSize, int maxPopulationSize, int acceptableFitnessValue, int mutationPercent, int crossoverPercent) {
+    public AlgorithmParams(int initalPopulationSize, int maxPopulationSize, int acceptableFitnessValue, int mutationPercent, int crossoverPercent, List<FitnessRule<Member>> rules) {
         this.initalPopulationSize = initalPopulationSize;
         this.maxPopulationSize = maxPopulationSize;
         this.acceptableFitnessValue = acceptableFitnessValue;
         this.mutationPercent = mutationPercent;
         this.crossoverPercent = crossoverPercent;
+        this.rules = rules;
     }
 
     @Override
@@ -26,4 +32,5 @@ public class AlgorithmParams {
                 ", crossoverPercent=" + crossoverPercent +
                 '}';
     }
+
 }

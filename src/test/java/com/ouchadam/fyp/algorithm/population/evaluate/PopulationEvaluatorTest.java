@@ -24,13 +24,13 @@ import static org.mockito.Mockito.when;
 
 public class PopulationEvaluatorTest extends TestWithMocks {
 
-    @Mock
-    FitnessFactory fitnessFactory;
+    @Mock FitnessFactory fitnessFactory;
+    @Mock List<FitnessRule<Member>> rules;
     private PopulationEvaluator populationEvaluator;
 
     @Override
     protected void before() {
-        populationEvaluator = new PopulationEvaluator(fitnessFactory);
+        populationEvaluator = new PopulationEvaluator(fitnessFactory, rules);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class PopulationEvaluatorTest extends TestWithMocks {
 
     private void forcePerfectFitness() {
         FitnessEvaluator<Member> mockEvaluator = mock(FitnessEvaluator.class);
-        when(mockEvaluator.evaluate(any(Member.class), (FitnessRule<Member>) anyVararg())).thenReturn(FitnessValue.max());
+        when(mockEvaluator.evaluate(any(Member.class), anyList())).thenReturn(FitnessValue.max());
         when(fitnessFactory.member()).thenReturn(mockEvaluator);
     }
 

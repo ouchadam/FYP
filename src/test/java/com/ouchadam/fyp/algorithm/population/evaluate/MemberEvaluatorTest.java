@@ -20,9 +20,12 @@ import static org.mockito.Mockito.when;
 public class MemberEvaluatorTest extends TestWithMocks {
 
     @Mock FitnessRule<Member> fitnessRule;
+    List<FitnessRule<Member>> rules;
 
     @Override
     protected void before() {
+        rules = new ArrayList<FitnessRule<Member>>();
+        rules.add(fitnessRule);
         when(fitnessRule.apply(any(Member.class))).thenReturn(FitnessValue.max());
     }
 
@@ -30,7 +33,7 @@ public class MemberEvaluatorTest extends TestWithMocks {
     public void make_use_of_the_supplied_rules() {
         MemberEvaluator memberEvaluator = new MemberEvaluator();
 
-        memberEvaluator.evaluate(createMember(), fitnessRule);
+        memberEvaluator.evaluate(createMember(), rules);
 
         verify(fitnessRule).apply(any(Member.class));
     }
