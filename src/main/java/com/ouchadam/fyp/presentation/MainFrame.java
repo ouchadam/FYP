@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.*;
 import java.util.List;
 
 class MainFrame implements ButtonController, TextController, SequenceController, ParameterController, RuleController {
@@ -20,7 +19,6 @@ class MainFrame implements ButtonController, TextController, SequenceController,
     private final JFrame frame;
     private final UiReadyListener uiListener;
 
-    private AnalyseTabManager analyseTabManager;
     private AlgorithmTabManager algorithmTabManager;
     private SequenceTabManager sequenceTabManager;
     private RuleTabManager ruleTabManager;
@@ -61,13 +59,11 @@ class MainFrame implements ButtonController, TextController, SequenceController,
     private void initSubPanes() {
         JPanel panel = new JPanel(new GridLayout(1, 1));
         JTabbedPane tabbedPane = new JTabbedPane();
-        analyseTabManager = new AnalyseTabManager(tabbedPane);
         algorithmTabManager = new AlgorithmTabManager(tabbedPane, new SliderManager());
         sequenceTabManager = new SequenceTabManager(tabbedPane);
         ruleTabManager = new RuleTabManager(tabbedPane, new RuleManager());
-        panel.add(analyseTabManager.create());
-        panel.add(algorithmTabManager.create());
         panel.add(sequenceTabManager.create());
+        panel.add(algorithmTabManager.create());
         panel.add(ruleTabManager.create());
         frame.add(panel);
     }
@@ -81,11 +77,11 @@ class MainFrame implements ButtonController, TextController, SequenceController,
     };
 
     public void setOpenMidiListener(OnClickListener listener) {
-        analyseTabManager.setOpenMidiListener(listener);
+        sequenceTabManager.setOpenMidiListener(listener);
     }
 
     public void setAnaliseListener(OnClickListener listener) {
-        analyseTabManager.setAnaliseListener(listener);
+        sequenceTabManager.setAnaliseListener(listener);
     }
 
     public void setSaveListener(OnClickListener onClickListener) {
@@ -94,20 +90,20 @@ class MainFrame implements ButtonController, TextController, SequenceController,
 
     @Override
     public void enableAnalise(boolean enabled) {
-        analyseTabManager.setAnaliseEnabled(enabled);
+        sequenceTabManager.setAnaliseEnabled(enabled);
     }
 
     JButton getOpenMidiButton() {
-        return analyseTabManager.getOpenMidiButton();
+        return sequenceTabManager.getOpenMidiButton();
     }
 
     JButton getAnaliseButton() {
-        return analyseTabManager.getAnalyseButton();
+        return sequenceTabManager.getAnalyseButton();
     }
 
     @Override
     public void setMidiSelection(String text) {
-        analyseTabManager.setAnaliseText("Analyse : " + text);
+        sequenceTabManager.setAnaliseText("Analyse : " + text);
     }
 
     @Override

@@ -49,7 +49,7 @@ class RuleTabManager extends TabManager implements RuleController {
                         break;
 
                     case RANGE :
-                        rules.add(NoteRangeRule.newInstance(12, Key.C.value() + 60));
+                        rules.add(NoteRangeRule.newInstance(12, Key.C.value() + 5 * 12));
                         break;
                 }
 

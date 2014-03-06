@@ -8,10 +8,12 @@ import java.awt.*;
 
 public class SequenceTabManager extends TabManager implements SequenceController {
 
+    private static final String TAB_TITLE = "Analyse";
     private StepSequenceView stepSequenceView;
     private MidiTrack midiTrack;
     private JButton play;
-    private JButton save;
+    private JButton openButton;
+    private JButton analyseButton;
 
     public SequenceTabManager(JTabbedPane tabbedPane) {
         super(tabbedPane);
@@ -23,13 +25,20 @@ public class SequenceTabManager extends TabManager implements SequenceController
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         stepSequenceView = new StepSequenceView();
         stepSequenceView.init();
+
+        JPanel openPanel = new JPanel(new GridLayout(2, 1));
+        openPanel.add(openButton = createButton("Choose a MIDI file"));
+        openPanel.add(analyseButton = createButton("Analyse..."));
+        setAnaliseEnabled(false);
+        openPanel.setPreferredSize(new Dimension(0, 40));
+        panel.add(openPanel);
         panel.add(stepSequenceView);
         play = createLoadDependantButton("Play");
-        save = createLoadDependantButton("Save");
+        play.setPreferredSize(new Dimension(0, 20));
         panel.add(play);
-        panel.add(save);
+
         setPlayListener();
-        return createTabbedPane("Sequence", panel);
+        return createTabbedPane(TAB_TITLE, panel);
     }
 
     private JButton createLoadDependantButton(String title) {
@@ -43,7 +52,6 @@ public class SequenceTabManager extends TabManager implements SequenceController
         this.midiTrack = midiTrack;
         stepSequenceView.open(midiTrack);
         play.setEnabled(true);
-        save.setEnabled(true);
     }
 
     void setPlayListener() {
@@ -61,5 +69,29 @@ public class SequenceTabManager extends TabManager implements SequenceController
             }).start();
         }
     };
+
+    void setOpenMidiListener(OnClickListener listener) {
+        setClickListener(openButton, listener);
+    }
+
+    void setAnaliseListener(OnClickListener listener) {
+        setClickListener(analyseButton, listener);
+    }
+
+    public void setAnaliseEnabled(boolean enabled) {
+        this.analyseButton.setEnabled(enabled);
+    }
+
+    void setAnaliseText(String text) {
+        analyseButton.setText(text);
+    }
+
+    JButton getOpenMidiButton() {
+        return openButton;
+    }
+
+    JButton getAnalyseButton() {
+        return analyseButton;
+    }
 
 }
