@@ -1,21 +1,24 @@
 package com.ouchadam.fyp.presentation;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import java.awt.*;
 
 class RuleView {
 
     private final JCheckBox checkBox;
 
-    public static RuleView newInstance(String label) {
+    public static RuleView newInstance(String label, boolean defaultIsChecked) {
         JCheckBox checkBox = new JCheckBox(label);
-        return new RuleView(checkBox);
+        RuleView ruleView = new RuleView(checkBox);
+        ruleView.init(defaultIsChecked);
+        return ruleView;
     }
 
     public RuleView(JCheckBox checkBox) {
         this.checkBox = checkBox;
+    }
+
+    private void init(boolean defaultIsChecked) {
+        this.checkBox.setSelected(defaultIsChecked);
     }
 
     public void attachTo(JPanel panel) {

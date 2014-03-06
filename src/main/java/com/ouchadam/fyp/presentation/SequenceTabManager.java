@@ -32,13 +32,22 @@ public class SequenceTabManager extends TabManager implements SequenceController
         setAnaliseEnabled(false);
         openPanel.setPreferredSize(new Dimension(0, 40));
         panel.add(openPanel);
+        panel.add(createSpace());
         panel.add(stepSequenceView);
+        panel.add(createSpace());
         play = createLoadDependantButton("Play");
-        play.setPreferredSize(new Dimension(0, 20));
-        panel.add(play);
+        JPanel playPanel = new JPanel(new GridLayout(1, 1));
+        playPanel.add(play);
+        panel.add(playPanel);
 
         setPlayListener();
         return createTabbedPane(TAB_TITLE, panel);
+    }
+
+    private JPanel createSpace() {
+        JPanel space = new JPanel();
+        space.setPreferredSize(new Dimension(0, 12));
+        return space;
     }
 
     private JButton createLoadDependantButton(String title) {

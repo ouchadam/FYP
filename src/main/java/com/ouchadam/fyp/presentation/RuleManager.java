@@ -1,7 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,8 +22,8 @@ class RuleManager {
     }
 
     public void create() {
-        add(RuleName.RANGE, RuleView.newInstance("Range"));
-        add(RuleName.KEY, RuleView.newInstance("Key"));
+        add(RuleName.RANGE, RuleView.newInstance("Range", true));
+        add(RuleName.KEY, RuleView.newInstance("Key", false));
     }
 
     private void add(RuleName name, RuleView ruleView) {
@@ -32,7 +31,6 @@ class RuleManager {
     }
 
     public void attachTo(JPanel panel) {
-        int row = 0;
         for (RuleName rule : RuleName.values()) {
             rules.get(rule).attachTo(panel);
         }
