@@ -26,7 +26,7 @@ public class GeneticAlgorithm {
         CrossoverFactory crossoverFactory = new CrossoverFactory(indexManager, random);
         return new GeneticAlgorithm(
                 new PopulationCreator(new MemberCreator(memberController, random), new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.singlePoint().note(), indexManager, memberController), algorithmParams.maxPopulationSize)),
-                new PopulationMutator(indexManager, random, new MemberMutator(indexManager, algorithmParams.mutationPercent, memberController)),
+                new PopulationMutator(indexManager, random, new MemberMutator(indexManager, random, algorithmParams.mutationPercent, memberController)),
                 new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.uniform().note(algorithmParams.crossoverPercent), indexManager, memberController), algorithmParams.maxPopulationSize),
                 new PopulationEvaluator(new FitnessFactory(), algorithmParams.rules),
                 new PopulationSelector(PopulationSelector.Type.ELITISM, random),

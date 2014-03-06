@@ -4,19 +4,22 @@ import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.crossover.binary.Bit;
 
 import java.util.List;
+import java.util.Random;
 
 class BinaryMutator {
 
     private final int mutationProbability;
     private final IndexManager indexManager;
+    private final Random random;
 
-    BinaryMutator(int mutationProbability, IndexManager indexManager) {
+    BinaryMutator(int mutationProbability, IndexManager indexManager, Random random) {
         this.mutationProbability = mutationProbability;
         this.indexManager = indexManager;
+        this.random = random;
     }
 
     public Binary mutate(Binary binary) {
-        int mutations = Percentage.of(binary.wordLength(), mutationProbability);
+        int mutations = getMutationCount(binary.wordLength());
         if (mutations > 0) {
             List<Integer> randomIndexes = indexManager.create(mutations, binary.wordLength());
             BinaryBuilder binaryBuilder = new BinaryBuilder();
@@ -32,6 +35,13 @@ class BinaryMutator {
             return binaryBuilder.build();
         }
         return binary;
+    }
+
+    private int getMutationCount(int length) {
+        if (mutationProbability == 0) {
+            return random.nextInt(length);
+        }
+        return Percentage.of(length, mutationProbability);
     }
 
     private static class BinaryBuilder {

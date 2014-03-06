@@ -1,6 +1,7 @@
 package com.ouchadam.fyp.algorithm;
 
 import java.util.List;
+import java.util.Random;
 
 class MemberMutator {
 
@@ -8,10 +9,10 @@ class MemberMutator {
     private final Member.Controller memberController;
     private final BinaryMutator binaryMutator;
 
-    MemberMutator(IndexManager indexManager, int mutationProbability, Member.Controller memberController) {
+    MemberMutator(IndexManager indexManager, Random random, int mutationProbability, Member.Controller memberController) {
         this.indexManager = indexManager;
         this.memberController = memberController;
-        this.binaryMutator = new BinaryMutator(mutationProbability, indexManager);
+        this.binaryMutator = new BinaryMutator(mutationProbability, indexManager, random);
     }
 
     Member mutate(Member what) {
