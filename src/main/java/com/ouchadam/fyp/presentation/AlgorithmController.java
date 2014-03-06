@@ -2,10 +2,7 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.*;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FixedKeySignatureRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.NoteRangeRule;
 import com.ouchadam.fyp.analysis.Division;
-import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
 import javax.sound.midi.MidiEvent;
@@ -144,7 +141,7 @@ class AlgorithmController {
                             track.add(midiNote.getNoteOn());
                             track.add(midiNote.getNoteOff());
                         }
-                        new MidiPlayer().save(sequence, new MidiFileChooser(component));
+                        new MidiPlayer().save(sequence, new MidiFileChooser(component, MidiFileChooser.Type.SAVE));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

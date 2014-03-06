@@ -30,7 +30,7 @@ class InteractionManager {
     private final OnClickListener onOpenMidi = new OnClickListener() {
         @Override
         public void onClick(Component component) {
-            MidiFileChooser midiFileChooser = new MidiFileChooser(component.getParent());
+            MidiFileChooser midiFileChooser = new MidiFileChooser(component.getParent(), MidiFileChooser.Type.OPEN);
             midiFileChooser.choose(midiChooserResult);
         }
     };

@@ -13,22 +13,40 @@ class MidiFileChooser {
     private static final String EXTENSION_DESCRIPTION = ".MIDI";
     private final Component viewParent;
 
+    enum Type {
+        SAVE, OPEN
+    }
+
+    private final Type type;
+
     public interface FileChooserResult {
         void onSelection(File file);
         void onCancel();
     }
 
-    MidiFileChooser(Component viewParent) {
+    MidiFileChooser(Component viewParent, Type type) {
         this.viewParent = viewParent;
+        this.type = type;
     }
 
     public void choose(FileChooserResult result) {
         JFileChooser fileChooser = createFileChooser();
-        int response = fileChooser.showOpenDialog(viewParent);
+        int response = showDialog(fileChooser);
         if (response == JFileChooser.APPROVE_OPTION) {
             result.onSelection(fileChooser.getSelectedFile());
         } else {
             result.onCancel();
+        }
+    }
+
+    private int showDialog(JFileChooser fileChooser) {
+        switch (type) {
+            case SAVE:
+                return fileChooser.showSaveDialog(viewParent);
+            case OPEN:
+                return fileChooser.showOpenDialog(viewParent);
+            default:
+                throw new RuntimeException("Unhandled save type");
         }
     }
 
