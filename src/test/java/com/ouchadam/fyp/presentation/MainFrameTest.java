@@ -1,18 +1,15 @@
 package com.ouchadam.fyp.presentation;
 
-import helper.TestWithMocks;
-import org.junit.Test;
-import org.mockito.Mock;
-
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.WindowListener;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
+import org.junit.Test;
+import org.mockito.Mock;
+
+import helper.TestWithMocks;
+
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.verify;
 
 public class MainFrameTest extends TestWithMocks {
@@ -72,14 +69,4 @@ public class MainFrameTest extends TestWithMocks {
         verify(clickListener).onClick(any(Component.class));
     }
 
-    @Test
-    public void internal_clicks_analise_clicks_should_forward_to_listeners() {
-        mainFrame.initFrame();
-        mainFrame.enableAnalise(true);
-        mainFrame.setAnaliseListener(clickListener);
-
-        mainFrame.getAnaliseButton().doClick();
-
-        verify(clickListener).onClick(any(Component.class));
-    }
 }

@@ -10,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
-class MainFrame implements ButtonController, TextController, SequenceController, ParameterController, RuleController {
+class MainFrame implements TextController, SequenceController, ParameterController, RuleController {
 
     private static final int FRAME_WIDTH = 550;
     private static final int FRAME_HEIGHT = 400;
@@ -80,25 +80,12 @@ class MainFrame implements ButtonController, TextController, SequenceController,
         sequenceTabManager.setOpenMidiListener(listener);
     }
 
-    public void setAnaliseListener(OnClickListener listener) {
-        sequenceTabManager.setAnaliseListener(listener);
-    }
-
     public void setSaveListener(OnClickListener onClickListener) {
         algorithmTabManager.setSaveListener(onClickListener);
     }
 
-    @Override
-    public void enableAnalise(boolean enabled) {
-        sequenceTabManager.setAnaliseEnabled(enabled);
-    }
-
     JButton getOpenMidiButton() {
         return sequenceTabManager.getOpenMidiButton();
-    }
-
-    JButton getAnaliseButton() {
-        return sequenceTabManager.getAnalyseButton();
     }
 
     @Override

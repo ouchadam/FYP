@@ -9,15 +9,13 @@ import java.io.File;
 class InteractionManager {
 
     private final MidiSelection midiSelection;
-    private final ButtonController buttonController;
     private final TextController textController;
     private final SequenceController sequenceController;
 
     private final AlgorithmController algorithmController;
 
-    InteractionManager(MidiSelection midiSelection, ButtonController buttonController, TextController textController, SequenceController sequenceController, AlgorithmController algorithmController) {
+    InteractionManager(MidiSelection midiSelection, TextController textController, SequenceController sequenceController, AlgorithmController algorithmController) {
         this.midiSelection = midiSelection;
-        this.buttonController = buttonController;
         this.textController = textController;
         this.sequenceController = sequenceController;
         this.algorithmController = algorithmController;
@@ -32,6 +30,11 @@ class InteractionManager {
         public void onClick(Component component) {
             MidiFileChooser midiFileChooser = new MidiFileChooser(component.getParent(), MidiFileChooser.Type.OPEN);
             midiFileChooser.choose(midiChooserResult);
+            if (midiSelection.hasMidiFile()) {
+                analyseMidi(component);
+            } else {
+                showMessageDialog(component, "Choose a .MIDI file first");
+            }
         }
     };
 
@@ -39,28 +42,12 @@ class InteractionManager {
         @Override
         public void onSelection(File file) {
             midiSelection.setMidiFile(file);
-            buttonController.enableAnalise(true);
             textController.setMidiSelection(file.getName());
         }
 
         @Override
         public void onCancel() {
             System.out.println("Canceled selection");
-        }
-    };
-
-    public OnClickListener analiseMidiListener() {
-        return onAnaliseMidi;
-    }
-
-    private final OnClickListener onAnaliseMidi = new OnClickListener() {
-        @Override
-        public void onClick(Component component) {
-            if (midiSelection.hasMidiFile()) {
-                analyseMidi(component);
-            } else {
-                showMessageDialog(component, "Choose a .MIDI file first");
-            }
         }
     };
 
