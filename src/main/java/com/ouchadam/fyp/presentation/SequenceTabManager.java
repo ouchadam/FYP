@@ -21,27 +21,45 @@ public class SequenceTabManager extends TabManager implements SequenceController
 
     @Override
     public JTabbedPane create() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        stepSequenceView = new StepSequenceView();
-        stepSequenceView.init();
+        JPanel parent = createParent();
+        stepSequenceView = createAndInitStepSequence();
+        JPanel openPanel = createAndInitOpenPanel();
+        JPanel playPanel = createAndInitPlayPanel();
+        parent.add(openPanel);
+        parent.add(createSpace());
+        parent.add(stepSequenceView);
+        parent.add(createSpace());
+        parent.add(playPanel);
+        return createTabbedPane(TAB_TITLE, parent);
+    }
 
+    private JPanel createAndInitPlayPanel() {
+        play = createLoadDependantButton("Play");
+        JPanel playPanel = new JPanel(new GridLayout(1, 1));
+        playPanel.add(play);
+        setPlayListener();
+        return playPanel;
+    }
+
+    private JPanel createAndInitOpenPanel() {
         JPanel openPanel = new JPanel(new GridLayout(2, 1));
         openPanel.add(openButton = createButton("Choose a MIDI file"));
         openPanel.add(analyseButton = createButton("Analyse..."));
         setAnaliseEnabled(false);
         openPanel.setPreferredSize(new Dimension(0, 40));
-        panel.add(openPanel);
-        panel.add(createSpace());
-        panel.add(stepSequenceView);
-        panel.add(createSpace());
-        play = createLoadDependantButton("Play");
-        JPanel playPanel = new JPanel(new GridLayout(1, 1));
-        playPanel.add(play);
-        panel.add(playPanel);
+        return openPanel;
+    }
 
-        setPlayListener();
-        return createTabbedPane(TAB_TITLE, panel);
+    private JPanel createParent() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        return panel;
+    }
+
+    private StepSequenceView createAndInitStepSequence() {
+        StepSequenceView stepSequenceView = new StepSequenceView();
+        stepSequenceView.init();
+        return stepSequenceView;
     }
 
     private JPanel createSpace() {
