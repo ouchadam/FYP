@@ -5,7 +5,6 @@ import com.ouchadam.fyp.analysis.MidiMeta;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
 import javax.sound.midi.*;
-import javax.sound.midi.spi.MidiFileWriter;
 import java.io.File;
 import java.util.List;
 
@@ -29,7 +28,6 @@ public class MidiPlayer {
                 track.add(midiNote.getNoteOff());
             }
 
-
             Sequencer sequencer = MidiSystem.getSequencer();
             sequencer.setTempoInBPM(60);
             sequencer.open();
@@ -43,14 +41,14 @@ public class MidiPlayer {
     public void save(Sequence sequence, MidiFileChooser midiFileChooser) {
         this.sequence = sequence;
         midiFileChooser.choose(onSaveFileChosen);
-
     }
 
     private final MidiFileChooser.FileChooserResult onSaveFileChosen = new MidiFileChooser.FileChooserResult() {
         @Override
         public void onSelection(File file) {
             try {
-                MidiSystem.write(sequence, MidiSystem.getMidiFileTypes(sequence)[0], file);
+                File saveFile = forceMidiSaveType(file);
+                MidiSystem.write(sequence, MidiSystem.getMidiFileTypes(sequence)[0], saveFile);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Failed to save");
@@ -62,5 +60,14 @@ public class MidiPlayer {
             // do nothing
         }
     };
+
+    private File forceMidiSaveType(File file) {
+        String file_name = file.getAbsolutePath();
+        if (!file_name.endsWith(".mid") || !file_name.endsWith(".midi")) {
+            file_name += ".MID";
+            return new File(file_name);
+        }
+        return file;
+    }
 
 }
