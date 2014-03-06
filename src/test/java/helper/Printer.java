@@ -2,7 +2,6 @@ package helper;
 
 import com.ouchadam.fyp.algorithm.ForEach;
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
 import com.ouchadam.fyp.algorithm.population.Population;
 
 public class Printer {
@@ -12,20 +11,21 @@ public class Printer {
     }
 
     public static void print(Member member) {
-        member.forEach().note(printNote);
+        StringBuilder builder = new StringBuilder();
+        for (int index = 0; index < member.all().notes().size(); index++) {
+            if (index == 0) {
+                builder.append(member.all().notes().get(index).decimal());
+            } else {
+                builder.append(" : ").append(member.all().notes().get(index).decimal());
+            }
+        }
+        System.out.println(builder.toString());
     }
 
     private final static ForEach<Member> printMember = new ForEach<Member>() {
         @Override
         public void on(Member what) {
-            what.forEach().note(printNote);
-        }
-    };
-
-    private final static ForEach<Note> printNote = new ForEach<Note>() {
-        @Override
-        public void on(Note what) {
-            System.out.println(what.decimal());
+            print(what);
         }
     };
 

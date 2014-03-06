@@ -42,7 +42,7 @@ public class RandomPopulationCrossover implements PopulationCrossover {
     }
 
     private List<Integer> createIndexes(int populationSize) {
-        int crossoverCount = random.nextInt(populationSize - 2) + 2;
+        int crossoverCount = random.nextInt(populationSize - 1) + 1;
         return indexManager.create(crossoverCount, populationSize);
     }
 

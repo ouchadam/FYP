@@ -9,7 +9,7 @@ import org.mockito.Mock;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import helper.TestWithMocks;
 

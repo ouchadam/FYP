@@ -10,6 +10,8 @@ import java.util.Random;
 
 public class GeneticAlgorithm {
 
+    private static final int DUPLICATE_PRUNING_RATE = 50;
+
     private final Mutator<Population> mutator;
     private final PopulationCrosser crossover;
     private final Evaluator<Population> evaluator;
@@ -18,6 +20,8 @@ public class GeneticAlgorithm {
     private final GenerationHalter halter;
     private final AlgorithmParams algorithmParams;
     private final Creator<Population> populationCreator;
+
+    private int lastDuplicatePrunedIndex = 0;
 
     public static GeneticAlgorithm newInstance(GenerationCallback generationCallback, AlgorithmParams algorithmParams, GenerationHalter halter) {
         Random random = new Random();
@@ -61,12 +65,12 @@ public class GeneticAlgorithm {
         Population generation = evaluation.population();
         int index = 0;
         do {
-            Population seeds = populationSelector.selectSeeds(generation);
             Population guaranteedMembers = populationSelector.getBest(generation);
-            evaluation = work(seeds, generation, guaranteedMembers);
+            Population seeds = populationSelector.selectSeeds(removeDuplicates(index, generation));
+            evaluation = work(seeds, guaranteedMembers);
 
             callback(evaluation, index);
-            generation = pruneToMaxSize(evaluation.population());
+            generation = pruneToMaxSize(removeDuplicates(index, evaluation.population()));
             if (halter.isHalted(evaluation, index)) {
                 System.out.println("Limit reached or halted, breaking out");
                 evaluation.setFail();
@@ -78,8 +82,16 @@ public class GeneticAlgorithm {
         return evaluation;
     }
 
-    private Evaluation work(Population seeds, Population population, Population guaranteed) {
-        return evaluate(Population.fromSubPopulation(getBestMember(population), guaranteed, evolve(seeds)));
+    private Population removeDuplicates(int index, Population population) {
+        if (index > lastDuplicatePrunedIndex + DUPLICATE_PRUNING_RATE) {
+            lastDuplicatePrunedIndex = index;
+            return population.removeDuplicates();
+        }
+        return population;
+    }
+
+    private Evaluation work(Population seeds, Population guaranteed) {
+        return evaluate(Population.fromSubPopulation(guaranteed, evolve(seeds)));
     }
 
     private Population evolve(Population generation) {
@@ -96,10 +108,6 @@ public class GeneticAlgorithm {
 
     private Evaluation evaluate(Population generation) {
         return evaluator.evaluate(generation);
-    }
-
-    private Population getBestMember(Population generation) {
-        return generation.getSubPopulation(0, 1);
     }
 
     private Population pruneToMaxSize(Population population) {

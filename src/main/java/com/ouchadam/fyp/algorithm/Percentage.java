@@ -9,4 +9,8 @@ public class Percentage {
         return Math.round(normalisedValue * (float) percent);
     }
 
+    public static int from(int value, int percentOf) {
+        return (int) ((value / (float) percentOf) * PERCENTAGE_COEFF);
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.algorithm;
 
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
 
 import java.util.List;
 

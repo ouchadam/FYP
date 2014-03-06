@@ -1,7 +1,8 @@
-package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
+package com.ouchadam.fyp.algorithm.population.evaluate.rule;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.presentation.ScaleCreator;
 
@@ -39,10 +40,7 @@ public class FixedKeySignatureRule implements FitnessRule<Member> {
     }
 
     private int createPercentageOfMatches(int size, float matched) {
-//        int delta = (int) Math.abs(size - matched);
-//        int penalty = (delta * 5);
         return Math.round((matched / (float) size) * 100);
-//        return percent - (penalty * delta);
     }
 
     private int getBestResult(List<Integer> matchResults) {

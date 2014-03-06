@@ -41,7 +41,7 @@ public class SequenceTabManager extends TabManager implements SequenceController
     }
 
     private JPanel createAndInitOpenPanel() {
-        JPanel openPanel = new JPanel(new GridLayout(2, 1));
+        JPanel openPanel = new JPanel(new GridLayout(1, 1));
         openPanel.add(openButton = createButton("Choose a MIDI file"));
         openPanel.setPreferredSize(new Dimension(0, 40));
         return openPanel;

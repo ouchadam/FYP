@@ -1,27 +1,30 @@
 package com.ouchadam.fyp.algorithm;
 
-import com.ouchadam.fyp.algorithm.population.*;
+import com.ouchadam.fyp.algorithm.population.Creator;
+import com.ouchadam.fyp.algorithm.population.Evaluation;
+import com.ouchadam.fyp.algorithm.population.Population;
+import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
 import com.ouchadam.fyp.algorithm.population.evaluate.Evaluator;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
-
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FixedKeySignatureRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.NoteRangeRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.FixedKeySignatureRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteDiversityRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
 import com.ouchadam.fyp.analysis.Key;
-import helper.PopulationHelper;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.mockito.Mock;
-
-import helper.Printer;
-import helper.TestWithMocks;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.mockito.Mock;
+
+import helper.PopulationHelper;
+import helper.Printer;
+import helper.TestWithMocks;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyByte;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -58,9 +61,10 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     public void full_flow() {
         List<FitnessRule<Member>> ruleList = new ArrayList<FitnessRule<Member>>();
         ruleList.add(FixedKeySignatureRule.newInstance(Key.C));
-        ruleList.add(NoteRangeRule.newInstance(12, Key.C.value() + 60));
+        ruleList.add(NoteRangeRule.newInstance(12));
+        ruleList.add(NoteDiversityRule.newInstance(4));
 
-        AlgorithmParams algorithmParams = new AlgorithmParams(200, 10000, 100, 5, 0, ruleList);
+        AlgorithmParams algorithmParams = new AlgorithmParams(200, 1000, 100, 0, 0, ruleList);
         GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback, algorithmParams, halter);
 
         Evaluation output = geneticAlgorithm.work();

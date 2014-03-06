@@ -21,6 +21,7 @@ class MidiFileChooser {
 
     public interface FileChooserResult {
         void onSelection(File file);
+
         void onCancel();
     }
 
@@ -33,10 +34,30 @@ class MidiFileChooser {
         JFileChooser fileChooser = createFileChooser();
         int response = showDialog(fileChooser);
         if (response == JFileChooser.APPROVE_OPTION) {
-            result.onSelection(fileChooser.getSelectedFile());
+            result.onSelection(getSelectedFile(fileChooser));
         } else {
             result.onCancel();
         }
+    }
+
+    private File getSelectedFile(JFileChooser fileChooser) {
+        switch (type) {
+            case SAVE:
+                return forceMidiSaveType(fileChooser.getSelectedFile());
+            case OPEN:
+                return fileChooser.getSelectedFile();
+            default:
+                throw new RuntimeException("Unhandled type : " + type);
+        }
+    }
+
+    private File forceMidiSaveType(File file) {
+        String file_name = file.getAbsolutePath();
+        if (!file_name.toLowerCase().endsWith(".mid") && !file_name.toLowerCase().endsWith(".midi")) {
+            file_name += ".MID";
+            return new File(file_name);
+        }
+        return file;
     }
 
     private int showDialog(JFileChooser fileChooser) {

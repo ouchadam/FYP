@@ -3,23 +3,34 @@ package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
-import helper.TestWithMocks;
-import org.junit.Test;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
+
+import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class NoteRangeRuleTest extends TestWithMocks {
 
+    private NoteRangeRule noteRangeRule;
+
+    private static final int RANGE = 12;
+
+    @Override
+    protected void before() {
+        noteRangeRule = new NoteRangeRule(RANGE);
+    }
+
     @Test
     public void perfect_input() throws Exception {
-        int range = 12;
-        int base = 60;
-        NoteRangeRule noteRangeRule = new NoteRangeRule(range, base);
+        int highest = 100;
+        int lowest = highest - (RANGE * 2);
 
-        Member perfect = createMember(base, base + range, base - range, base + (range / 2), base - (range / 2));
+        Member perfect = createMember(lowest, highest, lowest + RANGE, highest - RANGE);
 
         FitnessValue fitnessValue = noteRangeRule.apply(perfect);
 
@@ -30,7 +41,7 @@ public class NoteRangeRuleTest extends TestWithMocks {
     public void bad_input() throws Exception {
         int range = 12;
         int base = 60;
-        NoteRangeRule noteRangeRule = new NoteRangeRule(range, base);
+        NoteRangeRule noteRangeRule = new NoteRangeRule(range);
 
         Member perfect = createMember(base, base + (range + 1), base - (range + 1), base / 2);
 

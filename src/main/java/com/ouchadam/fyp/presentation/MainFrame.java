@@ -1,7 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.analysis.MidiTrack;
 
 import javax.swing.*;
@@ -14,7 +14,7 @@ class MainFrame implements TextController, SequenceController, ParameterControll
 
     private static final int FRAME_WIDTH = 550;
     private static final int FRAME_HEIGHT = 400;
-    private static final String FRAME_TITLE = "My frame";
+    private static final String FRAME_TITLE = "FYP : Adam Brown";
 
     private final JFrame frame;
     private final UiReadyListener uiListener;

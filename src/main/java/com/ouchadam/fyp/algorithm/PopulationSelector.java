@@ -42,21 +42,12 @@ class PopulationSelector {
         return population.indexOf(memberOne) < population.indexOf(memberTwo) ? memberOne : memberTwo;
     }
 
-    private Population getTop20Percent(Population population) {
-        Population top20Percent = getBest(population);
-        return Population.fromSubPopulation(top20Percent, removeDuplicates(population.getSubPopulation(top20Percent.size(), population.size())));
-    }
-
     public Population getBest(Population generation) {
         return generation.getSubPopulation(0, get20PercentOfSize(generation));
     }
 
     private int get20PercentOfSize(Population generation) {
-        return (int) Math.floor((float) generation.size() * 0.1);
+        return (int) Math.floor((float) generation.size() * 0.05);
     }
 
-    private Population removeDuplicates(Population population) {
-        Population sub100 = population.getSubPopulation(get20PercentOfSize(population) + 1, population.size());
-        return sub100.removeDuplicates();
-    }
 }

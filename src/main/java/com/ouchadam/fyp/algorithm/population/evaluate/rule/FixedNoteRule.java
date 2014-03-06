@@ -1,8 +1,9 @@
-package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
+package com.ouchadam.fyp.algorithm.population.evaluate.rule;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
 import com.ouchadam.fyp.algorithm.population.evaluate.FitnessAccumulator;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 
 public class FixedNoteRule implements FitnessRule<Member> {
 
@@ -25,12 +26,12 @@ public class FixedNoteRule implements FitnessRule<Member> {
         return fitnessAccumulator.bias(3);
     }
 
-    static class FixedNote implements FitnessRule<Note> {
+    public static class FixedNote implements FitnessRule<Note> {
 
         private static final float RESOLUTION = 0.9f;
         private final int fixedValue;
 
-        FixedNote(int fixedValue) {
+        public FixedNote(int fixedValue) {
             this.fixedValue = fixedValue;
         }
 

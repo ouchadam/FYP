@@ -1,9 +1,10 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FixedKeySignatureRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.NoteRangeRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.FixedKeySignatureRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteDiversityRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
 import com.ouchadam.fyp.analysis.Key;
 
 import javax.swing.*;
@@ -41,15 +42,19 @@ class RuleTabManager extends TabManager implements RuleController {
     public List<FitnessRule<Member>> get() {
         List<FitnessRule<Member>> rules = new ArrayList<FitnessRule<Member>>();
         for (RuleManager.RuleName ruleName : RuleManager.RuleName.values()) {
-            if (ruleManager.isChecked(ruleName).isChecked()) {
-
+            RuleView ruleView = ruleManager.get(ruleName);
+            if (ruleView.isChecked()) {
                 switch (ruleName) {
                     case KEY :
                         rules.add(FixedKeySignatureRule.newInstance(Key.C));
                         break;
 
                     case RANGE :
-                        rules.add(NoteRangeRule.newInstance(12, Key.C.value() + 5 * 12));
+                        rules.add(NoteRangeRule.newInstance(ruleView.getValue()));
+                        break;
+
+                    case DIVERSITY :
+                        rules.add(NoteDiversityRule.newInstance(ruleView.getValue()));
                         break;
                 }
 

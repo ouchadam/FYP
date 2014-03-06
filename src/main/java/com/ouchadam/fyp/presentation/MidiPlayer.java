@@ -47,8 +47,7 @@ public class MidiPlayer {
         @Override
         public void onSelection(File file) {
             try {
-                File saveFile = forceMidiSaveType(file);
-                MidiSystem.write(sequence, MidiSystem.getMidiFileTypes(sequence)[0], saveFile);
+                MidiSystem.write(sequence, MidiSystem.getMidiFileTypes(sequence)[0], file);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Failed to save");
@@ -60,14 +59,5 @@ public class MidiPlayer {
             // do nothing
         }
     };
-
-    private File forceMidiSaveType(File file) {
-        String file_name = file.getAbsolutePath();
-        if (!file_name.endsWith(".mid") || !file_name.endsWith(".midi")) {
-            file_name += ".MID";
-            return new File(file_name);
-        }
-        return file;
-    }
 
 }

@@ -1,7 +1,8 @@
-package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
+package com.ouchadam.fyp.algorithm.population.evaluate.rule;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.presentation.ScaleCreator;
 

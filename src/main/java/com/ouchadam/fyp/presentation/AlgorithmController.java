@@ -17,7 +17,7 @@ import java.util.List;
 class AlgorithmController {
 
     public enum Status {
-        IDLE, RUNNING;
+        IDLE, RUNNING
     }
 
     private final GenerationController generationController;
@@ -99,7 +99,7 @@ class AlgorithmController {
 
     private final GenerationHalter halter = new GenerationHalter() {
 
-        private final static int GENERATION_LIMIT = 20000;
+        private final static int GENERATION_LIMIT = 200000;
         private boolean isHalted = false;
 
         @Override
