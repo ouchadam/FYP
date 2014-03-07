@@ -33,7 +33,7 @@ public class RandomPopulationCrossover implements PopulationCrossover {
             newPopulation.add(crossoverMembers(population.get(index), population.get(indexPlusOne)));
             newPopulation.add(crossoverMembers(population.get(indexPlusOne), population.get(index)));
         }
-        return new Population(newPopulation);
+        return newPopulation.size() == 0 ? population : new Population(newPopulation);
     }
 
     private int getIndexPlusOne(int index, int populationSize) {
@@ -41,11 +41,15 @@ public class RandomPopulationCrossover implements PopulationCrossover {
     }
 
     private List<Integer> createIndexes(int populationSize) {
-        if (populationSize == 0 || populationSize == 1) {
+        if (populationSize == 0) {
             throw new RuntimeException("Population size is too low: " + populationSize + " bailing out");
         }
-        int crossoverCount = random.nextInt(populationSize - 1) + 1;
-        return indexManager.create(crossoverCount, populationSize - 1);
+        if (populationSize == 1) {
+            return new ArrayList<Integer>(0);
+        } else {
+            int crossoverCount = random.nextInt(populationSize - 1) + 1;
+            return indexManager.create(crossoverCount, populationSize - 1);
+        }
     }
 
     private Member crossoverMembers(Member memberX, Member memberY) {

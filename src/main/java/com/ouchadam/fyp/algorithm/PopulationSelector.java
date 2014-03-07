@@ -28,7 +28,7 @@ class PopulationSelector {
                 break;
         }
 
-        int newPopulationSize = random.nextInt(population.size());
+        int newPopulationSize = random.nextInt(population.size() - 1) + 1;
         List<Member> memberList = new ArrayList<Member>(newPopulationSize);
         Population shuffledPopulation = population.shuffle();
         for (int index = 0; index < newPopulationSize; index++) {

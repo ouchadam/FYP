@@ -9,13 +9,14 @@ import com.ouchadam.fyp.presentation.ScaleCreator;
 import java.util.ArrayList;
 import java.util.List;
 
+import helper.MemberRuleTest;
 import org.junit.Test;
 
 import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class FixedKeySignatureRuleTest extends TestWithMocks {
+public class FixedKeySignatureRuleTest extends MemberRuleTest {
 
     private FixedKeySignatureRule fixedKeySignatureRule;
 
@@ -24,7 +25,7 @@ public class FixedKeySignatureRuleTest extends TestWithMocks {
     }
 
     @Test
-    public void testName() throws Exception {
+    public void cmajor_pass() throws Exception {
         int[] cmajor = new int[] {60, 62, 64, 65, 67, 69, 11};
         Key cKey = Key.C;
 
@@ -37,11 +38,34 @@ public class FixedKeySignatureRuleTest extends TestWithMocks {
         assertThat(fitnessValue).isEqualTo(FitnessValue.max());
     }
 
-    private Member createMember(int[] noteValues) {
-        List<Note> notes = new ArrayList<Note>();
-        for (int noteValue : noteValues) {
-            notes.add(Note.newInstance(noteValue));
-        }
-        return new Member(notes, new Member.Controller());
+
+    @Test
+    public void dmajor_pass() throws Exception {
+        int[] dmajor = new int[] {62, 64, 66, 67, 69, 71, 73};
+        Key dKey = Key.D;
+
+        fixedKeySignatureRule = new FixedKeySignatureRule(dKey, new ScaleCreator());
+
+        Member member = createMember(dmajor);
+
+        FitnessValue fitnessValue = fixedKeySignatureRule.apply(member);
+
+        assertThat(fitnessValue).isEqualTo(FitnessValue.max());
     }
+
+
+    @Test
+    public void cmajor_fail() throws Exception {
+        int[] dmajor = new int[] {62, 64, 66, 67, 69, 71, 73};
+        Key dKey = Key.C;
+
+        fixedKeySignatureRule = new FixedKeySignatureRule(dKey, new ScaleCreator());
+
+        Member member = createMember(dmajor);
+
+        FitnessValue fitnessValue = fixedKeySignatureRule.apply(member);
+
+        assertThat(fitnessValue).isNotEqualTo(FitnessValue.max());
+    }
+
 }

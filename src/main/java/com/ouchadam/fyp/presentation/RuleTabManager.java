@@ -2,6 +2,7 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.FixedKeySignatureRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.IntervalRangeRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteDiversityRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
 import com.ouchadam.fyp.analysis.Key;
@@ -54,6 +55,10 @@ class RuleTabManager extends TabManager implements RuleController {
 
                     case DIVERSITY:
                         rules.add(new RuleContainer<Member>(NoteDiversityRule.newInstance(ruleView.getValue()), RuleManager.RuleName.DIVERSITY));
+                        break;
+
+                    case INTERVAL:
+                        rules.add(new RuleContainer<Member>(IntervalRangeRule.newInstance(), RuleManager.RuleName.INTERVAL));
                         break;
                 }
 
