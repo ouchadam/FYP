@@ -39,6 +39,8 @@ public class FixedKeySignatureRule implements FitnessRule<Member> {
             int matches = countScaleMatches(notes, intervals);
             if (notes.get(0).decimal() % 12 != key.value()) {
                 matches--;
+            } else {
+                System.out.println("Note : " + notes.get(0).decimal() + " : " + key + " : " + type);
             }
             int percentage = Percentage.from(matches, notes.size());
             matchResults.add(percentage);

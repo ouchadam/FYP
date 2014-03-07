@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Member {
 
-    public static final int CHILD_COUNT = 16;
+    public static final int CHILD_COUNT = 8;
 
     private final List<Note> notes;
     private final Controller controller;

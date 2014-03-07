@@ -46,7 +46,7 @@ class RuleTabManager extends TabManager implements RuleController {
             if (ruleView.isChecked()) {
                 switch (ruleName) {
                     case KEY:
-                        rules.add(new RuleContainer<Member>(FixedKeySignatureRule.newInstance(Key.C), RuleManager.RuleName.KEY));
+                        rules.add(new RuleContainer<Member>(FixedKeySignatureRule.newInstance(Key.values()[ruleView.getValue()]), RuleManager.RuleName.KEY));
                         break;
 
                     case RANGE:
