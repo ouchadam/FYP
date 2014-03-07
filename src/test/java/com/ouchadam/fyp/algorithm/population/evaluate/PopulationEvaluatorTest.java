@@ -1,29 +1,31 @@
 package com.ouchadam.fyp.algorithm.population.evaluate;
 
+import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.population.Evaluation;
+import com.ouchadam.fyp.algorithm.population.Population;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessEvaluator;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.presentation.RuleContainer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.mockito.Mock;
 
-import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.population.Evaluation;
-import com.ouchadam.fyp.algorithm.population.Population;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessEvaluator;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import helper.MemberHelper;
 import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class PopulationEvaluatorTest extends TestWithMocks {
 
     @Mock FitnessFactory fitnessFactory;
-    @Mock List<FitnessRule<Member>> rules;
+    @Mock List<RuleContainer<Member>> rules;
     private PopulationEvaluator populationEvaluator;
 
     @Override

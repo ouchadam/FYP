@@ -1,16 +1,19 @@
 package com.ouchadam.fyp.algorithm.population.evaluate;
 
+import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
+import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
+import com.ouchadam.fyp.presentation.RuleContainer;
+import com.ouchadam.fyp.presentation.RuleManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ouchadam.fyp.algorithm.Note;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import helper.TestWithMocks;
 
 import static org.mockito.Matchers.any;
@@ -20,12 +23,12 @@ import static org.mockito.Mockito.when;
 public class MemberEvaluatorTest extends TestWithMocks {
 
     @Mock FitnessRule<Member> fitnessRule;
-    List<FitnessRule<Member>> rules;
+    List<RuleContainer<Member>> rules;
 
     @Override
     protected void before() {
-        rules = new ArrayList<FitnessRule<Member>>();
-        rules.add(fitnessRule);
+        rules = new ArrayList<RuleContainer<Member>>();
+        rules.add(new RuleContainer<Member>(fitnessRule, RuleManager.RuleName.KEY));
         when(fitnessRule.apply(any(Member.class))).thenReturn(FitnessValue.max());
     }
 

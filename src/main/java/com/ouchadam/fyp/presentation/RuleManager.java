@@ -7,12 +7,12 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
-class RuleManager {
+public class RuleManager {
 
     private static final int RULE_COUNT = 4;
     private final Map<RuleName, RuleView> rules;
 
-    enum RuleName {
+    public enum RuleName {
         RANGE, KEY, DIVERSITY;
     }
     RuleManager() {

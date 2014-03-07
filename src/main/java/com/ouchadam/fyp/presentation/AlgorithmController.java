@@ -13,7 +13,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 class AlgorithmController {
 
     public enum Status {
@@ -78,8 +77,15 @@ class AlgorithmController {
         @Override
         public void onGeneration(Evaluation evaluation, int generationIndex) {
             textController.appendGenerationText("Index : " + generationIndex + " Fitness : " + evaluation.fitnessValue(0).get());
+            printBest(evaluation.population().get(0));
         }
     };
+
+    private void printBest(Member bestMember) {
+        for (RuleContainer<Member> rule : ruleController.get()) {
+            System.out.println(rule.ruleName.name() + " " + rule.fitnessRule.apply(bestMember).get());
+        }
+    }
 
     private final OnFinish onFinish = new OnFinish() {
         @Override

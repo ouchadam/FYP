@@ -1,7 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.analysis.MidiTrack;
 
 import javax.swing.*;
@@ -153,7 +152,7 @@ class MainFrame implements TextController, SequenceController, ParameterControll
     }
 
     @Override
-    public List<FitnessRule<Member>> get() {
+    public List<RuleContainer<Member>> get() {
         return ruleTabManager.get();
     }
 }

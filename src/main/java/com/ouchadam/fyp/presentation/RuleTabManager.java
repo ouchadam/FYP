@@ -1,7 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.FixedKeySignatureRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteDiversityRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
@@ -39,22 +38,22 @@ class RuleTabManager extends TabManager implements RuleController {
     }
 
     @Override
-    public List<FitnessRule<Member>> get() {
-        List<FitnessRule<Member>> rules = new ArrayList<FitnessRule<Member>>();
+    public List<RuleContainer<Member>> get() {
+        List<RuleContainer<Member>> rules = new ArrayList<RuleContainer<Member>>();
         for (RuleManager.RuleName ruleName : RuleManager.RuleName.values()) {
             RuleView ruleView = ruleManager.get(ruleName);
             if (ruleView.isChecked()) {
                 switch (ruleName) {
-                    case KEY :
-                        rules.add(FixedKeySignatureRule.newInstance(Key.C));
+                    case KEY:
+                        rules.add(new RuleContainer<Member>(FixedKeySignatureRule.newInstance(Key.C), RuleManager.RuleName.KEY));
                         break;
 
-                    case RANGE :
-                        rules.add(NoteRangeRule.newInstance(ruleView.getValue()));
+                    case RANGE:
+                        rules.add(new RuleContainer<Member>(NoteRangeRule.newInstance(ruleView.getValue()), RuleManager.RuleName.RANGE));
                         break;
 
-                    case DIVERSITY :
-                        rules.add(NoteDiversityRule.newInstance(ruleView.getValue()));
+                    case DIVERSITY:
+                        rules.add(new RuleContainer<Member>(NoteDiversityRule.newInstance(ruleView.getValue()), RuleManager.RuleName.DIVERSITY));
                         break;
                 }
 
@@ -62,4 +61,5 @@ class RuleTabManager extends TabManager implements RuleController {
         }
         return rules;
     }
+
 }

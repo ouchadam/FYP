@@ -28,9 +28,10 @@ class PopulationSelector {
                 break;
         }
 
-        List<Member> memberList = new ArrayList<Member>(1000);
+        int newPopulationSize = random.nextInt(population.size());
+        List<Member> memberList = new ArrayList<Member>(newPopulationSize);
         Population shuffledPopulation = population.shuffle();
-        for (int index = 0; index < 1000; index++) {
+        for (int index = 0; index < newPopulationSize; index++) {
             Member memberOne = shuffledPopulation.get(random.nextInt(shuffledPopulation.size()));
             Member memberTwo = shuffledPopulation.get(random.nextInt(shuffledPopulation.size()));
             memberList.add(tournament(population, memberOne, memberTwo));

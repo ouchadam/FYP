@@ -1,16 +1,17 @@
 package com.ouchadam.fyp.algorithm;
 
+import com.ouchadam.fyp.Printer;
 import com.ouchadam.fyp.algorithm.population.Creator;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 import com.ouchadam.fyp.algorithm.population.Population;
 import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
 import com.ouchadam.fyp.algorithm.population.evaluate.Evaluator;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.FixedKeySignatureRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteDiversityRule;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
 import com.ouchadam.fyp.analysis.Key;
+import com.ouchadam.fyp.presentation.RuleContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import helper.PopulationHelper;
-import helper.Printer;
 import helper.TestWithMocks;
 
+import static com.ouchadam.fyp.presentation.RuleManager.RuleName;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -36,7 +37,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     @Mock Mutator<Population> mutator;
     @Mock PopulationCrosser crossover;
     @Mock PopulationSelector pruner;
-    @Mock List<FitnessRule<Member>> rules;
+    @Mock List<RuleContainer<Member>> rules;
 
     @Test
     public void return_when_the_evaulation_output_is_passed() {
@@ -59,10 +60,10 @@ public class GeneticAlgorithmShould extends TestWithMocks {
 
     @Ignore @Test
     public void full_flow() {
-        List<FitnessRule<Member>> ruleList = new ArrayList<FitnessRule<Member>>();
-        ruleList.add(FixedKeySignatureRule.newInstance(Key.C));
-        ruleList.add(NoteRangeRule.newInstance(12));
-        ruleList.add(NoteDiversityRule.newInstance(4));
+        List<RuleContainer<Member>> ruleList = new ArrayList<RuleContainer<Member>>();
+        ruleList.add(new RuleContainer<Member>(FixedKeySignatureRule.newInstance(Key.C), RuleName.KEY));
+        ruleList.add(new RuleContainer<Member>(NoteRangeRule.newInstance(12), RuleName.RANGE));
+        ruleList.add(new RuleContainer<Member>(NoteDiversityRule.newInstance(4), RuleName.DIVERSITY));
 
         AlgorithmParams algorithmParams = new AlgorithmParams(200, 1000, 100, 0, 0, ruleList);
         GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback, algorithmParams, halter);
@@ -71,7 +72,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         int fitnessValue = output.fitnessValue(0).get();
 
         Member member = output.population().get(0);
-        Printer.print(member);
+        Printer.printMember(member);
 
         assertThat(fitnessValue).isGreaterThanOrEqualTo(algorithmParams.acceptableFitnessValue);
     }
@@ -97,7 +98,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
                 System.out.println("-------------- Generation : " + index + " ------------------------");
                 Member member0 = evaluation.population().get(0);
                 System.out.println("0 :  fitness total: " + evaluation.fitnessValue(0).get() + " occurs : " + getFrequency(evaluation, member0));
-                Printer.print(member0);
+                Printer.printMember(member0);
 
 //                System.out.println("Note range rule: " + new NoteRangeRule(12, 60).apply(member0).get());
 //                System.out.println("Key rule: " + new FixedKeySignatureRule(Key.C, new ScaleCreator()).apply(member0).get());
