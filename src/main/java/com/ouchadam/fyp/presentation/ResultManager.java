@@ -16,6 +16,6 @@ class ResultManager {
     }
 
     public Member getBest() {
-        return null;
+        return evaluation.population().get(0);
     }
 }
