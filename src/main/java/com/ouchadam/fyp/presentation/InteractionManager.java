@@ -12,12 +12,14 @@ class InteractionManager {
     private final TextController textController;
     private final SequenceController sequenceController;
     private final AlgorithmController algorithmController;
+    private final FileSelectionProvider selectionProvider;
 
-    InteractionManager(MidiSelection midiSelection, TextController textController, SequenceController sequenceController, AlgorithmController algorithmController) {
+    InteractionManager(MidiSelection midiSelection, TextController textController, SequenceController sequenceController, AlgorithmController algorithmController, FileSelectionProvider selectionProvider) {
         this.midiSelection = midiSelection;
         this.textController = textController;
         this.sequenceController = sequenceController;
         this.algorithmController = algorithmController;
+        this.selectionProvider = selectionProvider;
     }
 
     public OnClickListener openMidiListener() {
@@ -27,8 +29,7 @@ class InteractionManager {
     private final OnClickListener onOpenMidi = new OnClickListener() {
         @Override
         public void onClick(Component component) {
-            MidiFileChooser midiFileChooser = new MidiFileChooser(component.getParent(), MidiFileChooser.Type.OPEN);
-            midiFileChooser.choose(midiChooserResult);
+            selectionProvider.getFileChooser(MidiFileChooser.Type.OPEN).choose(midiChooserResult);
             if (midiSelection.hasMidiFile()) {
                 analyseMidi(component);
             } else {

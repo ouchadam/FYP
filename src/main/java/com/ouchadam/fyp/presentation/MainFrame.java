@@ -9,7 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
-class MainFrame implements TextController, SequenceController, ParameterController, RuleController {
+class MainFrame implements TextController, SequenceController, ParameterController, RuleController, FileSelectionProvider {
 
     private static final int FRAME_WIDTH = 550;
     private static final int FRAME_HEIGHT = 400;
@@ -156,7 +156,9 @@ class MainFrame implements TextController, SequenceController, ParameterControll
         return ruleTabManager.get();
     }
 
+    @Override
     public MidiFileChooser getFileChooser(MidiFileChooser.Type type) {
-        return new MidiFileChooser(frame, type);
+        return new MidiFileChooser(frame, new MidiChooser().createFileChooser(), type);
     }
+
 }
