@@ -1,15 +1,11 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.analysis.MidiTrack;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 
-class MainFrame implements TextController, SequenceController, ParameterController, RuleController, FileSelectionProvider {
+class MainFrame {
 
     private static final int FRAME_WIDTH = 550;
     private static final int FRAME_HEIGHT = 400;
@@ -41,7 +37,7 @@ class MainFrame implements TextController, SequenceController, ParameterControll
         @Override
         public void run() {
             initFrame();
-            uiListener.onUiReady();
+            uiListener.onUiReady(new FrameController(sequenceTabManager, algorithmTabManager, ruleTabManager, frame));
         }
     };
 
@@ -74,91 +70,5 @@ class MainFrame implements TextController, SequenceController, ParameterControll
             System.exit(0);
         }
     };
-
-    public void setOpenMidiListener(OnClickListener listener) {
-        sequenceTabManager.setOpenMidiListener(listener);
-    }
-
-    public void setSaveListener(OnClickListener onClickListener) {
-        algorithmTabManager.setSaveListener(onClickListener);
-    }
-
-    JButton getOpenMidiButton() {
-        return sequenceTabManager.getOpenMidiButton();
-    }
-
-    @Override
-    public void setMidiSelection(String text) {
-        sequenceTabManager.setAnaliseText("Analyse : " + text);
-    }
-
-    @Override
-    public void appendGenerationText(String text) {
-        algorithmTabManager.updateText(text);
-    }
-
-    @Override
-    public void setStartStop(AlgorithmController.Status startStopText) {
-        algorithmTabManager.setStartStopText(startStopText);
-    }
-
-    @Override
-    public void setResultColour(Color colour) {
-        algorithmTabManager.setResultColour(colour);
-    }
-
-    @Override
-    public void open(MidiTrack midiTrack) {
-        sequenceTabManager.open(midiTrack);
-    }
-
-    public void setStartStopListener(OnClickListener onClickListener) {
-        algorithmTabManager.setStartStopListener(onClickListener);
-    }
-
-    @Override
-    public int initialPopulation() {
-        return algorithmTabManager.initialPopulation();
-    }
-
-    @Override
-    public int maxPopulation() {
-        return algorithmTabManager.maxPopulation();
-    }
-
-    @Override
-    public int acceptableFitness() {
-        return algorithmTabManager.acceptableFitness();
-    }
-
-    @Override
-    public int mutationPercent() {
-        return algorithmTabManager.mutationPercent();
-    }
-
-    @Override
-    public int crossoverPercent() {
-        return algorithmTabManager.crossoverPercent();
-    }
-
-    @Override
-    public void enable() {
-        algorithmTabManager.enable();
-    }
-
-    @Override
-    public void disable() {
-        algorithmTabManager.disable();
-    }
-
-    @Override
-    public List<RuleContainer<Member>> get() {
-        return ruleTabManager.get();
-    }
-
-    @Override
-    public MidiFileChooser getFileChooser(MidiFileChooser.Type type) {
-        return new MidiFileChooser(frame, new MidiChooser().createFileChooser(), type);
-    }
 
 }

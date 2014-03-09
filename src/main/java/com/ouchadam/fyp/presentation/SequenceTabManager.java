@@ -98,12 +98,4 @@ public class SequenceTabManager extends TabManager implements SequenceController
         setClickListener(openButton, listener);
     }
 
-    void setAnaliseText(String text) {
-//        analyseButton.setText(text);
-    }
-
-    JButton getOpenMidiButton() {
-        return openButton;
-    }
-
 }

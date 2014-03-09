@@ -59,14 +59,4 @@ public class MainFrameTest extends TestWithMocks {
         verify(frame).addWindowListener(any(WindowListener.class));
     }
 
-    @Test
-    public void internal_clicks_open_clicks_should_forward_to_listeners() {
-        mainFrame.initFrame();
-        mainFrame.setOpenMidiListener(clickListener);
-
-        mainFrame.getOpenMidiButton().doClick();
-
-        verify(clickListener).onClick(any(Component.class));
-    }
-
 }

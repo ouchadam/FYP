@@ -15,11 +15,11 @@ public class Main {
 
     private final UiReadyListener onUi = new UiReadyListener() {
         @Override
-        public void onUiReady() {
-            InteractionManager interactionManager = new InteractionManager(new MidiSelection(), mainFrame, mainFrame, AlgorithmController.from(mainFrame), mainFrame);
-            mainFrame.setOpenMidiListener(interactionManager.openMidiListener());
-            mainFrame.setStartStopListener(interactionManager.onStartStop());
-            mainFrame.setSaveListener(interactionManager.onSave());
+        public void onUiReady(FrameController frameController) {
+            InteractionManager interactionManager = new InteractionManager(new MidiSelection(), frameController, AlgorithmController.from(frameController), frameController);
+            frameController.setOpenMidiListener(interactionManager.openMidiListener());
+            frameController.setStartStopListener(interactionManager.onStartStop());
+            frameController.setSaveListener(interactionManager.onSave());
         }
     };
 

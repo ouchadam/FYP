@@ -19,9 +19,9 @@ class AlgorithmController {
     private final ResultManager resultManager;
     private final GenerationHalter halter;
 
-    public static AlgorithmController from(MainFrame mainFrame) {
-        MemberToMidiFile memberToMidiFile = new MemberToMidiFile(mainFrame.getFileChooser(MidiFileChooser.Type.SAVE));
-        return new AlgorithmController(new GenerationController(new GenerationThread()), mainFrame, mainFrame, mainFrame, memberToMidiFile, new ResultManager(), new FooHalter());
+    public static AlgorithmController from(FrameController frameController) {
+        MemberToMidiFile memberToMidiFile = new MemberToMidiFile(frameController.getFileChooser(MidiFileChooser.Type.SAVE));
+        return new AlgorithmController(new GenerationController(new GenerationThread()), frameController, frameController, frameController, memberToMidiFile, new ResultManager(), new FooHalter());
     }
 
     AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController, RuleController ruleController, MemberToMidiFile memberToMidiFile, ResultManager resultManager, GenerationHalter halter) {

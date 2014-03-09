@@ -9,14 +9,12 @@ import java.io.File;
 class InteractionManager {
 
     private final MidiSelection midiSelection;
-    private final TextController textController;
     private final SequenceController sequenceController;
     private final AlgorithmController algorithmController;
     private final FileSelectionProvider selectionProvider;
 
-    InteractionManager(MidiSelection midiSelection, TextController textController, SequenceController sequenceController, AlgorithmController algorithmController, FileSelectionProvider selectionProvider) {
+    InteractionManager(MidiSelection midiSelection, SequenceController sequenceController, AlgorithmController algorithmController, FileSelectionProvider selectionProvider) {
         this.midiSelection = midiSelection;
-        this.textController = textController;
         this.sequenceController = sequenceController;
         this.algorithmController = algorithmController;
         this.selectionProvider = selectionProvider;
@@ -42,7 +40,6 @@ class InteractionManager {
         @Override
         public void onSelection(File file) {
             midiSelection.setMidiFile(file);
-            textController.setMidiSelection(file.getName());
         }
 
         @Override
