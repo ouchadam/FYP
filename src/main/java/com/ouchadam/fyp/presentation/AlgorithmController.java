@@ -17,19 +17,21 @@ class AlgorithmController {
     private final RuleController ruleController;
     private final MemberToMidiFile memberToMidiFile;
     private final ResultManager resultManager;
+    private final GenerationHalter halter;
 
     public static AlgorithmController from(MainFrame mainFrame) {
         MemberToMidiFile memberToMidiFile = new MemberToMidiFile(mainFrame.getFileChooser(MidiFileChooser.Type.SAVE));
-        return new AlgorithmController(new GenerationController(new GenerationThread()), mainFrame, mainFrame, mainFrame, memberToMidiFile, new ResultManager());
+        return new AlgorithmController(new GenerationController(new GenerationThread()), mainFrame, mainFrame, mainFrame, memberToMidiFile, new ResultManager(), new FooHalter());
     }
 
-    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController, RuleController ruleController, MemberToMidiFile memberToMidiFile, ResultManager resultManager) {
+    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController, RuleController ruleController, MemberToMidiFile memberToMidiFile, ResultManager resultManager, GenerationHalter halter) {
         this.generationController = generationController;
         this.textController = textController;
         this.parameterController = parameterController;
         this.ruleController = ruleController;
         this.memberToMidiFile = memberToMidiFile;
         this.resultManager = resultManager;
+        this.halter = halter;
     }
 
     public OnClickListener startStopListener() {
@@ -58,18 +60,13 @@ class AlgorithmController {
         textController.setResultColour(Color.BLACK);
         textController.setStartStop(Status.RUNNING);
         generationController.setGenerationCallback(onGeneration);
-        generationController.setOnFinish(onFinish);
+        generationController.setClientOnFinish(onFinish);
         generationController.setHalter(halter);
         generationController.start(getParams());
     }
 
     private AlgorithmParams getParams() {
-        return new AlgorithmParams(parameterController.initialPopulation(),
-                parameterController.maxPopulation(),
-                parameterController.acceptableFitness(),
-                parameterController.mutationPercent(),
-                parameterController.crossoverPercent(),
-                ruleController.get());
+        return AlgorithmParams.from(parameterController, ruleController);
     }
 
     private final GenerationCallback onGeneration = new GenerationCallback() {
@@ -90,39 +87,23 @@ class AlgorithmController {
         @Override
         public void onFinish(Evaluation evaluation) {
             resultManager.setEvaluation(evaluation);
-            generationController.reset();
-
-            switch (evaluation.getResultType()) {
-                case PASS:
-                    textController.setResultColour(Color.GREEN);
-                    break;
-
-                default:
-                    textController.setResultColour(Color.RED);
-                    break;
-            }
-            textController.setStartStop(Status.IDLE);
-            halter.setHalted(false);
-            parameterController.enable();
+            handleFinishUi(evaluation);
         }
     };
 
-    private final GenerationHalter halter = new GenerationHalter() {
+    private void handleFinishUi(Evaluation evaluation) {
+        switch (evaluation.getResultType()) {
+            case PASS:
+                textController.setResultColour(Color.GREEN);
+                break;
 
-        private final static int GENERATION_LIMIT = 200000;
-        private boolean isHalted = false;
-
-        @Override
-        public boolean isHalted(Evaluation evaluation, int index) {
-            return index >= GENERATION_LIMIT || isHalted;
+            default:
+                textController.setResultColour(Color.RED);
+                break;
         }
-
-        @Override
-        public void setHalted(boolean halted) {
-            this.isHalted = halted;
-        }
-
-    };
+        textController.setStartStop(Status.IDLE);
+        parameterController.enable();
+    }
 
     private void stop() {
         generationController.stop();

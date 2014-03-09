@@ -1,6 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.AlgorithmParams;
+import com.ouchadam.fyp.algorithm.GenerationHalter;
 import com.ouchadam.fyp.algorithm.Member;
 import helper.TestWithMocks;
 import org.junit.Test;
@@ -20,6 +21,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
     @Mock RuleController ruleController;
     @Mock MemberToMidiFile memberToMidiFile;
     @Mock ResultManager resultManager;
+    @Mock GenerationHalter halter;
 
     @Mock Component not_relevant;
 
@@ -29,7 +31,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
 
     @Override
     protected void before() {
-        algorithmController = new AlgorithmController(generationController, textController, parameterController, ruleController, memberToMidiFile, resultManager);
+        algorithmController = new AlgorithmController(generationController, textController, parameterController, ruleController, memberToMidiFile, resultManager, halter);
         algorithmStartStopEntry = algorithmController.startStopListener();
         algorithmSaveEntry = algorithmController.onSave();
     }

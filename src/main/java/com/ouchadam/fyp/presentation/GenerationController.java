@@ -8,8 +8,8 @@ class GenerationController {
     private final GenerationThread  generationThread;
 
     private GenerationCallback onGeneration;
-    private GenerationHalter halter;
-    private OnFinish onFinish;
+    private GenerationHalter clientHalter;
+    private OnFinish clientOnFinish;
 
     GenerationController(GenerationThread generationThread) {
         this.generationThread = generationThread;
@@ -22,7 +22,7 @@ class GenerationController {
     private final GenerationRunnable algorithmRunner = new GenerationRunnable() {
         @Override
         public void run(AlgorithmParams params) {
-            halter.setHalted(false);
+            clientHalter.setHalted(false);
             GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(internalCallback, params, internalHalter);
             internalOnFinish.onFinish(geneticAlgorithm.work());
         }
@@ -41,13 +41,13 @@ class GenerationController {
 
         @Override
         public boolean isHalted(Evaluation evaluation, int index) {
-            return halter != null ? halter.isHalted(evaluation, index) : false;
+            return clientHalter != null ? clientHalter.isHalted(evaluation, index) : false;
         }
 
         @Override
         public void setHalted(boolean halted) {
-            if (halter != null) {
-                halter.setHalted(halted);
+            if (clientHalter != null) {
+                clientHalter.setHalted(halted);
             }
         }
 
@@ -64,9 +64,9 @@ class GenerationController {
 
             System.out.println("Key Likelyhood : " + keyResult.key + " " + keyResult.type + " " + keyResult.percent + "%");
 
-            internalHalter.setHalted(false);
-            if (onFinish != null) {
-                onFinish.onFinish(evaluation);
+            reset();
+            if (clientOnFinish != null) {
+                clientOnFinish.onFinish(evaluation);
             }
         }
     };
@@ -82,7 +82,7 @@ class GenerationController {
         }
     };
 
-    public void reset() {
+    private void reset() {
         internalHalter.setHalted(false);
         generationThread.reset();
     }
@@ -97,11 +97,11 @@ class GenerationController {
     }
 
     public void setHalter(GenerationHalter halter) {
-        this.halter = halter;
+        this.clientHalter = halter;
     }
 
-    public void setOnFinish(OnFinish onFinish) {
-        this.onFinish = onFinish;
+    public void setClientOnFinish(OnFinish clientOnFinish) {
+        this.clientOnFinish = clientOnFinish;
     }
 
     public AlgorithmController.Status status() {

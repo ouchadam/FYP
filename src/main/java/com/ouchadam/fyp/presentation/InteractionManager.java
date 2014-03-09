@@ -11,7 +11,6 @@ class InteractionManager {
     private final MidiSelection midiSelection;
     private final TextController textController;
     private final SequenceController sequenceController;
-
     private final AlgorithmController algorithmController;
 
     InteractionManager(MidiSelection midiSelection, TextController textController, SequenceController sequenceController, AlgorithmController algorithmController) {
