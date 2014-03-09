@@ -12,12 +12,12 @@ public class MemberShould {
     @Test (expected = UnsupportedOperationException.class)
     @Ignore
     public void be_unmodifiable() throws Exception {
-        List<Note> arrayList = new ArrayList<Note>();
-        arrayList.add(new Note(new Binary("01")));
-        Member member = new Member(arrayList, new Member.Controller());
-        List<Note> notes = member.all().notes();
+        List<NoteValue> arrayList = new ArrayList<NoteValue>();
+        arrayList.add(new NoteValue(new Binary("01")));
+        Member member = new Member(arrayList, new ArrayList<NoteType>(), new Member.Controller());
+        List<NoteValue> noteValues = member.all().noteValues();
 
-        notes.add(new Note(new Binary("0")));
+        noteValues.add(new NoteValue(new Binary("0")));
     }
 
 }

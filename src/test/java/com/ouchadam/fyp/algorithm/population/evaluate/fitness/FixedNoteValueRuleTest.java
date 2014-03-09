@@ -1,7 +1,8 @@
 package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteType;
+import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.FixedNoteRule;
 
@@ -12,7 +13,7 @@ import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class FixedNoteRuleTest {
+public class FixedNoteValueRuleTest {
 
     @Test
     public void testName() {
@@ -24,9 +25,9 @@ public class FixedNoteRuleTest {
     }
 
     private Member createMember(int noteValue) {
-        List<Note> notes = new ArrayList<Note>(2);
-        notes.add(new Note(new Binary(Integer.toBinaryString(noteValue))));
-        return new Member(notes, new Member.Controller());
+        List<NoteValue> noteValues = new ArrayList<NoteValue>(2);
+        noteValues.add(new NoteValue(new Binary(Integer.toBinaryString(noteValue))));
+        return new Member(noteValues, new ArrayList<NoteType>(), new Member.Controller());
     }
 
 }

@@ -10,7 +10,6 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 class AlgorithmController {
@@ -155,23 +154,5 @@ class AlgorithmController {
             }).start();
         }
     };
-
-    public static class MemberToMidi {
-
-        private List<Sequenced16thMidiNote> sequencedMidiNotes;
-
-        public List<Sequenced16thMidiNote> convert(Member member) {
-            sequencedMidiNotes = new ArrayList<Sequenced16thMidiNote>(member.size());
-            member.forEvery(onEvery);
-            return sequencedMidiNotes;
-        }
-
-        private final ForEvery<Integer, Note, Void> onEvery = new ForEvery<Integer, Note, Void>() {
-            @Override
-            public void on(Integer position, Note note, Void bar) {
-                sequencedMidiNotes.add(Sequenced16thMidiNote.from(position, 1, note.decimal(), 0x60, 960));
-            }
-        };
-    }
 
 }

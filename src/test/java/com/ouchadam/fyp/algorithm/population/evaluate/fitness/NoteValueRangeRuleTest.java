@@ -1,7 +1,8 @@
 package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteType;
+import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
 
@@ -14,7 +15,7 @@ import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class NoteRangeRuleTest extends TestWithMocks {
+public class NoteValueRangeRuleTest extends TestWithMocks {
 
     private NoteRangeRule noteRangeRule;
 
@@ -51,10 +52,10 @@ public class NoteRangeRuleTest extends TestWithMocks {
     }
 
     private Member createMember(int... noteValues) {
-        List<Note> notes = new ArrayList<Note>(noteValues.length);
+        List<NoteValue> notes = new ArrayList<NoteValue>(noteValues.length);
         for (int noteValue : noteValues) {
-            notes.add(new Note(new Binary(Integer.toBinaryString(noteValue))));
+            notes.add(new NoteValue(new Binary(Integer.toBinaryString(noteValue))));
         }
-        return new Member(notes, new Member.Controller());
+        return new Member(notes, new ArrayList<NoteType>(), new Member.Controller());
     }
 }

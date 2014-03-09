@@ -23,11 +23,11 @@ public class Printer {
 
     public static String getMemberAsString(Member member) {
         StringBuilder builder = new StringBuilder();
-        for (int index = 0; index < member.all().notes().size(); index++) {
+        for (int index = 0; index < member.all().noteValues().size(); index++) {
             if (index == 0) {
-                builder.append(member.all().notes().get(index).decimal());
+                builder.append(member.all().noteValues().get(index).decimal());
             } else {
-                builder.append(" : ").append(member.all().notes().get(index).decimal());
+                builder.append(" : ").append(member.all().noteValues().get(index).decimal());
             }
         }
         return builder.toString();

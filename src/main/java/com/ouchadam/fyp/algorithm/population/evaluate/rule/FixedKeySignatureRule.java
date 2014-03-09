@@ -2,6 +2,7 @@ package com.ouchadam.fyp.algorithm.population.evaluate.rule;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.Percentage;
 import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.analysis.Key;
@@ -27,20 +28,21 @@ public class FixedKeySignatureRule implements FitnessRule<Member> {
 
     @Override
     public FitnessValue apply(Member what) {
-        List<Note> notes = what.all().notes();
-        int percent = percent(notes, fixedKey);
+        List<Note> noteValues = what.all().note();
+
+        int percent = percent(noteValues, fixedKey);
         return new FitnessValue(percent);
     }
 
-    private int percent(List<Note> notes, Key key) {
+    private int percent(List<Note> noteValues, Key key) {
         List<Integer> matchResults = new ArrayList<Integer>(ScaleCreator.Type.values().length);
         for (ScaleCreator.Type type : ScaleCreator.Type.values()) {
             int[] intervals = scaleCreator.create(key, type);
-            int matches = countScaleMatches(notes, intervals);
-            if (notes.get(0).decimal() % 12 != key.value()) {
+            int matches = countScaleMatches(noteValues, intervals);
+            if (noteValues.get(0).noteValue.decimal() % 12 != key.value()) {
                 matches--;
             }
-            int percentage = Percentage.from(matches, notes.size());
+            int percentage = Percentage.from(matches, noteValues.size());
             matchResults.add(percentage);
         }
         return getBestResult(matchResults);
@@ -56,11 +58,11 @@ public class FixedKeySignatureRule implements FitnessRule<Member> {
         return Collections.unmodifiableList(matchResults);
     }
 
-    private int countScaleMatches(List<Note> notes, int[] intervals) {
+    private int countScaleMatches(List<Note> noteValues, int[] intervals) {
         int matched = 0;
         for (int interval : intervals) {
-            for (Note note : notes) {
-                if (isPartOfScale(interval, note)) {
+            for (Note noteValue : noteValues) {
+                if (isPartOfScale(interval, noteValue.noteValue)) {
                     matched++;
                 }
             }
@@ -68,7 +70,7 @@ public class FixedKeySignatureRule implements FitnessRule<Member> {
         return matched;
     }
 
-    private boolean isPartOfScale(int interval, Note note) {
-        return note.decimal() % 12 == interval;
+    private boolean isPartOfScale(int interval, NoteValue noteValue) {
+        return noteValue.decimal() % 12 == interval;
     }
 }

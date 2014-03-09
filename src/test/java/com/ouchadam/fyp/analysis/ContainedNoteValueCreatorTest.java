@@ -11,7 +11,7 @@ import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class ContainedNoteCreatorTest extends TestWithMocks {
+public class ContainedNoteValueCreatorTest extends TestWithMocks {
 
     private MidiTrack midiTrack;
     private ContainedNoteCreator containedNoteCreator;

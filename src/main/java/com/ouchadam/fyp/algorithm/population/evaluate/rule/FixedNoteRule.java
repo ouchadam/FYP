@@ -1,7 +1,7 @@
 package com.ouchadam.fyp.algorithm.population.evaluate.rule;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.population.evaluate.FitnessAccumulator;
 import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 
@@ -20,13 +20,13 @@ public class FixedNoteRule implements FitnessRule<Member> {
     @Override
     public FitnessValue apply(Member what) {
         FitnessAccumulator fitnessAccumulator = FitnessAccumulator.from(what.size());
-        for (Note note : what.all().notes()) {
-            fitnessAccumulator.add(fixedNote.apply(note));
+        for (NoteValue noteValue : what.all().noteValues()) {
+            fitnessAccumulator.add(fixedNote.apply(noteValue));
         }
         return fitnessAccumulator.bias(3);
     }
 
-    public static class FixedNote implements FitnessRule<Note> {
+    public static class FixedNote implements FitnessRule<NoteValue> {
 
         private static final float RESOLUTION = 0.9f;
         private final int fixedValue;
@@ -36,7 +36,7 @@ public class FixedNoteRule implements FitnessRule<Member> {
         }
 
         @Override
-        public FitnessValue apply(Note what) {
+        public FitnessValue apply(NoteValue what) {
             int delta = Math.abs(what.decimal() - fixedValue);
             int penalty = createRelativePenalty(delta);
             int value = normalise_0_to_100(100 - (delta + penalty));

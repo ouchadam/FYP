@@ -2,7 +2,8 @@ package com.ouchadam.fyp.algorithm.population;
 
 import com.ouchadam.fyp.algorithm.IndexManager;
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteType;
+import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.Crossover;
 import com.ouchadam.fyp.algorithm.crossover.PopulationCrossover;
 
@@ -12,14 +13,16 @@ import java.util.Random;
 
 public class RandomPopulationCrossover implements PopulationCrossover {
 
-    private final Crossover<Note> crossover;
+    private final Crossover<NoteValue> noteValueCrossover;
+    private final Crossover<NoteType> noteTypeCrossover;
     private final IndexManager indexManager;
     private final Member.Controller memberController;
     private final Random random;
 
-    public RandomPopulationCrossover(Random random, Crossover<Note> crossover, IndexManager indexManager, Member.Controller memberController) {
+    public RandomPopulationCrossover(Random random, Crossover<NoteValue> noteValueCrossover, Crossover<NoteType> noteTypeCrossover, IndexManager indexManager, Member.Controller memberController) {
         this.random = random;
-        this.crossover = crossover;
+        this.noteValueCrossover = noteValueCrossover;
+        this.noteTypeCrossover = noteTypeCrossover;
         this.indexManager = indexManager;
         this.memberController = memberController;
     }
@@ -53,18 +56,35 @@ public class RandomPopulationCrossover implements PopulationCrossover {
     }
 
     private Member crossoverMembers(Member memberX, Member memberY) {
-        return new Member(crossoverNotes(memberX, memberY), memberController);
+        NoteCrossoverContainer container = crossoverNotes(memberX, memberY);
+        return new Member(container.noteValues, container.noteTypes, memberController);
     }
 
-    private List<Note> crossoverNotes(Member memberX, Member memberY) {
-        List<Note> notes = new ArrayList<Note>(Member.CHILD_COUNT);
+    private NoteCrossoverContainer crossoverNotes(Member memberX, Member memberY) {
+        NoteCrossoverContainer container = new NoteCrossoverContainer();
         for (int index = 0; index < Member.CHILD_COUNT; index++) {
-            notes.add(crossoverNote(crossover, memberX.note(index), memberY.note(index)));
+            container.noteValues.add(crossoverValue(noteValueCrossover, memberX.note(index), memberY.note(index)));
+            container.noteTypes.add(crossoverType(noteTypeCrossover, memberX.type(index), memberY.type(index)));
         }
-        return notes;
+        return container;
     }
 
-    private Note crossoverNote(Crossover<Note> crossover, Note noteX, Note noteY) {
-        return crossover.crossover(noteX, noteY);
+    private NoteValue crossoverValue(Crossover<NoteValue> crossover, NoteValue noteValueX, NoteValue noteValueY) {
+        return crossover.crossover(noteValueX, noteValueY);
+    }
+
+    private NoteType crossoverType(Crossover<NoteType> crossover, NoteType typeX, NoteType typeY) {
+        return crossover.crossover(typeX, typeY);
+    }
+
+    private static class NoteCrossoverContainer {
+
+        private final List<NoteValue> noteValues;
+        private final List<NoteType> noteTypes;
+
+        private NoteCrossoverContainer() {
+            noteValues = new ArrayList<NoteValue>(Member.CHILD_COUNT);
+            noteTypes = new ArrayList<NoteType>(Member.CHILD_COUNT);
+        }
     }
 }

@@ -8,26 +8,26 @@ public class Member {
 
     public static final int CHILD_COUNT = 16;
 
-    private final List<Note> notes;
+    private final List<NoteValue> noteValues;
+    private final List<NoteType> noteTypes;
     private final Controller controller;
 
-    public Member(List<Note> notes, Controller controller) {
+public Member(List<NoteValue> noteValues, List<NoteType> noteTypes, Controller controller) {
+        this.noteTypes = Collections.unmodifiableList(noteTypes);
+        this.noteValues = Collections.unmodifiableList(noteValues);
         this.controller = controller;
-        this.notes = Collections.unmodifiableList(notes);
     }
 
-    public Note note(int index) {
-        return notes.get(index);
+    public NoteValue note(int index) {
+        return noteValues.get(index);
     }
 
-    public void forEvery(ForEvery<Integer, Note, Void> forEvery) {
-        for (int index = 0; index < CHILD_COUNT; index++) {
-            forEvery.on(index, note(index), null);
-        }
+    public NoteType type(int index) {
+        return noteTypes.get(index);
     }
 
     public int size() {
-        return CHILD_COUNT;
+        return noteValues.size();
     }
 
     @Override
@@ -35,13 +35,13 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        if (notes != null ? !notes.equals(member.notes) : member.notes != null) return false;
+        if (noteValues != null ? !noteValues.equals(member.noteValues) : member.noteValues != null) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
-        return notes != null ? notes.hashCode() : 0;
+        return noteValues != null ? noteValues.hashCode() : 0;
     }
 
     public Controller.Each forEach() {
@@ -67,9 +67,9 @@ public class Member {
                 super(member);
             }
 
-            public void note(ForEach<Note> forEach) {
-                for (Note note : get().notes) {
-                    forEach.on(note);
+            public void note(ForEach<NoteValue> forEach) {
+                for (NoteValue noteValue : get().noteValues) {
+                    forEach.on(noteValue);
                 }
             }
         }
@@ -79,8 +79,20 @@ public class Member {
                 super(what);
             }
 
-            public List<Note> notes() {
-                return new ArrayList<Note>(get().notes);
+            public List<NoteValue> noteValues() {
+                return new ArrayList<NoteValue>(get().noteValues);
+            }
+
+            public List<NoteType> noteTypes() {
+                return new ArrayList<NoteType>(get().noteTypes);
+            }
+
+            public List<Note> note() {
+                List<Note> notes = new ArrayList<Note>(get().noteTypes.size());
+                for (int index = 0; index < get().noteTypes.size(); index++) {
+                    notes.add(new Note(get().noteValues.get(index), get().noteTypes.get(index)));
+                }
+                return new ArrayList<Note>(notes);
             }
         }
 

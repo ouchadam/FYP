@@ -1,7 +1,8 @@
 package com.ouchadam.fyp.algorithm.population.evaluate;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteType;
+import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
@@ -42,8 +43,8 @@ public class MemberEvaluatorTest extends TestWithMocks {
     }
 
     private Member createMember() {
-        List<Note> arrayList = new ArrayList<Note>();
-        arrayList.add(new Note(new Binary("01")));
-        return new Member(arrayList, new Member.Controller());
+        List<NoteValue> arrayList = new ArrayList<NoteValue>();
+        arrayList.add(new NoteValue(new Binary("01")));
+        return new Member(arrayList, new ArrayList<NoteType>(), new Member.Controller());
     }
 }

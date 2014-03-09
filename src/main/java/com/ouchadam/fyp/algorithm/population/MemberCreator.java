@@ -1,7 +1,8 @@
 package com.ouchadam.fyp.algorithm.population;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteType;
+import com.ouchadam.fyp.algorithm.NoteValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +19,25 @@ public class MemberCreator {
     }
 
     public Member createRandomMember() {
-        List<Note> notes = createNotes();
-        return new Member(notes, controller);
+        List<NoteValue> noteValues = createNotes();
+        List<NoteType> noteTypes = createNoteTypes();
+        return new Member(noteValues, noteTypes, controller);
     }
 
-    private List<Note> createNotes() {
-        List<Note> notes = new ArrayList<Note>(Member.CHILD_COUNT);
+    private List<NoteValue> createNotes() {
+        List<NoteValue> noteValues = new ArrayList<NoteValue>(Member.CHILD_COUNT);
         for (int index = 0; index < Member.CHILD_COUNT; index++) {
-            notes.add(Note.newInstance(random.nextInt(Note.NOTE_MAX)));
+            noteValues.add(NoteValue.newInstance(random.nextInt(NoteValue.NOTE_MAX)));
         }
-        return notes;
+        return noteValues;
+    }
+
+    private List<NoteType> createNoteTypes() {
+        List<NoteType> noteTypes = new ArrayList<NoteType>(Member.CHILD_COUNT);
+        for (int index = 0; index < Member.CHILD_COUNT; index++) {
+            noteTypes.add(NoteType.values()[(random.nextInt(NoteType.values().length))]);
+        }
+        return noteTypes;
     }
 
 }

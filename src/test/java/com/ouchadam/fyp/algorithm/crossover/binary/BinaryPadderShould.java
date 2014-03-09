@@ -49,4 +49,25 @@ public class BinaryPadderShould extends TestWithMocks {
         assertThat(values).contains(BINARY_1.toDecimal(), BINARY_100.toDecimal());
     }
 
+    @Test
+    public void not_pad_when_unneeded_Three() throws Exception {
+        Binary binaryThree = new Binary("11");
+        int wordLength = 2;
+
+        Binary paddedThree = binaryPadder.pad(binaryThree, wordLength);
+
+        assertThat(binaryThree.wordLength()).isEqualTo(paddedThree.wordLength());
+    }
+
+
+    @Test
+    public void not_pad_when_unneeded_Two() throws Exception {
+        Binary binaryTwo = new Binary("01");
+        int wordLength = 2;
+
+        Binary paddedThree = binaryPadder.pad(binaryTwo, wordLength);
+
+        assertThat(binaryTwo.wordLength()).isEqualTo(paddedThree.wordLength());
+    }
+
 }

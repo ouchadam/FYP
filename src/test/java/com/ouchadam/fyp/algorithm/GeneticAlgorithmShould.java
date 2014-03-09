@@ -100,7 +100,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
                 System.out.println("0 :  fitness total: " + evaluation.fitnessValue(0).get() + " occurs : " + getFrequency(evaluation, member0));
                 Printer.printMember(member0);
 
-//                System.out.println("Note range rule: " + new NoteRangeRule(12, 60).apply(member0).get());
+//                System.out.println("NoteValue range rule: " + new NoteRangeRule(12, 60).apply(member0).get());
 //                System.out.println("Key rule: " + new FixedKeySignatureRule(Key.C, new ScaleCreator()).apply(member0).get());
 
                 System.out.println("");

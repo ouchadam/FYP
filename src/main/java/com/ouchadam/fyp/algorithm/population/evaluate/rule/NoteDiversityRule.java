@@ -1,7 +1,7 @@
 package com.ouchadam.fyp.algorithm.population.evaluate.rule;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.Percentage;
 import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 
@@ -23,7 +23,7 @@ public class NoteDiversityRule implements FitnessRule<Member> {
     @Override
     public FitnessValue apply(Member what) {
         List<Integer> uniqueNotes = new ArrayList<Integer>(what.size());
-        for (Note note : what.all().notes()) {
+        for (NoteValue note : what.all().noteValues()) {
             int noteValue = note.decimal() % 12;
             if (!uniqueNotes.contains(noteValue)) {
                 uniqueNotes.add(noteValue);

@@ -1,9 +1,11 @@
 package com.ouchadam.fyp.algorithm.crossover.binary;
 
 import com.ouchadam.fyp.algorithm.IndexManager;
-import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteType;
+import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.Crossover;
-import com.ouchadam.fyp.algorithm.population.NoteCrossover;
+import com.ouchadam.fyp.algorithm.population.NoteTypeCrossover;
+import com.ouchadam.fyp.algorithm.population.NoteValueCrossover;
 
 import java.util.Random;
 
@@ -28,16 +30,25 @@ public class CrossoverFactory {
     public class Uniform {
         private Uniform() {}
 
-        public Crossover<Note> note(int crossoverPercent) {
-            return new NoteCrossover(BinaryUniformCrossover.newInstance(indexManager, crossoverPercent, random));
+        public Crossover<NoteValue> noteValue(int crossoverPercent) {
+            return new NoteValueCrossover(BinaryUniformCrossover.newInstance(indexManager, crossoverPercent, random));
+        }
+
+
+        public Crossover<NoteType> noteType(int crossoverPercent) {
+            return new NoteTypeCrossover(BinaryUniformCrossover.newInstance(indexManager, crossoverPercent, random));
         }
     }
 
     public class SinglePoint {
         private SinglePoint() {}
 
-        public Crossover<Note> note() {
-            return new NoteCrossover(BinarySinglePointCrossover.newInstance(CrossoverPosition.Position.MID));
+        public Crossover<NoteValue> noteValue() {
+            return new NoteValueCrossover(BinarySinglePointCrossover.newInstance(CrossoverPosition.Position.MID));
+        }
+
+        public Crossover<NoteType> noteType() {
+            return new NoteTypeCrossover(BinarySinglePointCrossover.newInstance(CrossoverPosition.Position.MID));
         }
     }
 

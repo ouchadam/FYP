@@ -1,18 +1,12 @@
 package com.ouchadam.fyp.algorithm.population.evaluate.rule;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
 import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.presentation.ScaleCreator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import helper.MemberRuleTest;
 import org.junit.Test;
-
-import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 

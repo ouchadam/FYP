@@ -2,9 +2,6 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.*;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
-import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
-
-import java.util.List;
 
 class GenerationController {
 
@@ -63,7 +60,7 @@ class GenerationController {
             print(evaluation.population().get(0));
 
             KeyAnalysis keyAnalysis = new KeyAnalysis(new ScaleCreator());
-            KeyAnalysis.Result keyResult = keyAnalysis.analyse(new AlgorithmController.MemberToMidi().convert(evaluation.population().get(0)));
+            KeyAnalysis.Result keyResult = keyAnalysis.analyse(new MemberToMidi().convert(evaluation.population().get(0)));
 
             System.out.println("Key Likelyhood : " + keyResult.key + " " + keyResult.type + " " + keyResult.percent + "%");
 
@@ -78,9 +75,9 @@ class GenerationController {
         member.forEach().note(printNote);
     }
 
-    private final static ForEach<Note> printNote = new ForEach<Note>() {
+    private final static ForEach<NoteValue> printNote = new ForEach<NoteValue>() {
         @Override
-        public void on(Note what) {
+        public void on(NoteValue what) {
             System.out.println(what.decimal());
         }
     };
