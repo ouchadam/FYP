@@ -10,8 +10,6 @@ import java.util.List;
 
 public class MidiPlayer {
 
-    private Sequence sequence;
-
     public void play(MidiMeta meta, List<Sequenced16thMidiNote> notes) {
         play(notes, meta.getDivision(), meta.getResolution());
     }
@@ -37,27 +35,5 @@ public class MidiPlayer {
             e.printStackTrace();
         }
     }
-
-    public void save(Sequence sequence, MidiFileChooser midiFileChooser) {
-        this.sequence = sequence;
-        midiFileChooser.choose(onSaveFileChosen);
-    }
-
-    private final MidiFileChooser.FileChooserResult onSaveFileChosen = new MidiFileChooser.FileChooserResult() {
-        @Override
-        public void onSelection(File file) {
-            try {
-                MidiSystem.write(sequence, MidiSystem.getMidiFileTypes(sequence)[0], file);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Failed to save");
-            }
-        }
-
-        @Override
-        public void onCancel() {
-            // do nothing
-        }
-    };
 
 }

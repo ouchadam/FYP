@@ -2,15 +2,8 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.*;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
-import com.ouchadam.fyp.analysis.Division;
-import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
-import javax.sound.midi.MidiEvent;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.Track;
 import java.awt.*;
-import java.util.List;
 
 class AlgorithmController {
 
@@ -22,17 +15,24 @@ class AlgorithmController {
     private final TextController textController;
     private final ParameterController parameterController;
     private final RuleController ruleController;
+    private final MemberToMidiFile memberToMidiFile;
+    private final ResultManager resultManager;
 
-    private Evaluation evaluation;
+    public static AlgorithmController from(MainFrame mainFrame) {
+        MemberToMidiFile memberToMidiFile = new MemberToMidiFile(mainFrame.getFileChooser(MidiFileChooser.Type.SAVE));
+        return new AlgorithmController(new GenerationController(new GenerationThread()), mainFrame, mainFrame, mainFrame, memberToMidiFile, new ResultManager());
+    }
 
-    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController, RuleController ruleController) {
+    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController, RuleController ruleController, MemberToMidiFile memberToMidiFile, ResultManager resultManager) {
         this.generationController = generationController;
         this.textController = textController;
         this.parameterController = parameterController;
         this.ruleController = ruleController;
+        this.memberToMidiFile = memberToMidiFile;
+        this.resultManager = resultManager;
     }
 
-    public OnClickListener listener() {
+    public OnClickListener startStopListener() {
         return onStartStop;
     }
 
@@ -89,12 +89,17 @@ class AlgorithmController {
     private final OnFinish onFinish = new OnFinish() {
         @Override
         public void onFinish(Evaluation evaluation) {
-            AlgorithmController.this.evaluation = evaluation;
+            resultManager.setEvaluation(evaluation);
             generationController.reset();
-            if (evaluation.getResultType() == Evaluation.ResultType.PASS) {
-                textController.setResultColour(Color.GREEN);
-            } else {
-                textController.setResultColour(Color.RED);
+
+            switch (evaluation.getResultType()) {
+                case PASS:
+                    textController.setResultColour(Color.GREEN);
+                    break;
+
+                default:
+                    textController.setResultColour(Color.RED);
+                    break;
             }
             textController.setStartStop(Status.IDLE);
             halter.setHalted(false);
@@ -131,27 +136,7 @@ class AlgorithmController {
     private final OnClickListener onSave = new OnClickListener() {
         @Override
         public void onClick(final Component component) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Member member = evaluation.population().get(0);
-                    List<Sequenced16thMidiNote> notes = new MemberToMidi().convert(member);
-
-                    try {
-                        Sequence sequence = new Sequence(Division.PPQ.value(), 960, 1);
-                        Track track = sequence.getTracks()[0];
-                        track.add(new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, 20, 0), 0));
-                        for (Sequenced16thMidiNote midiNote : notes) {
-                            System.out.println("Adding : " + midiNote.getNote() + "(" + midiNote.getKey() + ")" + " at " + midiNote.getTick() + " : " + midiNote.getType() + " to : " + midiNote.getNoteOff().getTick());
-                            track.add(midiNote.getNoteOn());
-                            track.add(midiNote.getNoteOff());
-                        }
-                        new MidiPlayer().save(sequence, new MidiFileChooser(component, MidiFileChooser.Type.SAVE));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
+            memberToMidiFile.save(resultManager.getBest());
         }
     };
 

@@ -13,7 +13,7 @@ import java.util.List;
 public class StepSequenceView extends JPanel {
 
     private static final int ROWS = 12;
-    private static final int COLUMNS = 16 * 2;
+    private static final int COLUMNS = 16;
 
     private Step[][] gridMembers;
     private List<Sequenced16thMidiNote> notes;

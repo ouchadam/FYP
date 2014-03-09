@@ -74,7 +74,7 @@ class InteractionManager {
     }
 
     public OnClickListener onStartStop() {
-        return algorithmController.listener();
+        return algorithmController.startStopListener();
     }
 
     public OnClickListener onSave() {

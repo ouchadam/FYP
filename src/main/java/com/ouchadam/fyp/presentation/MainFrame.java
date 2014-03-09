@@ -155,4 +155,8 @@ class MainFrame implements TextController, SequenceController, ParameterControll
     public List<RuleContainer<Member>> get() {
         return ruleTabManager.get();
     }
+
+    public MidiFileChooser getFileChooser(MidiFileChooser.Type type) {
+        return new MidiFileChooser(frame, type);
+    }
 }
