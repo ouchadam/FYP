@@ -57,4 +57,12 @@ public class MidiFileChooserTest extends TestWithMocks {
 
         verify(fileChooser).showSaveDialog(component);
     }
+
+    @Test (expected = RuntimeException.class)
+    public void throw_exception_when_unhandled_type_is_used() throws Exception {
+        MidiFileChooser.Type unhandledType = null;
+        MidiFileChooser midiFileChooser = new MidiFileChooser(component, fileChooser, unhandledType);
+
+        midiFileChooser.choose(result);
+    }
 }
