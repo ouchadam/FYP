@@ -44,18 +44,20 @@ public class NoteValueRangeRuleTest extends TestWithMocks {
         int base = 60;
         NoteRangeRule noteRangeRule = new NoteRangeRule(range);
 
-        Member perfect = createMember(base, base + (range + 1), base - (range + 1), base / 2);
+        Member bad = createMember(base - 60, base, base + 60);
 
-        FitnessValue fitnessValue = noteRangeRule.apply(perfect);
+        FitnessValue fitnessValue = noteRangeRule.apply(bad);
 
         assertThat(fitnessValue).isNotEqualTo(FitnessValue.max());
     }
 
     private Member createMember(int... noteValues) {
         List<NoteValue> notes = new ArrayList<NoteValue>(noteValues.length);
+        List<NoteType> types = new ArrayList<NoteType>(noteValues.length);
         for (int noteValue : noteValues) {
             notes.add(new NoteValue(new Binary(Integer.toBinaryString(noteValue))));
+            types.add(NoteType.NOTE);
         }
-        return new Member(notes, new ArrayList<NoteType>(), new Member.Controller());
+        return new Member(notes, types, new Member.Controller());
     }
 }

@@ -1,8 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.NoteType;
-import com.ouchadam.fyp.algorithm.NoteValue;
+import com.ouchadam.fyp.algorithm.*;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
 import java.util.ArrayList;
@@ -12,61 +10,83 @@ public class MemberToMidi {
 
     private static final int TICKS_PER_QUARTER = 960;
     private static final int VELOCITY = 0x60;
+    private static final int FIRST_INDEX = 0;
 
     public List<Sequenced16thMidiNote> convert(Member member) {
         List<Sequenced16thMidiNote> sequencedMidiNotes = new ArrayList<Sequenced16thMidiNote>(member.size());
-        System.out.println("");
-        System.out.println("Converting to midinotes");
-        System.out.println("Member has types : " + member.all().noteTypes().size());
-        System.out.println("");
 
-        int length = 1;
-        int restOffset = 0;
+        List<NoteType> noteTypes = member.all().noteTypes();
+        List<NoteValue> noteValues = member.all().noteValues();
 
-        for (int index = 1; index < member.size(); index++) {
+        FB fb = new FB();
 
-            int position = restOffset + index;
+        for (int index = FIRST_INDEX; index < member.size(); index++) {
 
-            NoteType previousType = member.type(index - 1);
-            NoteValue previousValue = member.note(index - 1);
-
-            System.out.println(previousValue.decimal() + " " + previousType);
-
-            NoteType currentType = member.type(index);
-
-            if (previousType == NoteType.HOLD && (currentType == NoteType.REST || currentType == NoteType.NOTE)) {
-                System.out.println("Insert : " + previousType + " with position : " + (position - length) + " index : " + index);
-                sequencedMidiNotes.add(createMidiNote(length, position - length, previousValue));
+            if (index == 0) {
+                if (noteTypes.get(index) == NoteType.HOLD || noteTypes.get(index) == NoteType.NOTE) {
+                    fb.start(noteValues.get(index));
+                }
+                continue;
             }
 
-
-            if (previousType == NoteType.NOTE && currentType == NoteType.NOTE) {
-                System.out.println("Insert : " + previousType + " with position : " + (position - length) + " index : " + index);
-                sequencedMidiNotes.add(createMidiNote(length, position - length, previousValue));
+            if (noteTypes.get(index) == NoteType.NOTE) {
+                if (fb.isStarted()) {
+                    sequencedMidiNotes.add(fb.collect(index));
+                }
+                fb.start(noteValues.get(index));
             }
 
-            switch (currentType) {
-                case HOLD:
-                    length++;
-                    break;
-
-                case NOTE:
-                    length = 1;
-                    break;
+            if (noteTypes.get(index) == NoteType.HOLD) {
+                if (fb.isStarted()) {
+                    fb.continues();
+                } else {
+                    fb.start(noteValues.get(index));
+                }
             }
 
-            if (index == member.size() - 1 && currentType != NoteType.REST) {
-                sequencedMidiNotes.add(createMidiNote(length, position, previousValue));
+            if (noteTypes.get(index) == NoteType.REST) {
+                if (fb.isStarted()) {
+                    sequencedMidiNotes.add(fb.collect(index));
+                }
+            }
+
+            if (isLastPosition(member, index) && fb.isStarted()) {
+                sequencedMidiNotes.add(fb.collect(index + 1));
             }
 
         }
 
-        System.out.println("Result has size of : " + sequencedMidiNotes.size());
         return sequencedMidiNotes;
     }
 
-    private Sequenced16thMidiNote createMidiNote(int length, int position, NoteValue previousValue) {
-        return Sequenced16thMidiNote.from(position, length, previousValue.decimal(), VELOCITY, TICKS_PER_QUARTER);
+    private boolean isLastPosition(Member member, int index) {
+        return index == (member.size() - 1);
+    }
+
+    private static class FB {
+
+        private int length;
+        private NoteValue noteValue;
+        private boolean started;
+
+        public void start(NoteValue noteValue) {
+            this.started = true;
+            this.noteValue = noteValue;
+            this.length = 1;
+        }
+
+        public void continues() {
+            this.length++;
+        }
+
+        public boolean isStarted() {
+            return this.started;
+        }
+
+        public Sequenced16thMidiNote collect(int endPosition) {
+            this.started = false;
+            return Sequenced16thMidiNote.from(endPosition - length, length, noteValue.decimal(), VELOCITY, TICKS_PER_QUARTER);
+        }
     }
 
 }

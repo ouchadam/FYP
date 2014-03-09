@@ -28,18 +28,21 @@ public class FixedKeySignatureRule implements FitnessRule<Member> {
 
     @Override
     public FitnessValue apply(Member what) {
-        List<Note> noteValues = what.all().note();
+        List<NoteValue> noteValues = what.only().noteStartValues();
+        if (noteValues.isEmpty()) {
+            return FitnessValue.min();
+        }
 
         int percent = percent(noteValues, fixedKey);
         return new FitnessValue(percent);
     }
 
-    private int percent(List<Note> noteValues, Key key) {
+    private int percent(List<NoteValue> noteValues, Key key) {
         List<Integer> matchResults = new ArrayList<Integer>(ScaleCreator.Type.values().length);
         for (ScaleCreator.Type type : ScaleCreator.Type.values()) {
             int[] intervals = scaleCreator.create(key, type);
             int matches = countScaleMatches(noteValues, intervals);
-            if (noteValues.get(0).noteValue.decimal() % 12 != key.value()) {
+            if (noteValues.get(0).decimal() % 12 != key.value()) {
                 matches--;
             }
             int percentage = Percentage.from(matches, noteValues.size());
@@ -58,11 +61,11 @@ public class FixedKeySignatureRule implements FitnessRule<Member> {
         return Collections.unmodifiableList(matchResults);
     }
 
-    private int countScaleMatches(List<Note> noteValues, int[] intervals) {
+    private int countScaleMatches(List<NoteValue> noteValues, int[] intervals) {
         int matched = 0;
         for (int interval : intervals) {
-            for (Note noteValue : noteValues) {
-                if (isPartOfScale(interval, noteValue.noteValue)) {
+            for (NoteValue noteValue : noteValues) {
+                if (isPartOfScale(interval, noteValue)) {
                     matched++;
                 }
             }

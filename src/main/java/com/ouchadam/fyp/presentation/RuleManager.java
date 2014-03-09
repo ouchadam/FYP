@@ -13,7 +13,7 @@ public class RuleManager {
     private final Map<RuleName, RuleView> rules;
 
     public enum RuleName {
-        RANGE, KEY, DIVERSITY, INTERVAL
+        RANGE, KEY, DIVERSITY, INTERVAL, EVEN_RHYTHM, MIN_NOTE
     }
     RuleManager() {
         this.rules = new HashMap<RuleName, RuleView>(RULE_COUNT);
@@ -22,8 +22,10 @@ public class RuleManager {
     public void create() {
         add(RuleName.RANGE, RuleView.newInstance("Range", 0, 24, 12, true));
         add(RuleName.KEY, CustomRuleView.newInstance("Key", 0, Key.values().length - 1, 0, false));
-        add(RuleName.DIVERSITY, RuleView.newInstance("Diversity", 0, Member.CHILD_COUNT, 0, false));
+        add(RuleName.DIVERSITY, RuleView.newInstance("Diversity", 0, Member.CHILD_COUNT, Member.CHILD_COUNT / 2, false));
         add(RuleName.INTERVAL, RuleView.newInstance("Interval Jumps", 0, 12, 4, false));
+        add(RuleName.EVEN_RHYTHM, RuleView.newInstance("Even Rhythm", 0, 0, 0, true));
+        add(RuleName.MIN_NOTE, RuleView.newInstance("Minimum Notes", 1, Member.CHILD_COUNT, 6, true));
     }
 
     private void add(RuleName name, RuleView ruleView) {

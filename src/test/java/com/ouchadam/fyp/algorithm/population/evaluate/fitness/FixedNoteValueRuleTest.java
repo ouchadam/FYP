@@ -25,9 +25,11 @@ public class FixedNoteValueRuleTest {
     }
 
     private Member createMember(int noteValue) {
-        List<NoteValue> noteValues = new ArrayList<NoteValue>(2);
+        List<NoteValue> noteValues = new ArrayList<NoteValue>(1);
+        List<NoteType> noteTypes = new ArrayList<NoteType>(1);
         noteValues.add(new NoteValue(new Binary(Integer.toBinaryString(noteValue))));
-        return new Member(noteValues, new ArrayList<NoteType>(), new Member.Controller());
+        noteTypes.add(NoteType.NOTE);
+        return new Member(noteValues, noteTypes, new Member.Controller());
     }
 
 }

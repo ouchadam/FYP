@@ -99,6 +99,50 @@ public class MemberToMidiTest extends TestWithMocks {
         assertThatNote(midiNotes.get(2), 4, 3);
     }
 
+    @Test
+    public void complex3() throws Exception {
+        Note n1 = createNotes(68, NoteType.HOLD);
+        Note n2 = createNotes(84, NoteType.HOLD);
+        Note n3 = createNotes(73, NoteType.HOLD);
+        Note n4 = createNotes(109, NoteType.NOTE);
+        Note n5 = createNotes(76, NoteType.HOLD);
+        Note n6 = createNotes(94, NoteType.REST);
+        Note n7 = createNotes(98, NoteType.HOLD);
+        Note n8 = createNotes(65, NoteType.NOTE);
+
+        Member member = createMember(n1, n2, n3, n4, n5, n6, n7, n8);
+
+        List<Sequenced16thMidiNote> midiNotes = memberToMidi.convert(member);
+
+        assertThat(midiNotes).hasSize(4);
+
+        assertThatNote(midiNotes.get(0), 0, 3);
+        assertThatNote(midiNotes.get(1), 3, 2);
+        assertThatNote(midiNotes.get(2), 6, 1);
+        assertThatNote(midiNotes.get(3), 7, 1);
+    }
+
+    @Test
+    public void hold_with_no_preceeding_note_should_be_treated_as_notes() throws Exception {
+        Note n1 = createNotes(68, NoteType.HOLD);
+        Note n2 = createNotes(84, NoteType.HOLD);
+        Note n3 = createNotes(73, NoteType.HOLD);
+        Note n4 = createNotes(109, NoteType.REST);
+        Note n5 = createNotes(76, NoteType.HOLD);
+        Note n6 = createNotes(109, NoteType.REST);
+        Note n7 = createNotes(98, NoteType.HOLD);
+
+        Member member = createMember(n1, n2, n3, n4, n5, n6, n7);
+
+        List<Sequenced16thMidiNote> midiNotes = memberToMidi.convert(member);
+
+        assertThat(midiNotes).hasSize(3);
+
+        assertThatNote(midiNotes.get(0), 0, 3);
+        assertThatNote(midiNotes.get(1), 4, 1);
+        assertThatNote(midiNotes.get(2), 6, 1);
+    }
+
     private static void assertThatNote(Sequenced16thMidiNote note, int position, int length) {
         assertThat(note.position()).isEqualTo(position);
         assertThat(note.length()).isEqualTo(length);

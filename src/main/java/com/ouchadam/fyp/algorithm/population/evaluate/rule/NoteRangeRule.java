@@ -21,8 +21,9 @@ public class NoteRangeRule implements FitnessRule<Member> {
     @Override
     public FitnessValue apply(Member what) {
         int penalty = 0;
-        int middleNote = getMidRange(what.all().noteValues());
-        for (NoteValue noteValue : what.all().noteValues()) {
+        List<NoteValue> noteValues = what.only().noteStartValues();
+        int middleNote = getMidRange(noteValues);
+        for (NoteValue noteValue : noteValues) {
             int noteDelta = Math.abs(noteValue.decimal() - middleNote);
             if (noteDelta > range) {
                 int rangeDelta = noteDelta - range;

@@ -13,7 +13,7 @@ public class IntervalRangeRuleTest extends MemberRuleTest {
 
     @Override
     protected void before() {
-        intervalRangeRule = new IntervalRangeRule();
+        intervalRangeRule = new IntervalRangeRule(4);
     }
 
     @Test

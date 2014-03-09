@@ -22,8 +22,9 @@ public class NoteDiversityRule implements FitnessRule<Member> {
 
     @Override
     public FitnessValue apply(Member what) {
-        List<Integer> uniqueNotes = new ArrayList<Integer>(what.size());
-        for (NoteValue note : what.all().noteValues()) {
+        List<NoteValue> noteValues = what.only().noteStartValues();
+        List<Integer> uniqueNotes = new ArrayList<Integer>(noteValues.size());
+        for (NoteValue note : noteValues) {
             int noteValue = note.decimal() % 12;
             if (!uniqueNotes.contains(noteValue)) {
                 uniqueNotes.add(noteValue);

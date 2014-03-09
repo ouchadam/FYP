@@ -12,7 +12,7 @@ public class Member {
     private final List<NoteType> noteTypes;
     private final Controller controller;
 
-public Member(List<NoteValue> noteValues, List<NoteType> noteTypes, Controller controller) {
+    public Member(List<NoteValue> noteValues, List<NoteType> noteTypes, Controller controller) {
         this.noteTypes = Collections.unmodifiableList(noteTypes);
         this.noteValues = Collections.unmodifiableList(noteValues);
         this.controller = controller;
@@ -52,6 +52,10 @@ public Member(List<NoteValue> noteValues, List<NoteType> noteTypes, Controller c
         return controller.all(this);
     }
 
+    public Controller.Only only() {
+        return controller.only(this);
+    }
+
     public static class Controller {
 
         public Each forEach(Member member) {
@@ -60,6 +64,10 @@ public Member(List<NoteValue> noteValues, List<NoteType> noteTypes, Controller c
 
         public All all(Member member) {
             return new All(member);
+        }
+
+        public Only only(Member member) {
+            return new Only(member);
         }
 
         public static class Each extends Handler<Member> {
@@ -71,6 +79,23 @@ public Member(List<NoteValue> noteValues, List<NoteType> noteTypes, Controller c
                 for (NoteValue noteValue : get().noteValues) {
                     forEach.on(noteValue);
                 }
+            }
+        }
+
+        public static class Only extends Handler<Member> {
+            private Only(Member what) {
+                super(what);
+            }
+
+            public List<NoteValue> noteStartValues() {
+                List<NoteValue> noteValues = new ArrayList<NoteValue>();
+                for (int index = 0; index < get().noteTypes.size(); index++) {
+                    NoteType currentType = get().noteTypes.get(index);
+                    if (currentType == NoteType.NOTE || currentType == NoteType.HOLD) {
+                        noteValues.add(get().noteValues.get(index));
+                    }
+                }
+                return noteValues;
             }
         }
 

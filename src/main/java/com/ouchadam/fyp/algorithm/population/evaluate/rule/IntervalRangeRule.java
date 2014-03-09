@@ -9,18 +9,28 @@ import java.util.List;
 
 public class IntervalRangeRule implements FitnessRule<Member> {
 
-    public static IntervalRangeRule newInstance() {
-        return new IntervalRangeRule();
+    private final int value;
+
+    public IntervalRangeRule(int value) {
+        this.value = value;
+    }
+
+    public static IntervalRangeRule newInstance(int value) {
+        return new IntervalRangeRule(value);
     }
 
     @Override
     public FitnessValue apply(Member what) {
-        List<NoteValue> noteValues = what.all().noteValues();
+        List<NoteValue> noteValues = what.only().noteStartValues();
+        if (noteValues.size() < 2) {
+            return FitnessValue.min();
+        }
         int matches = 0;
-        if (getJump(noteValues.get(0), noteValues.get(1)) > 4) {
+        int firstJump = getJump(noteValues.get(0), noteValues.get(1));
+        if (firstJump > value && firstJump <= value * 2) {
             matches++;
         }
-        for (int index = 2; index < what.all().noteValues().size(); index++) {
+        for (int index = 2; index < noteValues.size(); index++) {
             int gap = getJump(noteValues.get(index - 1), noteValues.get(index));
             if (gap >= 1 && gap <= 3) {
                 matches++;

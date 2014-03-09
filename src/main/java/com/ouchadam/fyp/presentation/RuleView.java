@@ -29,7 +29,7 @@ class RuleView {
         this.slider.setMaximum(maximum);
         this.slider.setValue(defaultValue);
         this.valueLabel.setPreferredSize(new Dimension(50, 30));
-        this.checkBox.setPreferredSize(new Dimension(120, 30));
+        this.checkBox.setPreferredSize(new Dimension(150, 30));
         setTextFromSlider();
         this.slider.addChangeListener(sliderChange);
     }

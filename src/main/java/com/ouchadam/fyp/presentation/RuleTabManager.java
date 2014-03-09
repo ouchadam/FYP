@@ -1,10 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.FixedKeySignatureRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.IntervalRangeRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteDiversityRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
+import com.ouchadam.fyp.algorithm.population.evaluate.rule.*;
 import com.ouchadam.fyp.analysis.Key;
 
 import javax.swing.*;
@@ -58,7 +55,15 @@ class RuleTabManager extends TabManager implements RuleController {
                         break;
 
                     case INTERVAL:
-                        rules.add(new RuleContainer<Member>(IntervalRangeRule.newInstance(), RuleManager.RuleName.INTERVAL));
+                        rules.add(new RuleContainer<Member>(IntervalRangeRule.newInstance(ruleView.getValue()), RuleManager.RuleName.INTERVAL));
+                        break;
+
+                    case EVEN_RHYTHM:
+                        rules.add(new RuleContainer<Member>(new EvenRhythmRule(), RuleManager.RuleName.EVEN_RHYTHM));
+                        break;
+
+                    case MIN_NOTE:
+                        rules.add(new RuleContainer<Member>(new MinimumNoteRule(ruleView.getValue()), RuleManager.RuleName.MIN_NOTE));
                         break;
                 }
 
