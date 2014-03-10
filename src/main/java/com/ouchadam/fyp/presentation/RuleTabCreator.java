@@ -10,12 +10,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class RuleTabManager extends TabManager implements RuleController {
+class RuleTabCreator extends TabCreator implements RuleController {
 
     private static final String TAB_TITLE = "Rules";
     private final RuleManager ruleManager;
 
-    RuleTabManager(JTabbedPane tabbedPane, RuleManager ruleManager) {
+    RuleTabCreator(JTabbedPane tabbedPane, RuleManager ruleManager) {
         super(tabbedPane);
         this.ruleManager = ruleManager;
     }

@@ -2,7 +2,6 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.analysis.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
@@ -12,12 +11,16 @@ class InteractionManager {
     private final SequenceController sequenceController;
     private final AlgorithmController algorithmController;
     private final FileSelectionProvider selectionProvider;
+    private final DialogManager dialogManager;
+    private final MidiReader midiReader;
 
-    InteractionManager(MidiSelection midiSelection, SequenceController sequenceController, AlgorithmController algorithmController, FileSelectionProvider selectionProvider) {
+    InteractionManager(MidiSelection midiSelection, SequenceController sequenceController, AlgorithmController algorithmController, FileSelectionProvider selectionProvider, DialogManager dialogManager, MidiReader midiReader) {
         this.midiSelection = midiSelection;
         this.sequenceController = sequenceController;
         this.algorithmController = algorithmController;
         this.selectionProvider = selectionProvider;
+        this.dialogManager = dialogManager;
+        this.midiReader = midiReader;
     }
 
     public OnClickListener openMidiListener() {
@@ -29,9 +32,9 @@ class InteractionManager {
         public void onClick(Component component) {
             selectionProvider.getFileChooser(MidiFileChooser.Type.OPEN).choose(midiChooserResult);
             if (midiSelection.hasMidiFile()) {
-                analyseMidi();
+                openMidi();
             } else {
-                showMessageDialog(component, "Choose a .MIDI file first");
+                dialogManager.showMessageDialog(component, "Choose a .MIDI file first");
             }
         }
     };
@@ -48,23 +51,18 @@ class InteractionManager {
         }
     };
 
-    private void analyseMidi() {
-        File midiFile = midiSelection.getMidiFile();
-        MidiTrack midiTrack = readMidi(midiFile);
+    private void openMidi() {
+        MidiTrack midiTrack = readMidi(midiSelection);
         sequenceController.open(midiTrack);
     }
 
-    private MidiTrack readMidi(File midiFile) {
+    private MidiTrack readMidi(MidiSelection midiSelection) {
         try {
-            return new MidiReader(new MidiMessageMarshaller(), new MidiSystemWrapper()).read(midiFile);
+            return midiReader.read(midiSelection);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Couldn't handle file");
         }
-    }
-
-    private void showMessageDialog(Component component, String message) {
-        JOptionPane.showMessageDialog(component.getParent(), message);
     }
 
     public OnClickListener onStartStop() {

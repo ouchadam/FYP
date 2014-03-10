@@ -2,7 +2,7 @@ package com.ouchadam.fyp.presentation;
 
 import java.io.File;
 
-class MidiSelection {
+public class MidiSelection {
 
     private File file;
 

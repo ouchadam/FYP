@@ -6,12 +6,13 @@ import com.ouchadam.fyp.presentation.view.StepSequenceView;
 import javax.swing.*;
 import java.awt.*;
 
-public class SequenceTabManager extends TabManager implements SequenceController {
+public class SequenceTabCreator extends TabCreator implements SequenceController {
 
     private static final String TAB_TITLE = "Analyse";
     private static final int ANALYSIS_LABEL_COUNT = 3;
 
     private final MidiPlayer midiPlayer;
+    private final ClickManager clickManager;
 
     private StepSequenceView stepSequenceView;
     private MidiTrack midiTrack;
@@ -21,9 +22,10 @@ public class SequenceTabManager extends TabManager implements SequenceController
     private JLabel[] analysisLabels;
 
 
-    public SequenceTabManager(JTabbedPane tabbedPane, MidiPlayer midiPlayer) {
+    public SequenceTabCreator(JTabbedPane tabbedPane, MidiPlayer midiPlayer, ClickManager clickManager) {
         super(tabbedPane);
         this.midiPlayer = midiPlayer;
+        this.clickManager = clickManager;
     }
 
     @Override
@@ -116,7 +118,7 @@ public class SequenceTabManager extends TabManager implements SequenceController
     }
 
     void setPlayListener() {
-        setClickListener(play, onPlayStop);
+        clickManager.setClickListener(play, onPlayStop);
     }
 
     private OnClickListener onPlayStop = new OnClickListener() {
@@ -133,7 +135,7 @@ public class SequenceTabManager extends TabManager implements SequenceController
     };
 
     void setOpenMidiListener(OnClickListener listener) {
-        setClickListener(openButton, listener);
+        clickManager.setClickListener(openButton, listener);
     }
 
 }

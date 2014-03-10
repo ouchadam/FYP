@@ -14,9 +14,9 @@ class MainFrame {
     private final JFrame frame;
     private final UiReadyListener uiListener;
 
-    private AlgorithmTabManager algorithmTabManager;
-    private SequenceTabManager sequenceTabManager;
-    private RuleTabManager ruleTabManager;
+    private AlgorithmTabCreator algorithmTabManager;
+    private SequenceTabCreator sequenceTabManager;
+    private RuleTabCreator ruleTabManager;
 
     public static MainFrame newInstance(UiReadyListener uiListener) {
         MainFrame mainFrame = new MainFrame(new JFrame(), uiListener);
@@ -37,9 +37,13 @@ class MainFrame {
         @Override
         public void run() {
             initFrame();
-            uiListener.onUiReady(new FrameController(sequenceTabManager, algorithmTabManager, ruleTabManager, frame));
+            uiListener.onUiReady(new FrameController(sequenceTabManager, getAlgorithmTabManager(), ruleTabManager, frame));
         }
     };
+
+    private AlgorithmTabManager getAlgorithmTabManager() {
+        return algorithmTabManager.createTabManager(new SliderManager(), new ClickManager());
+    }
 
     void initFrame() {
         frame.setTitle(FRAME_TITLE);
@@ -54,9 +58,9 @@ class MainFrame {
     private void initSubPanes() {
         JPanel panel = new JPanel(new GridLayout(1, 1));
         JTabbedPane tabbedPane = new JTabbedPane();
-        algorithmTabManager = new AlgorithmTabManager(tabbedPane, new SliderManager());
-        sequenceTabManager = new SequenceTabManager(tabbedPane, new MidiPlayer());
-        ruleTabManager = new RuleTabManager(tabbedPane, new RuleManager());
+        algorithmTabManager = new AlgorithmTabCreator(tabbedPane, new SliderManager());
+        sequenceTabManager = new SequenceTabCreator(tabbedPane, new MidiPlayer(), new ClickManager());
+        ruleTabManager = new RuleTabCreator(tabbedPane, new RuleManager());
         panel.add(sequenceTabManager.create());
         panel.add(algorithmTabManager.create());
         panel.add(ruleTabManager.create());

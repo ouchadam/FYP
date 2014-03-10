@@ -1,6 +1,7 @@
 package com.ouchadam.fyp.analysis;
 
 import com.ouchadam.fyp.analysis.midi.MidiNote;
+import com.ouchadam.fyp.presentation.MidiSelection;
 import com.ouchadam.fyp.presentation.MidiSystemWrapper;
 
 import javax.sound.midi.*;
@@ -20,6 +21,10 @@ public class MidiReader {
     public MidiReader(MidiMessageMarshaller midiMessageMarshaller, MidiSystemWrapper midiSystem) {
         this.midiMessageMarshaller = midiMessageMarshaller;
         this.midiSystem = midiSystem;
+    }
+
+    public MidiTrack read(MidiSelection midiSelection) throws IOException, InvalidMidiDataException {
+        return read(new FileInputStream(midiSelection.getMidiFile()));
     }
 
     public MidiTrack read(File file) throws IOException, InvalidMidiDataException {

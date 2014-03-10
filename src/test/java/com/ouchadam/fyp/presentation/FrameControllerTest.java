@@ -1,6 +1,5 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.analysis.MidiTrack;
 import helper.TestWithMocks;
 import org.junit.Test;
@@ -15,9 +14,9 @@ import static org.mockito.Mockito.verify;
 
 public class FrameControllerTest extends TestWithMocks {
 
-    @Mock SequenceTabManager sequenceTabManager;
+    @Mock SequenceTabCreator sequenceTabManager;
     @Mock AlgorithmTabManager algorithmTabManager;
-    @Mock RuleTabManager ruleTabManager;
+    @Mock RuleTabCreator ruleTabManager;
     @Mock JFrame frame;
 
     FrameController frameController;

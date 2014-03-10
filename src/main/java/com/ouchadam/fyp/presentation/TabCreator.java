@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-abstract class TabManager {
+abstract class TabCreator {
 
     private final JTabbedPane tabbedPane;
 
-    protected TabManager(JTabbedPane tabbedPane) {
+    protected TabCreator(JTabbedPane tabbedPane) {
         this.tabbedPane = tabbedPane;
     }
 
@@ -27,24 +27,6 @@ abstract class TabManager {
         return panel;
     }
 
-    public void setClickListener(JButton button, OnClickListener onClickListener) {
-        button.addActionListener(wrapClickListener(button, onClickListener));
-    }
-
-    private ActionListener wrapClickListener(final JButton button, final OnClickListener listener) {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onClick(listener, button);
-            }
-        };
-    }
-
-    private void onClick(OnClickListener listener, JButton button) {
-        if (listener != null) {
-            listener.onClick(button);
-        }
-    }
 
     protected JButton createButton(String title) {
         JButton button = new JButton();

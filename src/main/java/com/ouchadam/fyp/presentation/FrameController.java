@@ -8,12 +8,12 @@ import java.awt.*;
 
 class FrameController implements TextController, SequenceController, ParameterController, RuleController, FileSelectionProvider {
 
-    private final SequenceTabManager sequenceTabManager;
+    private final SequenceTabCreator sequenceTabManager;
     private final AlgorithmTabManager algorithmTabManager;
-    private final RuleTabManager ruleTabManager;
+    private final RuleTabCreator ruleTabManager;
     private final JFrame frame;
 
-    FrameController(SequenceTabManager sequenceTabManager, AlgorithmTabManager algorithmTabManager, RuleTabManager ruleTabManager, JFrame frame) {
+    FrameController(SequenceTabCreator sequenceTabManager, AlgorithmTabManager algorithmTabManager, RuleTabCreator ruleTabManager, JFrame frame) {
         this.sequenceTabManager = sequenceTabManager;
         this.algorithmTabManager = algorithmTabManager;
         this.ruleTabManager = ruleTabManager;

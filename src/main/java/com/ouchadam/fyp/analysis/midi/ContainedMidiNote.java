@@ -20,9 +20,4 @@ public class ContainedMidiNote extends BaseMidiNote {
         return lengthInTicks;
     }
 
-    public int lengthInSixteenth(int tickPerQuarter) {
-        int barInTicks = tickPerQuarter * 4;
-        int sixteenth = barInTicks / 16;
-        return Math.round(lengthInTicks / sixteenth);
-    }
 }
