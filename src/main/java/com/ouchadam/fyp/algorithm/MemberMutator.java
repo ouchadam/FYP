@@ -10,13 +10,13 @@ class MemberMutator {
     private final IndexManager indexManager;
     private Random random;
     private final Member.Controller memberController;
-    private final BinaryMutator binaryMutator;
+    private final Mutator<Binary> binaryMutator;
 
-    MemberMutator(IndexManager indexManager, Random random, int mutationProbability, Member.Controller memberController) {
+    MemberMutator(IndexManager indexManager, Random random, Mutator<Binary> binaryMutator, Member.Controller memberController) {
         this.indexManager = indexManager;
         this.random = random;
         this.memberController = memberController;
-        this.binaryMutator = new BinaryMutator(mutationProbability, indexManager, random);
+        this.binaryMutator = binaryMutator;
     }
 
     Member mutate(Member what) {

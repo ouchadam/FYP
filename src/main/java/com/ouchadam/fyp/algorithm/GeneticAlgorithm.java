@@ -28,9 +28,11 @@ public class GeneticAlgorithm {
         IndexManager indexManager = new IndexManager(new RandomIndexCreator(random));
         Member.Controller memberController = new Member.Controller();
         CrossoverFactory crossoverFactory = new CrossoverFactory(indexManager, random);
+        BinaryMutator binaryMutator = new BinaryMutator(algorithmParams.mutationPercent, indexManager, random, new BinaryBuilder());
+
         return new GeneticAlgorithm(
                 new PopulationCreator(new MemberCreator(memberController, random), new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.singlePoint().noteValue(), crossoverFactory.singlePoint().noteType(), indexManager, memberController), algorithmParams.maxPopulationSize)),
-                new PopulationMutator(indexManager, random, new MemberMutator(indexManager, random, algorithmParams.mutationPercent, memberController)),
+                new PopulationMutator(indexManager, random, new MemberMutator(indexManager, random, binaryMutator, memberController)),
                 new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.uniform().noteValue(algorithmParams.crossoverPercent), crossoverFactory.uniform().noteType(algorithmParams.crossoverPercent), indexManager, memberController), algorithmParams.maxPopulationSize),
                 new PopulationEvaluator(new FitnessFactory(), algorithmParams.rules),
                 new PopulationSelector(PopulationSelector.Type.ELITISM, random),
