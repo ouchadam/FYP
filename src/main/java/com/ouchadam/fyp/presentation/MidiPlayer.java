@@ -10,6 +10,8 @@ import java.util.List;
 
 public class MidiPlayer {
 
+    private Sequencer sequencer;
+
     public void play(MidiMeta meta, List<Sequenced16thMidiNote> notes) {
         play(notes, meta.getDivision(), meta.getResolution());
     }
@@ -26,14 +28,24 @@ public class MidiPlayer {
                 track.add(midiNote.getNoteOff());
             }
 
-            Sequencer sequencer = MidiSystem.getSequencer();
+            sequencer = MidiSystem.getSequencer();
             sequencer.setTempoInBPM(60);
             sequencer.open();
             sequencer.setSequence(sequence);
+            sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
             sequencer.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public void stop() {
+        if (isPlaying()) {
+            sequencer.stop();
+        }
+    }
+
+    public boolean isPlaying() {
+        return sequencer != null && sequencer.isRunning();
+    }
 }

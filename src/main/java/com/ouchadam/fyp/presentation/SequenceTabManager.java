@@ -10,6 +10,9 @@ public class SequenceTabManager extends TabManager implements SequenceController
 
     private static final String TAB_TITLE = "Analyse";
     private static final int ANALYSIS_LABEL_COUNT = 6;
+
+    private final MidiPlayer midiPlayer;
+
     private StepSequenceView stepSequenceView;
     private MidiTrack midiTrack;
     private JButton play;
@@ -17,8 +20,10 @@ public class SequenceTabManager extends TabManager implements SequenceController
 
     private JLabel[] analysisLabels;
 
-    public SequenceTabManager(JTabbedPane tabbedPane) {
+
+    public SequenceTabManager(JTabbedPane tabbedPane, MidiPlayer midiPlayer) {
         super(tabbedPane);
+        this.midiPlayer = midiPlayer;
     }
 
     @Override
@@ -111,18 +116,19 @@ public class SequenceTabManager extends TabManager implements SequenceController
     }
 
     void setPlayListener() {
-        setClickListener(play, onPlay);
+        setClickListener(play, onPlayStop);
     }
 
-    private OnClickListener onPlay = new OnClickListener() {
+    private OnClickListener onPlayStop = new OnClickListener() {
         @Override
         public void onClick(Component component) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    new MidiPlayer().play(midiTrack.getMeta(), stepSequenceView.getNotes());
-                }
-            }).start();
+            if (midiPlayer.isPlaying()) {
+                midiPlayer.stop();
+                play.setText("Play");
+            } else {
+                midiPlayer.play(midiTrack.getMeta(), stepSequenceView.getNotes());
+                play.setText("Stop");
+            }
         }
     };
 

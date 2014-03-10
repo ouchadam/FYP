@@ -55,7 +55,7 @@ class MainFrame {
         JPanel panel = new JPanel(new GridLayout(1, 1));
         JTabbedPane tabbedPane = new JTabbedPane();
         algorithmTabManager = new AlgorithmTabManager(tabbedPane, new SliderManager());
-        sequenceTabManager = new SequenceTabManager(tabbedPane);
+        sequenceTabManager = new SequenceTabManager(tabbedPane, new MidiPlayer());
         ruleTabManager = new RuleTabManager(tabbedPane, new RuleManager());
         panel.add(sequenceTabManager.create());
         panel.add(algorithmTabManager.create());
