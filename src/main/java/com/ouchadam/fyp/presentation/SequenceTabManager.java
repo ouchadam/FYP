@@ -9,7 +9,7 @@ import java.awt.*;
 public class SequenceTabManager extends TabManager implements SequenceController {
 
     private static final String TAB_TITLE = "Analyse";
-    private static final int ANALYSIS_LABEL_COUNT = 6;
+    private static final int ANALYSIS_LABEL_COUNT = 3;
 
     private final MidiPlayer midiPlayer;
 
@@ -31,7 +31,7 @@ public class SequenceTabManager extends TabManager implements SequenceController
         JPanel parent = new JPanel();
         parent.add(createSequencePanel());
 
-        JPanel analysis = new JPanel(new GridLayout(0, 1));
+        JPanel analysis = new JPanel(new GridLayout(3, 1));
         analysis.setPreferredSize(new Dimension(300, 200));
 
         analysisLabels = new JLabel[ANALYSIS_LABEL_COUNT];

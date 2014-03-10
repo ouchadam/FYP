@@ -9,13 +9,10 @@ class MidiAnalysizer {
 
     public String[] analyse(MidiTrack midiTrack) {
         List<ContainedMidiNote> containedMidiNotes = new ContainedNoteCreator().process(midiTrack.getNotes());
-        String[] results = new String[6];
+        String[] results = new String[3];
         results[0] = getIntervalResult(containedMidiNotes);
         results[1] = getKeyLikelyhood(containedMidiNotes);
         results[2] = new EvenRhythmAnalysisRule().apply(containedMidiNotes);
-        results[3] = new EvenRhythmAnalysisRule().apply(containedMidiNotes);
-        results[4] = new EvenRhythmAnalysisRule().apply(containedMidiNotes);
-        results[5] = new EvenRhythmAnalysisRule().apply(containedMidiNotes);
         return results;
     }
 
