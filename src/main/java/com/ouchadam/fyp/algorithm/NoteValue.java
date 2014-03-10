@@ -6,12 +6,12 @@ public class NoteValue {
 
     public final static int NOTE_MAX = 127;
     public final static int NOTE_MIN = 0;
-    private final static int wordLength = 7;
+    private final static int WORD_LENGTH = 7;
 
     private final Binary value;
 
     public static NoteValue newInstance(int value) {
-        return new NoteValue(Binary.newInstance(Integer.toBinaryString(value), wordLength));
+        return new NoteValue(Binary.newInstance(Integer.toBinaryString(value), WORD_LENGTH));
     }
 
     public NoteValue(Binary value) {

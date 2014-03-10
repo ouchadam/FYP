@@ -66,7 +66,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         ruleList.add(new RuleContainer<Member>(new NoteDiversityRule(4), RuleName.DIVERSITY));
 
         AlgorithmParams algorithmParams = new AlgorithmParams(200, 1000, 100, 0, 0, ruleList);
-        GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback, algorithmParams, halter);
+        GeneticAlgorithm geneticAlgorithm = GeneticAlgorithmCreator.newInstance().create(generationCallback, algorithmParams, halter);
 
         Evaluation output = geneticAlgorithm.work();
         int fitnessValue = output.fitnessValue(0).get();
@@ -74,7 +74,7 @@ public class GeneticAlgorithmShould extends TestWithMocks {
         Member member = output.population().get(0);
         Printer.printMember(member);
 
-        assertThat(fitnessValue).isGreaterThanOrEqualTo(algorithmParams.acceptableFitnessValue);
+        assertThat(fitnessValue).isGreaterThanOrEqualTo(algorithmParams.getAcceptableFitnessValue());
     }
 
     private final GenerationHalter halter = new GenerationHalter() {

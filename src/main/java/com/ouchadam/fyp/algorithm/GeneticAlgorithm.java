@@ -1,12 +1,10 @@
 package com.ouchadam.fyp.algorithm;
 
-import com.ouchadam.fyp.algorithm.crossover.binary.CrossoverFactory;
-import com.ouchadam.fyp.algorithm.population.*;
 import com.ouchadam.fyp.algorithm.evaluate.Evaluator;
-import com.ouchadam.fyp.algorithm.evaluate.FitnessFactory;
-import com.ouchadam.fyp.algorithm.evaluate.PopulationEvaluator;
-
-import java.util.Random;
+import com.ouchadam.fyp.algorithm.population.Creator;
+import com.ouchadam.fyp.algorithm.population.Evaluation;
+import com.ouchadam.fyp.algorithm.population.Population;
+import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
 
 public class GeneticAlgorithm {
 
@@ -22,24 +20,6 @@ public class GeneticAlgorithm {
     private final Creator<Population> populationCreator;
 
     private int lastDuplicatePrunedIndex = 0;
-
-    public static GeneticAlgorithm newInstance(GenerationCallback generationCallback, AlgorithmParams algorithmParams, GenerationHalter halter) {
-        Random random = new Random();
-        IndexManager indexManager = new IndexManager(new RandomIndexCreator(random));
-        Member.Controller memberController = new Member.Controller();
-        CrossoverFactory crossoverFactory = new CrossoverFactory(indexManager, random);
-        BinaryMutator binaryMutator = new BinaryMutator(algorithmParams.mutationPercent, indexManager, random, new BinaryBuilder());
-
-        return new GeneticAlgorithm(
-                new PopulationCreator(new MemberCreator(memberController, random), new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.singlePoint().noteValue(), crossoverFactory.singlePoint().noteType(), indexManager, memberController), algorithmParams.maxPopulationSize)),
-                new PopulationMutator(indexManager, random, new MemberMutator(indexManager, random, binaryMutator, memberController)),
-                new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.uniform().noteValue(algorithmParams.crossoverPercent), crossoverFactory.uniform().noteType(algorithmParams.crossoverPercent), indexManager, memberController), algorithmParams.maxPopulationSize),
-                new PopulationEvaluator(new FitnessFactory(), algorithmParams.rules),
-                new PopulationSelector(random, new Tournament()),
-                generationCallback,
-                halter,
-                algorithmParams);
-    }
 
     GeneticAlgorithm(Creator<Population> creator, Mutator<Population> mutator, PopulationCrosser crossover, Evaluator<Population> evaluator,
                      PopulationSelector populationSelector, GenerationCallback generationCallback, GenerationHalter halter, AlgorithmParams algorithmParams) {
@@ -59,7 +39,7 @@ public class GeneticAlgorithm {
     }
 
     private Population createInitialPopulation() {
-        return populationCreator.create(algorithmParams.initalPopulationSize);
+        return populationCreator.create(algorithmParams.getInitalPopulationSize());
     }
 
     private Evaluation loop(Population population, GenerationHalter halter) {
@@ -79,7 +59,7 @@ public class GeneticAlgorithm {
                 return evaluation;
             }
             index++;
-        } while (!evaluation.meetsWantedFitness(algorithmParams.acceptableFitnessValue));
+        } while (!evaluation.meetsWantedFitness(algorithmParams.getAcceptableFitnessValue()));
         evaluation.setPass();
         return evaluation;
     }
@@ -113,7 +93,7 @@ public class GeneticAlgorithm {
     }
 
     private Population pruneToMaxSize(Population population) {
-        return population.size() > algorithmParams.maxPopulationSize ? population.getSubPopulation(0, algorithmParams.maxPopulationSize) : population;
+        return population.size() > algorithmParams.getMaxPopulationSize() ? population.getSubPopulation(0, algorithmParams.getMaxPopulationSize()) : population;
     }
 
     private void callback(Evaluation evaluation, int generationIndex) {

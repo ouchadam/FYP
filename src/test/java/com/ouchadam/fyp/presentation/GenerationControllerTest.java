@@ -1,6 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.AlgorithmParams;
+import com.ouchadam.fyp.algorithm.GeneticAlgorithmCreator;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -12,11 +13,12 @@ import static org.mockito.Mockito.verify;
 public class GenerationControllerTest extends TestWithMocks {
 
     @Mock GenerationThread generationThread;
+    @Mock GeneticAlgorithmCreator geneticAlgorithmCreator;
     private GenerationController generationController;
 
     @Override
     protected void before() {
-        generationController = new GenerationController(generationThread);
+        generationController = new GenerationController(generationThread, geneticAlgorithmCreator);
     }
 
     @Test

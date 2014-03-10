@@ -21,10 +21,12 @@ class AlgorithmController {
 
     public static AlgorithmController from(FrameController frameController) {
         MemberToMidiSaver memberToMidiSaver = new MemberToMidiSaver(frameController.getFileChooser(MidiFileChooser.Type.SAVE), new MidiSystemWrapper(), new MemberToSequence(new MemberToMidi()));
-        return new AlgorithmController(new GenerationController(new GenerationThread()), frameController, frameController, frameController, memberToMidiSaver, new ResultManager(), new FooHalter());
+        GenerationController generationController = new GenerationController(new GenerationThread(), GeneticAlgorithmCreator.newInstance());
+        return new AlgorithmController(generationController, frameController, frameController, frameController, memberToMidiSaver, new ResultManager(), new FooHalter());
     }
 
-    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController, RuleController ruleController, MemberToMidiSaver memberToMidiSaver, ResultManager resultManager, GenerationHalter halter) {
+    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController,
+                        RuleController ruleController, MemberToMidiSaver memberToMidiSaver, ResultManager resultManager, GenerationHalter halter) {
         this.generationController = generationController;
         this.textController = textController;
         this.parameterController = parameterController;

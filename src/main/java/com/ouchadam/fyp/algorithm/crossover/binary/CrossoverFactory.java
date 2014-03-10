@@ -1,5 +1,6 @@
 package com.ouchadam.fyp.algorithm.crossover.binary;
 
+import com.ouchadam.fyp.algorithm.AlgorithmParams;
 import com.ouchadam.fyp.algorithm.IndexManager;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;

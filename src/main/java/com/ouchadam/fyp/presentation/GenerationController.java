@@ -6,13 +6,15 @@ import com.ouchadam.fyp.algorithm.population.Evaluation;
 class GenerationController {
 
     private final GenerationThread  generationThread;
+    private final GeneticAlgorithmCreator geneticAlgorithmCreator;
 
     private GenerationCallback onGeneration;
     private GenerationHalter clientHalter;
     private OnFinish clientOnFinish;
 
-    GenerationController(GenerationThread generationThread) {
+    GenerationController(GenerationThread generationThread, GeneticAlgorithmCreator geneticAlgorithmCreator) {
         this.generationThread = generationThread;
+        this.geneticAlgorithmCreator = geneticAlgorithmCreator;
     }
 
     public void start(AlgorithmParams params) {
@@ -23,7 +25,7 @@ class GenerationController {
         @Override
         public void run(AlgorithmParams params) {
             clientHalter.setHalted(false);
-            GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(internalCallback, params, internalHalter);
+            GeneticAlgorithm geneticAlgorithm = geneticAlgorithmCreator.create(internalCallback, params, internalHalter);
             internalOnFinish.onFinish(geneticAlgorithm.work());
         }
     };

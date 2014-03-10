@@ -8,12 +8,12 @@ import java.util.List;
 
 public class AlgorithmParams {
 
-    public final int initalPopulationSize;
-    public final int maxPopulationSize;
-    public final int acceptableFitnessValue;
-    public final int mutationPercent;
-    public final int crossoverPercent;
-    public final List<RuleContainer<Member>> rules;
+    private final int initalPopulationSize;
+    private final int acceptableFitnessValue;
+    private final int mutationPercent;
+    private final int crossoverPercent;
+    private final int maxPopulationSize;
+    private final List<RuleContainer<Member>> rules;
 
     public static AlgorithmParams from(ParameterController pc, RuleController rc) {
         return new AlgorithmParams(pc.initialPopulation(), pc.maxPopulation(), pc.acceptableFitness(), pc.mutationPercent(), pc.crossoverPercent(), rc.get());
@@ -28,15 +28,28 @@ public class AlgorithmParams {
         this.rules = rules;
     }
 
-    @Override
-    public String toString() {
-        return "AlgorithmParams{" +
-                "initalPopulationSize=" + initalPopulationSize +
-                ", maxPopulationSize=" + maxPopulationSize +
-                ", acceptableFitnessValue=" + acceptableFitnessValue +
-                ", mutationPercent=" + mutationPercent +
-                ", crossoverPercent=" + crossoverPercent +
-                '}';
+    public int getInitalPopulationSize() {
+        return initalPopulationSize;
+    }
+
+    public int getMaxPopulationSize() {
+        return maxPopulationSize;
+    }
+
+    public int getAcceptableFitnessValue() {
+        return acceptableFitnessValue;
+    }
+
+    public int getMutationPercent() {
+        return mutationPercent;
+    }
+
+    public int getCrossoverPercent() {
+        return crossoverPercent;
+    }
+
+    public List<RuleContainer<Member>> getRules() {
+        return rules;
     }
 
 }

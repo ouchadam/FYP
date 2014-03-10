@@ -72,7 +72,7 @@ public class StepSequenceView extends JPanel {
         return notes;
     }
 
-    private static class Step extends JPanel implements MouseListener {
+    private static class Step extends JPanel {
 
         private static final int WIDTH = 12;
         private static final int HEIGHT = 12;
@@ -82,7 +82,6 @@ public class StepSequenceView extends JPanel {
         private Step() {
             setBackground(Color.DARK_GRAY);
             setPreferredSize(new Dimension(WIDTH, HEIGHT));
-            addMouseListener(this);
         }
 
         public void setSelected(boolean selected) {
@@ -90,26 +89,6 @@ public class StepSequenceView extends JPanel {
             setBackground(selected ? Color.WHITE : Color.DARK_GRAY);
         }
 
-        @Override
-        public void mouseClicked(MouseEvent e) {
-//            setSelected(!selected);
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-        }
     }
 
 }
