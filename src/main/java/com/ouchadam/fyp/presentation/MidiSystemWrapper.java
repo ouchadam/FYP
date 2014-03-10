@@ -4,8 +4,9 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
-class MidiSystemWrapper {
+public class MidiSystemWrapper {
 
     public void write(Sequence sequence, File file) {
         try {
@@ -16,5 +17,12 @@ class MidiSystemWrapper {
         }
     }
 
+    public Sequence getSequence(InputStream input) {
+        try {
+            return MidiSystem.getSequence(input);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to get sequence from input stream", e);
+        }
+    }
 
 }

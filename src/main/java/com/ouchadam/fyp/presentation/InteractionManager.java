@@ -56,7 +56,7 @@ class InteractionManager {
 
     private MidiTrack readMidi(File midiFile) {
         try {
-            return new MidiReader(new MidiMessageMarshaller()).read(midiFile);
+            return new MidiReader(new MidiMessageMarshaller(), new MidiSystemWrapper()).read(midiFile);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Couldn't handle file");
