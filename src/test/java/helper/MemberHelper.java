@@ -15,8 +15,14 @@ public class MemberHelper {
 
     public static Member createRandom() {
         List<NoteValue> arrayList = new ArrayList<NoteValue>();
-        arrayList.add(new NoteValue(new Binary(String.valueOf(new Random().nextInt(NOTE_MAX)))));
-        return new Member(arrayList, new ArrayList<NoteType>(), new Member.Controller());
+        List<NoteType> types = new ArrayList<NoteType>();
+
+        for (int index = 0; index < Member.CHILD_COUNT; index++) {
+            arrayList.add(new NoteValue(new Binary(String.valueOf(new Random().nextInt(NOTE_MAX)))));
+            types.add(NoteType.NOTE);
+        }
+
+        return new Member(arrayList, types, new Member.Controller());
     }
 
 }
