@@ -1,7 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.*;
+import com.ouchadam.fyp.algorithm.evaluate.rule.*;
 import com.ouchadam.fyp.analysis.Key;
 
 import javax.swing.*;

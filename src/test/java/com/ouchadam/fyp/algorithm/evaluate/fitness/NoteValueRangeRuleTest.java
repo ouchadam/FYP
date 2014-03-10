@@ -1,10 +1,10 @@
-package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
+package com.ouchadam.fyp.algorithm.evaluate.fitness;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
+import com.ouchadam.fyp.algorithm.evaluate.rule.NoteRangeRule;
 
 import java.util.ArrayList;
 import java.util.List;

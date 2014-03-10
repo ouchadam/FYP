@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
+import com.ouchadam.fyp.algorithm.evaluate.rule.FitnessRule;
 
 public class RuleContainer<T> {
 

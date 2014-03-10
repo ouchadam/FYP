@@ -5,11 +5,11 @@ import com.ouchadam.fyp.algorithm.population.Creator;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 import com.ouchadam.fyp.algorithm.population.Population;
 import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
-import com.ouchadam.fyp.algorithm.population.evaluate.Evaluator;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.FixedKeySignatureRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteDiversityRule;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.NoteRangeRule;
+import com.ouchadam.fyp.algorithm.evaluate.Evaluator;
+import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.algorithm.evaluate.rule.FixedKeySignatureRule;
+import com.ouchadam.fyp.algorithm.evaluate.rule.NoteDiversityRule;
+import com.ouchadam.fyp.algorithm.evaluate.rule.NoteRangeRule;
 import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.presentation.RuleContainer;
 

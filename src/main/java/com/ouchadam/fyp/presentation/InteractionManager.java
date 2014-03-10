@@ -52,9 +52,6 @@ class InteractionManager {
         File midiFile = midiSelection.getMidiFile();
         MidiTrack midiTrack = readMidi(midiFile);
         sequenceController.open(midiTrack);
-        MidiAnalysizer midiAnalysizer = new MidiAnalysizer();
-        String result = midiAnalysizer.analyse(midiTrack);
-        showMessageDialog(component, result);
     }
 
     private MidiTrack readMidi(File midiFile) {

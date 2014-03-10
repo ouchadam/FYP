@@ -1,4 +1,4 @@
-package com.ouchadam.fyp.algorithm.population.evaluate.fitness;
+package com.ouchadam.fyp.algorithm.evaluate.fitness;
 
 public class FitnessValue {
 

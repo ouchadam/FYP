@@ -1,14 +1,14 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.analysis.*;
-import com.ouchadam.fyp.analysis.midi.BaseMidiNote;
+import com.ouchadam.fyp.analysis.AnalysisRule;
+import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.analysis.midi.MidiNote;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class KeyAnalysis {
+class KeyAnalysis implements AnalysisRule<MidiNote> {
 
     private final ScaleCreator scaleCreator;
 
@@ -16,7 +16,13 @@ class KeyAnalysis {
         this.scaleCreator = scaleCreator;
     }
 
-    public Result analyse(List<? extends MidiNote> midiNotes) {
+    @Override
+    public String apply(List<? extends MidiNote> notes) {
+        Result keyResult = analyse(notes);
+        return "Key Likelyhood : " + keyResult.key + " " + keyResult.type + " " + keyResult.percent + "%";
+    }
+
+    Result analyse(List<? extends MidiNote> midiNotes) {
         return percent(midiNotes);
     }
 

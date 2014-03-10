@@ -1,7 +1,7 @@
-package com.ouchadam.fyp.algorithm.population.evaluate;
+package com.ouchadam.fyp.algorithm.evaluate;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessEvaluator;
+import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessEvaluator;
 
 public class FitnessFactory {
 

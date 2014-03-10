@@ -1,9 +1,9 @@
-package com.ouchadam.fyp.algorithm.population.evaluate;
+package com.ouchadam.fyp.algorithm.evaluate;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 import com.ouchadam.fyp.algorithm.population.Population;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.presentation.RuleContainer;
 
 import java.util.ArrayList;

@@ -1,8 +1,9 @@
 package com.ouchadam.fyp.analysis;
 
+import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
+
 import java.util.List;
 
-import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
 import org.junit.Test;
 
 import helper.MidiHelper;
@@ -10,13 +11,13 @@ import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class IntervalCounterTest extends TestWithMocks {
+public class MaxIntervalCounterTest extends TestWithMocks {
 
-    private IntervalCounter intervalCounter;
+    private MaxIntervalCounter maxIntervalCounter;
 
     @Override
     protected void before() {
-        intervalCounter = new IntervalCounter();
+        maxIntervalCounter = new MaxIntervalCounter();
     }
 
     @Test
@@ -25,7 +26,7 @@ public class IntervalCounterTest extends TestWithMocks {
         ContainedNoteCreator containedNoteCreator = new ContainedNoteCreator();
         List<ContainedMidiNote> midiNotes = containedNoteCreator.process(midiTrack.getNotes());
 
-        int maxInterval = intervalCounter.max(midiNotes);
+        int maxInterval = maxIntervalCounter.max(midiNotes);
 
         assertThat(maxInterval).isEqualTo(17);
     }

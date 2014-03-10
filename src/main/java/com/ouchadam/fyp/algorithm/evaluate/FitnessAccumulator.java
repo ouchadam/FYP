@@ -1,9 +1,9 @@
-package com.ouchadam.fyp.algorithm.population.evaluate;
+package com.ouchadam.fyp.algorithm.evaluate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 
 public class FitnessAccumulator {
 

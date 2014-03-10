@@ -9,10 +9,13 @@ import java.awt.*;
 public class SequenceTabManager extends TabManager implements SequenceController {
 
     private static final String TAB_TITLE = "Analyse";
+    private static final int ANALYSIS_LABEL_COUNT = 6;
     private StepSequenceView stepSequenceView;
     private MidiTrack midiTrack;
     private JButton play;
     private JButton openButton;
+
+    private JLabel[] analysisLabels;
 
     public SequenceTabManager(JTabbedPane tabbedPane) {
         super(tabbedPane);
@@ -20,6 +23,25 @@ public class SequenceTabManager extends TabManager implements SequenceController
 
     @Override
     public JTabbedPane create() {
+        JPanel parent = new JPanel();
+        parent.add(createSequencePanel());
+
+        JPanel analysis = new JPanel(new GridLayout(0, 1));
+        analysis.setPreferredSize(new Dimension(300, 200));
+
+        analysisLabels = new JLabel[ANALYSIS_LABEL_COUNT];
+
+        for (int index = 0; index < ANALYSIS_LABEL_COUNT; index++) {
+            analysisLabels[index] = new JLabel();
+            analysis.add(analysisLabels[index]);
+        }
+
+        parent.add(analysis);
+
+        return createTabbedPane(TAB_TITLE, parent);
+    }
+
+    private JPanel createSequencePanel() {
         JPanel parent = createParent();
         stepSequenceView = createAndInitStepSequence();
         JPanel openPanel = createAndInitOpenPanel();
@@ -29,7 +51,7 @@ public class SequenceTabManager extends TabManager implements SequenceController
         parent.add(stepSequenceView);
         parent.add(createSpace());
         parent.add(playPanel);
-        return createTabbedPane(TAB_TITLE, parent);
+        return parent;
     }
 
     private JPanel createAndInitPlayPanel() {
@@ -76,6 +98,16 @@ public class SequenceTabManager extends TabManager implements SequenceController
         this.midiTrack = midiTrack;
         stepSequenceView.open(midiTrack);
         play.setEnabled(true);
+        analyse(midiTrack);
+    }
+
+    private void analyse(MidiTrack midiTrack) {
+        MidiAnalysizer midiAnalysizer = new MidiAnalysizer();
+        String[] result = midiAnalysizer.analyse(midiTrack);
+        int index = 0;
+        for (JLabel analysisLabel : analysisLabels) {
+            analysisLabel.setText(result[index++]);
+        }
     }
 
     void setPlayListener() {

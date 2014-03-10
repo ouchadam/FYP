@@ -1,4 +1,4 @@
-package com.ouchadam.fyp.algorithm.population.evaluate;
+package com.ouchadam.fyp.algorithm.evaluate;
 
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 

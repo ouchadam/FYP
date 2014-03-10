@@ -1,12 +1,17 @@
 package com.ouchadam.fyp.analysis;
 
-import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
+import com.ouchadam.fyp.analysis.midi.MidiNote;
 
 import java.util.List;
 
-public class IntervalCounter {
+public class MaxIntervalCounter implements AnalysisRule<MidiNote> {
 
-    public int max(List<ContainedMidiNote> notes) {
+    @Override
+    public String apply(List<? extends MidiNote> notes) {
+        return "Max Interval : " + max(notes);
+    }
+
+    int max(List<? extends MidiNote> notes) {
         int result = 0;
         for (int index = 1; index < notes.size(); index++) {
             int currentNote = notes.get(index).getKey();
@@ -17,10 +22,6 @@ public class IntervalCounter {
             }
         }
         return result;
-    }
-
-    public int min() {
-        return 0;
     }
 
 }

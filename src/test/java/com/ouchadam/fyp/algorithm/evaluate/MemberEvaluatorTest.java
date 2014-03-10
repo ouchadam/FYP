@@ -1,11 +1,11 @@
-package com.ouchadam.fyp.algorithm.population.evaluate;
+package com.ouchadam.fyp.algorithm.evaluate;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
-import com.ouchadam.fyp.algorithm.population.evaluate.rule.FitnessRule;
+import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.algorithm.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.presentation.RuleContainer;
 import com.ouchadam.fyp.presentation.RuleManager;
 

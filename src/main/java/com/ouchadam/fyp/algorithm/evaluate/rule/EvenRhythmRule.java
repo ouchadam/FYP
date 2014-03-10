@@ -1,13 +1,9 @@
-package com.ouchadam.fyp.algorithm.population.evaluate.rule;
+package com.ouchadam.fyp.algorithm.evaluate.rule;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
-import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.Percentage;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 
 public class EvenRhythmRule implements FitnessRule<Member> {
 

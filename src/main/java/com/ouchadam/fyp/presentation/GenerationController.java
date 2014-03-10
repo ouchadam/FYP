@@ -60,9 +60,7 @@ class GenerationController {
             print(evaluation.population().get(0));
 
             KeyAnalysis keyAnalysis = new KeyAnalysis(new ScaleCreator());
-            KeyAnalysis.Result keyResult = keyAnalysis.analyse(new MemberToMidi().convert(evaluation.population().get(0)));
-
-            System.out.println("Key Likelyhood : " + keyResult.key + " " + keyResult.type + " " + keyResult.percent + "%");
+            System.out.println(keyAnalysis.apply(new MemberToMidi().convert(evaluation.population().get(0))));
 
             reset();
             if (clientOnFinish != null) {

@@ -8,7 +8,7 @@ import java.awt.event.WindowEvent;
 class MainFrame {
 
     private static final int FRAME_WIDTH = 550;
-    private static final int FRAME_HEIGHT = 400;
+    private static final int FRAME_HEIGHT = 340;
     private static final String FRAME_TITLE = "FYP : Adam Brown";
 
     private final JFrame frame;

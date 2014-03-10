@@ -7,19 +7,24 @@ import java.util.List;
 
 class MidiAnalysizer {
 
-
-    public String analyse(MidiTrack midiTrack) {
+    public String[] analyse(MidiTrack midiTrack) {
         List<ContainedMidiNote> containedMidiNotes = new ContainedNoteCreator().process(midiTrack.getNotes());
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("Max Interval : ").append(getMaxInterval(containedMidiNotes)).append("\n");
-        KeyAnalysis.Result keyResult = new KeyAnalysis(new ScaleCreator()).analyse(containedMidiNotes);
-        builder.append("Key Likelyhood : ").append(keyResult.key).append(" ").append(keyResult.type).append(" ").append(keyResult.percent).append("%").append("\n");
-        return builder.toString();
+        String[] results = new String[6];
+        results[0] = getIntervalResult(containedMidiNotes);
+        results[1] = getKeyLikelyhood(containedMidiNotes);
+        results[2] = new EvenRhythmAnalysisRule().apply(containedMidiNotes);
+        results[3] = new EvenRhythmAnalysisRule().apply(containedMidiNotes);
+        results[4] = new EvenRhythmAnalysisRule().apply(containedMidiNotes);
+        results[5] = new EvenRhythmAnalysisRule().apply(containedMidiNotes);
+        return results;
     }
 
-    private int getMaxInterval(List<ContainedMidiNote> midiNotes) {
-        return new IntervalCounter().max(midiNotes);
+    private String getKeyLikelyhood(List<ContainedMidiNote> containedMidiNotes) {
+        return new KeyAnalysis(new ScaleCreator()).apply(containedMidiNotes);
+    }
+
+    private String getIntervalResult(List<ContainedMidiNote> containedMidiNotes) {
+        return new MaxIntervalCounter().apply(containedMidiNotes);
     }
 
 }

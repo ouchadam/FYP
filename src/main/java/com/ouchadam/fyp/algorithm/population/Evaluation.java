@@ -1,7 +1,7 @@
 package com.ouchadam.fyp.algorithm.population;
 
-import com.ouchadam.fyp.algorithm.population.evaluate.OrderedPopulation;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.algorithm.evaluate.OrderedPopulation;
+import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 
 public class Evaluation {
 

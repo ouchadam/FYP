@@ -2,9 +2,9 @@ package com.ouchadam.fyp.algorithm;
 
 import com.ouchadam.fyp.algorithm.crossover.binary.CrossoverFactory;
 import com.ouchadam.fyp.algorithm.population.*;
-import com.ouchadam.fyp.algorithm.population.evaluate.Evaluator;
-import com.ouchadam.fyp.algorithm.population.evaluate.FitnessFactory;
-import com.ouchadam.fyp.algorithm.population.evaluate.PopulationEvaluator;
+import com.ouchadam.fyp.algorithm.evaluate.Evaluator;
+import com.ouchadam.fyp.algorithm.evaluate.FitnessFactory;
+import com.ouchadam.fyp.algorithm.evaluate.PopulationEvaluator;
 
 import java.util.Random;
 

@@ -1,9 +1,8 @@
-package com.ouchadam.fyp.algorithm.population.evaluate.rule;
+package com.ouchadam.fyp.algorithm.evaluate.rule;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.Percentage;
-import com.ouchadam.fyp.algorithm.population.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 
 public class MinimumNoteRule implements FitnessRule<Member> {
 
