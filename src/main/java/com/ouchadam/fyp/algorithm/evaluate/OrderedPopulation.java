@@ -43,5 +43,6 @@ public class OrderedPopulation {
             int value2 = o.value.get();
             return value1 == value2 ? 0 : value1 < value2 ? 1 : -1;
         }
+
     }
 }

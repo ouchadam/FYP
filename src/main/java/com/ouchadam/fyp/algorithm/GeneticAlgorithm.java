@@ -1,5 +1,6 @@
 package com.ouchadam.fyp.algorithm;
 
+import com.ouchadam.fyp.Log;
 import com.ouchadam.fyp.algorithm.evaluate.Evaluator;
 import com.ouchadam.fyp.algorithm.population.Creator;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
@@ -54,7 +55,7 @@ public class GeneticAlgorithm {
             callback(evaluation, index);
             generation = pruneToMaxSize(removeDuplicates(index, evaluation.population()));
             if (halter.isHalted(evaluation, index)) {
-                System.out.println("Limit reached or halted, breaking out");
+                Log.i("Limit reached or halted, breaking out");
                 evaluation.setFail();
                 return evaluation;
             }

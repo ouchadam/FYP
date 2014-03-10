@@ -1,5 +1,6 @@
 package com.ouchadam.fyp.analysis.midi;
 
+import com.ouchadam.fyp.Log;
 import com.ouchadam.fyp.analysis.Key;
 
 import javax.sound.midi.InvalidMidiDataException;
@@ -93,7 +94,7 @@ public class BaseMidiNote implements MidiNote {
         try {
             return new MidiEvent(new ShortMessage(status, 0, data1, data2), tick);
         } catch (InvalidMidiDataException e) {
-            e.printStackTrace();
+            Log.e("Invalid midi event", e);
             throw new RuntimeException("Invalid midi event");
         }
     }

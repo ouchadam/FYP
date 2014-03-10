@@ -49,7 +49,7 @@ class MainFrame {
         frame.setTitle(FRAME_TITLE);
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setLocation(10, 200);
-        frame.addWindowListener(closeWindow);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         initSubPanes();
         frame.setVisible(true);
         frame.setResizable(false);
@@ -59,20 +59,12 @@ class MainFrame {
         JPanel panel = new JPanel(new GridLayout(1, 1));
         JTabbedPane tabbedPane = new JTabbedPane();
         algorithmTabManager = new AlgorithmTabCreator(tabbedPane, new SliderManager());
-        sequenceTabManager = new SequenceTabCreator(tabbedPane, new MidiPlayer(), new ClickManager());
+        sequenceTabManager = new SequenceTabCreator(tabbedPane, new MidiPlayer(new MidiSystemWrapper()), new ClickManager());
         ruleTabManager = new RuleTabCreator(tabbedPane, new RuleManager());
         panel.add(sequenceTabManager.create());
         panel.add(algorithmTabManager.create());
         panel.add(ruleTabManager.create());
         frame.add(panel);
     }
-
-    private final WindowAdapter closeWindow = new WindowAdapter() {
-        @Override
-        public void windowClosing(WindowEvent e) {
-            super.windowClosing(e);
-            System.exit(0);
-        }
-    };
 
 }

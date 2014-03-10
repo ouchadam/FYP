@@ -53,10 +53,10 @@ public class MainFrameTest extends TestWithMocks {
     }
 
     @Test
-    public void init_sets_the_frame_close_listener() {
+    public void init_sets_the_frame_close() {
         mainFrame.initFrame();
 
-        verify(frame).addWindowListener(any(WindowListener.class));
+        verify(frame).setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
 }

@@ -1,13 +1,13 @@
 package com.ouchadam.fyp.presentation.view;
 
-import com.ouchadam.fyp.analysis.*;
+import com.ouchadam.fyp.analysis.ContainedNoteCreator;
+import com.ouchadam.fyp.analysis.MidiTrack;
+import com.ouchadam.fyp.analysis.SequencedNoteCreator;
 import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 public class StepSequenceView extends JPanel {

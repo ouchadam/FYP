@@ -73,16 +73,9 @@ class GenerationController {
 
     public static void print(Member member) {
         for (NoteValue noteValue : member.all().noteValues()) {
-            printNote.on(noteValue);
+            System.out.println(noteValue.decimal());
         }
     }
-
-    private final static ForEach<NoteValue> printNote = new ForEach<NoteValue>() {
-        @Override
-        public void on(NoteValue what) {
-            System.out.println(what.decimal());
-        }
-    };
 
     private void reset() {
         internalHalter.setHalted(false);

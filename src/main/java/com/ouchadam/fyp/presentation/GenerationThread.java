@@ -1,5 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.Log;
 import com.ouchadam.fyp.algorithm.AlgorithmParams;
 
 class GenerationThread {
@@ -29,7 +30,7 @@ class GenerationThread {
                 this.thread.join();
                 this.thread = null;
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Log.w("Invalid midi event", e);
             }
         }
     }

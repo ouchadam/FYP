@@ -14,7 +14,7 @@ public class ScaleCreator {
         final int[] intervals;
 
         Type(int[] intervals) {
-            this.intervals = intervals;
+            this.intervals = intervals.clone();
         }
 
         public int size() {

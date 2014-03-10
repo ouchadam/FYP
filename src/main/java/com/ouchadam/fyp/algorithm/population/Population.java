@@ -1,9 +1,8 @@
 package com.ouchadam.fyp.algorithm.population;
 
-import java.util.*;
-
-import com.ouchadam.fyp.algorithm.ForEach;
 import com.ouchadam.fyp.algorithm.Member;
+
+import java.util.*;
 
 public class Population {
 
@@ -31,12 +30,6 @@ public class Population {
 
     public List<Member> all() {
         return new ArrayList<Member>(members);
-    }
-
-    public void forEachMember(ForEach<Member> forEach) {
-        for (Member member : members) {
-            forEach.on(member);
-        }
     }
 
     public Population getSubPopulation(int from, int to) {

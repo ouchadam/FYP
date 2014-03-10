@@ -15,10 +15,6 @@ public class AlgorithmParams {
     private final int maxPopulationSize;
     private final List<RuleContainer<Member>> rules;
 
-    public static AlgorithmParams from(ParameterController pc, RuleController rc) {
-        return new AlgorithmParams(pc.initialPopulation(), pc.maxPopulation(), pc.acceptableFitness(), pc.mutationPercent(), pc.crossoverPercent(), rc.get());
-    }
-
     public AlgorithmParams(int initalPopulationSize, int maxPopulationSize, int acceptableFitnessValue, int mutationPercent, int crossoverPercent, List<RuleContainer<Member>> rules) {
         this.initalPopulationSize = initalPopulationSize;
         this.maxPopulationSize = maxPopulationSize;
@@ -26,6 +22,10 @@ public class AlgorithmParams {
         this.mutationPercent = mutationPercent;
         this.crossoverPercent = crossoverPercent;
         this.rules = rules;
+    }
+
+    public static AlgorithmParams from(ParameterController pc, RuleController rc) {
+        return new AlgorithmParams(pc.initialPopulation(), pc.maxPopulation(), pc.acceptableFitness(), pc.mutationPercent(), pc.crossoverPercent(), rc.get());
     }
 
     public int getInitalPopulationSize() {

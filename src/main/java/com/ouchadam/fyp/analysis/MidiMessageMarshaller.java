@@ -1,5 +1,6 @@
 package com.ouchadam.fyp.analysis;
 
+import com.ouchadam.fyp.Log;
 import com.ouchadam.fyp.analysis.midi.BaseMidiNote;
 import com.ouchadam.fyp.analysis.midi.MidiNote;
 
@@ -22,7 +23,8 @@ public class MidiMessageMarshaller {
         try {
             return new ShortMessage(command, message.getChannel(), message.getData1(), message.getData2());
         } catch (InvalidMidiDataException e) {
-            throw new RuntimeException("Should never happen as the original message would not have been created");
+            Log.e("Invalid midi data : Should never happen as the original message would not have been created", e);
+            throw new RuntimeException("Invalid midi data", e);
         }
     }
 

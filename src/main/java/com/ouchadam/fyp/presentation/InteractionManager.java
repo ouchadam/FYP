@@ -1,9 +1,12 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.Log;
 import com.ouchadam.fyp.analysis.*;
 
+import javax.sound.midi.InvalidMidiDataException;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 class InteractionManager {
 
@@ -52,17 +55,17 @@ class InteractionManager {
     };
 
     private void openMidi() {
-        MidiTrack midiTrack = readMidi(midiSelection);
-        sequenceController.open(midiTrack);
-    }
-
-    private MidiTrack readMidi(MidiSelection midiSelection) {
         try {
-            return midiReader.read(midiSelection);
+            MidiTrack midiTrack = readMidi(midiSelection);
+            sequenceController.open(midiTrack);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("Couldn't handle file", e);
             throw new RuntimeException("Couldn't handle file");
         }
+    }
+
+    private MidiTrack readMidi(MidiSelection midiSelection) throws IOException, InvalidMidiDataException {
+        return midiReader.read(midiSelection);
     }
 
     public OnClickListener onStartStop() {

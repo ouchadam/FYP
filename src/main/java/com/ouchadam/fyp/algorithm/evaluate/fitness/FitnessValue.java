@@ -5,8 +5,8 @@ public class FitnessValue {
     private final static int MAX_VALUE = 100;
     private final static int MIN_VALUE = 0;
 
-    private final static FitnessValue max = new FitnessValue(MAX_VALUE);
-    private final static FitnessValue min = new FitnessValue(MIN_VALUE);
+    private final static FitnessValue MAX = new FitnessValue(MAX_VALUE);
+    private final static FitnessValue MIN = new FitnessValue(MIN_VALUE);
 
     private int value;
 
@@ -15,11 +15,11 @@ public class FitnessValue {
     }
 
     public static FitnessValue max() {
-        return max;
+        return MAX;
     }
 
     public static FitnessValue min() {
-        return min;
+        return MIN;
     }
 
     public int get() {
