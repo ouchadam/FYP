@@ -4,6 +4,7 @@ import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
+import com.ouchadam.fyp.algorithm.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.algorithm.evaluate.rule.NoteRangeRule;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public class NoteValueRangeRuleTest extends TestWithMocks {
 
-    private NoteRangeRule noteRangeRule;
+    private FitnessRule<Member> noteRangeRule;
 
     private static final int RANGE = 12;
 
@@ -49,6 +50,18 @@ public class NoteValueRangeRuleTest extends TestWithMocks {
         FitnessValue fitnessValue = noteRangeRule.apply(bad);
 
         assertThat(fitnessValue).isNotEqualTo(FitnessValue.max());
+    }
+
+    @Test
+    public void cap_at_0_even_when_member_is_the_worst() throws Exception {
+        int range = 12;
+        NoteRangeRule noteRangeRule = new NoteRangeRule(range);
+
+        Member bad = createMember(0, 127, 0 , 127);
+
+        FitnessValue fitnessValue = noteRangeRule.apply(bad);
+
+        assertThat(fitnessValue).isEqualTo(FitnessValue.min());
     }
 
     private Member createMember(int... noteValues) {

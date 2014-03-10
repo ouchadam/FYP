@@ -1,23 +1,54 @@
 package com.ouchadam.fyp.algorithm;
 
-import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
-import org.junit.Ignore;
+import helper.TestWithMocks;
 import org.junit.Test;
+import org.mockito.Mock;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MemberShould {
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-    @Test (expected = UnsupportedOperationException.class)
-    @Ignore
-    public void be_unmodifiable() throws Exception {
-        List<NoteValue> arrayList = new ArrayList<NoteValue>();
-        arrayList.add(new NoteValue(new Binary("01")));
-        Member member = new Member(arrayList, new ArrayList<NoteType>(), new Member.Controller());
-        List<NoteValue> noteValues = member.all().noteValues();
+public class MemberShould extends TestWithMocks {
 
-        noteValues.add(new NoteValue(new Binary("0")));
+    @Mock List<NoteValue> noteValueList;
+    @Mock List<NoteType> noteTypesList;
+
+    @Mock Member.Controller controller;
+
+    @Mock Member.Controller.All all;
+    @Mock Member.Controller.Only only;
+
+    private Member member;
+
+    @Override
+    protected void before() {
+        member = new Member(noteValueList, noteTypesList, controller);
+        when(controller.all(member)).thenReturn(all);
+        when(controller.only(member)).thenReturn(only);
     }
 
+    @Test
+    public void delegate_to_all_notetypes() throws Exception {
+        member.all().noteTypes();
+
+        verify(controller).all(member);
+        verify(all).noteTypes();
+    }
+
+    @Test
+    public void delegate_to_all_notevalues() throws Exception {
+        member.all().noteValues();
+
+        verify(controller).all(member);
+        verify(all).noteValues();
+    }
+
+    @Test
+    public void delegate_to_all_notes() throws Exception {
+        member.all().note();
+
+        verify(controller).all(member);
+        verify(all).note();
+    }
 }

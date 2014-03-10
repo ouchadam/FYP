@@ -12,10 +12,6 @@ public class NoteDiversityRule implements FitnessRule<Member> {
 
     private final int minimumNoteVariety;
 
-    public static NoteDiversityRule newInstance(int fixedValue) {
-        return new NoteDiversityRule(fixedValue);
-    }
-
     public NoteDiversityRule(int minimumNoteVariety) {
         this.minimumNoteVariety = minimumNoteVariety;
     }
@@ -29,6 +25,9 @@ public class NoteDiversityRule implements FitnessRule<Member> {
             if (!uniqueNotes.contains(noteValue)) {
                 uniqueNotes.add(noteValue);
             }
+        }
+        if (uniqueNotes.size() == 1) {
+            return FitnessValue.min();
         }
         return new FitnessValue(percentageOfVariety(uniqueNotes.size()));
     }

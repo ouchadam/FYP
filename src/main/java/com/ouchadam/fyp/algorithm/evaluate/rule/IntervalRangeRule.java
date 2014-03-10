@@ -15,10 +15,6 @@ public class IntervalRangeRule implements FitnessRule<Member> {
         this.value = value;
     }
 
-    public static IntervalRangeRule newInstance(int value) {
-        return new IntervalRangeRule(value);
-    }
-
     @Override
     public FitnessValue apply(Member what) {
         List<NoteValue> noteValues = what.only().noteStartValues();

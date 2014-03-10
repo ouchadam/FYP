@@ -8,47 +8,33 @@ import java.util.Random;
 
 class PopulationSelector {
 
-    private final Type type;
+    private static final double FIVE_PERCENT_COEFF = 0.05;
     private final Random random;
+    private final Tournament tournament;
 
-    public enum Type {
-        ELITISM, TOURNAMENT
-    }
-
-    PopulationSelector(Type type, Random random) {
-        this.type = type;
+    PopulationSelector(Random random, Tournament tournament) {
         this.random = random;
+        this.tournament = tournament;
     }
 
     public Population selectSeeds(Population population) {
-        switch (type) {
-            case ELITISM:
-                break;
-            case TOURNAMENT:
-                break;
-        }
-
         int newPopulationSize = random.nextInt(population.size() - 1) + 1;
         List<Member> memberList = new ArrayList<Member>(newPopulationSize);
         Population shuffledPopulation = population.shuffle();
         for (int index = 0; index < newPopulationSize; index++) {
             Member memberOne = shuffledPopulation.get(random.nextInt(shuffledPopulation.size()));
             Member memberTwo = shuffledPopulation.get(random.nextInt(shuffledPopulation.size()));
-            memberList.add(tournament(population, memberOne, memberTwo));
+            memberList.add(tournament.tournament(population, memberOne, memberTwo));
         }
         return new Population(memberList);
     }
 
-    private Member tournament(Population population, Member memberOne, Member memberTwo) {
-        return population.indexOf(memberOne) < population.indexOf(memberTwo) ? memberOne : memberTwo;
-    }
-
     public Population getBest(Population generation) {
-        return generation.getSubPopulation(0, get20PercentOfSize(generation));
+        return generation.getSubPopulation(0, getFivePercentOfSize(generation));
     }
 
-    private int get20PercentOfSize(Population generation) {
-        return (int) Math.floor((float) generation.size() * 0.05);
+    private int getFivePercentOfSize(Population generation) {
+        return (int) Math.floor((float) generation.size() * FIVE_PERCENT_COEFF);
     }
 
 }

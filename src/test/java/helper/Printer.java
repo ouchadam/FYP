@@ -1,4 +1,4 @@
-package com.ouchadam.fyp;
+package helper;
 
 import com.ouchadam.fyp.algorithm.ForEach;
 import com.ouchadam.fyp.algorithm.Member;

@@ -47,15 +47,15 @@ class RuleTabManager extends TabManager implements RuleController {
                         break;
 
                     case RANGE:
-                        rules.add(new RuleContainer<Member>(NoteRangeRule.newInstance(ruleView.getValue()), RuleManager.RuleName.RANGE));
+                        rules.add(new RuleContainer<Member>(new NoteRangeRule(ruleView.getValue()), RuleManager.RuleName.RANGE));
                         break;
 
                     case DIVERSITY:
-                        rules.add(new RuleContainer<Member>(NoteDiversityRule.newInstance(ruleView.getValue()), RuleManager.RuleName.DIVERSITY));
+                        rules.add(new RuleContainer<Member>(new NoteDiversityRule(ruleView.getValue()), RuleManager.RuleName.DIVERSITY));
                         break;
 
                     case INTERVAL:
-                        rules.add(new RuleContainer<Member>(IntervalRangeRule.newInstance(ruleView.getValue()), RuleManager.RuleName.INTERVAL));
+                        rules.add(new RuleContainer<Member>(new IntervalRangeRule(ruleView.getValue()), RuleManager.RuleName.INTERVAL));
                         break;
 
                     case EVEN_RHYTHM:

@@ -8,11 +8,12 @@ import java.util.Random;
 
 public class PopulationMutator implements Mutator<Population> {
 
+    static final int MINIMUM_POPULATION_SIZE = 3;
     private final IndexManager indexManager;
     private final Random random;
-    private final MemberMutator memberMutator;
+    private final Mutator<Member> memberMutator;
 
-    public PopulationMutator(IndexManager indexManager, Random random, MemberMutator memberMutator) {
+    public PopulationMutator(IndexManager indexManager, Random random, Mutator<Member> memberMutator) {
         this.indexManager = indexManager;
         this.random = random;
         this.memberMutator = memberMutator;
@@ -20,7 +21,7 @@ public class PopulationMutator implements Mutator<Population> {
 
     @Override
     public Population mutate(Population population) {
-        if (population.size() > 2) {
+        if (population.size() >= MINIMUM_POPULATION_SIZE) {
             List<Integer> membersToMutate = indexManager.create(random.nextInt(get50PercentOfPopulationSize(population) + 1), population.size());
             List<Member> all = population.all();
             for (Integer index : membersToMutate) {

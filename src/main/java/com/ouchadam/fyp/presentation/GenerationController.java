@@ -70,7 +70,9 @@ class GenerationController {
     };
 
     public static void print(Member member) {
-        member.forEach().note(printNote);
+        for (NoteValue noteValue : member.all().noteValues()) {
+            printNote.on(noteValue);
+        }
     }
 
     private final static ForEach<NoteValue> printNote = new ForEach<NoteValue>() {

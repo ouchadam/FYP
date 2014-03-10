@@ -6,7 +6,7 @@ import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 public class Evaluation {
 
     public enum ResultType {
-        PASS, FAIL;
+        PASS, FAIL
     }
 
     private final OrderedPopulation orderedPopulation;

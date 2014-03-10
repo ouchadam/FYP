@@ -9,10 +9,6 @@ public class FixedNoteRule implements FitnessRule<Member> {
 
     private final FixedNote fixedNote;
 
-    public static FixedNoteRule newInstance(int fixedValue) {
-        return new FixedNoteRule(new FixedNote(fixedValue));
-    }
-
     public FixedNoteRule(FixedNote fixedNote) {
         this.fixedNote = fixedNote;
     }

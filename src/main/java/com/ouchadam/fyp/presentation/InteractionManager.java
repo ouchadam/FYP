@@ -29,7 +29,7 @@ class InteractionManager {
         public void onClick(Component component) {
             selectionProvider.getFileChooser(MidiFileChooser.Type.OPEN).choose(midiChooserResult);
             if (midiSelection.hasMidiFile()) {
-                analyseMidi(component);
+                analyseMidi();
             } else {
                 showMessageDialog(component, "Choose a .MIDI file first");
             }
@@ -48,7 +48,7 @@ class InteractionManager {
         }
     };
 
-    private void analyseMidi(Component component) {
+    private void analyseMidi() {
         File midiFile = midiSelection.getMidiFile();
         MidiTrack midiTrack = readMidi(midiFile);
         sequenceController.open(midiTrack);

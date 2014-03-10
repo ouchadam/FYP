@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.algorithm;
 
-import com.ouchadam.fyp.Printer;
+import helper.Printer;
 import com.ouchadam.fyp.algorithm.population.Creator;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 import com.ouchadam.fyp.algorithm.population.Population;
@@ -62,8 +62,8 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     public void full_flow() {
         List<RuleContainer<Member>> ruleList = new ArrayList<RuleContainer<Member>>();
         ruleList.add(new RuleContainer<Member>(FixedKeySignatureRule.newInstance(Key.C), RuleName.KEY));
-        ruleList.add(new RuleContainer<Member>(NoteRangeRule.newInstance(12), RuleName.RANGE));
-        ruleList.add(new RuleContainer<Member>(NoteDiversityRule.newInstance(4), RuleName.DIVERSITY));
+        ruleList.add(new RuleContainer<Member>(new NoteRangeRule(12), RuleName.RANGE));
+        ruleList.add(new RuleContainer<Member>(new NoteDiversityRule(4), RuleName.DIVERSITY));
 
         AlgorithmParams algorithmParams = new AlgorithmParams(200, 1000, 100, 0, 0, ruleList);
         GeneticAlgorithm geneticAlgorithm = GeneticAlgorithm.newInstance(generationCallback, algorithmParams, halter);

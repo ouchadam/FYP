@@ -44,10 +44,6 @@ public class Member {
         return noteValues != null ? noteValues.hashCode() : 0;
     }
 
-    public Controller.Each forEach() {
-        return controller.forEach(this);
-    }
-
     public Controller.All all() {
         return controller.all(this);
     }
@@ -58,28 +54,12 @@ public class Member {
 
     public static class Controller {
 
-        public Each forEach(Member member) {
-            return new Each(member);
-        }
-
         public All all(Member member) {
             return new All(member);
         }
 
         public Only only(Member member) {
             return new Only(member);
-        }
-
-        public static class Each extends Handler<Member> {
-            private Each(Member member) {
-                super(member);
-            }
-
-            public void note(ForEach<NoteValue> forEach) {
-                for (NoteValue noteValue : get().noteValues) {
-                    forEach.on(noteValue);
-                }
-            }
         }
 
         public static class Only extends Handler<Member> {

@@ -35,7 +35,7 @@ public class GeneticAlgorithm {
                 new PopulationMutator(indexManager, random, new MemberMutator(indexManager, random, binaryMutator, memberController)),
                 new PopulationCrosser(new RandomPopulationCrossover(random, crossoverFactory.uniform().noteValue(algorithmParams.crossoverPercent), crossoverFactory.uniform().noteType(algorithmParams.crossoverPercent), indexManager, memberController), algorithmParams.maxPopulationSize),
                 new PopulationEvaluator(new FitnessFactory(), algorithmParams.rules),
-                new PopulationSelector(PopulationSelector.Type.ELITISM, random),
+                new PopulationSelector(random, new Tournament()),
                 generationCallback,
                 halter,
                 algorithmParams);

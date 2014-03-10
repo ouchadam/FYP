@@ -14,10 +14,6 @@ public class NoteRangeRule implements FitnessRule<Member> {
         this.range = range;
     }
 
-    public static NoteRangeRule newInstance(int range) {
-        return new NoteRangeRule(range);
-    }
-
     @Override
     public FitnessValue apply(Member what) {
         int penalty = 0;

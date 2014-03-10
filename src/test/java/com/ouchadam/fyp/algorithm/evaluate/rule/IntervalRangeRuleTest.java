@@ -17,8 +17,7 @@ public class IntervalRangeRuleTest extends MemberRuleTest {
     }
 
     @Test
-    public void testName() throws Exception {
-
+    public void be_max_fitness_when_the_first_jump_matches_followed_by_steps() {
         int[] validNoteSequence = new int[] {60, 66, 67, 68, 69, 70};
 
         Member member = createMember(validNoteSequence);
@@ -27,4 +26,16 @@ public class IntervalRangeRuleTest extends MemberRuleTest {
 
         assertThat(fitnessValue).isEqualTo(FitnessValue.max());
     }
+
+    @Test
+    public void be_minimum_fitness_when_1_note_is_provided() {
+        int[] invalidNoteSequence = new int[] {60};
+
+        Member member = createMember(invalidNoteSequence);
+
+        FitnessValue fitnessValue = intervalRangeRule.apply(member);
+
+        assertThat(fitnessValue).isEqualTo(FitnessValue.min());
+    }
+
 }
