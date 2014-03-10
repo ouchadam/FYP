@@ -39,3 +39,19 @@ task wrapper(type: Wrapper) {
 artifacts {
     archives jar
 }
+
+apply plugin: 'sonar-runner'
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.projectName", "FYP"
+        property "sonar.projectKey", "com.ouchadam.fyp:FYP"
+
+        property "sonar.java.coveragePlugin", "cobertura"
+        property "sonar.cobertura.reportPath", file("$buildDir/reports/cobertura/coverage.xml")
+
+    }
+}
+
+task sonar(dependsOn: ['clean', 'cobertura', 'sonarRunner'])
