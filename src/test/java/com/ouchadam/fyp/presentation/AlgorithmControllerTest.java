@@ -19,7 +19,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
     @Mock TextController textController;
     @Mock ParameterController parameterController;
     @Mock RuleController ruleController;
-    @Mock MemberToMidiFile memberToMidiFile;
+    @Mock MemberToMidiSaver memberToMidiSaver;
     @Mock ResultManager resultManager;
     @Mock GenerationHalter halter;
 
@@ -31,7 +31,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
 
     @Override
     protected void before() {
-        algorithmController = new AlgorithmController(generationController, textController, parameterController, ruleController, memberToMidiFile, resultManager, halter);
+        algorithmController = new AlgorithmController(generationController, textController, parameterController, ruleController, memberToMidiSaver, resultManager, halter);
         algorithmStartStopEntry = algorithmController.startStopListener();
         algorithmSaveEntry = algorithmController.onSave();
     }
@@ -58,6 +58,6 @@ public class AlgorithmControllerTest extends TestWithMocks {
     public void clicking_save_triggers_the_member_to_midi_process() {
         algorithmSaveEntry.onClick(not_relevant);
 
-        verify(memberToMidiFile).save(any(Member.class));
+        verify(memberToMidiSaver).save(any(Member.class));
     }
 }

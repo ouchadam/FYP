@@ -15,21 +15,21 @@ class AlgorithmController {
     private final TextController textController;
     private final ParameterController parameterController;
     private final RuleController ruleController;
-    private final MemberToMidiFile memberToMidiFile;
+    private final MemberToMidiSaver memberToMidiSaver;
     private final ResultManager resultManager;
     private final GenerationHalter halter;
 
     public static AlgorithmController from(FrameController frameController) {
-        MemberToMidiFile memberToMidiFile = new MemberToMidiFile(frameController.getFileChooser(MidiFileChooser.Type.SAVE));
-        return new AlgorithmController(new GenerationController(new GenerationThread()), frameController, frameController, frameController, memberToMidiFile, new ResultManager(), new FooHalter());
+        MemberToMidiSaver memberToMidiSaver = new MemberToMidiSaver(frameController.getFileChooser(MidiFileChooser.Type.SAVE), new MidiSystemWrapper(), new MemberToSequence(new MemberToMidi()));
+        return new AlgorithmController(new GenerationController(new GenerationThread()), frameController, frameController, frameController, memberToMidiSaver, new ResultManager(), new FooHalter());
     }
 
-    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController, RuleController ruleController, MemberToMidiFile memberToMidiFile, ResultManager resultManager, GenerationHalter halter) {
+    AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController, RuleController ruleController, MemberToMidiSaver memberToMidiSaver, ResultManager resultManager, GenerationHalter halter) {
         this.generationController = generationController;
         this.textController = textController;
         this.parameterController = parameterController;
         this.ruleController = ruleController;
-        this.memberToMidiFile = memberToMidiFile;
+        this.memberToMidiSaver = memberToMidiSaver;
         this.resultManager = resultManager;
         this.halter = halter;
     }
@@ -117,7 +117,7 @@ class AlgorithmController {
     private final OnClickListener onSave = new OnClickListener() {
         @Override
         public void onClick(final Component component) {
-            memberToMidiFile.save(resultManager.getBest());
+            memberToMidiSaver.save(resultManager.getBest());
         }
     };
 
