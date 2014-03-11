@@ -4,12 +4,14 @@ import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
-import org.junit.Before;
-import org.junit.Test;
+import com.ouchadam.fyp.presentation.NoteOnFilter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -62,7 +64,7 @@ public class MinimumNoteRuleTest {
                 noteTypesList.add(NoteType.REST);
             }
         }
-        return new Member(noteValueList, noteTypesList, new Member.Controller());
+        return new Member(noteValueList, noteTypesList, new Member.Controller(new NoteOnFilter()));
     }
 
 }

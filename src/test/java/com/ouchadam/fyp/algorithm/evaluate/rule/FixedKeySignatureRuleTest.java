@@ -5,8 +5,9 @@ import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.presentation.ScaleCreator;
 
-import helper.MemberRuleTest;
 import org.junit.Test;
+
+import helper.MemberRuleTest;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 

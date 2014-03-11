@@ -8,6 +8,7 @@ import com.ouchadam.fyp.algorithm.population.MemberCreator;
 import com.ouchadam.fyp.algorithm.population.Population;
 import com.ouchadam.fyp.algorithm.population.PopulationCreator;
 import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
+import com.ouchadam.fyp.presentation.NoteOnFilter;
 
 import java.util.Random;
 
@@ -29,7 +30,7 @@ public class GeneticAlgorithmCreator {
         Random random = new Random();
         IndexManager indexManager = new IndexManager(new RandomIndexCreator(random));
         CrossoverFactory crossoverFactory = new CrossoverFactory(indexManager, random);
-        Member.Controller memberController = new Member.Controller();
+        Member.Controller memberController = new Member.Controller(new NoteOnFilter());
         PopulationCrossoverFactory populationCrossoverFactory = new PopulationCrossoverFactory(random, crossoverFactory, indexManager, memberController);
         return new GeneticAlgorithmCreator(random, indexManager, memberController, populationCrossoverFactory);
     }

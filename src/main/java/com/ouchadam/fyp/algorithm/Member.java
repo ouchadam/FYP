@@ -1,5 +1,7 @@
 package com.ouchadam.fyp.algorithm;
 
+import com.ouchadam.fyp.presentation.NoteOnFilter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -54,28 +56,30 @@ public class Member {
 
     public static class Controller {
 
+        private final NoteOnFilter noteOnFilter;
+
+        public Controller(NoteOnFilter noteOnFilter) {
+            this.noteOnFilter = noteOnFilter;
+        }
+
         public All all(Member member) {
             return new All(member);
         }
 
         public Only only(Member member) {
-            return new Only(member);
+            return new Only(member, noteOnFilter);
         }
 
         public static class Only extends Handler<Member> {
-            private Only(Member what) {
+            private final NoteOnFilter noteOnFilter;
+
+            private Only(Member what, NoteOnFilter noteOnFilter) {
                 super(what);
+                this.noteOnFilter = noteOnFilter;
             }
 
             public List<NoteValue> noteStartValues() {
-                List<NoteValue> noteValues = new ArrayList<NoteValue>();
-                for (int index = 0; index < get().noteTypes.size(); index++) {
-                    NoteType currentType = get().noteTypes.get(index);
-                    if (currentType == NoteType.NOTE || currentType == NoteType.HOLD) {
-                        noteValues.add(get().noteValues.get(index));
-                    }
-                }
-                return noteValues;
+                return noteOnFilter.convert(get());
             }
         }
 

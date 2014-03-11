@@ -4,6 +4,7 @@ import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
+import com.ouchadam.fyp.presentation.NoteOnFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class MemberHelper {
             types.add(NoteType.NOTE);
         }
 
-        return new Member(arrayList, types, new Member.Controller());
+        return new Member(arrayList, types, new Member.Controller(new NoteOnFilter()));
     }
 
 }

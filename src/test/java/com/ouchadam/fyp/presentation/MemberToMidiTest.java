@@ -1,12 +1,17 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.algorithm.*;
+import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.Note;
+import com.ouchadam.fyp.algorithm.NoteType;
+import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
-import helper.TestWithMocks;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
+
+import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -155,7 +160,7 @@ public class MemberToMidiTest extends TestWithMocks {
             noteValues.add(note.noteValue);
             noteTypes.add(note.noteType);
         }
-        return new Member(noteValues, noteTypes, new Member.Controller());
+        return new Member(noteValues, noteTypes, new Member.Controller(new NoteOnFilter()));
     }
 
     private static Note createNotes(int value, NoteType type) {

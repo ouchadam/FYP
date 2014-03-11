@@ -18,7 +18,11 @@ class PopulationSelector {
     }
 
     public Population selectSeeds(Population population) {
-        int newPopulationSize = random.nextInt(population.size() - 1) + 1;
+        if (population.size() == 0) {
+            throw new RuntimeException("Population is empty??");
+        }
+
+        int newPopulationSize = getPopulationSize(population);
         List<Member> memberList = new ArrayList<Member>(newPopulationSize);
         Population shuffledPopulation = population.shuffle();
         for (int index = 0; index < newPopulationSize; index++) {
@@ -27,6 +31,13 @@ class PopulationSelector {
             memberList.add(tournament.tournament(population, memberOne, memberTwo));
         }
         return new Population(memberList);
+    }
+
+    private int getPopulationSize(Population population) {
+        if (population.size() == 1) {
+            return 1;
+        }
+        return random.nextInt(population.size() - 1) + 1;
     }
 
     public Population getBest(Population generation) {

@@ -4,11 +4,14 @@ import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
-import helper.TestWithMocks;
-import org.junit.Test;
+import com.ouchadam.fyp.presentation.NoteOnFilter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
+
+import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -65,7 +68,7 @@ public class NoteDiversityRuleTest extends TestWithMocks {
             noteValues.add(NoteValue.newInstance(note));
             noteTypes.add(NoteType.NOTE);
         }
-        return new Member(noteValues, noteTypes, new Member.Controller());
+        return new Member(noteValues, noteTypes, new Member.Controller(new NoteOnFilter()));
     }
 
 }

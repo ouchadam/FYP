@@ -5,6 +5,7 @@ import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.evaluate.rule.FixedNoteRule;
+import com.ouchadam.fyp.presentation.NoteOnFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class FixedNoteValueRuleTest {
         List<NoteType> noteTypes = new ArrayList<NoteType>(1);
         noteValues.add(new NoteValue(new Binary(Integer.toBinaryString(noteValue))));
         noteTypes.add(NoteType.NOTE);
-        return new Member(noteValues, noteTypes, new Member.Controller());
+        return new Member(noteValues, noteTypes, new Member.Controller(new NoteOnFilter()));
     }
 
 }

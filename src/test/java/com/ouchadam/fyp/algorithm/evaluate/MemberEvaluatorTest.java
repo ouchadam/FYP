@@ -6,6 +6,7 @@ import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.algorithm.evaluate.rule.FitnessRule;
+import com.ouchadam.fyp.presentation.NoteOnFilter;
 import com.ouchadam.fyp.presentation.RuleContainer;
 import com.ouchadam.fyp.presentation.RuleManager;
 
@@ -45,6 +46,6 @@ public class MemberEvaluatorTest extends TestWithMocks {
     private Member createMember() {
         List<NoteValue> arrayList = new ArrayList<NoteValue>();
         arrayList.add(new NoteValue(new Binary("01")));
-        return new Member(arrayList, new ArrayList<NoteType>(), new Member.Controller());
+        return new Member(arrayList, new ArrayList<NoteType>(), new Member.Controller(new NoteOnFilter()));
     }
 }

@@ -4,6 +4,7 @@ import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
+import com.ouchadam.fyp.presentation.NoteOnFilter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,7 +76,7 @@ public class EvenRhythmRuleTest {
                 noteTypesList.add(NoteType.REST);
             }
         }
-        return new Member(noteValueList, noteTypesList, new Member.Controller());
+        return new Member(noteValueList, noteTypesList, new Member.Controller(new NoteOnFilter()));
     }
 
 }

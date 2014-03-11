@@ -1,10 +1,13 @@
 package com.ouchadam.fyp.algorithm;
 
-import helper.TestWithMocks;
+import com.ouchadam.fyp.presentation.NoteOnFilter;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.mockito.Mock;
 
-import java.util.List;
+import helper.TestWithMocks;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,6 +21,8 @@ public class MemberShould extends TestWithMocks {
 
     @Mock Member.Controller.All all;
     @Mock Member.Controller.Only only;
+
+    @Mock NoteOnFilter noteOnFilter;
 
     private Member member;
 

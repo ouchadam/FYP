@@ -6,6 +6,7 @@ import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.algorithm.evaluate.rule.NoteRangeRule;
+import com.ouchadam.fyp.presentation.NoteOnFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,6 @@ public class NoteValueRangeRuleTest extends TestWithMocks {
             notes.add(new NoteValue(new Binary(Integer.toBinaryString(noteValue))));
             types.add(NoteType.NOTE);
         }
-        return new Member(notes, types, new Member.Controller());
+        return new Member(notes, types, new Member.Controller(new NoteOnFilter()));
     }
 }
