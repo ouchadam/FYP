@@ -4,12 +4,13 @@ import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -50,6 +51,16 @@ public class EvenRhythmRuleTest {
         FitnessValue result = evenRhythmRule.apply(half);
 
         assertThat(result.get()).isEqualTo(50);
+    }
+
+    @Test
+    public void edge_case() {
+        int size = 16;
+        Member half = createMember(size, 0, 2, 5, 8, 10, 12, 14);
+
+        FitnessValue result = evenRhythmRule.apply(half);
+
+        assertThat(result.get()).isEqualTo(86);
     }
 
     private Member createMember(int size, Integer... notePositions) {

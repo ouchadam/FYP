@@ -1,11 +1,13 @@
 package com.ouchadam.fyp.analysis;
 
 import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
-import helper.TestWithMocks;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
+
+import helper.TestWithMocks;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -45,6 +47,15 @@ public class EvenRhythmAnalysisRuleTest extends TestWithMocks {
         int percentOfOddNotes = evenRhythmAnalysisRule.percentOfOddNotes(evenNotes);
 
         assertThat(percentOfOddNotes).isEqualTo(100);
+    }
+
+    @Test
+    public void edge_case() throws Exception {
+        List<ContainedMidiNote> evenNotes = createNotes(0, 2, 5, 8, 10, 12, 14);
+
+        int percentOfOddNotes = evenRhythmAnalysisRule.percentOfOddNotes(evenNotes);
+
+        assertThat(percentOfOddNotes).isEqualTo(14);
     }
 
     private List<ContainedMidiNote> createNotes(int... positions) {

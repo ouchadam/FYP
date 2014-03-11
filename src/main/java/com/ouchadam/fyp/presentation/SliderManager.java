@@ -43,13 +43,17 @@ class SliderManager {
 
     public void enable() {
         for (SliderName slider : SliderName.values()) {
-            sliders.get(slider).enable();
+            if (sliders.containsKey(slider)) {
+                sliders.get(slider).enable();
+            }
         }
     }
 
     public void disable() {
         for (SliderName slider : SliderName.values()) {
-            sliders.get(slider).disable();
+            if (sliders.containsKey(slider)) {
+                sliders.get(slider).disable();
+            }
         }
     }
 

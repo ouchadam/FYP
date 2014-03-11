@@ -1,5 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.Log;
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.analysis.Division;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
@@ -38,7 +39,16 @@ class MemberToSequence {
             track.add(midiNote.getNoteOn());
             track.add(midiNote.getNoteOff());
         }
+        padToEnd(notes, track);
         return sequence;
+    }
+
+    private void padToEnd(List<Sequenced16thMidiNote> notes, Track track) throws InvalidMidiDataException {
+        if (notes.get(notes.size() - 1).position() < 15) {
+            Log.i("Sequence is short, padding with end event");
+            long tick = (960 * 4) / 16 * 15;
+            track.add(new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, 0x00, 0x00), tick));
+        }
     }
 
     private Track getFirstTrack(Sequence sequence) {

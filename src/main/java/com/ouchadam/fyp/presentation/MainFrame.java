@@ -2,8 +2,6 @@ package com.ouchadam.fyp.presentation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 class MainFrame {
 
@@ -14,7 +12,7 @@ class MainFrame {
     private final JFrame frame;
     private final UiReadyListener uiListener;
 
-    private AlgorithmTabCreator algorithmTabManager;
+    private AlgorithmTabCreator algorithmTabCreator;
     private SequenceTabCreator sequenceTabManager;
     private RuleTabCreator ruleTabManager;
 
@@ -42,7 +40,7 @@ class MainFrame {
     };
 
     private AlgorithmTabManager getAlgorithmTabManager() {
-        return algorithmTabManager.createTabManager(new SliderManager(), new ClickManager());
+        return algorithmTabCreator.createTabManager(new ClickManager());
     }
 
     void initFrame() {
@@ -58,11 +56,11 @@ class MainFrame {
     private void initSubPanes() {
         JPanel panel = new JPanel(new GridLayout(1, 1));
         JTabbedPane tabbedPane = new JTabbedPane();
-        algorithmTabManager = new AlgorithmTabCreator(tabbedPane, new SliderManager());
+        algorithmTabCreator = new AlgorithmTabCreator(tabbedPane, new SliderManager());
         sequenceTabManager = new SequenceTabCreator(tabbedPane, new MidiPlayer(new MidiSystemWrapper()), new ClickManager());
         ruleTabManager = new RuleTabCreator(tabbedPane, new RuleManager());
         panel.add(sequenceTabManager.create());
-        panel.add(algorithmTabManager.create());
+        panel.add(algorithmTabCreator.create());
         panel.add(ruleTabManager.create());
         frame.add(panel);
     }

@@ -90,8 +90,26 @@ class AlgorithmController {
         public void onFinish(Evaluation evaluation) {
             resultManager.setEvaluation(evaluation);
             handleFinishUi(evaluation);
+
+            System.out.println("-- Algorithm Finished --");
+            System.out.println("");
+            print(evaluation.population().get(0));
+
+            for (RuleContainer<Member> memberRuleContainer : getParams().getRules()) {
+                System.out.println(memberRuleContainer.ruleName + " : " + memberRuleContainer.fitnessRule.apply(evaluation.population().get(0)));
+            }
+
+            KeyAnalysis keyAnalysis = new KeyAnalysis(new ScaleCreator());
+            System.out.println(keyAnalysis.apply(new MemberToMidi().convert(evaluation.population().get(0))));
+
         }
     };
+
+    private static void print(Member member) {
+        for (NoteValue noteValue : member.all().noteValues()) {
+            System.out.println(noteValue.decimal());
+        }
+    }
 
     private void handleFinishUi(Evaluation evaluation) {
         switch (evaluation.getResultType()) {

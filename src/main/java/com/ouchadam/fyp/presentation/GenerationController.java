@@ -58,24 +58,12 @@ class GenerationController {
     private final OnFinish internalOnFinish = new OnFinish() {
         @Override
         public void onFinish(Evaluation evaluation) {
-            System.out.println("Algorithm Finished");
-            print(evaluation.population().get(0));
-
-            KeyAnalysis keyAnalysis = new KeyAnalysis(new ScaleCreator());
-            System.out.println(keyAnalysis.apply(new MemberToMidi().convert(evaluation.population().get(0))));
-
             reset();
             if (clientOnFinish != null) {
                 clientOnFinish.onFinish(evaluation);
             }
         }
     };
-
-    public static void print(Member member) {
-        for (NoteValue noteValue : member.all().noteValues()) {
-            System.out.println(noteValue.decimal());
-        }
-    }
 
     private void reset() {
         internalHalter.setHalted(false);

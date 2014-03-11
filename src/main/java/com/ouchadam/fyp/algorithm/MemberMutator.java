@@ -41,7 +41,11 @@ class MemberMutator implements Mutator<Member> {
     }
 
     private Binary mutateNoteType(NoteType noteType) {
-        return binaryMutator.mutate(noteType.binary());
+        Binary mutation = binaryMutator.mutate(noteType.binary());
+        if (mutation.toDecimal() >= NoteType.values().length) {
+            return mutateNoteType(noteType);
+        }
+        return mutation;
     }
 
 }

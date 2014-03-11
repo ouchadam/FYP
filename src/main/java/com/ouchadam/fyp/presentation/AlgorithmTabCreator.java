@@ -46,7 +46,7 @@ class AlgorithmTabCreator extends TabCreator {
         return slidersContainer;
     }
 
-    public AlgorithmTabManager createTabManager(SliderManager sliderManager, ClickManager clickManager) {
+    public AlgorithmTabManager createTabManager(ClickManager clickManager) {
         return new AlgorithmTabManager(sliderManager, startStopButton, textArea, saveButton, clickManager);
     }
 
