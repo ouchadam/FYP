@@ -13,8 +13,8 @@ class MemberToSequence {
     private static final int TRACK_COUNT = 1;
     private static final int RESOLUTION = 960;
     private static final Division DIVISION = Division.PPQ;
-    public static final int CHANNEL = 0;
-    public static final int PROGRAM_NUMBER = 20;
+    private static final int CHANNEL = 0;
+    private static final int PROGRAM_NUMBER = 20;
 
     private final MemberToMidi memberToMidi;
 
@@ -35,7 +35,7 @@ class MemberToSequence {
         Track track = getFirstTrack(sequence);
         track.add(createProgramChange(PROGRAM_NUMBER));
         for (Sequenced16thMidiNote midiNote : notes) {
-            System.out.println("Adding : " + midiNote.getNote() + "(" + midiNote.getKey() + ")" + " at " + midiNote.getTick() + " : " + midiNote.getType() + " to : " + midiNote.getNoteOff().getTick());
+            Log.i("Adding : " + midiNote.getNote() + "(" + midiNote.getKey() + ")" + " at " + midiNote.getTick() + " : " + midiNote.getType() + " to : " + midiNote.getNoteOff().getTick());
             track.add(midiNote.getNoteOn());
             track.add(midiNote.getNoteOff());
         }
