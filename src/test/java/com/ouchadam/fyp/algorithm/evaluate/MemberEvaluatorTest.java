@@ -8,7 +8,7 @@ import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.algorithm.evaluate.rule.FitnessRule;
 import com.ouchadam.fyp.presentation.NoteOnFilter;
 import com.ouchadam.fyp.presentation.RuleContainer;
-import com.ouchadam.fyp.presentation.RuleManager;
+import com.ouchadam.fyp.presentation.RuleName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class MemberEvaluatorTest extends TestWithMocks {
     @Override
     protected void before() {
         rules = new ArrayList<RuleContainer<Member>>();
-        rules.add(new RuleContainer<Member>(fitnessRule, RuleManager.RuleName.KEY));
+        rules.add(new RuleContainer<Member>(fitnessRule, RuleName.KEY, 0));
         when(fitnessRule.apply(any(Member.class))).thenReturn(FitnessValue.max());
     }
 

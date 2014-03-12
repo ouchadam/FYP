@@ -7,12 +7,12 @@ import java.awt.*;
 class RuleWeightTabCreator extends TabCreator {
 
     private static final String TAB_TITLE = "Weighting";
-    private final RuleWeightManager ruleManager;
+    private final RuleFactory ruleFactory;
     private JPanel parentPanel;
 
-    RuleWeightTabCreator(JTabbedPane tabbedPane, RuleWeightManager ruleManager) {
+    RuleWeightTabCreator(JTabbedPane tabbedPane, RuleFactory ruleFactory) {
         super(tabbedPane);
-        this.ruleManager = ruleManager;
+        this.ruleFactory = ruleFactory;
     }
 
     @Override
@@ -23,16 +23,16 @@ class RuleWeightTabCreator extends TabCreator {
     }
 
     public void addRuleWeights() {
-        ruleManager.clear(parentPanel);
+        ruleFactory.clearRuleWeights(parentPanel);
         parentPanel.removeAll();
         parentPanel.add(createRuleWeights());
     }
 
     private Component createRuleWeights() {
         JPanel slidersContainer = new JPanel(new GridLayout(1, 0));
-        slidersContainer.setPreferredSize(new Dimension(570, 250));
-        ruleManager.create();
-        ruleManager.attachTo(slidersContainer);
+        slidersContainer.setPreferredSize(new Dimension(560, 250));
+        ruleFactory.createRuleWeights();
+        ruleFactory.attachRuleWeightsTo(slidersContainer);
         return slidersContainer;
     }
 

@@ -4,7 +4,9 @@ import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.analysis.Key;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RuleManager {
@@ -12,20 +14,25 @@ public class RuleManager {
     private static final int RULE_COUNT = 4;
     private final Map<RuleName, RuleView> rules;
 
-    public enum RuleName {
-        RANGE, KEY, DIVERSITY, INTERVAL, EVEN_RHYTHM, MIN_NOTE
-    }
     RuleManager() {
         this.rules = new HashMap<RuleName, RuleView>(RULE_COUNT);
     }
 
     public void create() {
-        add(RuleName.RANGE, RuleView.newInstance("Range", 0, 24, 12, true));
-        add(RuleName.KEY, CustomRuleView.newInstance("Key", 0, Key.values().length - 1, 0, false));
-        add(RuleName.DIVERSITY, RuleView.newInstance("Diversity", 0, Member.CHILD_COUNT, Member.CHILD_COUNT / 2, false));
-        add(RuleName.INTERVAL, RuleView.newInstance("Interval Jumps", 0, 12, 4, false));
-        add(RuleName.EVEN_RHYTHM, RuleView.newInstance("Even Rhythm", 0, 0, 0, true));
-        add(RuleName.MIN_NOTE, RuleView.newInstance("Minimum Notes", 1, Member.CHILD_COUNT, 6, true));
+        createAndAddRuleViewFor(RuleName.RANGE, 0, 24, 12, true);
+        createAndAddCustomRuleViewFor(RuleName.KEY, 0, Key.values().length - 1, 0, false);
+        createAndAddRuleViewFor(RuleName.DIVERSITY, 0, Member.CHILD_COUNT, Member.CHILD_COUNT / 2, false);
+        createAndAddRuleViewFor(RuleName.INTERVAL, 0, 12, 4, false);
+        createAndAddRuleViewFor(RuleName.EVEN_RHYTHM, 0, 0, 0, true);
+        createAndAddRuleViewFor(RuleName.MIN_NOTE, 1, Member.CHILD_COUNT, 6, true);
+    }
+
+    private void createAndAddRuleViewFor(RuleName ruleName, int minimum, int maximum, int defaultValue, boolean isChecked) {
+        add(ruleName, RuleView.newInstance(ruleName, minimum, maximum, defaultValue, isChecked));
+    }
+
+    private void createAndAddCustomRuleViewFor(RuleName ruleName, int minimum, int maximum, int defaultValue, boolean isChecked) {
+        add(ruleName, CustomRuleView.newInstance(ruleName, minimum, maximum, defaultValue, isChecked));
     }
 
     private void add(RuleName name, RuleView ruleView) {
@@ -40,6 +47,16 @@ public class RuleManager {
 
     public RuleView get(RuleName name) {
         return rules.get(name);
+    }
+
+    public List<RuleView> getSelected() {
+        List<RuleView> selectedViews = new ArrayList<RuleView>();
+        for (RuleName rule : RuleName.values()) {
+            if (rules.get(rule).isChecked()) {
+                selectedViews.add(rules.get(rule));
+            }
+        }
+        return selectedViews;
     }
 
 }

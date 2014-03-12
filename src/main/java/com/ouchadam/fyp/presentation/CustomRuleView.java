@@ -6,8 +6,8 @@ import javax.swing.*;
 
 class CustomRuleView extends RuleView {
 
-    public static RuleView newInstance(String label, int minimum, int maximum, int defaultValue, boolean defaultIsChecked) {
-        CustomRuleView ruleView = new CustomRuleView(new JCheckBox(label), new JSlider(), new JLabel());
+    public static RuleView newInstance(RuleName ruleName, int minimum, int maximum, int defaultValue, boolean defaultIsChecked) {
+        CustomRuleView ruleView = new CustomRuleView(new JCheckBox(ruleName.toName()), new JSlider(), new JLabel());
         ruleView.init(defaultIsChecked, defaultValue, minimum, maximum);
         return ruleView;
     }

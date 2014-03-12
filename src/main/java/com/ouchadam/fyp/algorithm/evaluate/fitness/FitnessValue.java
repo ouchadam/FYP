@@ -26,6 +26,10 @@ public class FitnessValue {
         return value;
     }
 
+    public FitnessValue weight(float weight) {
+        return new FitnessValue(100 - (int) (value * weight));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

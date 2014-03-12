@@ -5,10 +5,12 @@ import com.ouchadam.fyp.algorithm.evaluate.rule.FitnessRule;
 public class RuleContainer<T> {
 
     public final FitnessRule<T> fitnessRule;
-    public final RuleManager.RuleName ruleName;
+    public final RuleName ruleName;
+    public final int weight;
 
-    public RuleContainer(FitnessRule<T> fitnessRule, RuleManager.RuleName ruleName) {
+    public RuleContainer(FitnessRule<T> fitnessRule, RuleName ruleName, int weight) {
         this.fitnessRule = fitnessRule;
         this.ruleName = ruleName;
+        this.weight = weight;
     }
 }

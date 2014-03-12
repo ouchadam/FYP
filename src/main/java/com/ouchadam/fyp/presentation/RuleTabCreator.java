@@ -1,8 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.evaluate.rule.*;
-import com.ouchadam.fyp.analysis.Key;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,11 +11,11 @@ import java.util.List;
 class RuleTabCreator extends TabCreator implements RuleController {
 
     private static final String TAB_TITLE = "Rules";
-    private final RuleManager ruleManager;
+    private final RuleFactory ruleFactory;
 
-    RuleTabCreator(JTabbedPane tabbedPane, RuleManager ruleManager) {
+    RuleTabCreator(JTabbedPane tabbedPane, RuleFactory ruleFactory) {
         super(tabbedPane);
-        this.ruleManager = ruleManager;
+        this.ruleFactory = ruleFactory;
     }
 
     @Override
@@ -30,43 +28,18 @@ class RuleTabCreator extends TabCreator implements RuleController {
 
     private Component createRules() {
         JPanel slidersContainer = new JPanel(new GridLayout(0, 1));
-        ruleManager.create();
-        ruleManager.attachTo(slidersContainer);
+        ruleFactory.createRules();
+        ruleFactory.attachRulesTo(slidersContainer);
         return slidersContainer;
     }
 
     @Override
     public List<RuleContainer<Member>> get() {
         List<RuleContainer<Member>> rules = new ArrayList<RuleContainer<Member>>();
-        for (RuleManager.RuleName ruleName : RuleManager.RuleName.values()) {
-            RuleView ruleView = ruleManager.get(ruleName);
+        for (RuleName ruleName : RuleName.values()) {
+            RuleView ruleView = ruleFactory.getRuleView(ruleName);
             if (ruleView.isChecked()) {
-                switch (ruleName) {
-                    case KEY:
-                        rules.add(new RuleContainer<Member>(FixedKeySignatureRule.newInstance(Key.values()[ruleView.getValue()]), RuleManager.RuleName.KEY));
-                        break;
-
-                    case RANGE:
-                        rules.add(new RuleContainer<Member>(new NoteRangeRule(ruleView.getValue()), RuleManager.RuleName.RANGE));
-                        break;
-
-                    case DIVERSITY:
-                        rules.add(new RuleContainer<Member>(new NoteDiversityRule(ruleView.getValue()), RuleManager.RuleName.DIVERSITY));
-                        break;
-
-                    case INTERVAL:
-                        rules.add(new RuleContainer<Member>(new IntervalRangeRule(ruleView.getValue()), RuleManager.RuleName.INTERVAL));
-                        break;
-
-                    case EVEN_RHYTHM:
-                        rules.add(new RuleContainer<Member>(new EvenRhythmRule(), RuleManager.RuleName.EVEN_RHYTHM));
-                        break;
-
-                    case MIN_NOTE:
-                        rules.add(new RuleContainer<Member>(new MinimumNoteRule(ruleView.getValue()), RuleManager.RuleName.MIN_NOTE));
-                        break;
-                }
-
+                rules.add(ruleFactory.getContainer(ruleName));
             }
         }
         return rules;

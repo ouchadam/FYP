@@ -11,8 +11,8 @@ class RuleView {
     private final JSlider slider;
     private final JLabel valueLabel;
 
-    public static RuleView newInstance(String label, int minimum, int maximum, int defaultValue, boolean defaultIsChecked) {
-        RuleView ruleView = new RuleView(new JCheckBox(label), new JSlider(), new JLabel());
+    public static RuleView newInstance(RuleName ruleName, int minimum, int maximum, int defaultValue, boolean defaultIsChecked) {
+        RuleView ruleView = new RuleView(new JCheckBox(ruleName.toName()), new JSlider(), new JLabel());
         ruleView.init(defaultIsChecked, defaultValue, minimum, maximum);
         return ruleView;
     }
@@ -63,5 +63,9 @@ class RuleView {
 
     public int getValue() {
         return slider.getValue();
+    }
+
+    public RuleName getName() {
+        return RuleName.from(checkBox.getText());
     }
 }

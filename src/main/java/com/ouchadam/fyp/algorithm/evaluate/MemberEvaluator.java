@@ -13,7 +13,7 @@ class MemberEvaluator implements FitnessEvaluator<Member> {
     public FitnessValue evaluate(Member member, List<RuleContainer<Member>> rules) {
         FitnessAccumulator accumulator = FitnessAccumulator.from(rules.size());
         for (RuleContainer<Member> rule : rules) {
-            accumulator.add(rule.fitnessRule.apply(member));
+            accumulator.add(rule.fitnessRule.apply(member).weight(rule.weight));
         }
         return accumulator.average();
     }

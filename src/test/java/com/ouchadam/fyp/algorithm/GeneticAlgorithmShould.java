@@ -1,17 +1,17 @@
 package com.ouchadam.fyp.algorithm;
 
-import helper.Printer;
-import com.ouchadam.fyp.algorithm.population.Creator;
-import com.ouchadam.fyp.algorithm.population.Evaluation;
-import com.ouchadam.fyp.algorithm.population.Population;
-import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
 import com.ouchadam.fyp.algorithm.evaluate.Evaluator;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.algorithm.evaluate.rule.FixedKeySignatureRule;
 import com.ouchadam.fyp.algorithm.evaluate.rule.NoteDiversityRule;
 import com.ouchadam.fyp.algorithm.evaluate.rule.NoteRangeRule;
+import com.ouchadam.fyp.algorithm.population.Creator;
+import com.ouchadam.fyp.algorithm.population.Evaluation;
+import com.ouchadam.fyp.algorithm.population.Population;
+import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
 import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.presentation.RuleContainer;
+import com.ouchadam.fyp.presentation.RuleName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import helper.PopulationHelper;
+import helper.Printer;
 import helper.TestWithMocks;
 
-import static com.ouchadam.fyp.presentation.RuleManager.RuleName;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -61,9 +61,9 @@ public class GeneticAlgorithmShould extends TestWithMocks {
     @Ignore @Test
     public void full_flow() {
         List<RuleContainer<Member>> ruleList = new ArrayList<RuleContainer<Member>>();
-        ruleList.add(new RuleContainer<Member>(FixedKeySignatureRule.newInstance(Key.C), RuleName.KEY));
-        ruleList.add(new RuleContainer<Member>(new NoteRangeRule(12), RuleName.RANGE));
-        ruleList.add(new RuleContainer<Member>(new NoteDiversityRule(4), RuleName.DIVERSITY));
+        ruleList.add(new RuleContainer<Member>(FixedKeySignatureRule.newInstance(Key.C), RuleName.KEY, 100));
+        ruleList.add(new RuleContainer<Member>(new NoteRangeRule(12), RuleName.RANGE, 100));
+        ruleList.add(new RuleContainer<Member>(new NoteDiversityRule(4), RuleName.DIVERSITY, 100));
 
         AlgorithmParams algorithmParams = new AlgorithmParams(200, 1000, 100, 0, 0, ruleList);
         GeneticAlgorithm geneticAlgorithm = GeneticAlgorithmCreator.newInstance().create(generationCallback, algorithmParams, halter);
@@ -100,8 +100,8 @@ public class GeneticAlgorithmShould extends TestWithMocks {
                 System.out.println("0 :  fitness total: " + evaluation.fitnessValue(0).get() + " occurs : " + getFrequency(evaluation, member0));
                 Printer.printMember(member0);
 
-//                System.out.println("NoteValue range rule: " + new NoteRangeRule(12, 60).apply(member0).get());
-//                System.out.println("Key rule: " + new FixedKeySignatureRule(Key.C, new ScaleCreator()).apply(member0).get());
+//                System.out.println("NoteValue range rule: " + new NoteRangeRule(12, 60).apply(member0).getContainer());
+//                System.out.println("Key rule: " + new FixedKeySignatureRule(Key.C, new ScaleCreator()).apply(member0).getContainer());
 
                 System.out.println("");
             }

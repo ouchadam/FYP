@@ -1,7 +1,5 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.algorithm.Member;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -15,8 +13,8 @@ class RuleWeightView {
     private final JLabel sliderName;
     private final JLabel valueLabel;
 
-    public static RuleWeightView newInstance(RuleContainer<Member> ruleContainer) {
-        RuleWeightView ruleView = new RuleWeightView(new JSlider(JSlider.VERTICAL), new JLabel(ruleContainer.ruleName.name()), new JLabel());
+    public static RuleWeightView newInstance(RuleName ruleName) {
+        RuleWeightView ruleView = new RuleWeightView(new JSlider(JSlider.VERTICAL), new JLabel(ruleName.toName()), new JLabel());
         ruleView.init();
         return ruleView;
     }
@@ -44,7 +42,7 @@ class RuleWeightView {
     };
 
     private void setTextFromSlider() {
-        valueLabel.setText(updateValueText(getValue()));
+        valueLabel.setText(updateValueText(getSliderValue()));
     }
 
     protected String updateValueText(int value) {
@@ -54,25 +52,21 @@ class RuleWeightView {
     public void attachTo(JPanel panel) {
         JPanel ruleContainer = new JPanel(new GridLayout(3, 1));
         ruleContainer.setPreferredSize(new Dimension(50, 200));
+        ruleContainer.add(valueLabel);
 
-        ruleContainer.add(wrapWith(50, 20, valueLabel));
-        JPanel sliderWrapper = wrapWith(50, 150, slider);
+        JPanel panel1 = new JPanel(new BorderLayout());
+        panel1.add(slider, BorderLayout.WEST);
 
-        ruleContainer.add(sliderWrapper);
-        ruleContainer.add(wrapWith(100, 20, sliderName));
+        ruleContainer.add(panel1);
+        ruleContainer.add(sliderName);
         panel.add(ruleContainer);
     }
 
-    private JPanel wrapWith(int width, int height, Component component) {
-        JPanel panel = new JPanel();
-        Dimension preferredSize = new Dimension(width, height);
-        panel.setPreferredSize(preferredSize);
-        panel.add(component);
-        panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        return panel;
+    public int getValue() {
+        return getSliderValue() / 100;
     }
 
-    public int getValue() {
+    private int getSliderValue() {
         return slider.getValue();
     }
 }

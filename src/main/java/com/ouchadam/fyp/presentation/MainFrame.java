@@ -63,8 +63,15 @@ class MainFrame {
         tabbedPane = new JTabbedPane();
         algorithmTabCreator = new AlgorithmTabCreator(tabbedPane, new SliderManager());
         sequenceTabManager = new SequenceTabCreator(tabbedPane, new MidiPlayer(new MidiSystemWrapper()), new ClickManager());
-        ruleTabManager = new RuleTabCreator(tabbedPane, new RuleManager());
-        ruleWeightTabCreator = new RuleWeightTabCreator(tabbedPane, new RuleWeightManager(ruleTabManager));
+
+
+        RuleManager ruleManager = new RuleManager();
+        RuleWeightManager ruleWeightManager = new RuleWeightManager();
+        RuleFactory ruleFactory  = new RuleFactory(ruleManager, ruleWeightManager);
+
+        ruleTabManager = new RuleTabCreator(tabbedPane, ruleFactory);
+
+        ruleWeightTabCreator = new RuleWeightTabCreator(tabbedPane, ruleFactory);
         panel.add(sequenceTabManager.create());
         panel.add(algorithmTabCreator.create());
         panel.add(ruleTabManager.create());
