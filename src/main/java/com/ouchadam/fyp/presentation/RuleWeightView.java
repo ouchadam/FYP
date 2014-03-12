@@ -9,13 +9,21 @@ class RuleWeightView {
 
     private static final int MINIMUM_WEIGHT = 0;
     private static final int MAXIMUM_WEIGHT = 100;
+    private static final int DEFAULT_WEIGHT = 100;
+
     private final JSlider slider;
     private final JLabel sliderName;
     private final JLabel valueLabel;
 
     public static RuleWeightView newInstance(RuleName ruleName) {
         RuleWeightView ruleView = new RuleWeightView(new JSlider(JSlider.VERTICAL), new JLabel(ruleName.toName()), new JLabel());
-        ruleView.init();
+        ruleView.init(DEFAULT_WEIGHT);
+        return ruleView;
+    }
+
+    public static RuleWeightView from(RuleWeightView ruleWeightView) {
+        RuleWeightView ruleView = new RuleWeightView(new JSlider(JSlider.VERTICAL), new JLabel(ruleWeightView.sliderName.getText()), new JLabel());
+        ruleView.init(ruleWeightView.getSliderValue());
         return ruleView;
     }
 
@@ -25,10 +33,10 @@ class RuleWeightView {
         this.valueLabel = valueLabel;
     }
 
-    protected void init() {
+    protected void init(int defaultValue) {
         this.slider.setMinimum(MINIMUM_WEIGHT);
         this.slider.setMaximum(MAXIMUM_WEIGHT);
-        this.slider.setValue(100);
+        this.slider.setValue(defaultValue);
         this.slider.setAlignmentX(JSlider.LEFT_ALIGNMENT);
         setTextFromSlider();
         this.slider.addChangeListener(sliderChange);

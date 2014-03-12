@@ -14,13 +14,20 @@ public class RuleWeightManager {
     }
 
     public void clear(JPanel panel) {
-        rules.clear();
         panel.removeAll();
     }
 
     public void create(RuleManager ruleManager) {
+        Map<RuleName, RuleWeightView> temp = new HashMap<RuleName, RuleWeightView>(rules);
+        rules.clear();
+
         for (RuleView rule : ruleManager.getSelected()) {
-            add(rule.getName(), RuleWeightView.newInstance(rule.getName()));
+            RuleName name = rule.getName();
+            if (temp.containsKey(name)) {
+                add(name, RuleWeightView.from(temp.get((name))));
+            } else {
+                add(name, RuleWeightView.newInstance(name));
+            }
         }
     }
 
