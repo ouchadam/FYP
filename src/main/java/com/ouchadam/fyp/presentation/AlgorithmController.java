@@ -1,6 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.*;
+import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 
 import java.awt.*;
@@ -96,7 +97,8 @@ class AlgorithmController {
             print(evaluation.population().get(0));
 
             for (RuleContainer<Member> memberRuleContainer : getParams().getRules()) {
-                System.out.println(memberRuleContainer.ruleName + " : " + memberRuleContainer.fitnessRule.apply(evaluation.population().get(0)));
+                FitnessValue apply = memberRuleContainer.fitnessRule.apply(evaluation.population().get(0));
+                System.out.println(memberRuleContainer.ruleName + " : " + apply + " weighted : " + apply.weight(memberRuleContainer.weight) + " for weight : " + memberRuleContainer.weight);
             }
 
             KeyAnalysis keyAnalysis = new KeyAnalysis(new ScaleCreator());

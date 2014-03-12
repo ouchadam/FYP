@@ -85,7 +85,7 @@ class MainFrame {
     private final ChangeListener onTabChange = new ChangeListener() {
         @Override
         public void stateChanged(ChangeEvent e) {
-            if (tabbedPane.getSelectedIndex() == WEIGHTING_TAB) {
+            if (tabbedPane.getSelectedIndex() == WEIGHTING_TAB || tabbedPane.getSelectedIndex() == 1) {
                 ruleWeightTabCreator.addRuleWeights();
             }
         }

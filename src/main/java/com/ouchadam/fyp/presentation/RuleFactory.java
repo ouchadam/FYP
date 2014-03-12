@@ -19,7 +19,7 @@ class RuleFactory {
     public RuleContainer<Member> getContainer(RuleName ruleName) {
         RuleView ruleView = ruleManager.get(ruleName);
         RuleWeightView ruleWeightView = ruleWeightManager.get(ruleName);
-        int weight = ruleWeightView.getValue();
+        float weight = ruleWeightView.getValue();
 
         switch (ruleName) {
             case KEY:

@@ -70,8 +70,8 @@ class RuleWeightView {
         panel.add(ruleContainer);
     }
 
-    public int getValue() {
-        return getSliderValue() / 100;
+    public float getValue() {
+        return getSliderValue() / 100f;
     }
 
     private int getSliderValue() {

@@ -27,8 +27,22 @@ public class FitnessValue {
     }
 
     public FitnessValue weight(float weight) {
-        return new FitnessValue(100 - (int) (value * weight));
+        int weightDelta = (int) (100 - (100 * weight));
+        if (value + weightDelta > 100) {
+            return FitnessValue.max();
+        }
+        return new FitnessValue(value + weightDelta);
     }
+
+    // 0.5  85
+    //
+
+    // 0    100  50   25
+    //      100  100  100
+
+
+    // 1    100 50    25
+    //      0   0     0
 
     @Override
     public boolean equals(Object o) {

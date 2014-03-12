@@ -19,6 +19,7 @@ class RuleWeightTabCreator extends TabCreator {
     public JTabbedPane create() {
         parentPanel = new JPanel();
         parentPanel.setBorder(new EmptyBorder(12, 20, 0, 20));
+        addRuleWeights();
         return createTabbedPane(TAB_TITLE, parentPanel);
     }
 
