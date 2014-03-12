@@ -1,6 +1,8 @@
 package com.ouchadam.fyp.presentation;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 class MainFrame {
@@ -15,6 +17,8 @@ class MainFrame {
     private AlgorithmTabCreator algorithmTabCreator;
     private SequenceTabCreator sequenceTabManager;
     private RuleTabCreator ruleTabManager;
+    private RuleWeightTabCreator ruleWeightTabCreator;
+    private JTabbedPane tabbedPane;
 
     public static MainFrame newInstance(UiReadyListener uiListener) {
         MainFrame mainFrame = new MainFrame(new JFrame(), uiListener);
@@ -55,14 +59,28 @@ class MainFrame {
 
     private void initSubPanes() {
         JPanel panel = new JPanel(new GridLayout(1, 1));
-        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane();
         algorithmTabCreator = new AlgorithmTabCreator(tabbedPane, new SliderManager());
         sequenceTabManager = new SequenceTabCreator(tabbedPane, new MidiPlayer(new MidiSystemWrapper()), new ClickManager());
         ruleTabManager = new RuleTabCreator(tabbedPane, new RuleManager());
+        ruleWeightTabCreator = new RuleWeightTabCreator(tabbedPane, new RuleWeightManager(ruleTabManager));
         panel.add(sequenceTabManager.create());
         panel.add(algorithmTabCreator.create());
         panel.add(ruleTabManager.create());
+        panel.add(ruleWeightTabCreator.create());
+
+        tabbedPane.addChangeListener(onTabChange);
+
         frame.add(panel);
     }
+
+    private final ChangeListener onTabChange = new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            if (tabbedPane.getSelectedIndex() == 3) {
+                ruleWeightTabCreator.addRuleWeights();
+            }
+        }
+    };
 
 }
