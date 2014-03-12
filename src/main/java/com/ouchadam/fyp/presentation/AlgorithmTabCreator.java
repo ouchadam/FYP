@@ -7,6 +7,10 @@ import java.awt.*;
 class AlgorithmTabCreator extends TabCreator {
 
     private static final String TAB_TITLE = "Algorithm";
+    private static final int ALGORITHM_BUTTON_HEIGHT = 30;
+    private static final int ALGORITHM_BUTTON_WIDTH = 100;
+    private static final Dimension ALGORITHM_BUTTON_DIMENS = new Dimension(ALGORITHM_BUTTON_WIDTH, ALGORITHM_BUTTON_HEIGHT);
+
     private final SliderManager sliderManager;
     private JButton startStopButton;
     private JLabel textArea;
@@ -21,11 +25,12 @@ class AlgorithmTabCreator extends TabCreator {
     public JTabbedPane create() {
         JPanel panel = new JPanel(new GridLayout(7, 1));
         JPanel fooPanel = new JPanel();
-        textArea = new JLabel("Dummy text");
+        textArea = new JLabel();
+        initFitnessText(textArea);
         startStopButton = createButton("Start");
         saveButton = createButton("Save");
-        saveButton.setPreferredSize(new Dimension(100, 40));
-        startStopButton.setPreferredSize(new Dimension(100, 40));
+        saveButton.setPreferredSize(ALGORITHM_BUTTON_DIMENS);
+        startStopButton.setPreferredSize(ALGORITHM_BUTTON_DIMENS);
 
         fooPanel.add(startStopButton);
         fooPanel.add(saveButton);
@@ -34,8 +39,12 @@ class AlgorithmTabCreator extends TabCreator {
         panel.add(textArea);
         panel.add(fooPanel);
         panel.setPreferredSize(new Dimension(450, 800));
-        panel.setBorder(new EmptyBorder(25, 20, 0, 20));
+        panel.setBorder(new EmptyBorder(12, 20, 0, 20));
         return createTabbedPane(TAB_TITLE, panel);
+    }
+
+    private void initFitnessText(JLabel label) {
+        label.setText("Index :  ###    Fitness : ###");
     }
 
     private Component createSliders() {

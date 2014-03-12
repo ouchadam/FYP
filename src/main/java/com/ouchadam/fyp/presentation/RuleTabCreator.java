@@ -24,7 +24,7 @@ class RuleTabCreator extends TabCreator implements RuleController {
     public JTabbedPane create() {
         JPanel panel = new JPanel();
         panel.add(createRules());
-        panel.setBorder(new EmptyBorder(25, 20, 0, 20));
+        panel.setBorder(new EmptyBorder(12, 20, 0, 20));
         return createTabbedPane(TAB_TITLE, panel);
     }
 
