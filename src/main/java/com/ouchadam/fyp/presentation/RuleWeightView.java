@@ -31,7 +31,7 @@ class RuleWeightView {
         this.slider.setMinimum(MINIMUM_WEIGHT);
         this.slider.setMaximum(MAXIMUM_WEIGHT);
         this.slider.setValue(100);
-        this.valueLabel.setPreferredSize(new Dimension(50, 30));
+        this.slider.setAlignmentX(JSlider.LEFT_ALIGNMENT);
         setTextFromSlider();
         this.slider.addChangeListener(sliderChange);
     }
@@ -52,11 +52,24 @@ class RuleWeightView {
     }
 
     public void attachTo(JPanel panel) {
-        JPanel ruleContainer = new JPanel(new GridLayout(3, 0));
-        ruleContainer.add(sliderName);
-        ruleContainer.add(slider);
-        ruleContainer.add(valueLabel);
+        JPanel ruleContainer = new JPanel(new GridLayout(3, 1));
+        ruleContainer.setPreferredSize(new Dimension(50, 200));
+
+        ruleContainer.add(wrapWith(50, 20, valueLabel));
+        JPanel sliderWrapper = wrapWith(50, 150, slider);
+
+        ruleContainer.add(sliderWrapper);
+        ruleContainer.add(wrapWith(100, 20, sliderName));
         panel.add(ruleContainer);
+    }
+
+    private JPanel wrapWith(int width, int height, Component component) {
+        JPanel panel = new JPanel();
+        Dimension preferredSize = new Dimension(width, height);
+        panel.setPreferredSize(preferredSize);
+        panel.add(component);
+        panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return panel;
     }
 
     public int getValue() {

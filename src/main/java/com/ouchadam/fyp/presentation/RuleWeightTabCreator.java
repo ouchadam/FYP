@@ -23,13 +23,14 @@ class RuleWeightTabCreator extends TabCreator {
     }
 
     public void addRuleWeights() {
+        ruleManager.clear(parentPanel);
         parentPanel.removeAll();
         parentPanel.add(createRuleWeights());
     }
 
     private Component createRuleWeights() {
         JPanel slidersContainer = new JPanel(new GridLayout(1, 0));
-        slidersContainer.setPreferredSize(new Dimension(500, 300));
+        slidersContainer.setPreferredSize(new Dimension(570, 250));
         ruleManager.create();
         ruleManager.attachTo(slidersContainer);
         return slidersContainer;

@@ -7,9 +7,10 @@ import java.awt.*;
 
 class MainFrame {
 
-    private static final int FRAME_WIDTH = 550;
+    private static final int FRAME_WIDTH = 570;
     private static final int FRAME_HEIGHT = 340;
     private static final String FRAME_TITLE = "FYP : Adam Brown";
+    private static final int WEIGHTING_TAB = 3;
 
     private final JFrame frame;
     private final UiReadyListener uiListener;
@@ -77,7 +78,7 @@ class MainFrame {
     private final ChangeListener onTabChange = new ChangeListener() {
         @Override
         public void stateChanged(ChangeEvent e) {
-            if (tabbedPane.getSelectedIndex() == 3) {
+            if (tabbedPane.getSelectedIndex() == WEIGHTING_TAB) {
                 ruleWeightTabCreator.addRuleWeights();
             }
         }

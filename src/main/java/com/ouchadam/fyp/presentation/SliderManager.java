@@ -9,12 +9,8 @@ class SliderManager {
     private static final int SLIDER_COUNT = 5;
     private final Map<SliderName, Slider> sliders;
 
-    public int get(SliderName name) {
-        return sliders.get(name).getValue();
-    }
-
     enum SliderName {
-        MAX, INITIAL, ACCEPTABLE_FITNESS, MUTATION_PERCENT, CROSSOVER_PERCENT
+        MAX, INITIAL, ACCEPTABLE_FITNESS, MUTATION_PERCENT, CROSSOVER_PERCENT;
     }
 
     SliderManager() {
@@ -55,6 +51,10 @@ class SliderManager {
                 sliders.get(slider).disable();
             }
         }
+    }
+
+    public int get(SliderName name) {
+        return sliders.get(name).getValue();
     }
 
 }
