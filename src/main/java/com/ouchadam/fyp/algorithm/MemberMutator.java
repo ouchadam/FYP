@@ -27,7 +27,7 @@ class MemberMutator implements Mutator<Member> {
         List<NoteType> allTypes = what.all().noteTypes();
 
         for (Integer index : notesToMutate) {
-            if (random.nextFloat() <= .8f) {
+            if (random.nextFloat() <= .6f) {
                 allValues.set(index, new NoteValue(mutateValue(allValues.get(index))));
             } else {
                 allTypes.set(index, NoteType.from(mutateNoteType(allTypes.get(index))));

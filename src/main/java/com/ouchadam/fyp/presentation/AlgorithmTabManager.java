@@ -80,12 +80,14 @@ class AlgorithmTabManager implements ParameterController {
     public void enable() {
         sliderManager.enable();
         saveButton.setEnabled(true);
+        analyseButton.setEnabled(true);
     }
 
     @Override
     public void disable() {
         sliderManager.disable();
         saveButton.setEnabled(false);
+        analyseButton.setEnabled(false);
     }
 
     public void setSaveListener(OnClickListener listener) {

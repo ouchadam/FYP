@@ -18,6 +18,7 @@ public class StepSequenceView extends JPanel {
 
     private Step[][] gridMembers;
     private List<Sequenced16thMidiNote> notes;
+    private Playhead[] playheads;
 
     public StepSequenceView(RangeCreator rangeCreator) {
         this.rangeCreator = rangeCreator;
@@ -38,9 +39,17 @@ public class StepSequenceView extends JPanel {
 
     public void init(int gridSize) {
         clearGrid();
-        GridLayout gridLayout = new GridLayout(gridSize, COLUMNS, 2, 2);
+        GridLayout gridLayout = new GridLayout(gridSize + 1, COLUMNS, 2, 2);
         gridMembers = new Step[gridSize][COLUMNS];
         setLayout(gridLayout);
+
+        playheads = new Playhead[COLUMNS];
+
+        for (int column = 0; column < COLUMNS; column++) {
+            Playhead step = new Playhead();
+            playheads[column] = step;
+            addToLayout(step);
+        }
 
         for (int row = 0; row < gridSize; row++) {
             for (int column = 0; column < COLUMNS; column++) {
@@ -80,6 +89,22 @@ public class StepSequenceView extends JPanel {
         return notes;
     }
 
+    public void setPlayhead(final int position) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (position == 0) {
+                    playheads[COLUMNS - 1].setNotPlaying();
+                } else {
+                    playheads[position - 1].setNotPlaying();
+                }
+                playheads[position].setPlaying();
+                updateUI();
+            }
+        });
+
+    }
+
     private static class Step extends JPanel {
 
         private static final int WIDTH = 4;
@@ -95,5 +120,26 @@ public class StepSequenceView extends JPanel {
         }
 
     }
+
+    private static class Playhead extends JPanel {
+
+        private static final int WIDTH = 4;
+        private static final int HEIGHT = 4;
+
+        private Playhead() {
+            setBackground(Color.GRAY);
+            setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        }
+
+        public void setPlaying() {
+            setBackground(Color.WHITE);
+        }
+
+        public void setNotPlaying() {
+            setBackground(Color.GRAY);
+        }
+
+    }
+
 
 }

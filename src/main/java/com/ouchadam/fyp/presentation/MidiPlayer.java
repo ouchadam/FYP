@@ -10,8 +10,11 @@ import java.util.List;
 
 public class MidiPlayer {
 
+    private static final int SIXTEENTH = (960 * 4) / 16;
     private final MidiSystemWrapper midiSystem;
+
     private Sequencer sequencer;
+    private Playback playback;
 
     public MidiPlayer(MidiSystemWrapper midiSystem) {
         this.midiSystem = midiSystem;
@@ -37,7 +40,42 @@ public class MidiPlayer {
         sequencer.setSequence(sequence);
         sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
         sequencer.start();
+
+        new Thread(runnable).start();
+
     }
+
+    public void setPlayback(Playback playback) {
+        this.playback = playback;
+    }
+
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            int prevSixteenth = -1;
+            do {
+                try {
+                    int sixteenth = Math.round((float) sequencer.getTickPosition() / SIXTEENTH) % 16;
+                    if (sixteenth != prevSixteenth) {
+                        prevSixteenth = sixteenth;
+                        internalPlayback.onNextSixteenth(sixteenth);
+                    }
+                    Thread.sleep(25);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (sequencer.isRunning());
+        }
+    };
+
+    private final Playback internalPlayback = new Playback() {
+        @Override
+        public void onNextSixteenth(int position) {
+            if (playback != null) {
+                playback.onNextSixteenth(position);
+            }
+        }
+    };
 
     private Sequence getSequence(List<Sequenced16thMidiNote> notes, Division division, int ticksPerQuarter) throws InvalidMidiDataException {
         Sequence sequence = new Sequence(division.value(), ticksPerQuarter, 1);
@@ -61,4 +99,5 @@ public class MidiPlayer {
     public boolean isPlaying() {
         return sequencer != null && sequencer.isRunning();
     }
+
 }

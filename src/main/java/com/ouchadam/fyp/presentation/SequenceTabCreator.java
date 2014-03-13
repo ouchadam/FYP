@@ -145,6 +145,7 @@ public class SequenceTabCreator extends TabCreator implements SequenceController
                 midiPlayer.stop();
                 play.setText("Play");
             } else {
+                midiPlayer.setPlayback(playback);
                 midiPlayer.play(midiTrack.getMeta(), stepSequenceView.getNotes());
                 play.setText("Stop");
             }
@@ -154,5 +155,12 @@ public class SequenceTabCreator extends TabCreator implements SequenceController
     void setOpenMidiListener(OnClickListener listener) {
         clickManager.setClickListener(openButton, listener);
     }
+
+    private final Playback playback = new Playback() {
+        @Override
+        public void onNextSixteenth(int position) {
+            stepSequenceView.setPlayhead(position);
+        }
+    };
 
 }

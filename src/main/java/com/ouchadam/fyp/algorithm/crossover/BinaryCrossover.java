@@ -1,6 +1,5 @@
 package com.ouchadam.fyp.algorithm.crossover;
 
-import com.ouchadam.fyp.algorithm.crossover.Crossover;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.crossover.binary.BinaryPadder;
 
