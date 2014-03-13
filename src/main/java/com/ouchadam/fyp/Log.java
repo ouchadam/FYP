@@ -37,6 +37,7 @@ public class Log {
     }
 
     public static void d(String message) {
-        LOGGER.log(Level.FINE, message);
+        System.out.println(message);
+//        LOGGER.log(Level.FINE, message);
     }
 }

@@ -1,6 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.analysis.MidiTrack;
+import com.ouchadam.fyp.presentation.view.RangeCreator;
 import com.ouchadam.fyp.presentation.view.StepSequenceView;
 
 import javax.swing.*;
@@ -21,7 +22,6 @@ public class SequenceTabCreator extends TabCreator implements SequenceController
 
     private JLabel[] analysisLabels;
 
-
     public SequenceTabCreator(JTabbedPane tabbedPane, MidiPlayer midiPlayer, ClickManager clickManager) {
         super(tabbedPane);
         this.midiPlayer = midiPlayer;
@@ -30,10 +30,20 @@ public class SequenceTabCreator extends TabCreator implements SequenceController
 
     @Override
     public JTabbedPane create() {
-        JPanel parent = new JPanel();
-        parent.add(createSequencePanel());
+        JPanel parent = new JPanel(new BorderLayout());
+        JPanel sequencePanel = createSequencePanel();
+        sequencePanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        JScrollPane scrollPane = new JScrollPane(sequencePanel);
 
-        JPanel analysis = new JPanel(new GridLayout(3, 1));
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(220, 270));
+
+        scrollPane.setAlignmentX(ScrollPane.CENTER_ALIGNMENT);
+
+        parent.add(scrollPane, BorderLayout.WEST);
+
+        JPanel analysis = new JPanel(new GridLayout(3, 1, 0, 0));
         analysis.setPreferredSize(new Dimension(300, 200));
 
         analysisLabels = new JLabel[ANALYSIS_LABEL_COUNT];
@@ -43,59 +53,52 @@ public class SequenceTabCreator extends TabCreator implements SequenceController
             analysis.add(analysisLabels[index]);
         }
 
-        parent.add(analysis);
+        parent.add(analysis, BorderLayout.EAST);
 
         return createTabbedPane(TAB_TITLE, parent);
     }
 
     private JPanel createSequencePanel() {
-        JPanel parent = createParent();
+        JPanel parent = new JPanel(new BorderLayout());
+//        parent.setPreferredSize(new Dimension(190, 250));
         stepSequenceView = createAndInitStepSequence();
         JPanel openPanel = createAndInitOpenPanel();
         JPanel playPanel = createAndInitPlayPanel();
-        parent.add(openPanel);
-        parent.add(createSpace());
-        parent.add(stepSequenceView);
-        parent.add(createSpace());
-        parent.add(playPanel);
+        parent.add(openPanel, BorderLayout.NORTH);
+        parent.add(stepSequenceView, BorderLayout.CENTER);
+        parent.add(playPanel, BorderLayout.SOUTH);
         return parent;
     }
 
     private JPanel createAndInitPlayPanel() {
         play = createLoadDependantButton("Play");
-        JPanel playPanel = new JPanel(new GridLayout(1, 1));
+        JPanel playPanel = new JPanel();
         playPanel.add(play);
         setPlayListener();
         return playPanel;
     }
 
     private JPanel createAndInitOpenPanel() {
-        JPanel openPanel = new JPanel(new GridLayout(1, 1));
-        openPanel.add(openButton = createButton("Choose a MIDI file"));
-        openPanel.setPreferredSize(new Dimension(0, 40));
+        JPanel openPanel = new JPanel();
+        openButton = createSequenceButton("Choose a MIDI file");
+        openPanel.add(openButton);
         return openPanel;
     }
 
-    private JPanel createParent() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        return panel;
+    private JButton createSequenceButton(String label) {
+        JButton button = createButton(label);
+        button.setPreferredSize(new Dimension(190, 30));
+        return button;
     }
 
     private StepSequenceView createAndInitStepSequence() {
-        StepSequenceView stepSequenceView = new StepSequenceView();
-        stepSequenceView.init();
+        StepSequenceView stepSequenceView = new StepSequenceView(new RangeCreator());
+        stepSequenceView.init(12);
         return stepSequenceView;
     }
 
-    private JPanel createSpace() {
-        JPanel space = new JPanel();
-        space.setPreferredSize(new Dimension(0, 12));
-        return space;
-    }
-
     private JButton createLoadDependantButton(String title) {
-        JButton button = createButton(title);
+        JButton button = createSequenceButton(title);
         button.setEnabled(false);
         return button;
     }
