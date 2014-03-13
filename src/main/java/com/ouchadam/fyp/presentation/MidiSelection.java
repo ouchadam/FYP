@@ -1,5 +1,7 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.Log;
+
 import java.io.File;
 
 public class MidiSelection {
@@ -15,7 +17,7 @@ public class MidiSelection {
     }
 
     public void setMidiFile(File file) {
-        System.out.println("Selected : " + file.getName());
+        Log.i("Selected : " + file.getName());
         this.file = file;
     }
 

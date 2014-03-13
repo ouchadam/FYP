@@ -6,7 +6,6 @@ import com.ouchadam.fyp.analysis.MidiMeta;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
 import javax.sound.midi.*;
-import java.io.File;
 import java.util.List;
 
 public class MidiPlayer {
@@ -46,7 +45,7 @@ public class MidiPlayer {
         Track track = sequence.createTrack();
         track.add(new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, 20, 0), 0));
         for (Sequenced16thMidiNote midiNote : notes) {
-            System.out.println("Adding : " + midiNote.getNote() + "(" + midiNote.getKey() + ")" + " at " + midiNote.getTick() + " : " + midiNote.getType() + " to : " + midiNote.getNoteOff().getTick());
+            Log.i("Adding : " + midiNote.getNote() + "(" + midiNote.getKey() + ")" + " at " + midiNote.getTick() + " : " + midiNote.getType() + " to : " + midiNote.getNoteOff().getTick());
             track.add(midiNote.getNoteOn());
             track.add(midiNote.getNoteOff());
         }
