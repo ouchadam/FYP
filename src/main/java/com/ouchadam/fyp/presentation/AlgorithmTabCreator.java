@@ -15,6 +15,7 @@ class AlgorithmTabCreator extends TabCreator {
     private JButton startStopButton;
     private JLabel textArea;
     private JButton saveButton;
+    private JButton analyseButton;
 
     AlgorithmTabCreator(JTabbedPane tabbedPane, SliderManager sliderManager) {
         super(tabbedPane);
@@ -28,12 +29,15 @@ class AlgorithmTabCreator extends TabCreator {
         textArea = new JLabel();
         initFitnessText(textArea);
         startStopButton = createButton("Start");
+        startStopButton.setPreferredSize(ALGORITHM_BUTTON_DIMENS);
         saveButton = createButton("Save");
         saveButton.setPreferredSize(ALGORITHM_BUTTON_DIMENS);
-        startStopButton.setPreferredSize(ALGORITHM_BUTTON_DIMENS);
+        analyseButton = createButton("Analyse");
+        analyseButton.setPreferredSize(ALGORITHM_BUTTON_DIMENS);
 
         fooPanel.add(startStopButton);
         fooPanel.add(saveButton);
+        fooPanel.add(analyseButton);
 
         panel.add(createSliders());
         panel.add(textArea);
@@ -56,7 +60,7 @@ class AlgorithmTabCreator extends TabCreator {
     }
 
     public AlgorithmTabManager createTabManager(ClickManager clickManager) {
-        return new AlgorithmTabManager(sliderManager, startStopButton, textArea, saveButton, clickManager);
+        return new AlgorithmTabManager(sliderManager, startStopButton, textArea, saveButton, analyseButton, clickManager);
     }
 
 }

@@ -29,6 +29,15 @@ class MemberToMidiSaver {
         }).start();
     }
 
+    public File asFile(Member member) {
+        File midiFile = new File(createMidiFileName());
+        midiSystem.write(memberToSequence.from(member), midiFile);
+        return midiFile;
+    }
+
+    private String createMidiFileName() {
+        return "FYP_" + String.valueOf(System.currentTimeMillis());
+    }
 
     private final MidiFileChooser.FileChooserResult onSaveFileChosen = new MidiFileChooser.FileChooserResult() {
         @Override

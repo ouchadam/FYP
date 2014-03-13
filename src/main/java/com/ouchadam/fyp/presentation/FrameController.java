@@ -5,6 +5,7 @@ import com.ouchadam.fyp.analysis.MidiTrack;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 class FrameController implements TextController, SequenceController, ParameterController, RuleController, FileSelectionProvider {
 
@@ -28,6 +29,10 @@ class FrameController implements TextController, SequenceController, ParameterCo
         algorithmTabManager.setSaveListener(onClickListener);
     }
 
+    public void setAnalyseListener(OnClickListener onClickListener) {
+        algorithmTabManager.setAnalyseListener(onClickListener);
+    }
+
     @Override
     public void appendGenerationText(String text) {
         algorithmTabManager.updateText(text);
@@ -46,6 +51,11 @@ class FrameController implements TextController, SequenceController, ParameterCo
     @Override
     public void open(MidiTrack midiTrack) {
         sequenceTabManager.open(midiTrack);
+    }
+
+    @Override
+    public void analyse(File file) {
+        sequenceTabManager.analyse(file);
     }
 
     public void setStartStopListener(OnClickListener onClickListener) {

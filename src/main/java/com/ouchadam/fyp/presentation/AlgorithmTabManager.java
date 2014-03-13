@@ -9,14 +9,15 @@ class AlgorithmTabManager implements ParameterController {
     private final JButton startStopButton;
     private final JLabel textArea;
     private final JButton saveButton;
-
+    private final JButton analyseButton;
     private final ClickManager clickManager;
 
-    AlgorithmTabManager(SliderManager sliderManager, JButton startStopButton, JLabel textArea, JButton saveButton, ClickManager clickManager) {
+    AlgorithmTabManager(SliderManager sliderManager, JButton startStopButton, JLabel textArea, JButton saveButton, JButton analyseButton, ClickManager clickManager) {
         this.sliderManager = sliderManager;
         this.startStopButton = startStopButton;
         this.textArea = textArea;
         this.saveButton = saveButton;
+        this.analyseButton = analyseButton;
         this.clickManager = clickManager;
     }
 
@@ -91,4 +92,7 @@ class AlgorithmTabManager implements ParameterController {
         clickManager.setClickListener(saveButton, listener);
     }
 
+    public void setAnalyseListener(OnClickListener listener) {
+        clickManager.setClickListener(analyseButton, listener);
+    }
 }

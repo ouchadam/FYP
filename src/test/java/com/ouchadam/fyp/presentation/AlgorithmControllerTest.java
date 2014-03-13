@@ -3,11 +3,13 @@ package com.ouchadam.fyp.presentation;
 import com.ouchadam.fyp.algorithm.AlgorithmParams;
 import com.ouchadam.fyp.algorithm.GenerationHalter;
 import com.ouchadam.fyp.algorithm.Member;
-import helper.TestWithMocks;
+
+import java.awt.*;
+
 import org.junit.Test;
 import org.mockito.Mock;
 
-import java.awt.*;
+import helper.TestWithMocks;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -18,6 +20,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
     @Mock GenerationController generationController;
     @Mock TextController textController;
     @Mock ParameterController parameterController;
+    @Mock SequenceController sequenceController;
     @Mock RuleController ruleController;
     @Mock MemberToMidiSaver memberToMidiSaver;
     @Mock ResultManager resultManager;
@@ -31,7 +34,7 @@ public class AlgorithmControllerTest extends TestWithMocks {
 
     @Override
     protected void before() {
-        algorithmController = new AlgorithmController(generationController, textController, parameterController, ruleController, memberToMidiSaver, resultManager, halter);
+        algorithmController = new AlgorithmController(generationController, textController, parameterController, sequenceController, ruleController, memberToMidiSaver, resultManager, halter);
         algorithmStartStopEntry = algorithmController.startStopListener();
         algorithmSaveEntry = algorithmController.onSave();
     }

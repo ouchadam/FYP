@@ -1,7 +1,8 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.Log;
-import com.ouchadam.fyp.analysis.*;
+import com.ouchadam.fyp.analysis.MidiReader;
+import com.ouchadam.fyp.analysis.MidiTrack;
 
 import javax.sound.midi.InvalidMidiDataException;
 import java.awt.*;
@@ -76,4 +77,7 @@ class InteractionManager {
         return algorithmController.onSave();
     }
 
+    public OnClickListener onAnalyse() {
+        return algorithmController.onAnalyse();
+    }
 }

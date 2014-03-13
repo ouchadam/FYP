@@ -64,7 +64,6 @@ class MainFrame {
         algorithmTabCreator = new AlgorithmTabCreator(tabbedPane, new SliderManager());
         sequenceTabManager = new SequenceTabCreator(tabbedPane, new MidiPlayer(new MidiSystemWrapper()), new ClickManager());
 
-
         RuleManager ruleManager = new RuleManager();
         RuleWeightManager ruleWeightManager = new RuleWeightManager();
         RuleFactory ruleFactory  = new RuleFactory(ruleManager, ruleWeightManager);

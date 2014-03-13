@@ -1,11 +1,15 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.Log;
+import com.ouchadam.fyp.analysis.MidiMessageMarshaller;
+import com.ouchadam.fyp.analysis.MidiReader;
 import com.ouchadam.fyp.analysis.MidiTrack;
 import com.ouchadam.fyp.presentation.view.RangeCreator;
 import com.ouchadam.fyp.presentation.view.StepSequenceView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class SequenceTabCreator extends TabCreator implements SequenceController {
 
@@ -60,7 +64,6 @@ public class SequenceTabCreator extends TabCreator implements SequenceController
 
     private JPanel createSequencePanel() {
         JPanel parent = new JPanel(new BorderLayout());
-//        parent.setPreferredSize(new Dimension(190, 250));
         stepSequenceView = createAndInitStepSequence();
         JPanel openPanel = createAndInitOpenPanel();
         JPanel playPanel = createAndInitPlayPanel();
@@ -109,6 +112,17 @@ public class SequenceTabCreator extends TabCreator implements SequenceController
         stepSequenceView.open(midiTrack);
         play.setEnabled(true);
         analyse(midiTrack);
+    }
+
+    @Override
+    public void analyse(File file) {
+        System.out.println("Analyse");
+        try {
+            MidiReader midiReader = new MidiReader(new MidiMessageMarshaller(), new MidiSystemWrapper());
+            open(midiReader.read(file));
+        } catch (Exception e) {
+            Log.e("Failed to analyse file", e);
+        }
     }
 
     private void analyse(MidiTrack midiTrack) {

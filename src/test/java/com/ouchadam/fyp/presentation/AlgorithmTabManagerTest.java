@@ -1,12 +1,12 @@
 package com.ouchadam.fyp.presentation;
 
-import helper.TestWithMocks;
+import javax.swing.*;
+import java.awt.*;
+
 import org.junit.Test;
 import org.mockito.Mock;
 
-import javax.swing.*;
-
-import java.awt.*;
+import helper.TestWithMocks;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -15,6 +15,7 @@ public class AlgorithmTabManagerTest extends TestWithMocks {
 
     @Mock SliderManager sliderManager;
     @Mock JButton startStop;
+    @Mock JButton analyse;
     @Mock JLabel textArea;
     @Mock JButton save;
     @Mock ClickManager clickManager;
@@ -23,7 +24,7 @@ public class AlgorithmTabManagerTest extends TestWithMocks {
 
     @Override
     protected void before() {
-        algorithmTabManager = new AlgorithmTabManager(sliderManager, startStop, textArea, save, clickManager);
+        algorithmTabManager = new AlgorithmTabManager(sliderManager, startStop, textArea, save, analyse, clickManager);
     }
 
     @Test

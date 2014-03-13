@@ -15,6 +15,7 @@ class AlgorithmController {
     private final GenerationController generationController;
     private final TextController textController;
     private final ParameterController parameterController;
+    private final SequenceController sequenceController;
     private final RuleController ruleController;
     private final MemberToMidiSaver memberToMidiSaver;
     private final ResultManager resultManager;
@@ -23,14 +24,15 @@ class AlgorithmController {
     public static AlgorithmController from(FrameController frameController) {
         MemberToMidiSaver memberToMidiSaver = new MemberToMidiSaver(frameController.getFileChooser(MidiFileChooser.Type.SAVE), new MidiSystemWrapper(), new MemberToSequence(new MemberToMidi()));
         GenerationController generationController = new GenerationController(new GenerationThread(), GeneticAlgorithmCreator.newInstance());
-        return new AlgorithmController(generationController, frameController, frameController, frameController, memberToMidiSaver, new ResultManager(), new FooHalter());
+        return new AlgorithmController(generationController, frameController, frameController, frameController, frameController, memberToMidiSaver, new ResultManager(), new FooHalter());
     }
 
     AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController,
-                        RuleController ruleController, MemberToMidiSaver memberToMidiSaver, ResultManager resultManager, GenerationHalter halter) {
+                        SequenceController sequenceController, RuleController ruleController, MemberToMidiSaver memberToMidiSaver, ResultManager resultManager, GenerationHalter halter) {
         this.generationController = generationController;
         this.textController = textController;
         this.parameterController = parameterController;
+        this.sequenceController = sequenceController;
         this.ruleController = ruleController;
         this.memberToMidiSaver = memberToMidiSaver;
         this.resultManager = resultManager;
@@ -140,6 +142,17 @@ class AlgorithmController {
         @Override
         public void onClick(final Component component) {
             memberToMidiSaver.save(resultManager.getBest());
+        }
+    };
+
+    public OnClickListener onAnalyse() {
+        return onAnalyse;
+    }
+
+    private final OnClickListener onAnalyse = new OnClickListener() {
+        @Override
+        public void onClick(final Component component) {
+            sequenceController.analyse(memberToMidiSaver.asFile(resultManager.getBest()));
         }
     };
 
