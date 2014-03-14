@@ -6,6 +6,7 @@ import com.ouchadam.fyp.algorithm.Member;
 
 import java.awt.*;
 
+import com.ouchadam.fyp.presentation.midi.MemberToMidiSaver;
 import org.junit.Test;
 import org.mockito.Mock;
 

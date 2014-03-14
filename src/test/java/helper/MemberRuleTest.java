@@ -3,7 +3,7 @@ package helper;
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
-import com.ouchadam.fyp.presentation.NoteOnFilter;
+import com.ouchadam.fyp.presentation.midi.NoteOnFilter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.algorithm.evaluate.fitness;
 
-import com.ouchadam.fyp.presentation.RuleContainer;
+import com.ouchadam.fyp.presentation.tab.rule.RuleContainer;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@ import com.ouchadam.fyp.algorithm.population.MemberCreator;
 import com.ouchadam.fyp.algorithm.population.Population;
 import com.ouchadam.fyp.algorithm.population.PopulationCreator;
 import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
-import com.ouchadam.fyp.presentation.NoteOnFilter;
+import com.ouchadam.fyp.presentation.midi.NoteOnFilter;
 
 import java.util.Random;
 

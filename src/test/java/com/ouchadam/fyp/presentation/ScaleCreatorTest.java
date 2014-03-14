@@ -2,6 +2,7 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.analysis.Key;
 
+import com.ouchadam.fyp.analysis.ScaleCreator;
 import org.junit.Test;
 
 import helper.TestWithMocks;

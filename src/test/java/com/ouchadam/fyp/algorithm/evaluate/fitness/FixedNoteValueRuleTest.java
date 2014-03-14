@@ -5,7 +5,7 @@ import com.ouchadam.fyp.algorithm.NoteType;
 import com.ouchadam.fyp.algorithm.NoteValue;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.evaluate.rule.FixedNoteRule;
-import com.ouchadam.fyp.presentation.NoteOnFilter;
+import com.ouchadam.fyp.presentation.midi.NoteOnFilter;
 
 import java.util.ArrayList;
 import java.util.List;

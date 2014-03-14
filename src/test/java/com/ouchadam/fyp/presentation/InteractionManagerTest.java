@@ -1,6 +1,9 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.analysis.MidiReader;
+import com.ouchadam.fyp.presentation.midi.MidiFileChooser;
+import com.ouchadam.fyp.presentation.midi.MidiSelection;
+import com.ouchadam.fyp.presentation.tab.DialogManager;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;

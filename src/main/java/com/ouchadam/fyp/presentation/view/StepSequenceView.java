@@ -6,6 +6,8 @@ import com.ouchadam.fyp.analysis.MidiTrack;
 import com.ouchadam.fyp.analysis.SequencedNoteCreator;
 import com.ouchadam.fyp.analysis.midi.ContainedMidiNote;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
+import com.ouchadam.fyp.presentation.tab.NoteRange;
+import com.ouchadam.fyp.presentation.tab.RangeCreator;
 
 import javax.swing.*;
 import java.awt.*;

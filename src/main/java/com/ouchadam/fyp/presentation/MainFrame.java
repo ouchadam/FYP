@@ -1,5 +1,12 @@
 package com.ouchadam.fyp.presentation;
 
+import com.ouchadam.fyp.presentation.midi.MidiPlayer;
+import com.ouchadam.fyp.presentation.midi.MidiSystemWrapper;
+import com.ouchadam.fyp.presentation.tab.*;
+import com.ouchadam.fyp.presentation.tab.rule.RuleFactory;
+import com.ouchadam.fyp.presentation.tab.rule.RuleManager;
+import com.ouchadam.fyp.presentation.tab.rule.RuleWeightManager;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;

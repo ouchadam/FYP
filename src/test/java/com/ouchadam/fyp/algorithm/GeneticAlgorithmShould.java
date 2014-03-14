@@ -10,8 +10,8 @@ import com.ouchadam.fyp.algorithm.population.Evaluation;
 import com.ouchadam.fyp.algorithm.population.Population;
 import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
 import com.ouchadam.fyp.analysis.Key;
-import com.ouchadam.fyp.presentation.RuleContainer;
-import com.ouchadam.fyp.presentation.RuleName;
+import com.ouchadam.fyp.presentation.tab.rule.RuleContainer;
+import com.ouchadam.fyp.presentation.tab.rule.RuleName;
 
 import java.util.ArrayList;
 import java.util.List;

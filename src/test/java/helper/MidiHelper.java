@@ -3,7 +3,7 @@ package helper;
 import com.ouchadam.fyp.analysis.MidiMessageMarshaller;
 import com.ouchadam.fyp.analysis.MidiReader;
 import com.ouchadam.fyp.analysis.MidiTrack;
-import com.ouchadam.fyp.presentation.MidiSystemWrapper;
+import com.ouchadam.fyp.presentation.midi.MidiSystemWrapper;
 
 import java.io.InputStream;
 

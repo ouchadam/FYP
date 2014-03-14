@@ -3,6 +3,9 @@ package com.ouchadam.fyp.presentation;
 import com.ouchadam.fyp.Log;
 import com.ouchadam.fyp.analysis.MidiReader;
 import com.ouchadam.fyp.analysis.MidiTrack;
+import com.ouchadam.fyp.presentation.midi.MidiFileChooser;
+import com.ouchadam.fyp.presentation.midi.MidiSelection;
+import com.ouchadam.fyp.presentation.tab.DialogManager;
 
 import javax.sound.midi.InvalidMidiDataException;
 import java.awt.*;

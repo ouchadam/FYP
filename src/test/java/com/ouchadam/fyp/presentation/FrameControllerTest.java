@@ -1,6 +1,9 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.analysis.MidiTrack;
+import com.ouchadam.fyp.presentation.tab.AlgorithmTabManager;
+import com.ouchadam.fyp.presentation.tab.RuleTabCreator;
+import com.ouchadam.fyp.presentation.tab.SequenceTabCreator;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;

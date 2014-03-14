@@ -9,6 +9,8 @@ import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ouchadam.fyp.presentation.midi.MemberToMidi;
+import com.ouchadam.fyp.presentation.midi.NoteOnFilter;
 import org.junit.Test;
 
 import helper.TestWithMocks;

@@ -2,6 +2,9 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.analysis.MidiMessageMarshaller;
 import com.ouchadam.fyp.analysis.MidiReader;
+import com.ouchadam.fyp.presentation.midi.MidiSelection;
+import com.ouchadam.fyp.presentation.midi.MidiSystemWrapper;
+import com.ouchadam.fyp.presentation.tab.DialogManager;
 
 public class Main {
 

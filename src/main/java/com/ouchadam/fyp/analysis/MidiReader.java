@@ -1,8 +1,8 @@
 package com.ouchadam.fyp.analysis;
 
 import com.ouchadam.fyp.analysis.midi.MidiNote;
-import com.ouchadam.fyp.presentation.MidiSelection;
-import com.ouchadam.fyp.presentation.MidiSystemWrapper;
+import com.ouchadam.fyp.presentation.midi.MidiSelection;
+import com.ouchadam.fyp.presentation.midi.MidiSystemWrapper;
 
 import javax.sound.midi.*;
 import java.io.File;

@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.algorithm;
 
-import com.ouchadam.fyp.presentation.NoteOnFilter;
+import com.ouchadam.fyp.presentation.midi.NoteOnFilter;
 
 import java.util.List;
 

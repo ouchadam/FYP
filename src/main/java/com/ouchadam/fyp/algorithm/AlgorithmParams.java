@@ -1,7 +1,7 @@
 package com.ouchadam.fyp.algorithm;
 
 import com.ouchadam.fyp.presentation.ParameterController;
-import com.ouchadam.fyp.presentation.RuleContainer;
+import com.ouchadam.fyp.presentation.tab.rule.RuleContainer;
 import com.ouchadam.fyp.presentation.RuleController;
 
 import java.util.List;

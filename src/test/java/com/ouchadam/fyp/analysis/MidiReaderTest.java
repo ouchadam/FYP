@@ -1,7 +1,7 @@
 package com.ouchadam.fyp.analysis;
 
 import com.ouchadam.fyp.analysis.midi.MidiNote;
-import com.ouchadam.fyp.presentation.MidiSystemWrapper;
+import com.ouchadam.fyp.presentation.midi.MidiSystemWrapper;
 import helper.TestFileOpener;
 import helper.TestWithMocks;
 import org.junit.Test;
@@ -13,7 +13,6 @@ import java.util.List;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 public class MidiReaderTest extends TestWithMocks {

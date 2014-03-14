@@ -3,10 +3,14 @@ package com.ouchadam.fyp.presentation;
 import com.ouchadam.fyp.algorithm.*;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
+import com.ouchadam.fyp.analysis.KeyAnalysis;
+import com.ouchadam.fyp.analysis.ScaleCreator;
+import com.ouchadam.fyp.presentation.midi.*;
+import com.ouchadam.fyp.presentation.tab.rule.RuleContainer;
 
 import java.awt.*;
 
-class AlgorithmController {
+public class AlgorithmController {
 
     public enum Status {
         IDLE, RUNNING
@@ -24,7 +28,7 @@ class AlgorithmController {
     public static AlgorithmController from(FrameController frameController) {
         MemberToMidiSaver memberToMidiSaver = new MemberToMidiSaver(frameController.getFileChooser(MidiFileChooser.Type.SAVE), new MidiSystemWrapper(), new MemberToSequence(new MemberToMidi()));
         GenerationController generationController = new GenerationController(new GenerationThread(), GeneticAlgorithmCreator.newInstance());
-        return new AlgorithmController(generationController, frameController, frameController, frameController, frameController, memberToMidiSaver, new ResultManager(), new FooHalter());
+        return new AlgorithmController(generationController, frameController, frameController, frameController, frameController, memberToMidiSaver, new ResultManager(), new MaxIterationHalter());
     }
 
     AlgorithmController(GenerationController generationController, TextController textController, ParameterController parameterController,

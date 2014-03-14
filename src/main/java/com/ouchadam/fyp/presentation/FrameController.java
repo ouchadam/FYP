@@ -2,6 +2,12 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.Member;
 import com.ouchadam.fyp.analysis.MidiTrack;
+import com.ouchadam.fyp.presentation.midi.MidiChooser;
+import com.ouchadam.fyp.presentation.midi.MidiFileChooser;
+import com.ouchadam.fyp.presentation.tab.AlgorithmTabManager;
+import com.ouchadam.fyp.presentation.tab.RuleTabCreator;
+import com.ouchadam.fyp.presentation.tab.SequenceTabCreator;
+import com.ouchadam.fyp.presentation.tab.rule.RuleContainer;
 
 import javax.swing.*;
 import java.awt.*;
