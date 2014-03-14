@@ -1,8 +1,8 @@
 package com.ouchadam.fyp.algorithm.population;
 
-import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.NoteType;
-import com.ouchadam.fyp.algorithm.NoteValue;
+import com.ouchadam.fyp.algorithm.domain.Member;
+import com.ouchadam.fyp.algorithm.domain.NoteType;
+import com.ouchadam.fyp.algorithm.domain.NoteValue;
 
 import java.util.ArrayList;
 import java.util.List;

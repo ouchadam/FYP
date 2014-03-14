@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.presentation.midi;
 
-import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.domain.Member;
 
 import javax.sound.midi.Sequence;
 import java.io.File;

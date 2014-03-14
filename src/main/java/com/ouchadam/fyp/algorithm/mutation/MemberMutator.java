@@ -1,18 +1,22 @@
-package com.ouchadam.fyp.algorithm;
+package com.ouchadam.fyp.algorithm.mutation;
 
+import com.ouchadam.fyp.algorithm.IndexManager;
+import com.ouchadam.fyp.algorithm.domain.Member;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
+import com.ouchadam.fyp.algorithm.domain.NoteType;
+import com.ouchadam.fyp.algorithm.domain.NoteValue;
 
 import java.util.List;
 import java.util.Random;
 
-class MemberMutator implements Mutator<Member> {
+public class MemberMutator implements Mutator<Member> {
 
     private final IndexManager indexManager;
     private final Random random;
     private final Member.Controller memberController;
     private final Mutator<Binary> binaryMutator;
 
-    MemberMutator(IndexManager indexManager, Random random, Mutator<Binary> binaryMutator, Member.Controller memberController) {
+    public MemberMutator(IndexManager indexManager, Random random, Mutator<Binary> binaryMutator, Member.Controller memberController) {
         this.indexManager = indexManager;
         this.random = random;
         this.memberController = memberController;

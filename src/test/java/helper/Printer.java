@@ -1,6 +1,6 @@
 package helper;
 
-import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.domain.Member;
 
 public class Printer {
 

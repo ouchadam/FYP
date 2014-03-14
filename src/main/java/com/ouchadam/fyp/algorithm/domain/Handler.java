@@ -1,4 +1,4 @@
-package com.ouchadam.fyp.algorithm;
+package com.ouchadam.fyp.algorithm.domain;
 
 abstract class Handler<T> {
     private final T what;

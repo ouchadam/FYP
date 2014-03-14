@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.algorithm.population;
 
-import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.domain.Member;
 
 import java.util.*;
 

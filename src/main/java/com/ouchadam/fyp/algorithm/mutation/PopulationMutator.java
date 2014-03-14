@@ -1,8 +1,9 @@
-package com.ouchadam.fyp.algorithm;
+package com.ouchadam.fyp.algorithm.mutation;
 
+import com.ouchadam.fyp.algorithm.IndexManager;
+import com.ouchadam.fyp.algorithm.domain.Member;
 import com.ouchadam.fyp.algorithm.population.Population;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 

@@ -1,5 +1,8 @@
 package com.ouchadam.fyp.algorithm;
 
+import com.ouchadam.fyp.algorithm.domain.Member;
+import com.ouchadam.fyp.algorithm.domain.NoteType;
+import com.ouchadam.fyp.algorithm.domain.NoteValue;
 import com.ouchadam.fyp.presentation.midi.NoteOnFilter;
 
 import java.util.List;

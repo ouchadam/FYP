@@ -2,6 +2,7 @@ package com.ouchadam.fyp.algorithm;
 
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.crossover.binary.Bit;
+import com.ouchadam.fyp.algorithm.mutation.BinaryBuilder;
 import helper.TestWithMocks;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.domain.Member;
 import com.ouchadam.fyp.analysis.MidiTrack;
 import com.ouchadam.fyp.presentation.midi.MidiChooser;
 import com.ouchadam.fyp.presentation.midi.MidiFileChooser;

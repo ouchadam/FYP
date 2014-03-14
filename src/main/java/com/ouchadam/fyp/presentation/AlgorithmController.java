@@ -1,6 +1,8 @@
 package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.*;
+import com.ouchadam.fyp.algorithm.domain.Member;
+import com.ouchadam.fyp.algorithm.domain.NoteValue;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 import com.ouchadam.fyp.analysis.KeyAnalysis;

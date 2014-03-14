@@ -1,9 +1,12 @@
 package com.ouchadam.fyp.algorithm;
 
+import com.ouchadam.fyp.algorithm.crossover.PopulationCrossoverFactory;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.crossover.binary.CrossoverFactory;
+import com.ouchadam.fyp.algorithm.domain.Member;
 import com.ouchadam.fyp.algorithm.evaluate.FitnessFactory;
 import com.ouchadam.fyp.algorithm.evaluate.PopulationEvaluator;
+import com.ouchadam.fyp.algorithm.mutation.*;
 import com.ouchadam.fyp.algorithm.population.MemberCreator;
 import com.ouchadam.fyp.algorithm.population.Population;
 import com.ouchadam.fyp.algorithm.population.PopulationCreator;

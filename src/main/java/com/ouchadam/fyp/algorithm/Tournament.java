@@ -1,5 +1,6 @@
 package com.ouchadam.fyp.algorithm;
 
+import com.ouchadam.fyp.algorithm.domain.Member;
 import com.ouchadam.fyp.algorithm.population.Population;
 
 class Tournament {

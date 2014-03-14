@@ -1,19 +1,21 @@
-package com.ouchadam.fyp.algorithm;
+package com.ouchadam.fyp.algorithm.mutation;
 
+import com.ouchadam.fyp.algorithm.IndexManager;
+import com.ouchadam.fyp.algorithm.Percentage;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.crossover.binary.Bit;
 
 import java.util.List;
 import java.util.Random;
 
-class BinaryMutator implements Mutator<Binary> {
+public class BinaryMutator implements Mutator<Binary> {
 
     private final int mutationProbability;
     private final IndexManager indexManager;
     private final Random random;
     private final BinaryBuilder binaryBuilder;
 
-    BinaryMutator(int mutationProbability, IndexManager indexManager, Random random, BinaryBuilder binaryBuilder) {
+    public BinaryMutator(int mutationProbability, IndexManager indexManager, Random random, BinaryBuilder binaryBuilder) {
         this.mutationProbability = mutationProbability;
         this.indexManager = indexManager;
         this.random = random;

@@ -1,6 +1,8 @@
 package com.ouchadam.fyp.presentation.midi;
 
-import com.ouchadam.fyp.algorithm.*;
+import com.ouchadam.fyp.algorithm.domain.Member;
+import com.ouchadam.fyp.algorithm.domain.NoteType;
+import com.ouchadam.fyp.algorithm.domain.NoteValue;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
 import java.util.ArrayList;

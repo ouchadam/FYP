@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.algorithm.evaluate;
 
-import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.domain.Member;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessEvaluator;
 import com.ouchadam.fyp.algorithm.evaluate.fitness.FitnessValue;
 import com.ouchadam.fyp.presentation.tab.rule.RuleContainer;

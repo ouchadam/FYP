@@ -1,9 +1,9 @@
-package com.ouchadam.fyp.algorithm;
+package com.ouchadam.fyp.algorithm.mutation;
 
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 import com.ouchadam.fyp.algorithm.crossover.binary.Bit;
 
-class BinaryBuilder {
+public class BinaryBuilder {
 
     private Bit[] binaryPieces;
     private int index;

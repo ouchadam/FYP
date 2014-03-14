@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.presentation.tab.rule;
 
-import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.domain.Member;
 import com.ouchadam.fyp.analysis.Key;
 import com.ouchadam.fyp.presentation.view.CustomRuleView;
 import com.ouchadam.fyp.presentation.view.RuleView;

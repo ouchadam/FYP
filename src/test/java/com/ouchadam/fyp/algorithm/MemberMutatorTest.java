@@ -1,13 +1,14 @@
 package com.ouchadam.fyp.algorithm;
 
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
+import com.ouchadam.fyp.algorithm.domain.Member;
+import com.ouchadam.fyp.algorithm.mutation.MemberMutator;
+import com.ouchadam.fyp.algorithm.mutation.Mutator;
 import helper.MemberHelper;
 import helper.TestWithMocks;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static helper.IndexHelper.createIndexes;

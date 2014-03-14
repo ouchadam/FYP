@@ -1,6 +1,9 @@
-package com.ouchadam.fyp.algorithm;
+package com.ouchadam.fyp.algorithm.mutation;
 
-import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
+import com.ouchadam.fyp.algorithm.IndexManager;
+import com.ouchadam.fyp.algorithm.domain.Member;
+import com.ouchadam.fyp.algorithm.mutation.Mutator;
+import com.ouchadam.fyp.algorithm.mutation.PopulationMutator;
 import com.ouchadam.fyp.algorithm.population.Population;
 import helper.MemberHelper;
 import helper.TestWithMocks;

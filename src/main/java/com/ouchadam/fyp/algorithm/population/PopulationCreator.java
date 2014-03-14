@@ -3,7 +3,7 @@ package com.ouchadam.fyp.algorithm.population;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.domain.Member;
 
 public class PopulationCreator implements Creator<Population> {
 

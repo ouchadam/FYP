@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.presentation.tab;
 
-import com.ouchadam.fyp.algorithm.NoteValue;
+import com.ouchadam.fyp.algorithm.domain.NoteValue;
 
 class Range {
 

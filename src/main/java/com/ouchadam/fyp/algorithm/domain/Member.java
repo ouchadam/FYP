@@ -1,4 +1,4 @@
-package com.ouchadam.fyp.algorithm;
+package com.ouchadam.fyp.algorithm.domain;
 
 import com.ouchadam.fyp.presentation.midi.NoteOnFilter;
 

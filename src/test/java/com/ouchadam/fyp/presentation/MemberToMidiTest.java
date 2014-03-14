@@ -1,9 +1,9 @@
 package com.ouchadam.fyp.presentation;
 
-import com.ouchadam.fyp.algorithm.Member;
-import com.ouchadam.fyp.algorithm.Note;
-import com.ouchadam.fyp.algorithm.NoteType;
-import com.ouchadam.fyp.algorithm.NoteValue;
+import com.ouchadam.fyp.algorithm.domain.Member;
+import com.ouchadam.fyp.algorithm.domain.Note;
+import com.ouchadam.fyp.algorithm.domain.NoteType;
+import com.ouchadam.fyp.algorithm.domain.NoteValue;
 import com.ouchadam.fyp.analysis.midi.Sequenced16thMidiNote;
 
 import java.util.ArrayList;

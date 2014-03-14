@@ -1,13 +1,14 @@
-package com.ouchadam.fyp.algorithm;
+package com.ouchadam.fyp.algorithm.crossover;
 
-import com.ouchadam.fyp.algorithm.crossover.PopulationCrossover;
+import com.ouchadam.fyp.algorithm.IndexManager;
+import com.ouchadam.fyp.algorithm.domain.Member;
 import com.ouchadam.fyp.algorithm.crossover.binary.CrossoverFactory;
 import com.ouchadam.fyp.algorithm.population.PopulationCrosser;
 import com.ouchadam.fyp.algorithm.population.RandomPopulationCrossover;
 
 import java.util.Random;
 
-class PopulationCrossoverFactory {
+public class PopulationCrossoverFactory {
 
     private final Random random;
     private final CrossoverFactory crossoverFactory;

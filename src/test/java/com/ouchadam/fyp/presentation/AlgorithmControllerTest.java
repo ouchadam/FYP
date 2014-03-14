@@ -2,7 +2,7 @@ package com.ouchadam.fyp.presentation;
 
 import com.ouchadam.fyp.algorithm.AlgorithmParams;
 import com.ouchadam.fyp.algorithm.GenerationHalter;
-import com.ouchadam.fyp.algorithm.Member;
+import com.ouchadam.fyp.algorithm.domain.Member;
 
 import java.awt.*;
 

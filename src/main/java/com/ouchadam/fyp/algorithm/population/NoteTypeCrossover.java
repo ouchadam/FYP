@@ -1,6 +1,6 @@
 package com.ouchadam.fyp.algorithm.population;
 
-import com.ouchadam.fyp.algorithm.NoteType;
+import com.ouchadam.fyp.algorithm.domain.NoteType;
 import com.ouchadam.fyp.algorithm.crossover.Crossover;
 import com.ouchadam.fyp.algorithm.crossover.binary.Binary;
 

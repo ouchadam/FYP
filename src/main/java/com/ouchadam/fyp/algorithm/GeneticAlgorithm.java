@@ -2,6 +2,7 @@ package com.ouchadam.fyp.algorithm;
 
 import com.ouchadam.fyp.Log;
 import com.ouchadam.fyp.algorithm.evaluate.Evaluator;
+import com.ouchadam.fyp.algorithm.mutation.Mutator;
 import com.ouchadam.fyp.algorithm.population.Creator;
 import com.ouchadam.fyp.algorithm.population.Evaluation;
 import com.ouchadam.fyp.algorithm.population.Population;
