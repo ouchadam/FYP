@@ -8,6 +8,7 @@ public class Main {
     private MainFrame mainFrame;
 
     public static void main(String... args) {
+        System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
         Main main = new Main();
         main.start();
     }

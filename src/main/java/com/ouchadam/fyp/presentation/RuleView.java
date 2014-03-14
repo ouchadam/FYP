@@ -12,8 +12,8 @@ class RuleView {
     private final JLabel valueLabel;
 
     public static RuleView newInstance(RuleName ruleName, int minimum, int maximum, int defaultValue, boolean defaultIsChecked) {
-        RuleView ruleView = new RuleView(new JCheckBox(ruleName.toName()), new JSlider(), new JLabel());
-        ruleView.init(defaultIsChecked, defaultValue, minimum, maximum);
+        RuleView ruleView = new RuleView(new JCheckBox(), new JSlider(), new JLabel());
+        ruleView.init(ruleName, defaultIsChecked, defaultValue, minimum, maximum);
         return ruleView;
     }
 
@@ -23,7 +23,9 @@ class RuleView {
         this.valueLabel = valueLabel;
     }
 
-    protected void init(boolean defaultIsChecked, int defaultValue, int minimum, int maximum) {
+    protected void init(RuleName ruleName, boolean defaultIsChecked, int defaultValue, int minimum, int maximum) {
+        this.checkBox.setText(ruleName.toName());
+        this.checkBox.setToolTipText(ruleName.toolTip());
         this.checkBox.setSelected(defaultIsChecked);
         this.slider.setMinimum(minimum);
         this.slider.setMaximum(maximum);
